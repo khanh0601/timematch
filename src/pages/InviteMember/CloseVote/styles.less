@@ -1,0 +1,109 @@
+@import '../../../base.less';
+
+.confirmBooking {
+  padding: 60px 0 150px 0;
+  font-weight: 400;
+  .mainContent {
+    width: 100%;
+    margin: auto;
+    max-width: 1080px;
+    position: relative;
+    padding: 0 15px;
+  }
+
+  .numberAccountContent {
+    display: flex;
+    margin-bottom: 50px;
+    margin-top: 50px;
+
+    .numberAccountTitle {
+      font-size: 24px;
+      color: @black-4;
+      font-weight: 400;
+    }
+
+    .numberAccountBorder {
+      height: 44px;
+      div {
+        display: inline-block;
+        background: #33c3c7;
+      }
+      .numberAccountLeft {
+        width: 9px;
+        height: 100%;
+        margin-right: 10px;
+      }
+      .numberAccountRight {
+        width: 4px;
+        height: 100%;
+        margin-right: 15px;
+      }
+    }
+  }
+  .contentText {
+    margin-left: 38px;
+    p {
+      font-size: 20px;
+    }
+    br {
+      display: none;
+    }
+    .textSm {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    padding: 20px 0 50px 0;
+    .mainContent {
+      .numberAccountContent {
+        margin-bottom: 20px;
+        margin-top: 10px;
+      }
+      .contentText {
+        margin-left: 0;
+        p {
+          font-size: 14px;
+          margin-bottom: 0.5rem;
+          &.textFirst {
+            margin-top: 2rem;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 450px) {
+    .mainContent {
+      .numberAccountContent {
+        .numberAccountBorder {
+          height: 34px;
+        }
+        .numberAccountTitle {
+          font-size: 18px;
+          line-height: 34px;
+        }
+      }
+      .contentText {
+        p {
+          font-size: 14px;
+          &:first-child {
+            margin-bottom: 0;
+          }
+
+          &.textFirst {
+            margin-top: 2rem;
+            margin-bottom: 0;
+          }
+        }
+        br {
+          display: block;
+        }
+        .textSm {
+          display: unset;
+        }
+        .textPC {
+          display: none;
+        }
+      }
+    }
+  }
+}

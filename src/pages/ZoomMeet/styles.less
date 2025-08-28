@@ -1,0 +1,88 @@
+@import '../../base.less';
+
+.container {
+  max-width: 1080px;
+  margin: auto;
+  padding: 45px 15px 90px;
+  width: 100%;
+  @media screen and (max-width: 767px) {
+    padding: 45px 15px 220px;
+  }
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    padding: 45px 15px 110px;
+  }
+
+  .mainRowItem {
+    padding: 50px 0;
+    @media screen and (max-width: 767px) {
+      padding-top: 20px;
+    }
+    .title {
+      display: flex;
+      align-items: center;
+      .titleBorder {
+        display: inline-block;
+        width: 8px;
+        height: 23px;
+        background: @green-2;
+        margin-right: 10px;
+      }
+      .titleName {
+        font-size: 24px;
+        color: @black-4;
+        @media screen and (max-width: 767px) {
+          font-size: 20px;
+        }
+      }
+    }
+    .explainContent {
+      padding: 10px 20px 50px;
+      font-size: 16px;
+      .describeAccountPersonalCanNotUse {
+        color: @grey-5;
+        padding-top: 10px;
+      }
+    }
+    .groupImage {
+      display: flex;
+      height: 100%;
+      justify-content: center;
+      align-items: center;
+      .between {
+        color: @green-2;
+        padding: 0 30px;
+        font-size: 24px;
+        @media screen and (max-width: 767px) {
+          padding: 0 10px;
+        }
+      }
+      img {
+        @media screen and (max-width: 767px) {
+          width: 100%;
+          height: 100%;
+        }
+        @media screen and (max-width: 1023px) and (min-width: 768px) {
+          padding: 0 20px;
+        }
+      }
+    }
+  }
+
+  :global {
+    .ant-tabs-tab {
+      font-size: 25px;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+    .href {
+      border-radius: 15px;
+      font-size: 20px;
+      padding: 10px 40px;
+      width: 100%;
+      max-width: 250px;
+      height: auto;
+      text-align: center;
+    }
+  }
+}

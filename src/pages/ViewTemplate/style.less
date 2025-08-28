@@ -1,0 +1,214 @@
+@import '../../base.less';
+
+.containerFirst {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 45px 15px 10px 15px;
+  .bigTitle {
+    font-family: Yu Gothic UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 32px;
+    color: #000000;
+    position: relative;
+    padding-left: 25px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    :before {
+      content: '';
+      width: 8px;
+      height: 36px;
+      background-color: #23c5cb;
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    :after {
+      content: '';
+      width: 3px;
+      height: 36px;
+      background-color: #23c5cb;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 12px;
+    }
+  }
+  .smallTitle {
+    font-family: Yu Gothic UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 21px;
+    color: #000000;
+  }
+}
+.container {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 45px 15px;
+  .columnLeft {
+    padding-right: 100px;
+    border-right: 1px solid #707070;
+    @media (max-width: 991px) {
+      padding-left: 20px;
+      padding-right: 20px;
+      border-right: none;
+      margin-bottom: 40px;
+      width: 100%;
+    }
+  }
+  .columnRight {
+    padding-left: 100px;
+    @media (max-width: 991px) {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+  .step {
+    .sectionText {
+      font-family: Yu Gothic UI;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      display: inline-block;
+      color: #ffffff;
+      background: #969696;
+      padding: 4px 16px;
+      margin-bottom: 22px;
+    }
+    .stepNumer {
+      font-family: Yu Gothic UI;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 18px;
+      line-height: 24px;
+      color: #00c6c9;
+      position: relative;
+      padding-left: 16px;
+      margin-bottom: 8px;
+      margin-left: 8px;
+      :before {
+        content: '';
+        width: 6px;
+        height: 24px;
+        background-color: #23c5cb;
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      :after {
+        content: '';
+        width: 2px;
+        height: 24px;
+        background-color: #23c5cb;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 8px;
+      }
+      span {
+        margin-left: 2px;
+      }
+    }
+    .stepText {
+      font-family: Yu Gothic UI;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 21px;
+      margin-bottom: 8px;
+      color: #000000;
+      span {
+        color: #00c6c9;
+      }
+      b {
+        margin-bottom: 4px;
+      }
+    }
+    .stepText2 {
+      font-family: Yu Gothic UI;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 21px;
+      margin-bottom: 8px;
+      color: #000000;
+    }
+    .pl24 {
+      padding-left: 24px;
+    }
+    .pl4 {
+      padding-left: 4px;
+    }
+    .textAreaCptNav {
+      height: 130px;
+      border-radius: 10px;
+      textarea {
+        margin-bottom: 30px;
+      }
+    }
+    .textAreaCptNav,
+    .stepInput {
+      border: 2px solid #707070;
+      margin-bottom: 30px;
+      :hover {
+        border: 1px solid #707070 !important;
+      }
+    }
+    .stepAction {
+      margin: 0 auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      button {
+        color: #3c3c3c;
+        font-family: Yu Gothic UI;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 16px;
+        line-height: 21px;
+        padding: 4px 36px;
+        border: 2px solid #33c3c7;
+        border-radius: 5px;
+        &.active {
+          color: white;
+          background: #33c3c7;
+        }
+      }
+    }
+    .displayInlineBlock {
+      @media (min-width: 990px) {
+        display: inline-block;
+      }
+    }
+  }
+}
+
+.mgt60 {
+  margin-top: 60px;
+}
+.mgt20 {
+  margin-top: 20px;
+}
+.beforeFieldIcon {
+  display: inline-block;
+  font-size: 16px;
+  width: 7px;
+  min-width: 7px;
+  height: 17px;
+  margin-right: 6px;
+  background-color: #23c5cb;
+}
+.pdf25 {
+  padding-left: 25px;
+}
+.mgt8 {
+  margin-top: 8px;
+}

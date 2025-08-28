@@ -1,0 +1,779 @@
+@import '../../base.less';
+.bookingBottom {
+  @media screen and (max-width: 767px) {
+    padding-bottom: 0;
+  }
+}
+.mainLayout {
+  background-color: @white-3;
+  padding-bottom: 150px;
+  .mainContent {
+    width: 100%;
+    margin: auto;
+    max-width: 1080px;
+    padding: 0 15px;
+  }
+}
+
+.inviteMemberScreen {
+  .bigTitle {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    .wrapperCompanies {
+      margin-left: 20px;
+      .companies {
+        font-size: 15.75px;
+        color: @grey-5;
+      }
+    }
+    .bolderIcon {
+      width: 10px;
+      height: 36px;
+      background-color: #33c3c7;
+      margin-right: 5px;
+      display: inline-block;
+      @media screen and (max-width: 767px) {
+        height: 28px;
+        width: 7px;
+      }
+    }
+    .titleIcon {
+      width: 4px;
+      height: 36px;
+      background-color: #33c3c7;
+      margin-right: 17px;
+      display: inline-block;
+      @media screen and (max-width: 767px) {
+        height: 28px;
+        width: 2px;
+      }
+    }
+    span {
+      font-size: 24px;
+      color: #000000;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .progressBar {
+    padding: 0 55px;
+    display: flex;
+    position: relative;
+    max-width: 800px;
+    margin: auto;
+    justify-content: space-between;
+    width: 100%;
+    @media screen and (max-width: 767px) {
+      padding: 0 35px 0 20px;
+    }
+    &::after {
+      content: '';
+      position: absolute;
+      top: 90%;
+      left: 95px;
+      transform: translateY(-50%);
+      width: calc(100% - 190px);
+      height: 100%;
+      padding: 0 35px;
+      font-size: 20px;
+      line-height: 1;
+      color: @grey-4;
+      background-repeat: no-repeat;
+      background-image: url('../../assets/images/bg-dot.png');
+      background-size: contain;
+      @media screen and (max-width: 767px) {
+        left: 40px;
+        width: calc(100% - 80px);
+      }
+    }
+    .firstStep {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: @white;
+      color: @black-1;
+      font-size: 12.62px;
+      z-index: 1;
+      box-shadow: 1px 1px 10px @shadow-1;
+      cursor: pointer;
+      position: relative;
+      p {
+        font-weight: 500;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(100% + 7px);
+        color: @black-1;
+        font-size: 16px;
+        min-width: 120px;
+        text-align: center;
+        @media screen and (max-width: 767px) {
+          font-size: 14px;
+        }
+      }
+    }
+    .activeStep {
+      background-color: @green-2 !important;
+      color: #eff6fc !important;
+      box-shadow: none !important;
+    }
+    .secondStep {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 48px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: @white;
+      color: @black-1;
+      font-size: 16px;
+      z-index: 1;
+      cursor: pointer;
+      .secondStepContent {
+        width: 26px;
+        height: 26px;
+        box-shadow: 1px 1px 10px @shadow-1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 50%;
+      }
+      p {
+        font-weight: 500;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(100% + 7px);
+        color: @black-1;
+        font-size: 16px;
+        min-width: 120px;
+        text-align: center;
+        @media screen and (max-width: 767px) {
+          font-size: 14px;
+        }
+      }
+    }
+    .thirdStep {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: @white;
+      color: @black-1;
+      font-size: 16px;
+      z-index: 1;
+      box-shadow: 1px 1px 10px @shadow-1;
+      cursor: pointer;
+      position: relative;
+      p {
+        font-weight: 500;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(100% + 7px);
+        color: @black-1;
+        font-size: 16px;
+        min-width: 120px;
+        text-align: center;
+        @media screen and (max-width: 767px) {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  .firstStepDetail {
+    margin-top: 73px;
+    .meetingInfo {
+      position: relative;
+      padding: 0 15px 0 35px;
+      min-height: 165px;
+      @media screen and (max-width: 767px) {
+        padding: 30px 10px 15px;
+        margin-bottom: 15px;
+      }
+      &::before {
+        position: absolute;
+        content: '. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .';
+        top: 0;
+        left: 0;
+        width: 5px;
+        height: 100%;
+        overflow: hidden;
+        color: #a1a0a0;
+        line-height: 1;
+        word-break: break-all;
+        font-size: 20px;
+        line-height: 13px;
+        @media screen and (max-width: 767px) {
+          width: 100%;
+          height: 20px;
+        }
+      }
+      &::after {
+        position: absolute;
+        content: '. . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .';
+        top: 0;
+        right: 0;
+        width: 5px;
+        height: 100%;
+        overflow: hidden;
+        color: #a1a0a0;
+        line-height: 1;
+        word-break: break-all;
+        font-size: 20px;
+        line-height: 13px;
+        @media screen and (max-width: 767px) {
+          width: 100%;
+          height: 20px;
+          bottom: 0;
+          top: unset;
+        }
+      }
+      .meetingMethod {
+        word-break: break-all;
+      }
+    }
+    .meetingComment {
+      padding-left: 35px;
+      @media screen and (max-width: 767px) {
+        padding-left: 0;
+        // margin-bottom: 125px;
+      }
+    }
+    .bigTitle {
+      margin-bottom: 37px;
+      @media screen and (max-width: 767px) {
+        margin-bottom: 15px;
+        flex-wrap: nowrap;
+        line-height: 1.3;
+      }
+    }
+    .noteStyle {
+      color: @grey-5;
+      font-size: 16px;
+      margin-left: 35px;
+    }
+    .userInfo {
+      display: flex;
+      align-items: center;
+      @media screen and (max-width: 767px) {
+        margin-bottom: 15px;
+        align-items: center;
+      }
+      p {
+        margin: 0;
+      }
+      .infoCompany {
+        font-size: 17px;
+        margin-bottom: 12px;
+      }
+      .avatar {
+        width: 68px;
+        height: 68px;
+        border-radius: 50%;
+        color: @white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 15px 0 0;
+        overflow: hidden;
+        position: relative;
+        border: 2px solid @green-2;
+        @media screen and (max-width: 767px) {
+          width: 50px;
+          height: 50px;
+        }
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          object-position: center;
+          object-fit: contain;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .infoName {
+        font-size: 13px;
+      }
+      .meetingDetail {
+        font-size: 10px;
+        margin: 20px 0 30px 0;
+      }
+    }
+    .listTimeFrame {
+      padding: 25px 10px;
+      box-shadow: 1px 1px 10px @shadow-1;
+      border-radius: 20px;
+      min-height: 420px;
+      height: 430px;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .listFrame {
+        height: 390px;
+        width: 100%;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        .frame {
+          height: 40px;
+          min-width: 160px;
+          margin-bottom: 14px;
+          border: 2px solid #dadada;
+          color: @black-1;
+          font-size: 20px;
+          background-color: @white;
+          border-radius: 12px;
+          text-align: center;
+          cursor: pointer;
+        }
+        .frame:hover {
+          border: 3px solid @green-2;
+        }
+        .chosenFrame {
+          border: 3px solid @green-2;
+        }
+        .completedFrame {
+          background-color: @green-2;
+          color: @white;
+          border: 2px solid @green-2;
+        }
+      }
+    }
+    .buttonSubmit {
+      text-align: center;
+      button {
+        width: auto;
+        padding: 0 2rem !important;
+        min-width: 170px;
+        font-size: 20px;
+        border-radius: 25px !important;
+        cursor: pointer;
+      }
+    }
+    .stopInviteEmail {
+      cursor: not-allowed !important;
+    }
+  }
+
+  .secondStepHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 26px;
+    margin-top: 62px;
+
+    .bigTitle {
+      margin-bottom: 0;
+    }
+    .suggestLogin {
+      min-width: 336px;
+      height: 100px;
+      background: #ececec;
+      padding: 15px 12px 10px 12px;
+      border-radius: 5px;
+      p {
+        margin: 0;
+        text-align: center;
+        font-size: 12px;
+      }
+      .btnZone {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+        .signUpBtn {
+          height: 35px;
+          width: 146px;
+          font-size: 12px;
+          color: #ffffff;
+          border-radius: 5px;
+          background-color: #33c3c7;
+        }
+        .signInBtn {
+          height: 35px;
+          width: 146px;
+          font-size: 12px;
+          color: #3c3c3c;
+          border-radius: 5px;
+          background-color: #ffffff;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      flex-wrap: wrap;
+      margin-bottom: 50px;
+    }
+  }
+
+  .inviteMemberEmail {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 35px;
+    .inviteMemberMobile {
+      max-width: 100%;
+      background-color: #ececec;
+      border-radius: 30px;
+      display: flex;
+      padding: 5px;
+
+      .itemInvite {
+        width: 100%;
+        .title {
+          text-align: center;
+          margin-top: 2rem;
+          margin-bottom: 2rem;
+          span {
+            font-weight: bold;
+            font-size: 16px;
+            &:first-child {
+              margin-right: 0.8rem;
+            }
+            &:last-child {
+              margin-left: 0.8rem;
+            }
+          }
+        }
+        .tbScroll {
+          //height: 384px;
+          //margin-top: 70px;
+          //margin: auto;
+          margin-bottom: 1.3rem;
+          .tableInvite {
+            width: 80%;
+            border: 1px solid #d8d6d6;
+            margin: auto;
+            border-radius: 8px;
+            overflow: hidden;
+
+            tr {
+              border: 1px solid #d8d6d6;
+              transition: ease-in 0.3s;
+              &:not(:last-child) {
+                td {
+                  border-bottom: 1px solid #d8d6d6;
+                }
+              }
+              td {
+                border: 1px solid #d8d6d6;
+                padding: 10px;
+                font-size: 18px;
+                font-weight: 400 !important;
+                color: @grey-3;
+                background: @white;
+                &:first-child {
+                  border-right: 1px solid #d8d6d6;
+                  background: #f4f4f4;
+                  text-align: center;
+                  padding: 0 0.8rem;
+                  @media screen and (max-width: 576px) {
+                    width: 44px;
+                  }
+                }
+                // &:nth-child(2) {
+                // width: 80%;dFlex
+                // background: @white;
+                // }
+                .tbInput {
+                  border: none !important;
+                  font-size: 16px;
+                }
+                .changeInput {
+                  background: #b8f5f7;
+                }
+              }
+              &:hover {
+                background: #b8f5f7;
+                transition: ease-in 0.3s;
+              }
+            }
+          }
+        }
+        .dFlex {
+          display: flex;
+          justify-content: center;
+          font-size: 20px;
+          margin: 1rem 0;
+          button {
+            width: auto;
+            padding: 0 2rem !important;
+            min-width: 170px;
+            font-size: 16px;
+            border-radius: 25px !important;
+          }
+        }
+        .imgContainer {
+          text-align: center;
+          margin-top: 2rem;
+          margin-bottom: 3rem;
+          .linkInviteImg {
+            max-width: 80%;
+          }
+        }
+      }
+
+      &:first-child {
+        width: 50%;
+      }
+      &:last-child {
+        width: 48%;
+        margin-top: 0.6rem;
+        .itemInvite {
+          .title {
+            margin-top: 1.5rem;
+          }
+          .dFlex {
+            margin: 2.5rem 0;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      display: block;
+      .inviteMemberMobile {
+        width: 100% !important;
+        .itemInvite {
+          .title {
+            margin: 1rem 0;
+          }
+
+          .tbScroll {
+            .tableInvite {
+              width: 80%;
+              tr {
+                td {
+                  padding: 7px 10px;
+                }
+              }
+            }
+          }
+
+          .imgContainer {
+            margin-bottom: 1rem;
+            .linkInviteImg {
+              max-width: 50%;
+            }
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 425px) {
+      padding: 0 15px;
+      .inviteMemberMobile {
+        .itemInvite {
+          .tbScroll {
+            .tableInvite {
+              width: 85%;
+            }
+          }
+          .imgContainer {
+            .linkInviteImg {
+              max-width: 65%;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .numberAccountContent {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    margin-top: 1rem;
+    @media screen and (max-width: 768px) {
+      margin-bottom: 2rem;
+    }
+    .numberAccountBorder {
+      display: inline-block;
+      width: 9px;
+      height: 28px;
+      background: @black-4;
+      margin-right: 10px;
+      @media screen and (max-width: 768px) {
+        height: 24px;
+      }
+    }
+    .numberAccountTitle {
+      font-size: 24px;
+      color: @black-4;
+      @media screen and (max-width: 768px) {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .tableVoted {
+    border: 1px solid @grey-1;
+    margin-top: 30px;
+    :global {
+      .ant-spin-nested-loading {
+        box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+      }
+    }
+    table {
+      thead {
+        tr {
+          th {
+            background: @white;
+            word-break: break-word;
+            padding: 15px 20px;
+            font-size: 24px;
+            color: @grey-3;
+            font-weight: 500 !important;
+
+            border-right: 2px solid #f0f0f0 !important;
+            border-bottom: 1px solid #f0f0f0 !important;
+
+            &:nth-child(1),
+            &:nth-child(2) {
+              border-right: 0 solid !important;
+            }
+
+            @media screen and (max-width: 768px) {
+              padding: 10px 0;
+              font-size: 16px;
+              &:not(:nth-child(1)):not(:nth-child(2)):not(:nth-child(3)) {
+                padding: 10px 10px;
+              }
+            }
+          }
+        }
+      }
+      tbody {
+        tr {
+          td {
+            padding: 15px 20px;
+            font-size: 20px;
+            font-weight: 400 !important;
+            color: @grey-3;
+            border-right: 2px solid #f0f0f0 !important;
+            border-bottom: 2px solid #f0f0f0 !important;
+
+            &:nth-child(1),
+            &:nth-child(2) {
+              border-right: 0 solid !important;
+              border-bottom: 1px solid @grey-1;
+            }
+
+            //&:nth-child(1),
+            //&:nth-child(2),
+            //&:nth-child(3) {
+            //  border-bottom: 3px solid @grey-1;
+            //}
+
+            //&:nth-child(n + 4) {
+            //  border: 1px solid @grey-1;
+            //}
+
+            .btnVote {
+              padding: 2px 20px;
+              border-radius: 7px;
+              // width: 130px;
+              transition: ease 0.3s;
+              cursor: pointer;
+              border: 4px solid #70e2e5;
+              background: @white;
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                0 0 0 0 rgba(0, 0, 0, 0.19);
+              &:hover {
+                opacity: 0.8;
+                background: #ddf6f5;
+                border-color: #33c3c7;
+              }
+            }
+
+            .btnVoteActive {
+              padding: 10px 20px;
+              border-radius: 10px;
+              // width: 130px;
+              transition: ease 0.3s;
+              cursor: pointer;
+              border: none;
+              background: @green-2;
+              box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+                0 0 0 0 rgba(0, 0, 0, 0.19);
+              color: @white;
+            }
+
+            @media screen and (max-width: 768px) {
+              font-size: 16px;
+              &:nth-child(1) {
+                padding: 10px 0;
+              }
+              &:nth-child(2) {
+                padding: 10px 0;
+              }
+              &:nth-child(3) {
+                padding: 10px 0;
+              }
+              .btnVote {
+                padding: 2px 14px;
+              }
+              .btnVoteActive {
+                padding: 11px 18px;
+              }
+            }
+          }
+        }
+        tr:hover td {
+          background: #caf8f8 !important;
+        }
+        .mostVote {
+          background: #caf8f8;
+        }
+      }
+    }
+    .sumaryRow {
+      font-size: 20px;
+      @media screen and (max-width: 768px) {
+        font-size: 16px;
+        font-weight: 400;
+      }
+    }
+  }
+}
+
+.dFlexCenter {
+  display: flex;
+  justify-content: center;
+}
+
+.noteVote {
+  color: @grey-7;
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.teatArea {
+  width: 90%;
+  margin: 5%;
+  border-radius: 0 !important;
+}
+
+.eventTypeOption {
+  :global {
+    border-radius: 20px !important;
+    text-align: center;
+  }
+}

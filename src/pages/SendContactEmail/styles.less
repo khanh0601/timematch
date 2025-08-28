@@ -1,0 +1,83 @@
+@import '../../base.less';
+.sendContactEmail {
+  padding: 65px 15px 80px;
+  max-width: 1080px;
+  width: 100%;
+  margin: auto;
+  position: relative;
+  @media screen and (max-width: 767px) {
+    padding: 65px 15px 100px;
+  }
+  .title {
+    font-size: 24px;
+    color: @black-4;
+    margin-bottom: 15px;
+    font-weight: 700;
+  }
+  .description {
+    display: flex;
+    font-size: 18px;
+    color: @black-4;
+    margin-bottom: 80px;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+    .descriptionLeft {
+      margin-right: 7px;
+    }
+  }
+  .label {
+    font-size: 25px;
+    color: @black-4;
+  }
+  .required {
+    font-size: 18px;
+    margin-left: 20px;
+    color: @red-required;
+  }
+  .input {
+    height: 60px;
+    font-size: 22px;
+    border: 1px solid #b7b7b7;
+    border-radius: 20px;
+  }
+  .formItem {
+    margin-bottom: 45px;
+  }
+  .textarea {
+    resize: none;
+    font-size: 22px;
+    border: 1px solid #b7b7b7;
+    border-radius: 20px;
+    height: 195px !important;
+    overflow-x: auto;
+  }
+  .paymentBtnGroup {
+    display: flex;
+    justify-content: center;
+    padding-top: 45px;
+    padding-bottom: 90px;
+    button:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+  .numberAccountContent {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    @media screen and (max-width: 767px) {
+      margin-bottom: 20px;
+    }
+  }
+  .numberAccountTitle {
+    font-size: 24px;
+    color: @black-4;
+  }
+  .numberAccountBorder {
+    display: inline-block;
+    width: 9px;
+    height: 23px;
+    background: @black-4;
+    margin-right: 10px;
+  }
+}

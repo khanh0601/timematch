@@ -1,0 +1,25 @@
+.timeSetting {
+  p {
+    font-size: 14px;
+    color: #3c3c3c;
+    margin-bottom: 0;
+    display: flex;
+    div {
+      height: 14px;
+      width: 14px;
+      background: #3c3c3c;
+      margin: auto 0.3rem 3px 0;
+    }
+    &:first-child {
+      font-weight: bold;
+    }
+  }
+  @media screen and(max-width: 425px) {
+    p {
+      &:nth-child(2),
+      &:nth-child(3) {
+        padding-left: 22px;
+      }
+    }
+  }
+}

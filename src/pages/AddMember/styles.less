@@ -1,0 +1,292 @@
+@import '../../base.less';
+.addMember {
+  padding: 0 15px 165px;
+  max-width: 1080px;
+  margin: auto;
+  width: 100%;
+  @media screen and (max-width: 767px) {
+    padding: 0 15px 210px;
+  }
+  .paymentTitle {
+    margin: 65px 0px 55px;
+    display: flex;
+    align-items: center;
+    .paymentTitleText {
+      color: @black-4;
+      font-size: 30px;
+      font-weight: 700;
+      display: inline-block;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+  }
+  .titleIcon {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    .bolderColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 13px;
+      margin-right: 6px;
+    }
+    .normalColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 5px;
+    }
+  }
+  .addMemberDescript {
+    font-size: 21px;
+    margin-left: 30px;
+    margin-bottom: 30px;
+    @media screen and (max-width: 767px) {
+      margin-left: 0;
+      font-size: 16px;
+    }
+  }
+  .addMemberDescriptTitle {
+    margin-bottom: 20px;
+  }
+  .table {
+    margin: 30px 0;
+  }
+  .btnGroup {
+    margin-top: 50px;
+    button:not(:last-child) {
+      margin-right: 30px;
+      @media screen and (max-width: 767px) {
+        margin-right: 10px;
+      }
+    }
+  }
+  // .tdSelect {
+  //   height: 68px;
+  // }
+  .descriptionTitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+    @media screen and (max-width: 767px) {
+      align-items: flex-start;
+    }
+    .title {
+      font-size: 24px;
+      color: @black-4;
+      @media screen and (max-width: 767px) {
+        font-size: 16px;
+      }
+    }
+    .descriptionTitleBorder {
+      display: inline-block;
+      width: 9px;
+      height: 23px;
+      background: @black-4;
+      margin-right: 10px;
+      position: absolute;
+      left: -20px;
+      top: 9px;
+      @media screen and (max-width: 767px) {
+        margin-top: 5px;
+      }
+    }
+  }
+  :global {
+    .ant-select {
+      width: 100%;
+      font-size: 23px;
+      &:focus {
+        box-shadow: none !important;
+        outline: none !important;
+        border: 0 !important;
+      }
+      &:hover {
+        .ant-select-clear,
+        .ant-select-clear:hover {
+          background: transparent;
+          color: rgba(0, 0, 0, 0.8);
+        }
+      }
+    }
+    .ant-select-selector {
+      border: 0 !important;
+      padding: 0 11px;
+      width: 100%;
+      font-size: 23px;
+    }
+    .ant-select-single:not(.ant-select-customize-input)
+      .ant-select-selector:focus {
+      outline: none;
+      border: 0;
+    }
+    .ant-select-focused {
+      border: 0 !important;
+      outline: 0 !important;
+      box-shadow: none !important;
+    }
+    .ant-table-cell {
+      @media screen and (max-width: 767px) {
+        word-break: keep-all;
+        padding: 0 !important;
+      }
+    }
+  }
+  .disabledBtn {
+    background-color: #d9d9d9 !important;
+    cursor: not-allowed;
+  }
+}
+.tableAccountContainer {
+  margin-top: 50px;
+  .addMemberBtn {
+    border: unset;
+    background: unset;
+    color: @green-2;
+    margin-left: 20px;
+    cursor: pointer;
+  }
+}
+.tableAccount {
+  .inputContainer {
+    position: relative;
+    padding: 5px 0;
+    input {
+      border-color: transparent !important;
+      font-size: 16px;
+    }
+    .textError {
+      font-size: 12px;
+      color: red;
+      position: absolute;
+    }
+  }
+  :global {
+    .ant-table-body {
+      padding: 15px 10px;
+      overflow-y: auto !important;
+    }
+    .ant-select-single .ant-select-selector {
+      font-size: 16px;
+      border: 0 !important;
+    }
+    .ant-select-focused:not(.ant-select-disabled).ant-select-single:not(.ant-select-customize-input)
+      .ant-select-selector {
+      box-shadow: none;
+      border: none !important;
+    }
+    thead tr th {
+      text-align: center;
+      color: @green-2;
+      font-size: 23px;
+      background: none;
+      border: 0px !important;
+      padding-bottom: 8px;
+      @media screen and (max-width: 767px) {
+        font-size: 16px;
+        padding-bottom: 0;
+      }
+    }
+    // ::-webkit-scrollbar {
+    //   width: 5px;
+    // }
+    // ::-webkit-scrollbar-track {
+    //   background: #f1f1f1;
+    // }
+    // ::-webkit-scrollbar-thumb {
+    //   background: #888;
+    //   border-radius: 5px;
+    // }
+    // ::-webkit-scrollbar-thumb:hover {
+    //   background: #555;
+    // }
+    tbody {
+      box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.1);
+      -webkit-box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.1);
+      -moz-box-shadow: 0px 0px 10px 3px rgba(0, 0, 0, 0.1);
+      border-radius: 20px;
+      tr:hover td {
+        background-color: @white !important;
+      }
+      tr td {
+        padding: 0 16px !important;
+        font-size: 23px;
+        @media screen and (max-width: 767px) {
+          font-size: 16px;
+        }
+        border-right: 3px solid @grey-1 !important;
+        border-bottom: 3px solid @grey-1 !important;
+        &:last-child {
+          border-right: none !important;
+        }
+      }
+      tr:first-of-type td {
+        border-bottom: 0px !important;
+      }
+      tr:nth-child(2) {
+        td:first-of-type {
+          border-top-left-radius: 20px;
+        }
+        td:last-of-type {
+          border-top-right-radius: 20px;
+        }
+      }
+      tr:last-of-type {
+        td {
+          border-bottom: none !important;
+        }
+        td:first-of-type {
+          border-bottom-left-radius: 20px;
+        }
+        td:last-of-type {
+          border-bottom-right-radius: 20px;
+        }
+      }
+      tr:hover {
+        td {
+          background: @white;
+        }
+      }
+    }
+    .ant-table-container {
+      border: 0 !important;
+    }
+    .ant-table-ping-left:not(.ant-table-has-fix-left)
+      .ant-table-container::before,
+    .ant-table-ping-right:not(.ant-table-has-fix-right)
+      .ant-table-container::after {
+      box-shadow: none;
+    }
+  }
+  .inValidRow {
+    :global {
+      td,
+      td input.ant-input,
+      td .ant-select-selector {
+        background-color: #ffccc7 !important;
+      }
+    }
+    &:hover {
+      td {
+        background: #ffccc7 !important;
+      }
+    }
+  }
+}
+.errorMessageBox {
+  padding: 10px 20px;
+  margin-left: 10px;
+  ul li {
+    color: @red-required;
+    list-style: disc;
+    white-space: pre-line;
+  }
+}
+
+.selectDropdownClassname {
+  padding: 0;
+  box-shadow: 0px 0px 20px 5px grey;
+}

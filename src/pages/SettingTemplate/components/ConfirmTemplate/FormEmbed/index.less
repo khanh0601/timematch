@@ -1,0 +1,325 @@
+.confirmBooking {
+  //width: 50%;
+  //padding: 165px 30px 120px 40px;
+  //padding: 0 30px 120px 40px;
+  margin-top: 1.6rem;
+  .title {
+    line-height: 21px;
+    letter-spacing: 1px;
+    color: #3c3c3c;
+    position: relative;
+    padding-left: 12px;
+    font-family: 'NotoSansJP_Bold';
+    font-size: 16px;
+    font-weight: bold;
+    :before {
+      content: '';
+      width: 6px;
+      height: 23px;
+      background-color: #3c3c3c;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    :after {
+      content: '';
+      width: 3px;
+      height: 23px;
+      background-color: #3c3c3c;
+      position: absolute;
+      top: 0;
+      left: 9px;
+    }
+    span {
+      margin-left: 8px;
+    }
+  }
+  .inputComponent {
+    //margin-top: 12px;
+    //margin-bottom: 8px;
+    position: relative;
+    padding: 6px 2px;
+    border: 5px solid transparent;
+    &:last-child {
+      margin-bottom: 20px;
+    }
+    &:first-child {
+      margin-top: 15px;
+    }
+    .actionOverlay {
+      display: flex;
+      justify-content: flex-end;
+      position: absolute;
+      top: 0;
+      right: 0;
+      transform: translateY(-50%);
+      & > div {
+        cursor: pointer;
+      }
+    }
+    .listOption {
+      margin-bottom: 10px;
+      color: #3c3c3c;
+    }
+    .subtitle {
+      padding-left: 12px;
+      font-size: 14px;
+      line-height: 19px;
+      letter-spacing: 1px;
+      textarea {
+        outline: none;
+        border: none;
+        width: 100%;
+      }
+    }
+    .checkboxLabel {
+      margin-left: 8px;
+    }
+    .checkboxLink {
+      margin-left: 8px;
+      text-decoration: underline;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      cursor: pointer;
+      color: #fff;
+      background-color: #666666;
+      text-align: center;
+      .overlayMessage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+      }
+    }
+    &:hover .overlay {
+      display: block;
+    }
+    // :hover &.overlay{
+    //   position: relative;
+    // }
+    .inputTitle {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      div:first-child {
+        margin-right: 0.5rem;
+        width: 6px;
+        height: 18px;
+        background-color: #3c3c3c;
+        //display: inline-block;
+        //margin-left: 6px;
+        //div {
+        //  &:before {
+        //    content: '';
+        //    width: 6px;
+        //    height: 17px;
+        //    background-color: #3c3c3c;
+        //    position: absolute;
+        //    top: 9px;
+        //    //top: 12%;
+        //    left: 0;
+        //  }
+        //}
+      }
+      input {
+        border: transparent;
+        outline: none;
+        font-weight: bold;
+        color: #3c3c3c;
+      }
+    }
+    .widthTest {
+      display: inline-block;
+      position: absolute;
+      z-index: -9999;
+      width: fit-content;
+    }
+    .inputTitle > div:nth-child(2) {
+      line-height: 20px;
+      letter-spacing: 1px;
+      color: #3c3c3c;
+      margin-right: 16px;
+      outline: none;
+      border: transparent;
+      //font-family: 'NotoSansJP_Regular';
+      font-family: 'NotoSansJP_Bold';
+      font-weight: bolder;
+    }
+    .inputTitleRequired {
+      color: #fe0000;
+      font-weight: bold;
+      font-family: 'NotoSansJP_Regular';
+    }
+    .notRequired {
+      color: #a3a3a3;
+      font-family: 'NotoSansJP_Regular';
+    }
+    .input {
+      height: 50px;
+      font-size: 14px;
+      line-height: 16px;
+      padding: 8px 10px;
+      border: 2px solid #3c3c3c !important;
+      border-radius: 4px;
+      :hover {
+        border-color: #3c3c3c;
+      }
+    }
+    .inputEdit {
+      color: #a7a4a4;
+    }
+    //.alignTitleBView {
+    //  @media screen and(min-width: 425px) {
+    //    div:first-child {
+    //      div {
+    //        &:before {
+    //          top: 6px !important;
+    //        }
+    //      }
+    //    }
+    //  }
+    //}
+  }
+  .action {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    margin: 0 5px;
+    button {
+      width: 100%;
+      border-radius: 5px;
+      font-size: 16px;
+      line-height: 16px;
+      padding: 8px 0;
+      span {
+        font-weight: bold;
+      }
+    }
+    .primaryBtn {
+      font-size: 22px;
+      height: 36px;
+      background: #1a33f2;
+      color: #fff;
+      margin-bottom: 24px;
+      :hover {
+        background: #4a6bc0;
+      }
+    }
+    .secondaryBtn {
+      font-size: 18px;
+      height: 36px;
+      border: none;
+      color: #3c3c3c;
+      background-color: #fff;
+      box-shadow: #00000017 0 2px 8px 0;
+    }
+  }
+
+  @media screen and(max-width: 425px) {
+    width: unset;
+    padding: 0 1rem 1rem 1rem;
+    .inputComponent {
+      padding: 10px 0 0;
+      .input {
+        height: 40px;
+      }
+      .inputTitle {
+        div:first-child {
+          height: 19px;
+        }
+      }
+      .subtitle {
+        font-size: 18px;
+      }
+    }
+    .action {
+      margin: 0 6px;
+    }
+  }
+}
+.inputComponent {
+  .checkboxContainer {
+    padding-left: 12px;
+    .checkbox {
+      cursor: pointer;
+      width: 18px;
+      height: 18px;
+      border: 1px solid #3c3c3c;
+      border-radius: 0;
+      margin-right: 9px;
+      margin-bottom: 10px;
+    }
+
+    input[type='text'] {
+      border: transparent;
+      outline: none;
+      width: 90%;
+    }
+    input[type='checkbox'] {
+      vertical-align: sub;
+      transform: scale(1.2);
+      margin-right: 20px;
+    }
+  }
+
+  @media screen and(max-width: 425px) {
+    font-size: 18px;
+    .checkboxContainer {
+      margin-bottom: 10px;
+      .checkbox {
+        width: 25px;
+        height: 25px;
+      }
+      input[type='checkbox'] {
+        transform: scale(1);
+      }
+    }
+  }
+}
+.textareaSetting {
+  margin-top: 18px;
+  .textAreaCptNav {
+    color: #2f3840;
+    height: 130px;
+    border: 1px solid #3c3c3c !important;
+    border-radius: 10px;
+    &:hover {
+      border-color: #3c3c3c !important;
+    }
+    &::placeholder {
+      color: #2f3840;
+    }
+  }
+  input {
+    border: transparent;
+    outline: none;
+  }
+  div {
+    outline: none;
+    border: transparent;
+  }
+}
+.errorMessage {
+  color: #ff0000;
+  font-size: 14px;
+  line-height: 19px;
+  margin-top: 8px;
+}
+.pd15 {
+  margin-top: unset;
+  width: 50%;
+  @media screen and(max-width: 425px) {
+    width: 100%;
+  }
+  @media screen and(min-width: 425px) {
+    padding-top: 1rem !important;
+  }
+}

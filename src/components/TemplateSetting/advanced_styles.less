@@ -1,0 +1,199 @@
+@import '../../base.less';
+
+.buttonZone {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 50px 0;
+  .cancelBtn {
+    height: 48px;
+    min-width: 148px;
+    background-color: @grey-10;
+    border: 1px solid @grey-10;
+    border-radius: 24px;
+    margin: 0 10px;
+    color: @black-1;
+  }
+  .saveBtn {
+    height: 48px;
+    min-width: 148px;
+    background-color: @green-2;
+    border-radius: 24px;
+    border: 1px solid @green-2;
+    margin: 0 10px;
+    color: @white;
+  }
+}
+
+.helper {
+  //margin-left: 75px;
+  //margin-top: 7px;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  img {
+    position: relative;
+  }
+  .helperTooltip {
+    transition: all 0.3s ease;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    left: calc(100% + 50px);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    height: 120px;
+    width: 400px;
+    background-color: @black-1;
+    color: @white-2;
+    font-size: 15px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    img {
+      position: absolute;
+      left: -25px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  &:hover {
+    .helperTooltip {
+      visibility: visible;
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+  }
+}
+
+.devideIcon {
+  margin: 0 9px;
+}
+.textareaField {
+  margin-bottom: 28px;
+}
+.selectField {
+  // margin-bottom: 55px;
+  min-height: 110px;
+  position: relative;
+  .helper {
+    margin-top: 0;
+  }
+  .errorNotice {
+    position: absolute;
+    bottom: -18px;
+    left: 0;
+    font-size: 12px;
+    color: #ff4d4f;
+  }
+}
+.selectField,
+.textareaField {
+  .titleField {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    margin-bottom: 12px;
+    .titleFieldIcon {
+      width: 7px;
+      height: 17px;
+      background-color: @black-1;
+      margin-right: 5px;
+    }
+    p {
+      font-size: 17px;
+      color: @black-1;
+      margin: 0 10px 0 0;
+    }
+    .titleFieldIconOther {
+      @media screen and (max-width: 767px) {
+        font-size: 16px;
+      }
+    }
+  }
+  .selections {
+    .devideIcon {
+      margin: 0 9px;
+    }
+  }
+  textarea {
+    height: 120px;
+    width: 100%;
+    font-size: 17px;
+    border-radius: 17px;
+    border: 2px solid @grey-11;
+  }
+  textarea:hover {
+    border: @green-2 2px solid !important;
+  }
+}
+.timePicker {
+  @media screen and (max-width: 767px) {
+    :global {
+      .ant-picker-time-panel-column {
+        float: left;
+        height: 110%;
+        overflow-y: auto;
+        &::-webkit-scrollbar-track {
+          background-color: #f1f1f1;
+        }
+        &::-webkit-scrollbar {
+          width: 12px;
+          background-color: #f1f1f1;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: #a8a8a8;
+        }
+      }
+    }
+  }
+  :global {
+    .ant-picker-panel .ant-picker-footer {
+      display: none;
+    }
+    .ant-picker-dropdown .ant-picker-panel > .ant-picker-time-panel {
+      padding-top: 0;
+    }
+    .ant-picker-time-panel-column {
+      width: 80px;
+      &:first-child {
+        .ant-picker-time-panel-cell {
+          position: relative;
+          &::after {
+            content: '時';
+            position: absolute;
+            top: 4px;
+            left: 40px;
+            width: 29px;
+            height: 100%;
+          }
+        }
+      }
+      &:last-child {
+        .ant-picker-time-panel-cell {
+          position: relative;
+          &::after {
+            content: '分';
+            position: absolute;
+            top: 4px;
+            left: 40px;
+            width: 29px;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+.tooltipAdvanced {
+  white-space: pre-line;
+}
+.displayNone {
+  display: none;
+}

@@ -1,0 +1,93 @@
+.menuListSetting {
+  border-bottom: 0;
+  .headerLogo {
+    .imgLogo {
+      width: 90px;
+      height: 22px;
+      //width: 132px;
+      //height: 30px;
+      cursor: pointer;
+      background-image: url('../../../../assets/images/logo-black.svg');
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: contain;
+    }
+  }
+  .activeItem {
+    :global {
+      .ant-menu-title-content {
+        font-weight: bold;
+        border-bottom: 4px solid;
+      }
+    }
+  }
+  :global {
+    .ant-menu-item-selected {
+      color: #4a6bc0 !important;
+      &:after {
+        //border-bottom: 3px solid #4a6bc0 !important;
+        border-bottom: 0 solid transparent !important;
+      }
+    }
+    .ant-menu-item {
+      font-size: 16px;
+      color: #3c3c3c;
+      &:after {
+        bottom: 5px;
+      }
+      &:first-child {
+        margin-top: auto;
+        margin-bottom: auto;
+      }
+      &:not(:last-child) {
+        margin-right: 2rem;
+      }
+      &:hover {
+        color: #4a6bc0 !important;
+        &:after {
+          //border-bottom: 3px solid #4a6bc0 !important;
+          border-bottom: 0 solid transparent !important;
+        }
+      }
+    }
+    .ant-menu-title-content {
+      padding-bottom: 0.2rem;
+    }
+    @media screen and(max-width: 1426px) {
+      .ant-menu-item {
+        padding: 0 15px;
+        &:not(:last-child) {
+          margin-right: 0.75rem;
+        }
+      }
+    }
+    @media screen and(max-width: 1346px) {
+      .ant-menu-item {
+        padding: 0 7px;
+        font-size: 14px;
+        &:not(:last-child) {
+          margin-right: unset;
+        }
+      }
+    }
+    @media screen and(max-width: 1230px) {
+      .ant-menu-item {
+        &:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+    @media screen and(max-width: 1230px) {
+      .ant-menu-item {
+        &:not(:last-child) {
+          margin-right: 0;
+        }
+      }
+    }
+    @media screen and(max-width: 1148px) {
+      .ant-menu-item {
+        padding: 0 5px;
+      }
+    }
+  }
+}

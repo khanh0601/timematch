@@ -1,0 +1,89 @@
+@import '../../base.less';
+.step {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 710px;
+  padding: 0 20px;
+  margin: 50px auto 0;
+  position: relative;
+  overflow: hidden;
+  padding-top: 10px;
+  @media screen and (max-width: 767px) {
+    margin-top: 20px;
+  }
+  .stepNumber {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: @white;
+    color: @grey-3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    -webkit-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.1);
+    margin: 0 auto 15px;
+    position: relative;
+    @media screen and (max-width: 767px) {
+      width: 26px;
+      height: 26px;
+    }
+    &.stepActive {
+      background-color: @green-2;
+      box-shadow: none;
+      -webkit-box-shadow: none;
+      -moz-box-shadow: none;
+      color: @white;
+    }
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    left: 150px;
+    color: #a1a0a0;
+    margin-left: 20px;
+    font-size: 50px;
+    letter-spacing: 40px;
+    top: 32px;
+    width: calc(100% - 300px);
+    height: 30px;
+    // background-size: contain;
+    background-repeat: no-repeat;
+    background-image: url('../../assets/images/dot-bg.png');
+    @media screen and (max-width: 767px) {
+      z-index: 111;
+      width: 66px;
+      left: 50%;
+      top: 20px;
+      transform: translateX(-50%);
+      margin-left: 0;
+    }
+  }
+  .stepTitle {
+    color: @black-1;
+    font-size: 16px;
+    font-weight: bold;
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+    }
+  }
+  .stepItem {
+    z-index: 9;
+    &:last-child {
+      .stepNumber {
+        &::after {
+          content: '';
+        }
+      }
+    }
+  }
+  .stepContent {
+    width: 90px;
+    background: @white;
+    margin: auto;
+  }
+}

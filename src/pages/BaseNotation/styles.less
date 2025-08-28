@@ -1,0 +1,42 @@
+.baseNotation {
+  max-width: 1110px;
+  margin: 0 auto;
+  padding: 50px 0;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    padding: 50px 10px;
+  }
+  @media screen and (min-width: 768px) and (max-width: 1199px) {
+    width: 100%;
+    padding: 50px 10px;
+  }
+  h3 {
+    font-size: 20px;
+    letter-spacing: 0px;
+    color: #161615;
+    margin-bottom: 10px;
+    font-weight: bold;
+    margin-bottom: 25px;
+  }
+  table {
+    width: 100%;
+    tr {
+      td:nth-child(1) {
+        min-width: 150px;
+      }
+      td {
+        font-size: 16px;
+        letter-spacing: 0px;
+        color: #161615;
+        margin-bottom: 30px;
+        border: 1px solid #00000050;
+        height: 60px;
+        padding: 5px;
+        a {
+          text-decoration: underline;
+          color: #038b8f;
+        }
+      }
+    }
+  }
+}

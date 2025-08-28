@@ -1,0 +1,57 @@
+@import '../../../../base.less';
+.createContractComplete {
+  max-width: 1080px;
+  margin: auto;
+  padding: 0 0 165px;
+  .description {
+    font-size: 24px;
+    padding-left: 45px;
+    line-height: 1.54;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  .paymentTitle {
+    padding: 0 15px;
+    margin: 65px 0px 55px;
+    display: flex;
+    align-items: center;
+    @media screen and (max-width: 767px) {
+      margin: 20px 0px;
+    }
+    .paymentTitleText {
+      color: @black-4;
+      font-size: 30px;
+      font-weight: 700;
+      display: inline-block;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+  }
+  .titleIcon {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    .bolderColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 13px;
+      margin-right: 6px;
+    }
+    .normalColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 5px;
+    }
+  }
+  .btnGroup {
+    margin-top: 50px;
+    margin-bottom: 100px;
+    @media screen and (max-width: 767px) {
+      margin: 20px 0px;
+    }
+  }
+}

@@ -1,0 +1,242 @@
+@import '../../base.less';
+
+.setting {
+  margin-top: 60px;
+  border-top: 1px solid @grey-6;
+  padding: 60px 0 80px;
+  background-color: @grey-2;
+  @media screen and (max-width: 767px) {
+    padding: 30px 0 170px;
+    margin-top: 30px;
+  }
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    padding: 60px 15px 80px;
+  }
+  .settingContent {
+    max-width: 820px;
+    margin: 0 auto;
+    @media screen and (max-width: 767px) {
+      padding: 0 15px;
+    }
+  }
+  .settingDescript1 {
+    font-size: 14px;
+    color: @black-1;
+    line-height: 1.37;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  .settingDescript2 {
+    font-size: 14px;
+    color: @grey-9;
+    margin-bottom: 80px;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+  }
+  .settingBtnGroup {
+    margin-bottom: 50px;
+  }
+  .settingForm {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    .labelCheckbox {
+      font-size: 16px;
+    }
+  }
+  .settingIcon {
+    font-size: 23px;
+    margin: 0 24px;
+  }
+}
+.labelCheckbox {
+  margin-left: 50px;
+  font-size: 25px;
+  display: flex;
+  align-items: center;
+}
+.checkboxSelect {
+  display: flex;
+  margin-left: 60px;
+  align-items: center;
+  min-width: 50%;
+  @media screen and (max-width: 767px) {
+    margin-left: 0;
+  }
+}
+.selectTime {
+  width: 100%;
+  max-width: 170px;
+  height: 50px;
+  border: 2px solid #d4d4d4;
+  border-radius: 15px;
+  padding: 0 28px;
+  font-size: 20px;
+}
+.checkboxCustom {
+  display: flex;
+  align-items: center;
+  position: relative;
+  @media screen and (max-width: 767px) {
+    margin-bottom: 10px;
+  }
+  .checkboxContent {
+    display: flex;
+    width: 100%;
+  }
+}
+.checkboxItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 615px;
+  @media screen and (max-width: 767px) {
+    justify-content: flex-start;
+  }
+  .errorTime {
+    color: @red-required;
+    display: block;
+    width: 100%;
+    margin-left: 20px;
+  }
+}
+.setting {
+  :global {
+    .ant-checkbox-input,
+    .ant-checkbox-inner {
+      display: none;
+    }
+    .ant-checkbox-checked::after {
+      display: none;
+    }
+    .ant-checkbox {
+      &::before {
+        content: '';
+        width: 34px;
+        height: 35px;
+        position: absolute;
+        left: 0;
+        top: -15px;
+        border-radius: 9px;
+        box-shadow: inset 1px 1px 3px 1px rgba(0, 0, 0, 0.26);
+      }
+      &.ant-checkbox-checked {
+        &::before {
+          background: url('../../assets/images/icon-checked.svg') center
+            no-repeat;
+          background-size: 70% 70%;
+        }
+      }
+    }
+    .ant-checkbox-group {
+      width: 100%;
+    }
+    .ant-select {
+      max-width: 170px;
+      height: 50px;
+      border: 2px solid #d4d4d4;
+      border-radius: 15px;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+    }
+    .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+      border: 0;
+      height: auto;
+      padding: 0px 28px;
+      background: transparent;
+      box-shadow: none;
+    }
+    .ant-select-focused:not(.ant-select-disabled).ant-select-single:not(.ant-select-customize-input)
+      .ant-select-selector {
+      border-color: transparent;
+      box-shadow: none;
+    }
+    .ant-picker {
+      max-width: 170px;
+      height: 50px;
+      border: 2px solid #d4d4d4;
+      border-radius: 15px;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      color: #333;
+      padding: 0 10px 0 28px;
+    }
+    .ant-picker-input > input {
+      font-size: 16px;
+    }
+    .btn.btnWhite {
+      font-size: 16px;
+      &:hover {
+        border: 2px solid @grey-7;
+      }
+    }
+    .btn.btnGreen {
+      font-size: 16px;
+    }
+  }
+}
+.timePicker {
+  @media screen and (max-width: 767px) {
+    :global {
+      .ant-picker-time-panel-column {
+        float: left;
+        height: 110%;
+        overflow-y: auto;
+        &::-webkit-scrollbar-track {
+          background-color: #f1f1f1;
+        }
+        &::-webkit-scrollbar {
+          width: 12px;
+          background-color: #f1f1f1;
+        }
+        &::-webkit-scrollbar-thumb {
+          background-color: #a8a8a8;
+        }
+      }
+    }
+  }
+  :global {
+    .ant-picker-panel .ant-picker-footer {
+      display: none;
+    }
+    .ant-picker-dropdown .ant-picker-panel > .ant-picker-time-panel {
+      padding-top: 0;
+    }
+    .ant-picker-time-panel-column {
+      width: 80px;
+      &:first-child {
+        .ant-picker-time-panel-cell {
+          position: relative;
+          &::after {
+            content: '時';
+            position: absolute;
+            top: 4px;
+            left: 40px;
+            width: 29px;
+            height: 100%;
+          }
+        }
+      }
+      &:last-child {
+        .ant-picker-time-panel-cell {
+          position: relative;
+          &::after {
+            content: '分';
+            position: absolute;
+            top: 4px;
+            left: 40px;
+            width: 29px;
+            height: 100%;
+          }
+        }
+      }
+    }
+  }
+}

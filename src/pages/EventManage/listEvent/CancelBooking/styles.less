@@ -1,0 +1,234 @@
+@import '../../../../base.less';
+
+.cancelBooking {
+  width: 100%;
+  margin: auto;
+  max-width: 1080px;
+  padding: 60px 15px 0;
+  font-weight: 500;
+  @media screen and (max-width: 767px) {
+    padding: 60px 15px 80px;
+  }
+  .progressBar {
+    display: flex;
+    position: relative;
+    max-width: 375px;
+    margin: 0 auto 80px auto;
+    @media screen and (max-width: 767px) {
+      padding: 0 40px 0 30px;
+    }
+    .firstStep {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: @white;
+      color: @black-1;
+      font-size: 12px;
+      z-index: 1;
+      box-shadow: 1px 1px 10px @shadow-1;
+      cursor: pointer;
+      position: relative;
+      p {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(100% + 5px);
+        color: @black-1;
+        font-size: 13px;
+        min-width: 120px;
+        text-align: center;
+      }
+    }
+    .activeStep {
+      background-color: @green-2;
+      color: #eff6fc;
+      box-shadow: none;
+    }
+    .dottedBar {
+      height: 30px;
+      width: 100%;
+      overflow: hidden;
+      position: relative;
+    }
+    .dottedBar::before {
+      content: '.   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   .   ';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      width: 100%;
+      height: 100%;
+      font-size: 20px;
+      line-height: 1;
+      color: @grey-4;
+    }
+    .secondStep {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: @white;
+      color: @black-1;
+      font-size: 12px;
+      z-index: 1;
+      box-shadow: 1px 1px 10px @shadow-2;
+      cursor: pointer;
+      position: relative;
+      p {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(100% + 5px);
+        color: @black-1;
+        font-size: 13px;
+        min-width: 120px;
+        text-align: center;
+      }
+    }
+  }
+  .pageTitle {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 38px;
+    margin-left: 12px;
+    .titleIcon {
+      width: 8px;
+      height: 23px;
+      background-color: #33c3c7;
+      position: absolute;
+      left: -12px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    span {
+      font-size: 24px;
+      color: #3c3c3c;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+  }
+  .cancelationDetail {
+    display: flex;
+    margin-bottom: 36px;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+      flex-direction: column-reverse;
+    }
+    .divTitle {
+      display: flex;
+      align-items: center;
+      margin-bottom: 17px;
+      .blackIcon {
+        width: 8px;
+        height: 18px;
+        background-color: #3c3c3c;
+        margin-right: 6px;
+      }
+      span {
+        color: #3c3c3c;
+        font-size: 22px;
+        @media screen and (max-width: 767px) {
+          font-size: 16px;
+        }
+      }
+    }
+    .comment {
+      width: 50%;
+      @media screen and (max-width: 767px) {
+        width: 100%;
+      }
+      .note {
+        font-size: 18px;
+        color: #3c3c3c;
+        font-family: '';
+        padding-left: 12px;
+        @media screen and (max-width: 767px) {
+          font-size: 16px;
+        }
+      }
+      textarea {
+        height: 185px;
+        width: 490px;
+        border-radius: 10px;
+      }
+    }
+    .content {
+      width: 50%;
+      @media screen and (max-width: 767px) {
+        width: 100%;
+      }
+      .detail {
+        padding: 0 12px;
+        > p:first-child {
+          font-size: 20px;
+          @media screen and (max-width: 767px) {
+            font-size: 16px;
+          }
+        }
+        .groupLine {
+          margin: 12px 0;
+          p {
+            margin: 0;
+          }
+        }
+        p {
+          line-height: 1.5;
+          margin-bottom: 12px;
+          font-size: 17px;
+          color: #3c3c3c;
+          @media screen and (max-width: 767px) {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+  }
+  .btnZone {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 100px;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+    .backBtn {
+      height: 49px;
+      min-width: 150px;
+      background-color: @white;
+      border-radius: 20px;
+      box-shadow: 1px 1px 15px @shadow-1;
+      color: #9c9c9c;
+      font-size: 18px;
+      border: none;
+      margin: 30px 10px;
+      @media screen and (max-width: 767px) {
+        margin: 10px;
+      }
+    }
+    .confirmCancelBtn {
+      height: 49px;
+      min-width: 312px;
+      margin: 20px 10px;
+      border-radius: 20px;
+      color: @white;
+      font-size: 18px;
+      background-color: #33c3c7;
+      border: none;
+      @media screen and (max-width: 767px) {
+        margin: 0;
+      }
+    }
+  }
+}
+.cancelBookingLayout {
+  position: relative;
+  min-height: 100vh;
+  padding-bottom: 80px;
+}

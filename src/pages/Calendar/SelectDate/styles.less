@@ -1,0 +1,88 @@
+@import '../../../base.less';
+
+.selectDate {
+  display: flex;
+  font-size: 24px;
+  font-weight: bold;
+  color: @black-0;
+  align-items: center;
+  justify-content: center;
+  background-color: @white;
+  height: 30px;
+
+  span {
+    margin: 0 15px;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  i {
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    svg {
+      width: 8px;
+      height: 15px;
+    }
+    &:hover {
+      cursor: pointer;
+    }
+
+    color: #666666;
+  }
+  :global {
+    .icon-prev {
+      transform: rotate(180deg);
+    }
+  }
+  .setVisibility {
+    cursor: not-allowed;
+    pointer-events: none;
+    svg {
+      fill: rgba(0, 0, 0, 0.65);
+      opacity: 0.4;
+    }
+  }
+
+  .unSetVisibility {
+    visibility: unset;
+    svg {
+      fill: #666666;
+    }
+  }
+  .currentMonthYear {
+    font-size: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    min-width: 120px;
+  }
+  .navButtons {
+    width: 50px;
+    height: 100%;
+    display: flex;
+    align-items: flex-end;
+    cursor: pointer;
+    .leftArrow {
+      width: 8px;
+      height: 7px;
+      background-color: @white;
+      border: 7px solid @white;
+      border-right: 8px solid @black-1;
+      margin-left: auto;
+    }
+    .rightArrow {
+      width: 8px;
+      height: 7px;
+      background-color: @white;
+      border: 7px solid @white;
+      border-left: 8px solid @black-1;
+      margin-right: auto;
+    }
+  }
+}

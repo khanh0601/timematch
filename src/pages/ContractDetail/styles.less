@@ -1,0 +1,252 @@
+@import '../../base.less';
+
+.contractDetail {
+  max-width: 1080px;
+  margin: auto;
+  padding: 45px 15px 90px;
+  button.customButton,
+  button.customButton:hover {
+    // min-width: 196px;
+    height: 42px;
+    font-size: 19px;
+    background-color: @white;
+    border: 3px solid #33c3c7;
+    border-radius: 15px;
+    margin-top: 10px;
+    text-align: center;
+    color: #3c3c3c;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+      line-height: 1.2;
+    }
+  }
+
+  button.btnChangeCard,
+  button.btnChangeCard:hover {
+    margin-top: 0px;
+    margin-left: 50px;
+    font-size: 16px;
+  }
+  .boxContent {
+    margin-left: 24px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    @media screen and (max-width: 767px) {
+      margin-left: 0;
+    }
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      margin-left: 0;
+    }
+  }
+  .headTitle {
+    display: flex;
+    align-items: center;
+    // margin-bottom: 65px;
+    .bolderIcon {
+      width: 12px;
+      height: 52px;
+      background-color: #33c3c7;
+      margin-right: 8px;
+      display: inline-block;
+    }
+    .titleIcon {
+      width: 5px;
+      height: 52px;
+      background-color: #33c3c7;
+      margin-right: 8px;
+      display: inline-block;
+    }
+    span {
+      color: #3c3c3c;
+      font-size: 30px;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+    button,
+    button:hover {
+      margin-left: 40px;
+      margin-top: 0px;
+    }
+    button span {
+      font-size: 19px;
+    }
+    button.btnFs16 span {
+      font-size: 16px;
+    }
+  }
+  .accountData {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 780px;
+    margin: auto;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+      margin-bottom: 0;
+    }
+    .dataBadge {
+      height: 252px;
+      width: 252px;
+      box-shadow: 1px 1px 15px @shadow-1;
+      border-radius: 10px;
+      padding: 32px 32px 20px 32px;
+      text-align: center;
+      line-height: 1;
+      @media screen and (max-width: 767px) {
+        width: 100%;
+        margin-bottom: 20px;
+        height: auto;
+        max-height: 252px;
+        padding: 15px;
+      }
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        margin-right: 20px;
+        padding: 32px 15px 23px;
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+      .deviderLine {
+        height: 2px;
+        width: 100%;
+        background-color: #b6b6b6;
+        margin: 10px 0 50px 0;
+        @media screen and (max-width: 767px) {
+          margin: 10px 0 15px 0;
+        }
+      }
+      .amount {
+        font-size: 31px;
+        line-height: 41px;
+        color: #33c3c7;
+        margin: 0;
+        text-align: center;
+        @media screen and (max-width: 767px) {
+          font-size: 25px;
+          line-height: 1.2;
+        }
+      }
+      .contract {
+        margin: 0;
+        font-size: 27px;
+        line-height: 44px;
+        text-align: center;
+        @media screen and (max-width: 767px) {
+          font-size: 20px;
+          line-height: 1.2;
+        }
+      }
+    }
+  }
+  .memberTable {
+    margin: 34px 0 100px 0;
+  }
+  .wrapperCard {
+    display: flex;
+    align-items: center;
+    .dot {
+      line-height: 24px;
+      height: 18px;
+      display: block;
+    }
+  }
+  :global {
+    .ant-table-content {
+      table thead th {
+        background: @white;
+        font-size: 16px;
+        border-bottom: 3px solid #ececec;
+        padding-top: 6px;
+        padding-bottom: 6px;
+        @media screen and (max-width: 767px) {
+          font-size: 16px;
+        }
+      }
+      table tbody {
+        tr td {
+          font-size: 14px;
+          @media screen and (max-width: 767px) {
+            font-size: 14px;
+          }
+        }
+        tr:last-child td {
+          border-bottom: none;
+        }
+      }
+    }
+    .showNoteTable {
+      .ant-table-content {
+        table tbody {
+          tr td {
+            font-size: 16px;
+            @media screen and (max-width: 767px) {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+    .ant-pagination {
+      padding: 0 30px;
+      .ant-pagination-prev:hover {
+        .ant-pagination-item-link {
+          border-color: @green-2;
+          color: @green-2;
+        }
+      }
+      .ant-pagination-next:hover {
+        .ant-pagination-item-link {
+          border-color: @green-2;
+          color: @green-2;
+        }
+      }
+      .ant-pagination-item:hover {
+        border-color: @green-2;
+        a {
+          color: @green-2;
+        }
+      }
+      .ant-pagination-item-active {
+        border-color: @green-2;
+        a {
+          color: @green-2;
+        }
+      }
+    }
+    .ant-table-ping-left:not(.ant-table-has-fix-left)
+      .ant-table-container::before,
+    .ant-table-ping-right:not(.ant-table-has-fix-right)
+      .ant-table-container::after {
+      box-shadow: none;
+    }
+    .ant-table-footer {
+      display: none;
+    }
+    .showNoteTable {
+      .ant-table-footer {
+        text-align: center;
+        display: block;
+      }
+    }
+  }
+
+  .tableCard {
+    :global {
+      .ant-table-content {
+        table tbody {
+          tr td {
+            font-size: 16px;
+            @media screen and (max-width: 767px) {
+              font-size: 14px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.wrapperFooter {
+  padding-top: 110px;
+}

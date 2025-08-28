@@ -1,0 +1,228 @@
+@import '../../../../base.less';
+
+.modalInputNumber {
+  width: 100% !important;
+}
+.btnZoneModal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  .updateBtn {
+    height: 35px;
+    max-width: 150px;
+    padding: 0 15px;
+    font-size: 14px;
+    color: #fffefe;
+    border-radius: 19px;
+    background-color: #33c3c7;
+    border-color: #33c3c7;
+    margin: 0 20px;
+    width: 100%;
+  }
+  .cancelBtn {
+    height: 35px;
+    max-width: 150px;
+    padding: 0 15px;
+    font-size: 14px;
+    color: #535353;
+    border-radius: 19px;
+    background-color: #fffefe;
+    margin: 0 20px;
+    box-shadow: 1px 1px 15px #b3bcbc60;
+    border: none;
+    width: 100%;
+  }
+}
+.errorNotice {
+  color: #ff4d4f;
+  font-size: 12px;
+}
+.changeTime {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0 60px;
+  .center {
+    text-align: center;
+  }
+  .title {
+    font-size: 26px;
+    font-weight: 700;
+    border-bottom: 4px solid #33c3c7;
+    display: inline-block;
+    margin-bottom: 50px;
+  }
+  .description {
+    display: flex;
+    align-items: center;
+    font-size: 22px;
+    @media screen and (max-width: 767px) {
+      font-size: 10px;
+      align-items: flex-start;
+      justify-content: flex-start;
+    }
+    img {
+      @media screen and (max-width: 767px) {
+        margin-top: -7px;
+        width: 29px;
+        height: 25px;
+      }
+    }
+    div {
+      @media screen and (max-width: 767px) {
+        text-align: left;
+      }
+    }
+  }
+  .description2 {
+    font-size: 22px;
+    text-align: left;
+    padding-bottom: 60px;
+    @media screen and (max-width: 767px) {
+      font-size: 12px;
+    }
+  }
+  .form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    margin-bottom: 60px;
+    .text {
+      margin-right: 45px;
+      font-size: 22px;
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+    :global {
+      .ant-form-item {
+        margin-bottom: 0;
+      }
+      .ant-input-number {
+        width: 58px;
+        height: 58px;
+        border-radius: 13px;
+        border: 0;
+        box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+        margin-right: 10px;
+      }
+      .ant-form-item .ant-input-number-handler-wrap {
+        opacity: 1;
+        border: 0;
+        border-top-right-radius: 13px;
+        border-bottom-right-radius: 13px;
+      }
+      .ant-input-number-handler-up {
+        position: absolute;
+        top: -57px;
+        width: 58px;
+        left: -36px;
+        height: 42px;
+        background-color: #fff;
+        box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+        border-radius: 13px;
+        background-image: url('../../../../assets/images/up-black.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        svg {
+          display: none;
+        }
+        &:hover {
+          height: 42px !important;
+          background-color: #ddf6f5;
+          background-image: url('../../../../assets/images/up-black.png');
+        }
+        &:active {
+          height: 42px !important;
+          background-color: #33c3c7;
+          background-image: url('../../../../assets/images/up.png');
+        }
+      }
+      .ant-input-number-handler-down {
+        position: absolute;
+        bottom: -131px;
+        border: 0;
+        height: auto;
+        width: 66px;
+        left: -40px;
+        svg {
+          display: none;
+        }
+        .ant-input-number-handler-down-inner {
+          background-color: #fff;
+          box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+          border-radius: 13px;
+          background-image: url('../../../../assets/images/down-black.png');
+          background-repeat: no-repeat;
+          background-position: center;
+          width: 58px;
+          height: 42px;
+        }
+        &:hover {
+          height: auto !important;
+          .ant-input-number-handler-down-inner {
+            height: 42px !important;
+            background-color: #ddf6f5;
+            background-image: url('../../../../assets/images/down-black.png');
+          }
+        }
+        &:active {
+          background-color: transparent;
+          .ant-input-number-handler-down-inner {
+            height: 42px !important;
+            background-color: #33c3c7;
+            background-image: url('../../../../assets/images/down-white.png');
+          }
+        }
+      }
+      .ant-input-number-input-wrap {
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .ant-input-number-input {
+        height: 100%;
+        font-size: 26px;
+        padding: 0 0 5px 0;
+        z-index: 111;
+        width: 30px;
+        text-align: center;
+      }
+    }
+  }
+}
+.btnScheduleTime {
+  height: 47px;
+  width: 100%;
+  max-width: 150px;
+  border-radius: 20px;
+  font-size: 18px;
+  border: 0;
+  margin-bottom: 30px;
+  &:hover {
+    opacity: 0.8;
+  }
+}
+.cancelScheduleBtn {
+  background-color: #e8e6e6;
+  margin-right: 55px;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #e8e6e6;
+    color: #3c3c3c;
+  }
+}
+.updateScheduleBtn {
+  background-color: #33c3c7;
+  color: #fff;
+  &:hover,
+  &:focus,
+  &:active {
+    background-color: #33c3c7;
+    color: #fff;
+  }
+}

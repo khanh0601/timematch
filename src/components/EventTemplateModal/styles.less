@@ -1,0 +1,179 @@
+@import '../../base.less';
+.eventTemplateCustom {
+  @media screen and (max-width: 767px) {
+    margin-left: 175px;
+  }
+}
+.eventTemplateList {
+  .paging {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    @media screen and (max-width: 767px) {
+      justify-content: flex-start;
+    }
+    .onOff {
+      background-color: #94d6d6;
+      box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.4),
+        inset 1px 2px 5px 0px rgba(0, 0, 0, 0.19);
+    }
+    .activeIndex {
+      background-color: @green-light;
+    }
+    .pageIndex {
+      background: transparent !important;
+      &:hover {
+        background-color: #f0f0f0 !important;
+      }
+    }
+
+    .disabledTemplate {
+      background-color: #95959560 !important;
+      cursor: not-allowed;
+      &:hover {
+        background-color: #95959560 !important;
+      }
+    }
+    div {
+      width: 30px;
+      height: 22px;
+      display: inline-block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 5px;
+      box-shadow: 2px 2px 3px 0px rgba(0, 0, 0, 0.4);
+      margin-right: 5px;
+      cursor: pointer;
+    }
+    .pencilIcon {
+      width: 18px;
+      height: 18px;
+      background-color: transparent;
+      box-shadow: none;
+      cursor: pointer;
+      margin-left: 10px;
+      img {
+        width: 18px;
+        height: 18px;
+      }
+    }
+  }
+}
+
+.templateModalContent {
+  max-width: 366px;
+  width: 100%;
+  margin: auto;
+  .headTitle {
+    font-size: 22px;
+    text-align: center;
+    padding: 50px 0;
+  }
+  button {
+    margin: 0 auto 50px auto;
+    &:hover {
+      border: none;
+    }
+  }
+  .createAndCopyBtn {
+    display: block;
+    height: 55px;
+    max-width: 366px;
+    width: 100%;
+    padding: 0 15px;
+    border-radius: 20px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #33c3c7;
+    color: #ffffff;
+    margin-bottom: 5px;
+  }
+
+  .notice {
+    font-size: 15px;
+    margin-bottom: 40px;
+  }
+
+  .createBtn {
+    display: block;
+    height: 55px;
+    max-width: 366px;
+    width: 100%;
+    padding: 0 15px;
+    border-radius: 20px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #ffffff;
+    color: #000000;
+    border: none;
+    box-shadow: 0px 0px 5px 0 rgba(0, 0, 0, 0.75) !important;
+  }
+  .createPreviewBtn {
+    display: block;
+    height: 55px;
+    max-width: 366px;
+    padding: 0 15px;
+    width: 100%;
+    border-radius: 20px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #ffffff;
+    border: 2px solid #33c3c7;
+    color: #000000;
+    &:hover {
+      border: 2px solid #33c3c7;
+    }
+  }
+  .cancelBtn {
+    display: block;
+    height: 55px;
+    max-width: 366px;
+    width: 100%;
+    padding: 0 15px;
+    border-radius: 20px;
+    font-size: 18px;
+    text-align: center;
+    background-color: #e8e6e6;
+    color: #000000;
+    &:hover,
+    &:focus {
+      border: 2px solid #3d3d3d;
+      opacity: 1;
+      box-shadow: none;
+      transition: none;
+    }
+    &:active,
+    &:hover&:active {
+      background: #3c3c3c;
+      color: #fff;
+      border: 0;
+    }
+  }
+}
+
+.dropdownMenu {
+  border-radius: 3px !important;
+  overflow: hidden;
+  min-width: 160px;
+  left: 65px;
+  margin-top: 10px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0,
+    rgba(255, 255, 255, 0.05) 0 0 0 1px inset !important;
+  li.dropdownMenuIcon {
+    background-color: white !important;
+    color: black;
+    &:hover {
+      background-color: #f0f0f0 !important;
+      color: black;
+    }
+  }
+  li.disabledTemplate {
+    background-color: white !important;
+    color: black !important;
+    cursor: not-allowed;
+    &:hover {
+      background-color: #f0f0f0 !important;
+    }
+  }
+}

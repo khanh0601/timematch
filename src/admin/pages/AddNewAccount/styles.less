@@ -1,0 +1,83 @@
+@import '../../../base.less';
+
+.container {
+  padding-bottom: 100px;
+  .header {
+    margin: 40px 0;
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 30px;
+  }
+
+  :global {
+    .ant-picker {
+      width: 100%;
+      border-radius: 8px;
+      border: 2px solid #ececec;
+    }
+
+    .ant-form-item-has-error .ant-picker {
+      border-color: #ff4d4f !important;
+    }
+
+    .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
+      height: 34px;
+    }
+
+    .csvButton {
+      font-size: 16px;
+      max-width: 150px;
+    }
+
+    .createBtn {
+      font-size: 16px;
+      max-width: 120px;
+    }
+  }
+}
+
+.selectDatePicker {
+  :global {
+    .ant-picker-time-panel-column {
+      overflow-y: auto !important;
+    }
+  }
+}
+
+:global {
+  .createUserModal {
+    .btn-upload-csv .ant-upload {
+      width: 100% !important;
+    }
+
+    button {
+      border-radius: 8px;
+      border: 2px solid #ececec !important;
+      height: 34px;
+    }
+
+    button:hover,
+    button:focus {
+      color: unset;
+    }
+
+    button.ant-btn-primary {
+      border-color: transparent !important;
+    }
+
+    .ant-form-item-with-help.ant-form-item-has-error button {
+      border-color: #ff4d4f !important;
+    }
+
+    .ant-modal-body {
+      button {
+        width: 100% !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,281 @@
+@import '../../base.less';
+
+.calendarCreation {
+  max-width: 1080px;
+  margin: auto;
+  padding: 25px 15px 0;
+  .calendarInfoContent {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .stepCalendarTitle {
+      display: flex;
+      align-items: center;
+      padding-bottom: 1.3rem;
+
+      .titleIcon {
+        margin-right: 15px;
+        display: flex;
+        align-items: center;
+        .bolderColIcon {
+          display: inline-block;
+          background-color: @green-2;
+          height: 35px;
+          width: 8px;
+          margin-right: 5px;
+        }
+        .normalColIcon {
+          display: inline-block;
+          background-color: @green-2;
+          height: 35px;
+          width: 3px;
+        }
+      }
+      h2 {
+        margin: 0;
+        font-size: 24px;
+        br {
+          display: none;
+        }
+      }
+      p {
+        font-size: 16px;
+        width: 100%;
+        padding-left: 58px;
+      }
+    }
+  }
+  .optionCalendar {
+    margin-bottom: 3rem;
+    &.mb0 {
+      margin-bottom: 0;
+    }
+    .title {
+      display: flex;
+      margin-bottom: 0.8rem;
+      font-size: 16px;
+      p {
+        color: #000000;
+        font-weight: 600;
+        margin-bottom: 0;
+        padding-right: 0.5rem;
+      }
+      span {
+        color: #a3a3a3;
+      }
+      div {
+        background: #969696;
+        color: white;
+        padding: 0.25rem 0.2rem;
+        span {
+          color: white;
+          font-weight: 600;
+        }
+      }
+    }
+    .content {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 2rem;
+      .groupLeft {
+        width: 70%;
+        p {
+          font-size: 16px;
+          padding-left: 1rem;
+          margin-bottom: 0;
+          br {
+            display: none;
+          }
+        }
+        input {
+          width: 100%;
+          border: 1px solid #707070;
+          padding: 0.5rem 0.7rem;
+          border-radius: 7px;
+          outline: none;
+        }
+        .groupCheckbox {
+          padding-left: 1rem;
+          .textCheckbox {
+            p {
+              padding-left: 0;
+              margin-bottom: 0;
+            }
+          }
+        }
+        .formAskCalendar {
+          display: block;
+        }
+      }
+
+      .btnRight {
+        width: 20%;
+        margin: auto 0;
+
+        button {
+          width: 100%;
+          border: 3px solid #33c3c7;
+          border-radius: 7px;
+          background: transparent;
+          font-weight: 500;
+          padding: 0.5rem 0;
+          cursor: pointer;
+          span {
+            font-weight: 600;
+          }
+          p {
+            padding-left: 0;
+            font-weight: 600;
+            margin-bottom: 0;
+          }
+        }
+
+        &.mt5 {
+          margin-top: 5%;
+        }
+      }
+
+      &.borderBottom {
+        border-bottom: 2px solid #b5b5b5;
+      }
+    }
+    .formAskCalendar {
+      display: none;
+    }
+  }
+  .checkboxAskCalendar {
+    display: flex;
+    input {
+      margin-top: 5px;
+      height: 17px !important;
+      width: 20px !important;
+    }
+    label {
+      padding-left: 7px;
+      p {
+        cursor: pointer;
+        padding-left: 0 !important;
+        margin-bottom: 0;
+      }
+    }
+  }
+  @media screen and (max-width: 425px) {
+    padding: 11px 9px;
+    .calendarInfoContent {
+      .stepCalendarTitle {
+        padding-bottom: 0.7rem;
+        .titleIcon {
+          margin-right: 7px;
+        }
+        h2 {
+          font-size: 18px;
+          br {
+            display: unset;
+          }
+        }
+      }
+    }
+    .optionCalendar {
+      margin-bottom: 2rem;
+      .title {
+        p {
+          font-weight: 500;
+        }
+      }
+      .content {
+        //p {
+        //  font-size: 16px;
+        //  padding-left: 1rem;
+        //  margin-bottom: 0;
+        //}
+        &.pd1 {
+          padding-bottom: 1rem;
+        }
+        .groupLeft {
+          width: 70%;
+          p {
+            padding-left: 0;
+            br {
+              display: unset;
+            }
+          }
+          input {
+            width: 90%;
+            border: 2px solid #3c3c3c;
+          }
+
+          .groupCheckbox {
+            padding-left: 1rem;
+            .textCheckbox {
+              p {
+                padding-left: 0;
+                margin-bottom: 0;
+              }
+            }
+          }
+          .formAskCalendar {
+            display: none;
+          }
+        }
+
+        .btnRight {
+          width: 30%;
+
+          button {
+            font-weight: 500;
+            padding: 0.5rem 0;
+            p {
+              padding-left: 0;
+              margin-bottom: 0;
+            }
+          }
+
+          &.mt5 {
+            margin-top: unset;
+          }
+        }
+
+        &.borderBottom {
+          border-bottom: 2px solid #b5b5b5;
+        }
+      }
+      .formAskCalendar {
+        display: unset;
+      }
+    }
+    .checkboxAskCalendar {
+      label {
+        p {
+          font-size: 12px;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 395px) {
+    .calendarInfoContent {
+      .stepCalendarTitle {
+        padding-bottom: 0.7rem;
+        .titleIcon {
+          margin-right: 7px;
+        }
+        h2 {
+          font-size: 16px;
+        }
+      }
+    }
+    .optionCalendar {
+      margin-bottom: 2rem;
+      .title {
+        font-size: 14px;
+      }
+      .content {
+        .btnRight {
+          button {
+            font-size: 13px;
+          }
+        }
+      }
+    }
+  }
+}

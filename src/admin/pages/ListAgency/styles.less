@@ -1,0 +1,98 @@
+@import '../../../base.less';
+
+.container {
+  .pageTitle {
+    font-size: 30px;
+    margin: 50px 0 20px;
+  }
+
+  :global {
+    .ant-btn[disabled] {
+      opacity: 0.5;
+      cursor: default;
+    }
+
+    .ant-pagination {
+      text-align: right;
+      padding: 20px 0;
+    }
+
+    .ant-row {
+      margin: 8px 0;
+    }
+
+    thead {
+      .ant-table-cell {
+        background: #ddf6f5;
+        border: 1px solid black;
+        border-bottom: none;
+      }
+      tr th:last-child {
+        border-color: black !important;
+      }
+    }
+
+    tbody {
+      .ant-table-cell {
+        border: 1px solid black !important;
+      }
+      tr td {
+        border-top: 0 !important;
+      }
+      tr:not(:last-child) {
+        td {
+          border-bottom: 0 !important;
+        }
+      }
+      tr td:not(:last-child) {
+        border-right: 0 !important;
+      }
+    }
+
+    .ant-pagination {
+      margin-bottom: 30px;
+    }
+
+    .ant-pagination-item a {
+      color: rgba(0, 0, 0, 0.85);
+    }
+    .ant-pagination-item-active,
+    .ant-pagination-item:hover,
+    .ant-pagination-prev:hover .ant-pagination-item-link,
+    .ant-pagination-next:hover .ant-pagination-item-link {
+      color: @green-2;
+      border-color: @green-2;
+      a {
+        color: @green-2;
+      }
+    }
+    a {
+      color: #1890ff;
+      &:hover {
+        color: #40a9ff;
+      }
+    }
+  }
+
+  .agencyTable {
+    margin-top: 16px;
+  }
+}
+
+.customButton {
+  margin-left: 10px;
+  &:hover {
+    border-color: #d9d9d9;
+    color: black;
+  }
+}
+
+.modalUpdateAgency {
+  :global {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    .ant-form-item {
+      padding: 0 10px;
+    }
+  }
+}

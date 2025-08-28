@@ -1,0 +1,220 @@
+.qa {
+  position: relative;
+  .qaHeader {
+    background-color: #fcfcfc;
+    border-bottom: 2px solid #f3f3f3;
+    padding: 70px 0 50px;
+    .container {
+      max-width: 1080px;
+      width: 100%;
+      padding: 0 15px;
+      margin: 0 auto;
+      .title {
+        font-size: 30px;
+        display: block;
+        text-align: center;
+        margin-bottom: 60px;
+      }
+      .headerContent {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .left {
+          max-width: 680px;
+          width: 100%;
+          margin-top: -25px;
+          @media screen and (max-width: 767px) {
+          }
+          .leftTitle {
+            font-size: 16px;
+            margin-bottom: 10px;
+          }
+          .seachForm {
+            display: flex;
+            align-items: center;
+          }
+        }
+        .right {
+          .rightBlock {
+            margin-bottom: 17px;
+            background: #e3f4f4;
+            border-radius: 20px;
+            color: #666666;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 88px;
+            width: 100%;
+            padding: 0 27px;
+            text-align: center;
+            &:last-child {
+              margin-bottom: 0;
+            }
+            &:hover {
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+  .qaContent {
+    width: 100%;
+    max-width: 1080px;
+    margin: auto;
+    padding: 90px 15px 0;
+    .title {
+      font-size: 30px;
+      text-align: center;
+      margin-bottom: 88px;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+    .qaItem {
+      .titleItem {
+        font-size: 16px;
+        border-left: 7px solid #33c3c7;
+        padding-left: 10px;
+        margin-bottom: 43px;
+        line-height: 1.2;
+      }
+      ul {
+        font-size: 16px;
+        line-height: 2;
+        margin-bottom: 50px;
+        margin-left: 18px;
+        @media screen and (max-width: 767px) {
+          min-height: auto;
+        }
+        li {
+          white-space: pre-line;
+
+          a {
+            color: #33c3c7;
+          }
+
+          a:hover {
+            color: black;
+            text-decoration: underline;
+          }
+        }
+      }
+      .btnSeeAll {
+        width: 100%;
+        max-width: 209px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 15px;
+        height: 45px;
+        border-radius: 15px;
+        border: 2px solid #33c3c7;
+        color: #33c3c7;
+        font-size: 18px;
+        margin: auto;
+        margin-bottom: 80px;
+        &:active,
+        &:hover,
+        &:focus {
+          background: #33c3c7;
+          color: #fff;
+        }
+      }
+      .hidePC {
+        display: none;
+      }
+    }
+  }
+  .seachForm {
+    :global {
+      .ant-input-group {
+        display: flex;
+        align-items: center;
+      }
+      .ant-input-group .ant-input-affix-wrapper:not(:last-child) {
+        max-width: 500px;
+        width: 100%;
+        height: 50px;
+        border: 2px solid #b7b7b7 !important;
+        border-radius: 15px;
+        margin-right: 8px;
+        font-size: 22px;
+      }
+      .ant-input-search-button {
+        max-width: 110px;
+        width: 100%;
+        height: 50px;
+        border-radius: 20px !important;
+        background: #33c3c7;
+        color: #fff;
+        border: 0;
+        font-size: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 15px;
+        box-shadow: none;
+        @media screen and (max-width: 767px) {
+          font-size: 16px;
+        }
+      }
+      .ant-input-group-addon:last-child {
+        width: 100%;
+        max-width: 30%;
+      }
+      .ant-input-group-addon:last-child {
+        font-size: 22px;
+      }
+      .ant-input {
+        @media screen and (max-width: 767px) {
+          font-size: 16px;
+        }
+      }
+    }
+  }
+  .displayNone {
+    display: none;
+  }
+
+  @media screen and (max-width: 768px) {
+    .qaHeader {
+      .container {
+        .title {
+          font-size: 20px;
+        }
+        .headerContent {
+          flex-wrap: wrap;
+          .left {
+            margin-bottom: 20px;
+            .leftTitle {
+              font-size: 16px;
+            }
+          }
+        }
+      }
+    }
+
+    .qaContent {
+      font-size: 20px;
+      .qaItem {
+        ul {
+          min-height: auto;
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 576px) {
+    .qaContent {
+      .qaItem {
+        .hidePC {
+          display: block;
+        }
+      }
+      .hideSM {
+        display: none;
+      }
+    }
+  }
+}

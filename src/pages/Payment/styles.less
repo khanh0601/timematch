@@ -1,0 +1,400 @@
+@import '../../base.less';
+// .paymentContainer {
+//   max-width: 1080px;
+//   margin: auto;
+//   padding: 0 34px;
+// }
+.payment {
+  ::global {
+    .ant-tabs-nav-wrap {
+      height: 58px;
+    }
+  }
+  .emptyError {
+    height: 30px;
+  }
+  .paymentTitle {
+    margin: 65px auto 50px;
+    display: flex;
+    align-items: center;
+    max-width: 1080px;
+    padding: 0 15px;
+    @media screen and (max-width: 767px) {
+      margin: 20px auto;
+    }
+    .paymentTitleText {
+      color: @black-4;
+      font-size: 30px;
+      font-weight: 500;
+      display: inline-block;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+  }
+  .titleIcon {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    .bolderColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 13px;
+      margin-right: 6px;
+    }
+    .normalColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 5px;
+    }
+  }
+  .tab1 {
+    padding: 30px 0 80px;
+    @media screen and (max-width: 767px) {
+      padding: 20px 0px 130px;
+    }
+    :global {
+      .ant-select-selection-item {
+        font-size: 20px;
+      }
+    }
+  }
+  .numberAccount {
+    margin-bottom: 30px;
+    @media screen and (max-width: 767px) {
+      margin-bottom: 30px;
+    }
+    :global {
+      .ant-select-selector {
+        text-align: center;
+      }
+    }
+  }
+  .numberAccountContent {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+  }
+  .numberAccountTitle {
+    font-size: 20px;
+    color: @black-4;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  .numberAccountBorder {
+    display: inline-block;
+    width: 9px;
+    height: 23px;
+    background: @black-4;
+    margin-right: 10px;
+  }
+  .contractType {
+    margin-bottom: 30px;
+  }
+  .contractRadioLabel {
+    font-size: 20px;
+    margin-left: 15px;
+    font-weight: 500;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  .contractRadio {
+    max-width: 600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+  }
+  .contractRadioSmall {
+    font-size: 16px;
+    margin-left: 58px;
+    display: block;
+  }
+  .contractDescript {
+    text-align: center;
+    font-size: 22px;
+    color: @black-4;
+    @media screen and (max-width: 767px) {
+      font-size: 15px;
+      margin-bottom: 30px;
+      margin-top: 30px;
+      text-align: left;
+    }
+  }
+  .cardForm {
+    display: flex;
+    margin-bottom: 90px;
+  }
+  .cardFormItemDate {
+    display: flex;
+    align-items: center;
+  }
+  .cardFormItem {
+    margin-right: 15px;
+  }
+  .cardFormItemLabel {
+    margin: 0 8px;
+  }
+  .cardInput {
+    height: 50px;
+    border-radius: 16px;
+    font-size: 23px;
+  }
+  .cardInputNumber {
+    width: 380px;
+  }
+  .cardInputTime {
+    width: 130px;
+  }
+  .cardInputCode {
+    width: 130px;
+  }
+  .cardLabel {
+    font-size: 22px;
+    color: @green-2;
+    margin-bottom: 8px;
+  }
+  .paymentBtnGroup {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 90px;
+    button:not(:last-child) {
+      margin-right: 30px;
+    }
+    @media screen and (max-width: 852px) {
+      padding-top: 0;
+    }
+  }
+  :global {
+    .ant-tabs-nav-wrap {
+      max-width: 1080px;
+      margin: auto;
+      padding: 0 15px;
+      width: 100%;
+    }
+    .ant-tabs-nav {
+      // padding: 0 45px;
+      margin: 0;
+    }
+    .ant-tabs-tab .ant-tabs-tab-btn {
+      font-size: 25px;
+      @media screen and (max-width: 767px) {
+        font-size: 18px;
+      }
+    }
+    .ant-tabs-content-holder {
+      background: @grey-2;
+      min-height: 70vh;
+    }
+    .ant-tabs-content {
+      max-width: 1080px;
+      margin: auto;
+      padding: 0 15px;
+    }
+    .ant-select-selector {
+      width: 147px !important;
+      border-radius: 10px !important;
+      border: 1px solid #d3d3d3 !important;
+      height: 50px !important;
+      display: flex;
+      align-items: center;
+      padding-left: 25px !important;
+      padding-right: 25px !important;
+      margin-left: 175px;
+      margin-right: 0px;
+      @media screen and (max-width: 767px) {
+        margin-left: 0;
+      }
+    }
+    .ant-radio-inner::after {
+      // background-image: url('../../assets/images/input-radio-not-checked.png');
+      background-size: 35px 35px;
+      width: 35px;
+      height: 35px;
+    }
+    .ant-radio-inner {
+      border: 0;
+      background-image: url('../../assets/images/input-radio-not-checked.png');
+      background-size: 35px 35px;
+      width: 35px;
+      height: 35px;
+      top: 3px;
+    }
+    .ant-radio-inner:hover {
+      border: 0;
+      background-image: url('../../assets/images/input-radio-checked.png');
+      background-size: 35px 35px;
+      width: 35px;
+      height: 35px;
+      top: 3px;
+    }
+    .ant-radio-checked .ant-radio-inner::after {
+      //background-image: url('../../assets/images/input-radio-active.png');
+      //background-size: 35px 35px;
+      background-color: transparent;
+      //top: 0;
+    }
+    .ant-radio-checked .ant-radio-inner {
+      background-image: url('../../assets/images/input-radio-active.png');
+    }
+    .ant-radio-input:focus + .ant-radio-inner {
+      box-shadow: none;
+    }
+    .btn.btn-custom-height {
+      font-size: 16px;
+    }
+  }
+}
+.invoice {
+  padding: 65px 0;
+  @media screen and (max-width: 767px) {
+    padding: 65px 0 100px;
+  }
+  .title {
+    font-size: 18px;
+    color: @black-4;
+    margin-bottom: 15px;
+    font-weight: 700;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+
+  .link {
+    margin-bottom: 20px;
+    a {
+      font-size: 18px;
+      color: #1d85ff;
+      font-weight: 500;
+      @media screen and (max-width: 767px) {
+        font-size: 16px;
+      }
+    }
+  }
+
+  .description {
+    display: flex;
+    font-size: 16px;
+    color: @black-4;
+    margin-bottom: 50px;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+    .descriptionLeft {
+      margin-right: 7px;
+    }
+  }
+  .label {
+    font-size: 25px;
+    color: @black-4;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  .labelSmall {
+    font-size: 16px;
+    .required {
+      font-size: 16px;
+    }
+  }
+  .required {
+    font-size: 18px;
+    margin-left: 20px;
+    color: @red-required;
+  }
+  .input {
+    height: 60px;
+    font-size: 22px;
+    border: 1px solid #b7b7b7;
+    border-radius: 20px;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  .inputSmall {
+    font-size: 16px;
+  }
+  .formItem {
+    margin-bottom: 50px;
+  }
+  .textarea {
+    resize: none;
+    font-size: 22px;
+    border: 1px solid #b7b7b7;
+    border-radius: 20px;
+    height: 195px !important;
+    overflow-x: auto;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+}
+
+.stripeForm {
+  display: flex;
+  font-weight: 22px;
+  flex-wrap: wrap;
+  .label {
+    color: @green-2;
+    font-size: 16px;
+    margin-bottom: 8px;
+    .tooltipStyle {
+      display: flex;
+      align-items: center;
+      img {
+        margin-left: 5px;
+        margin-top: 0px;
+        width: 20px;
+        height: 20px;
+      }
+    }
+  }
+  .InputContainer .InputElement {
+    font-size: 16px;
+    top: 5px;
+  }
+  .stripeFormItem {
+    margin-right: 15px;
+    @media screen and (max-width: 869px) {
+      margin-bottom: 15px !important;
+    }
+  }
+  .cardNumber {
+    width: 380px;
+  }
+  .cardExprired {
+    width: 150px;
+  }
+  .cardCVC {
+    width: 250px;
+  }
+}
+.cvcCustom {
+  img {
+    width: 300px;
+  }
+  @media screen and (max-width: 869px) {
+    margin-bottom: 15px !important;
+    max-width: 80% !important;
+    :global {
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.dropdownSelectQuantity {
+  width: 150px !important;
+  min-width: unset !important;
+}
+.InputContainer .InputElement {
+  font-size: 16px;
+  top: 5px;
+}

@@ -1,0 +1,1282 @@
+@import '../../base.less';
+.bookingBottom {
+  @media screen and (max-width: 767px) {
+    padding-bottom: 0;
+  }
+}
+.mainLayout {
+  background-color: @white-3;
+  padding-bottom: 150px;
+
+  .mainContent {
+    max-width: 1080px;
+    margin: auto;
+    padding: 0 15px;
+
+    .backToList {
+      height: 94px;
+      width: 100%;
+      background-color: #cdcdcd;
+      display: flex;
+      align-items: center;
+      padding: 23px 30px;
+      border-radius: 5px;
+      margin: 22px 0 28px 0;
+      font-weight: 500;
+      @media screen and (max-width: 767px) {
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+      }
+
+      .noticeText {
+        width: 80%;
+        @media screen and (max-width: 767px) {
+          width: 100%;
+        }
+
+        p {
+          text-align: center;
+          font-size: 22px;
+          color: #ffffff;
+          margin: 0;
+          @media screen and (max-width: 767px) {
+            font-size: 15px;
+            margin-bottom: 10px;
+          }
+        }
+      }
+
+      .btnZone {
+        width: 20%;
+        @media screen and (max-width: 767px) {
+          width: 100%;
+          text-align: center;
+        }
+
+        button {
+          height: 48px;
+          border-radius: 15px;
+          width: 148px;
+          background-color: #ffffff;
+          color: #3e3e3e;
+          font-size: 17px;
+          box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
+          @media screen and (max-width: 767px) {
+            height: 40px;
+          }
+        }
+      }
+    }
+  }
+
+  .footerNotLogin {
+    display: none;
+  }
+
+  .footerNotLoginSuccessVote {
+    div {
+      margin: 0 auto 1rem auto;
+      width: 80%;
+
+      p {
+        text-align: center;
+        font-size: 24px;
+      }
+    }
+
+    .buttonLoginFooter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+
+      button {
+        height: auto;
+        font-weight: 500;
+        border-radius: 7px;
+
+        span {
+          font-size: 28px;
+        }
+
+        &:hover {
+          border: 3px solid @green-2;
+        }
+
+        &:first-child {
+          margin-right: 3rem;
+          background-color: @green-2;
+          color: @white;
+          padding: 4px 0 4px 7px;
+          border: 0 solid;
+        }
+
+        &:last-child {
+          border: 2px solid #e0e0e0;
+        }
+      }
+    }
+  }
+
+  @media screen and(max-width: 768px) {
+    .footerNotLogin {
+      display: block;
+      box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
+      width: 100%;
+      background: white;
+      position: fixed;
+      bottom: 0;
+      z-index: 100;
+
+      p {
+        text-align: center;
+        font-size: 24px;
+        font-weight: 400;
+        margin-bottom: 0;
+
+        &:first-child {
+          margin-top: 1rem;
+        }
+
+        &:last-child {
+          margin-bottom: 0.5rem;
+        }
+      }
+
+      .buttonLoginFooter {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 0.5rem;
+
+        button {
+          height: auto;
+          font-weight: 550;
+          border-radius: 7px;
+          font-size: 20px;
+
+          &:hover {
+            border: 3px solid @green-2;
+          }
+
+          &:first-child {
+            margin-right: 2rem;
+            background-color: @green-2;
+            color: @white;
+            padding: 4px 0 4px 7px;
+          }
+        }
+      }
+    }
+  }
+  @media screen and(max-width: 750px) {
+    .footerNotLoginSuccessVote {
+      div {
+        p {
+          font-size: 1.2rem;
+        }
+      }
+
+      .buttonLoginFooter {
+        button {
+          span {
+            font-size: 1.5rem;
+          }
+
+          &:first-child {
+            padding: 4px 0 4px 15px;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and(max-width: 600px) {
+    .footerNotLoginSuccessVote {
+      div {
+        p {
+          font-size: 1rem;
+        }
+      }
+
+      .buttonLoginFooter {
+        button {
+          span {
+            font-size: 1.2rem;
+          }
+        }
+      }
+    }
+
+    .footerNotLogin {
+      p {
+        font-size: 18px;
+      }
+
+      .buttonLoginFooter {
+        button {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+
+  @media screen and(max-width: 500px) {
+    .footerNotLoginSuccessVote {
+      div {
+        p {
+          font-size: 0.9rem;
+        }
+      }
+
+      .buttonLoginFooter {
+        button {
+          span {
+            font-size: 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and(max-width: 448px) {
+    .footerNotLoginSuccessVote {
+      div {
+        width: 85%;
+
+        p {
+          font-size: 0.8rem;
+        }
+      }
+
+      .buttonLoginFooter {
+        button {
+          span {
+            font-size: 0.9rem;
+          }
+        }
+      }
+    }
+
+    .footerNotLogin {
+      p {
+        font-size: 15px;
+      }
+    }
+  }
+  @media screen and(max-width:408px) {
+    .footerNotLogin {
+      p {
+        font-size: 14px;
+      }
+    }
+  }
+}
+
+.bookingStep1 {
+  font-weight: 500;
+}
+
+.scheduleAdjustment {
+  .bigTitle {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    .bolderIcon {
+      width: 10px;
+      height: 36px;
+      background-color: #33c3c7;
+      margin-right: 5px;
+      display: inline-block;
+    }
+    .titleIcon {
+      width: 4px;
+      height: 36px;
+      background-color: #33c3c7;
+      margin-right: 17px;
+      display: inline-block;
+    }
+    span {
+      font-size: 24px;
+      color: #000000;
+    }
+    @media screen and(max-width:768px) {
+      display: block;
+      .wrapperCompanies {
+        margin-left: 0;
+        margin-top: 1rem;
+        direction: rtl;
+      }
+      .bolderIcon {
+        height: 28px;
+        width: 7px;
+      }
+      .titleIcon {
+        height: 28px;
+        width: 2px;
+      }
+      span {
+        font-size: 20px;
+      }
+    }
+  }
+  .secondStepHeader {
+    .searchKeyword {
+      textarea {
+        padding: 8px 10px;
+        background: #fbfbfb;
+        border: 2px solid #ebebeb;
+        border-radius: 11px;
+        width: 100%;
+      }
+    }
+    .suggestLogin {
+      //min-width: 336px;
+      //height: 100px;
+      background: #ececec;
+      padding: 10px 0.8rem 10px 0.8rem;
+      border-radius: 5px;
+      p {
+        margin: 0;
+        text-align: center;
+        font-size: 0.7rem;
+      }
+      .btnZone {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 10px;
+        button {
+          width: 77%;
+          font-size: 15px;
+          border-radius: 5px;
+
+          &.signUpBtn {
+            margin-bottom: 5px;
+            color: #ffffff;
+            background-color: #33c3c7;
+          }
+          &.signInBtn {
+            box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+            color: #3c3c3c;
+            background-color: #ffffff;
+          }
+        }
+      }
+    }
+  }
+
+  .pinnedTextVoteTop {
+    color: #33c3c7;
+  }
+
+  .intruction {
+    font-size: 20px;
+    color: @black-1;
+    margin: 18px 0 25px 0;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  .progressBar {
+    padding: 0 55px;
+    display: flex;
+    position: relative;
+    margin: auto;
+    justify-content: space-between;
+    max-width: 63%;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 90%;
+      left: 95px;
+      transform: translateY(-50%);
+      width: calc(100% - 190px);
+      height: 100%;
+      padding: 0 35px;
+      font-size: 20px;
+      line-height: 1;
+      color: @grey-4;
+      background-repeat: no-repeat;
+      background-image: url('../../assets/images/bg-dot.png');
+      background-size: contain;
+      @media screen and (max-width: 768px) {
+        left: 40px;
+        width: calc(100% - 80px);
+      }
+    }
+    .firstStep {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: @white;
+      color: @black-1;
+      font-size: 16px;
+      z-index: 1;
+      box-shadow: 1px 1px 10px @shadow-1;
+      cursor: pointer;
+      position: relative;
+      p {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(100% + 7px);
+        color: @black-1;
+        font-size: 16px;
+        min-width: 200px;
+        text-align: center;
+        @media screen and (max-width: 767px) {
+          font-size: 14px;
+        }
+      }
+    }
+    .activeStep {
+      background-color: @green-2 !important;
+      color: #eff6fc !important;
+      box-shadow: none !important;
+    }
+    .endStep {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background-color: @white;
+      color: @black-1;
+      font-size: 16px;
+      z-index: 1;
+      box-shadow: 1px 1px 10px @shadow-1;
+      cursor: pointer;
+      position: relative;
+      //.secondStepContent {
+      //  width: 26px;
+      //  height: 26px;
+      //  box-shadow: 1px 1px 10px @shadow-1;
+      //  display: flex;
+      //  justify-content: center;
+      //  align-items: center;
+      //  border-radius: 50%;
+      //}
+      p {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: calc(100% + 7px);
+        color: @black-1;
+        font-size: 16px;
+        min-width: 120px;
+        text-align: center;
+        @media screen and (max-width: 767px) {
+          font-size: 14px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      padding: 0 35px 0 35px;
+      max-width: 75%;
+
+      .firstStep p,
+      .endStep p {
+        font-size: 0.8rem;
+        margin-bottom: 0;
+      }
+    }
+    @media screen and (max-width: 425px) {
+      max-width: 85%;
+
+      .firstStep p,
+      .endStep p {
+        font-size: 0.7rem;
+        margin-bottom: 0;
+      }
+    }
+  }
+  //.pinnedText {
+  //  font-size: 16px;
+  //  margin-bottom: 15px;
+  //  display: flex;
+  //  justify-content: flex-start;
+  //  align-items: center;
+  //  &:first-child {
+  //    color: #33c3c7;
+  //  }
+  //  @media screen and (max-width: 767px) {
+  //    margin: 0 0 15px 0;
+  //  }
+  //  img {
+  //    width: 20px;
+  //    height: 20px;
+  //    margin-right: 7px;
+  //  }
+  //}
+  .pinnedTextSecond {
+    margin: 0 0 15px 0;
+  }
+  .firstStepDetail {
+    margin-top: 73px;
+    padding-top: 25px;
+    .pinnedText {
+      font-size: 16px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+
+      img {
+        width: 20px;
+        height: 20px;
+        margin-right: 7px;
+
+        &.imagePinned {
+          width: 30px;
+          height: 30px;
+        }
+      }
+
+      @media screen and (max-width: 768px) {
+        margin: 0 0 15px 0;
+      }
+    }
+    .wrapperCompanies {
+      margin-bottom: 15px;
+      img {
+        width: 25px;
+        height: 27px;
+        margin-right: 8px;
+      }
+      .companies {
+        font-size: 16px;
+        color: #33c3c7;
+      }
+    }
+    .meetingInfo {
+      position: relative;
+      .meetingMethod {
+        word-break: break-all;
+      }
+    }
+    .meetingComment {
+      margin-top: 0.5rem;
+      .pinnedText {
+        align-items: initial;
+        img {
+          margin-top: 5px;
+        }
+      }
+    }
+    .bigTitle {
+      margin-bottom: 37px;
+      @media screen and (max-width: 767px) {
+        margin-bottom: 15px;
+        flex-wrap: nowrap;
+        line-height: 1.3;
+      }
+    }
+    .userInfo {
+      display: flex;
+      align-items: center;
+      margin-bottom: 15px;
+      p {
+        margin: 0;
+      }
+      .infoCompany {
+        font-size: 17px;
+        margin-bottom: 12px;
+      }
+      .avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        color: @white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 0 15px 0 0;
+        overflow: hidden;
+        position: relative;
+        border: 2px solid @green-2;
+        @media screen and (max-width: 767px) {
+          width: 50px;
+          height: 50px;
+        }
+        img {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          object-position: center;
+          object-fit: contain;
+          width: 100%;
+          height: 100%;
+        }
+      }
+      .infoName {
+        font-size: 13px;
+      }
+      .meetingDetail {
+        font-size: 10px;
+        padding-bottom: 0.5rem;
+        margin: 20px 0 30px 0;
+      }
+    }
+    .listTimeFrame {
+      padding: 25px 10px;
+      box-shadow: 1px 1px 10px @shadow-1;
+      border-radius: 20px;
+      min-height: 420px;
+      height: 430px;
+      overflow-y: auto;
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      .listFrame {
+        height: 390px;
+        width: 100%;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+          display: none;
+        }
+        .frame {
+          height: 40px;
+          min-width: 160px;
+          margin-bottom: 14px;
+          border: 2px solid #dadada;
+          color: @black-1;
+          font-size: 20px;
+          background-color: @white;
+          border-radius: 12px;
+          text-align: center;
+          cursor: pointer;
+        }
+        .frame:hover {
+          border: 3px solid @green-2;
+        }
+        .chosenFrame {
+          border: 3px solid @green-2;
+        }
+        .completedFrame {
+          background-color: @green-2;
+          color: @white;
+          border: 2px solid @green-2;
+        }
+      }
+    }
+
+    .boxBooking {
+      padding-left: 0.8rem;
+    }
+    @media screen and (max-width: 1200px) {
+      .secondStepHeader {
+        .btnZone {
+          button {
+            width: 60%;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 840px) {
+      .secondStepHeader {
+        .btnZone {
+          button {
+            width: 70%;
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: 778px) {
+      .secondStepHeader {
+        .suggestLogin {
+          padding-left: 0.5rem;
+          padding-right: 0.5rem;
+        }
+        .btnZone {
+          button {
+            width: 70%;
+          }
+        }
+      }
+    }
+    @media screen and (max-width: 768px) {
+      //margin-top: 50px;
+      padding-top: 5px;
+      .boxInforUser {
+        display: none;
+      }
+
+      .boxBooking {
+        padding-left: 0;
+        max-width: 100% !important;
+        width: 100% !important;
+        flex: 0 0 100% !important;
+      }
+    }
+  }
+  .secondStepDetail {
+    @media screen and (max-width: 768px) {
+      margin-top: 50px;
+      padding-top: 0;
+    }
+  }
+  .btnNext {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 35px 0 25px 0;
+    button {
+      min-width: 146px;
+      height: 48px;
+      background-color: #33c3c7;
+      border-radius: 20px;
+      font-size: 18px;
+      color: #ffffff;
+    }
+  }
+  //.meetingDetail {
+  //  padding-bottom: 33px;
+  //  padding-left: 25px;
+  //  color: #3c3c3c;
+  //  font-weight: 400;
+  //  margin-bottom: 0;
+  //}
+}
+
+.numberAccountContent {
+  display: flex;
+  //align-items: center;
+  margin-bottom: 50px;
+  margin-top: 1rem;
+
+  .numberAccountBorder {
+    display: inline-block;
+    width: 9px;
+    height: 24px;
+    background: @black-4;
+    margin: 10px 10px auto 0;
+  }
+
+  .numberAccountTitle {
+    font-size: 24px;
+    color: @black-4;
+
+    br {
+      display: none;
+    }
+
+    img {
+      background: #f0f0f0;
+      height: 32px;
+      width: 32px;
+
+      &:not(:last-child) {
+        margin-right: 0.4rem;
+      }
+    }
+
+    .imgCircle {
+      padding: 6px;
+      border-radius: 50%;
+    }
+
+    .imgTriangle {
+      padding: 7px;
+      border-radius: 48%;
+    }
+
+    .imgX {
+      padding: 7px;
+      border-radius: 50%;
+    }
+
+    .iconVoteGroup {
+      display: inline-flex;
+      width: 32px;
+      height: 32px;
+      text-align: center;
+      background: #f0f0f0;
+      border-radius: 48%;
+      justify-content: center;
+      margin-right: 10px;
+
+      div {
+        width: 50%;
+        height: 50%;
+        margin: auto;
+        background-size: contain;
+        display: inline-block;
+        background-repeat: no-repeat;
+        background-color: #f0f0f0;
+      }
+
+      .bgCircle {
+        background-image: url('../../assets/images/circle-one.png');
+      }
+
+      .bgTriangle {
+        background-image: url('../../assets/images/triangle-one.png');
+      }
+      .bgXOne {
+        background-image: url('../../assets/images/x-one.png');
+        width: 50%;
+        height: 45%;
+      }
+    }
+  }
+
+  .numberAccountDescription {
+    font-size: 1rem;
+    color: @grey-4;
+  }
+
+  .pinnedText {
+    display: none;
+    font-size: 18px;
+    margin: 10px 0 15px 0;
+    justify-content: flex-start;
+    align-items: center;
+
+    img {
+      width: 25px;
+      height: 25px;
+      margin-right: 10px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-bottom: 2rem;
+    .numberAccountBorder {
+      height: 24px;
+      margin: 0 10px 0 0;
+    }
+
+    .pinnedText {
+      display: flex;
+    }
+
+    .numberAccountTitle {
+      font-size: 20px;
+    }
+
+    .numberAccountDescription {
+      font-size: 0.9rem;
+    }
+  }
+  @media screen and (max-width: 750px) {
+    .numberAccountTitle {
+      font-size: 18px;
+    }
+  }
+
+  @media screen and (max-width: 690px) {
+    .numberAccountTitle {
+      font-size: 20px;
+      br {
+        display: block;
+      }
+    }
+  }
+
+  @media screen and (max-width: 405px) {
+    .numberAccountTitle {
+      font-size: 18px;
+    }
+  }
+  @media screen and (max-width: 380px) {
+    .numberAccountTitle {
+      font-size: 18px;
+    }
+    .numberAccountDescription {
+      font-size: 0.85rem;
+    }
+  }
+}
+
+.tbScroll {
+  overflow-y: scroll;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+}
+
+.noteStyle {
+  padding-top: 0.5rem;
+}
+
+.tbScrollVoteResult {
+  height: 348px;
+  overflow-y: scroll;
+  margin: auto;
+}
+
+.tableActionVote {
+  width: 100%;
+  margin: auto;
+  border: 1px solid @grey-1;
+  .row {
+    border: 1px solid @grey-1;
+    transition: ease-in 0.3s;
+    .column {
+      padding: 15px 20px;
+      font-size: 20px;
+      color: @grey-3;
+      // width: 50%;
+      font-weight: 400 !important;
+      margin: 0;
+      .datePC {
+        text-align: center;
+      }
+      .dateMobile {
+        display: none;
+        text-align: center;
+        p {
+          margin-bottom: 0;
+        }
+      }
+      @media screen and (max-width: 850px) {
+        padding: 15px 0;
+      }
+      @media screen and (max-width: 660px) {
+        .datePC {
+          font-size: 1.05rem;
+        }
+      }
+      @media screen and (max-width: 580px) {
+        .datePC {
+          display: none;
+        }
+        .dateMobile {
+          display: block;
+          p {
+            font-size: 1rem;
+          }
+        }
+      }
+      @media screen and (max-width: 425px) {
+        .dateMobile {
+          p {
+            font-size: 0.9rem;
+          }
+        }
+      }
+      &:nth-child(2) {
+        border-left: 1px solid @grey-1;
+      }
+    }
+
+    &:hover {
+      background: #f3ffff;
+      transition: ease-in 0.3s;
+    }
+  }
+}
+
+.dFlex {
+  display: flex;
+  justify-content: center;
+  margin: 40px 0;
+}
+
+.dFlexCenter {
+  display: flex;
+  justify-content: space-around;
+  .iconChoose {
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: @grey-13;
+    cursor: pointer;
+    box-shadow: inset 0 0 4px 0 @grey-14;
+    background-repeat: no-repeat;
+    background-position: center;
+    img {
+      border-radius: unset;
+    }
+    &:hover {
+      border: 3px solid @green-2;
+      background-color: 3px solid @green-2;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  }
+  .active {
+    background: #33c3c7;
+    background-image: url('../../assets/images/icon-on.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    box-shadow: inset 0 0 4px 0 @green-3;
+    &:hover {
+      background-image: url('../../assets/images/icon-on.png');
+      border: unset;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    width: 70%;
+    margin: auto;
+    justify-content: space-around;
+    .iconChoose {
+      width: 50px;
+      height: 50px;
+    }
+  }
+  @media screen and (max-width: 767px) {
+    width: 60%;
+  }
+
+  @media screen and (max-width: 500px) {
+    width: 75%;
+  }
+  @media screen and (max-width: 425px) {
+    width: 90%;
+    .iconChoose {
+      width: 40px;
+      height: 40px;
+      padding: 23px;
+    }
+  }
+}
+
+.collapseSettingContainer {
+  box-shadow: 1px 1px 12px @shadow-2;
+  border-radius: 20px;
+  margin-bottom: 35px;
+}
+
+.timeSetting {
+  display: flex;
+  flex-wrap: wrap;
+}
+.messageSetting {
+  display: flex;
+  flex-wrap: wrap;
+}
+.dropdownHeader {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  @media screen and (max-width: 767px) {
+    width: 100%;
+    position: relative;
+  }
+  .dropdownHeaderTitle {
+    font-size: 26px;
+    @media screen and (max-width: 767px) {
+      font-size: 18px;
+    }
+  }
+  .dropdownHeaderTitleOther {
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+    }
+  }
+  .helper {
+    @media screen and (max-width: 767px) {
+      position: absolute;
+      right: 0px;
+      top: -5px;
+    }
+  }
+  img {
+    height: 26px;
+    width: 26px;
+    margin-right: 8px;
+    @media screen and (max-width: 767px) {
+      height: 20px;
+      width: 20px;
+    }
+  }
+  a {
+    font-size: 25px;
+    color: @black-1;
+    :global {
+      .anticon-down {
+        margin-left: 30px;
+      }
+    }
+  }
+}
+
+.advancedSettingContainer {
+  padding: 30px 0 0 0;
+  border: none;
+
+  :global {
+    .ant-collapse {
+      border: none;
+      box-shadow: none;
+      .ant-collapse-item {
+        border: none;
+        box-shadow: none;
+        background: @white;
+        .ant-collapse-header {
+          background: @grey-16;
+        }
+        .ant-collapse-content {
+          border: none;
+          box-shadow: none;
+          .ant-collapse-content-box {
+            padding: 0;
+          }
+        }
+      }
+    }
+  }
+  @media screen and (max-width: 920px) {
+    width: 100%;
+    margin: 0;
+  }
+}
+.tableVoted {
+  border: 1px solid @grey-1;
+  margin-top: 30px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  table {
+    thead {
+      tr {
+        th {
+          background: @white;
+          word-break: break-word;
+          //border: 1px solid @grey-1;
+          padding: 15px 20px;
+          font-size: 24px;
+          color: @grey-3;
+          font-weight: 500 !important;
+
+          border-right: 2px solid #f0f0f0 !important;
+          border-bottom: 1px solid #f0f0f0 !important;
+
+          &:nth-child(1) {
+            border-right: 0 solid !important;
+          }
+
+          @media screen and (max-width: 768px) {
+            padding: 10px 0;
+            font-size: 16px;
+            &:not(:nth-child(1)):not(:nth-child(2)) {
+              padding: 10px 10px;
+            }
+          }
+        }
+      }
+    }
+    tbody {
+      tr {
+        border: 1px solid @grey-1;
+        td {
+          //border: 1px solid @grey-1;
+          padding: 15px 20px;
+          font-size: 17px;
+          font-weight: 400 !important;
+          color: @grey-3;
+          border-right: 2px solid #f0f0f0 !important;
+          border-bottom: 2px solid #f0f0f0 !important;
+
+          &:nth-child(1) {
+            border-right: 0 solid !important;
+            border-bottom: 1px solid @grey-1;
+          }
+
+          @media screen and (max-width: 1200px) {
+            &:first-child {
+              font-size: 1.1rem;
+              padding: 15px 10px;
+            }
+          }
+
+          @media screen and (max-width: 768px) {
+            font-size: 16px;
+            &:nth-child(1) {
+              padding: 10px 0;
+            }
+            &:nth-child(2) {
+              padding: 10px 0;
+            }
+          }
+
+          @media screen and (max-width: 562px) {
+            font-size: 0.9rem !important;
+          }
+        }
+      }
+      tr:hover td {
+        background: #f3ffff !important;
+      }
+      .mostVote {
+        background: #f3ffff;
+      }
+    }
+  }
+  .sumaryRow {
+    font-size: 20px;
+    @media screen and (max-width: 767px) {
+      font-size: 16px;
+      font-weight: 400;
+    }
+  }
+}
+
+.noteVote {
+  color: @grey-7;
+  margin: auto 0 auto 10px;
+  font-size: 16px;
+  @media screen and(max-width:767px) {
+    font-size: 14px;
+  }
+}
+
+.eventTypeOption {
+  :global {
+    border-radius: 20px !important;
+    text-align: center;
+  }
+}
+
+.scheduleAdjustmentModal {
+  max-width: 350px;
+  margin: auto;
+  .firstStepDetail {
+    margin-top: 0;
+    padding-top: 0;
+    .userInfo {
+      margin-bottom: 0;
+    }
+    .meetingInfo {
+      padding-bottom: 0;
+    }
+  }
+  .dottedBar {
+    font-size: 20px;
+    overflow: hidden;
+    text-overflow: clip;
+    white-space: nowrap;
+    line-height: 1;
+    color: @grey-4;
+    padding-bottom: 7px;
+  }
+}
+
+.minVoteConfirm {
+  :global {
+    .ant-btn {
+      background: #1890ff;
+      color: #fff;
+      border: 0;
+    }
+    .ant-btn-primary {
+      background: #fff;
+      color: rgba(0, 0, 0, 0.85);
+      border: 1px solid #d9d9d9;
+    }
+  }
+}

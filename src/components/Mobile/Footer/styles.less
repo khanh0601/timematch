@@ -1,0 +1,32 @@
+@import '../../../base.less';
+.wrapperFooter {
+  margin-top: 50px;
+}
+.footer {
+  .footerContent {
+    display: flex;
+    color: @grey-8;
+    font-size: 20px;
+    justify-content: center;
+    letter-spacing: 2px;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+      width: 100%;
+      font-size: 15px;
+    }
+    a {
+      color: #1f4f96;
+      text-decoration: underline;
+    }
+    li {
+      margin-right: 55px;
+      @media screen and (max-width: 767px) {
+        margin-right: 20px;
+        margin-bottom: 15px;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+}

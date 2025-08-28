@@ -1,0 +1,81 @@
+.container {
+  max-width: 1080px;
+  margin: auto;
+  padding: 45px 15px 0;
+  width: 100%;
+  .title {
+    color: black;
+    position: relative;
+    font-family: Yu Gothic UI;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 20px;
+    line-height: 27px;
+    margin-bottom: 20px;
+    left: 24px;
+    ::before {
+      content: '';
+      background-color: black;
+      width: 6px;
+      height: 27px;
+      position: absolute;
+      top: 0;
+      left: -24px;
+    }
+    ::after {
+      content: '';
+      background-color: black;
+      width: 2px;
+      height: 27px;
+      position: absolute;
+      top: 0;
+      left: -15px;
+    }
+  }
+  .table {
+    table {
+      border: 2px solid #e4e4e4 !important;
+    }
+    table thead tr th {
+      background: #fff;
+      font-family: Yu Gothic UI;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 16px;
+      line-height: 21px;
+      color: #3c3c3c;
+      text-align: center;
+    }
+    table thead tr th:not(:last-child) {
+      border-right: 2px solid #e4e4e4 !important;
+    }
+  }
+}
+.rowOdd {
+  background: #fff;
+  td {
+    font-family: NotoSansJP-Black;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 21px;
+    color: #000000;
+  }
+  td:not(:last-child) {
+    border-right: 2px solid #e4e4e4 !important;
+  }
+}
+.rowEven {
+  background-color: #f1f1f1;
+  td {
+    font-family: NotoSansJP-Black;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 21px;
+    color: #000000;
+  }
+  td:not(:last-child) {
+    border-right: 2px solid #e4e4e4 !important;
+  }
+}

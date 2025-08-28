@@ -1,0 +1,56 @@
+.swipeable-list-item {
+  overflow: unset;
+}
+.swipeable-item {
+  margin-bottom: 10px;
+}
+.swipeableList {
+  background: #c8d1d5;
+  padding: 10px;
+  color: #4a4a4a;
+  max-width: 600px;
+}
+
+.swipableItem {
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+  cursor: grab;
+  background: #fafafa;
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  padding: 10px 20px;
+}
+
+.swipableItemInner {
+  display: flex;
+  align-items: center;
+}
+
+.swipableItemInnerDiv {
+  width: 4px;
+  background: #177cff;
+  height: 20px;
+  margin-right: 5px;
+}
+
+.flexSpaceBetween {
+  margin-top: 2px;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.flex2 {
+  flex: 2;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.swipeable-list-item__content--remove {
+  transform: translateX(-600px) !important;
+}

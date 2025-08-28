@@ -1,0 +1,315 @@
+@import '../../base.less';
+
+.bookingCalendarEmbed {
+  background: #fff;
+  padding: 2rem 2.5rem;
+  max-width: 1100px;
+  margin: auto;
+  .titleHeader {
+    display: flex;
+    .empty,
+    .nameBooked {
+      width: 50%;
+      flex: 1 1;
+    }
+  }
+  .settingCalendar {
+    flex: 1;
+    width: 50%;
+    max-width: 550px;
+    .infoSettingItem {
+      margin-bottom: 2rem !important;
+      .imageCustomer {
+        min-height: 500px;
+      }
+      &.last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    padding: 1rem 1rem 0;
+  }
+  .calendar {
+    flex: 1;
+    @media screen and(min-width: 425px) {
+      padding-top: 1rem !important;
+    }
+  }
+  .title {
+    position: relative;
+    text-align: left;
+    padding-left: 25px;
+    line-height: 24px;
+    margin-bottom: 20px;
+    ::before {
+      content: '';
+      width: 7px;
+      height: 24px;
+      background-color: #33c2c6;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+    ::after {
+      content: '';
+      width: 2px;
+      height: 24px;
+      background-color: #33c2c6;
+      position: absolute;
+      top: 0;
+      left: 9px;
+    }
+  }
+  .smallText {
+    padding-left: 25px;
+  }
+
+  .contentBooking {
+    display: flex;
+  }
+  @media (max-width: 1090px) {
+    .settingCalendar {
+      .infoSettingItem {
+        .imageCustomer {
+          min-height: 450px;
+        }
+      }
+    }
+  }
+  @media (max-width: 997px) {
+    padding: 2rem 1rem;
+
+    .settingCalendar {
+      .infoSettingItem {
+        .imageCustomer {
+          min-height: 400px;
+        }
+      }
+    }
+  }
+  @media (max-width: 850px) {
+    .settingCalendar {
+      .infoSettingItem {
+        .imageCustomer {
+          min-height: 350px;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 770px) {
+    padding: 2rem 0.4rem;
+    .settingCalendar {
+      .infoSettingItem {
+        .imageCustomer {
+          min-height: 300px;
+        }
+      }
+    }
+  }
+  @media (max-width: 650px) {
+    .settingCalendar {
+      .infoSettingItem {
+        .imageCustomer {
+          min-height: 270px;
+        }
+      }
+    }
+  }
+  @media (max-width: 590px) {
+    .settingCalendar {
+      .infoSettingItem {
+        .imageCustomer {
+          min-height: 250px;
+        }
+      }
+    }
+  }
+  @media (max-width: 425px) {
+    width: 100%;
+    padding: 2rem 0;
+    height: unset;
+    .contentBooking {
+      display: unset;
+    }
+    .settingCalendar {
+      width: unset;
+      .infoSettingItem {
+        .imageCustomer {
+          min-height: 350px;
+        }
+      }
+    }
+    .titleHeader {
+      display: unset;
+      .empty {
+        display: none;
+      }
+      .nameBooked {
+        padding-top: 1rem;
+        width: 100%;
+      }
+    }
+    .hideContentSuccessMb {
+      display: none;
+    }
+  }
+}
+
+.stepCalendarTitle {
+  margin-top: 1rem;
+  flex: 1 1;
+
+  .titleIcon {
+    display: flex;
+    .bolderColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 35px;
+      width: 8px;
+      margin-right: 5px;
+    }
+    .normalColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 35px;
+      width: 3px;
+      margin-right: 10px;
+    }
+
+    .titleSuccess {
+      margin-top: 0.2rem;
+      color: #707070;
+      span {
+        font-size: 20px;
+        font-weight: bold;
+      }
+
+      .childText {
+        margin-top: 1.5rem;
+        font-size: 16px;
+      }
+    }
+  }
+  &.stepCalendarTitleMB {
+    display: none;
+  }
+  @media screen and (max-width: 425px) {
+    &.stepCalendarTitlePC {
+      display: none;
+    }
+
+    &.stepCalendarTitleMB {
+      display: unset;
+    }
+
+    .titleIcon {
+      padding: 0 0.75rem;
+      .titleSuccess {
+        span {
+          font-size: 17px;
+          font-weight: bold;
+        }
+
+        .childText {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+}
+
+.customContentBooking {
+  @media screen and(min-width: 425px) {
+    flex-direction: row-reverse;
+  }
+}
+
+.dividerItem,
+.bookingTime {
+  display: none;
+  @media (max-width: 425px) {
+    display: unset;
+  }
+}
+
+.bookingCalendarEmbedExpirted {
+  p {
+    text-align: center;
+  }
+}
+
+.primaryStepTitle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  width: calc(100% - 73px);
+  .titleIcon {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    .bolderColIcon {
+      display: inline-block;
+      background-color: #3c3c3c;
+      height: 20px;
+      width: 6px;
+      margin-right: 3px;
+    }
+    .normalColIcon {
+      display: inline-block;
+      background-color: #3c3c3c;
+      height: 20px;
+      width: 3px;
+      margin-right: 8px;
+    }
+  }
+}
+
+.mgr12 {
+  margin-right: 12px !important;
+}
+
+.dividerPage {
+  margin: -1rem;
+  padding: 1rem;
+  filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.04));
+  background-color: #ffffff;
+
+  .subStepTitle {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: calc(100% - 73px);
+    .titleIcon {
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      .bolderColIcon {
+        display: inline-block;
+        background-color: #3c3c3c;
+        height: 20px;
+        width: 6px;
+        margin-right: 8px;
+      }
+    }
+    .blackTitleLine {
+      :before {
+        background-color: #3c3c3c !important;
+      }
+      :after {
+        background-color: #3c3c3c !important;
+        width: 3px !important;
+        margin-left: 1px !important;
+      }
+      b {
+        margin-left: -6px;
+      }
+    }
+    .title {
+      margin-bottom: 0.5rem;
+    }
+  }
+  .pdf1dot4Rem {
+    padding-left: 1.4rem;
+    font-weight: bold;
+  }
+}

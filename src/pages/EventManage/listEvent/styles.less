@@ -1,0 +1,409 @@
+@import '../../../base.less';
+
+.listEvent {
+  // padding-bottom: 80px;
+  @media screen and (max-width: 767px) {
+    // padding-bottom: 190px;
+  }
+  :global {
+    .ant-tabs-tab:first-child {
+      margin-left: 20px;
+    }
+    .ant-tabs-nav-list {
+      align-items: unset !important;
+      justify-content: unset !important;
+    }
+  }
+  .inCommingEvent {
+    padding: 24px 16px;
+    @media screen and (max-width: 767px) {
+      padding: 24px 10px;
+    }
+    .eventBox {
+      background-color: @white;
+      border-radius: 20px;
+      padding: 35px;
+      height: fit-content;
+      width: 100%;
+      margin-bottom: 24px;
+      box-shadow: 1px 1px 10px #b3bcbc60;
+      @media screen and (max-width: 767px) {
+        padding: 20px;
+      }
+      .eventTitle {
+        font-size: 23px;
+        color: @black-1;
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+
+        .titleIcon {
+          margin-right: 15px;
+          display: flex;
+          align-items: center;
+          .bolderColIcon {
+            display: inline-block;
+            background-color: @green-2;
+            height: 35px;
+            width: 8px;
+            margin-right: 5px;
+            @media screen and(max-width:767px) {
+              height: 20px;
+            }
+          }
+          .normalColIcon {
+            display: inline-block;
+            background-color: @green-2;
+            height: 35px;
+            width: 3px;
+            @media screen and(max-width:767px) {
+              height: 20px;
+            }
+          }
+        }
+
+        h2 {
+          margin: 0;
+          font-size: 23px;
+          @media screen and (max-width: 767px) {
+            font-size: 18px;
+          }
+        }
+      }
+
+      .voteCount {
+        margin-left: 2rem;
+        font-size: 16px;
+        color: #33c3c7;
+        @media screen and(max-width:767px) {
+          margin-left: 2rem;
+          margin-bottom: 18px;
+        }
+      }
+      .eventDetail {
+        display: flex;
+        @media screen and (max-width: 767px) {
+          flex-wrap: wrap;
+        }
+        @media screen and (max-width: 1023px) and (min-width: 768px) {
+          flex-wrap: wrap;
+        }
+        .eventTime {
+          width: 50%;
+          @media screen and (max-width: 767px) {
+            width: 100%;
+          }
+          @media screen and (max-width: 1023px) and (min-width: 768px) {
+            width: 100%;
+          }
+          p {
+            font-size: 18px;
+            color: @black-1;
+            @media screen and (max-width: 767px) {
+              font-size: 15px;
+            }
+          }
+          .eventTypesList {
+            display: flex;
+            .eventType:last-child {
+              margin-right: 0;
+            }
+            .eventType {
+              max-width: 33.33%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              flex-wrap: wrap;
+              margin-right: 4px;
+              p {
+                font-size: 16px;
+                text-align: center;
+                display: block;
+                width: 100%;
+                margin: 0;
+                @media screen and(max-width:767px) {
+                  font-size: 14px;
+                }
+                @media screen and(max-width:346px) {
+                  font-size: 12px;
+                }
+                @media screen and(max-width:308px) {
+                  font-size: 10px;
+                }
+              }
+              .selectBar {
+                height: 8px;
+                width: 142px;
+                background-color: @green-light;
+                display: block;
+                width: 100%;
+                margin: 3px 0;
+                &.active {
+                  background-color: @green-2;
+                }
+              }
+            }
+          }
+        }
+        .eventLocation {
+          width: 45%;
+          padding: 0 2rem;
+          @media screen and (max-width: 1023px) and (min-width: 768px) {
+            width: 70%;
+            padding: 0;
+          }
+          @media screen and (max-width: 767px) {
+            width: 100%;
+            padding: 0;
+          }
+          .guest {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-bottom: 20px;
+            @media screen and (max-width: 767px) {
+              margin-top: 30px;
+              margin-bottom: 10px;
+            }
+            .avatar {
+              height: 50px;
+              width: 50px;
+              background-color: #b6b6b6;
+              border-radius: 50%;
+              font-size: 25px;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+              margin: 0 8px 0 0;
+              color: @white-3;
+              @media screen and (max-width: 767px) {
+                width: 30px;
+                height: 30px;
+                font-size: 15px;
+              }
+            }
+            .name {
+              font-size: 25px;
+              margin: 0;
+              @media screen and (max-width: 767px) {
+                font-size: 15px;
+              }
+            }
+          }
+          .meetingLocation {
+            word-break: break-all;
+          }
+          .locationLinkBadge {
+            width: fit-content;
+            border: #38c5c9 2px solid;
+            height: 50px;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            padding: 0 23px;
+            cursor: pointer;
+            font-size: 19px;
+            text-align: center;
+            @media screen and (max-width: 767px) {
+              margin-bottom: 30px;
+              font-size: 14px;
+              padding: 0 15px;
+              height: 40px;
+            }
+          }
+
+          .locationMicrosoft {
+            display: block;
+            align-items: unset;
+            height: unset !important;
+            padding: unset !important;
+            width: 100%;
+          }
+        }
+        .eventAction {
+          width: 27%;
+          margin-top: -50px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          @media screen and (max-width: 767px) {
+            width: 100%;
+            align-items: center;
+            margin-top: 0;
+          }
+          .primaryButton {
+            width: 250px;
+            min-width: 140px;
+            height: 47px;
+            border: #d4d4d4 2px solid;
+            border-radius: 15px;
+            background-color: @white;
+            font-size: 19px;
+            text-align: center;
+            color: @black-1;
+            cursor: pointer;
+            @media screen and (max-width: 767px) {
+              min-width: auto;
+              flex-basis: 40%;
+              height: 40px;
+            }
+            &:hover {
+              border: #38c5c9 2px solid;
+            }
+          }
+          .cancelButton {
+            width: 200px;
+            min-width: 140px;
+            height: 47px;
+            border: #d4d4d4 2px solid;
+            border-radius: 15px;
+            background-color: @white;
+            font-size: 19px;
+            text-align: center;
+            color: @black-1;
+            cursor: pointer;
+            margin-top: 15px;
+            @media screen and (max-width: 767px) {
+              min-width: auto;
+              flex-basis: 40%;
+              height: 40px;
+            }
+            &:hover {
+              border: #38c5c9 2px solid;
+            }
+          }
+        }
+      }
+      .eventInfo {
+        .infoLine {
+          font-size: 19px;
+          color: @black-1;
+          margin-bottom: 15px;
+          display: flex;
+          align-items: center;
+          @media screen and (max-width: 767px) {
+            flex-wrap: wrap;
+            font-size: 14px;
+          }
+          .infoTitle {
+            margin-right: 40px;
+            min-width: 80px;
+            @media screen and (max-width: 767px) {
+              padding-left: 0;
+              width: calc(100% - 30px);
+              margin-right: 0;
+            }
+          }
+          p {
+            margin-bottom: 0;
+            display: inline-block;
+            @media screen and (max-width: 767px) {
+              padding-left: 18px;
+            }
+          }
+          .boldColIcon {
+            background-color: #3c3c3c;
+            width: 9px;
+            height: 23px;
+            display: inline-block;
+            margin-right: 9px;
+          }
+        }
+      }
+      .endLine {
+        height: 1px;
+        width: 100%;
+        background-color: @grey-6;
+        margin: 30px 0 45px 0;
+      }
+    }
+    :global {
+      .ant-pagination {
+        display: flex;
+        justify-content: flex-end;
+        padding: 0 30px;
+      }
+    }
+    .paginationEvent {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      ul {
+        text-align: right;
+        display: block;
+        @media screen and (max-width: 767px) {
+          text-align: center;
+        }
+      }
+    }
+    :global {
+      .ant-pagination .ant-pagination-item-active {
+        background-color: #33c3c7;
+        &:hover {
+          background-color: #33c3c7;
+        }
+        a {
+          color: black;
+          &:hover {
+            color: white;
+          }
+        }
+      }
+      .ant-pagination .ant-pagination-item {
+        &:hover {
+          background-color: #33c3c7;
+        }
+        a {
+          &:hover {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+  .badTrip {
+    // background-color: red;
+  }
+
+  :global {
+    .ant-pagination {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 30px;
+      .ant-pagination-disabled:hover {
+        .ant-pagination-item-link {
+          border-color: #d9d9d9 !important;
+          color: rgba(0, 0, 0, 0.25) !important;
+        }
+      }
+      .ant-pagination-prev:hover {
+        .ant-pagination-item-link {
+          border-color: @green-2;
+          color: @green-2;
+        }
+      }
+      .ant-pagination-next:hover {
+        .ant-pagination-item-link {
+          border-color: @green-2;
+          color: @green-2;
+        }
+      }
+      .ant-pagination-item:hover {
+        border-color: @green-2;
+        a {
+          color: @green-2;
+        }
+      }
+      .ant-pagination-item-active {
+        border-color: @green-2;
+        a {
+          color: @green-2;
+        }
+      }
+    }
+  }
+}
+
+.previewText {
+  font-size: 18px;
+}

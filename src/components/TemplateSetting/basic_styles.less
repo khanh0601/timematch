@@ -1,0 +1,534 @@
+@import '../../base.less';
+
+.stepCalendarTitle {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  font-size: 16px;
+  .titleIcon {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    .bolderColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 35px;
+      width: 8px;
+      margin-right: 5px;
+    }
+    .normalColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 35px;
+      width: 3px;
+    }
+  }
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    &.titleStep2 {
+      font-size: 16px;
+    }
+  }
+  p {
+    font-size: 16px;
+    width: 100%;
+    padding-left: 58px;
+  }
+}
+
+.calendarInfoContainer {
+  display: flex;
+  flex-wrap: wrap;
+  .inputField {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    position: relative;
+    .fieldIcon {
+      width: 7px;
+      height: 17px;
+      margin-right: 6px;
+      background-color: @black-1;
+      @media screen and (max-width: 767px) {
+        display: none;
+      }
+    }
+    p {
+      margin: 0;
+      min-width: 150px;
+      font-size: 16px;
+    }
+    input {
+      flex-grow: 1;
+    }
+    .selectInput {
+      width: 100%;
+      height: 100%;
+      font-size: 16px;
+      :global {
+        .ant-select-selection-search-input,
+        .ant-select-selection-placeholder,
+        .ant-select-selection-item {
+          font-size: 16px;
+          @media screen and (max-width: 767px) {
+            font-size: 14px;
+          }
+        }
+      }
+    }
+    .errorNotice {
+      position: absolute;
+      font-size: 12px;
+      color: red;
+      line-height: 1;
+      left: 0;
+      bottom: -15px;
+      @media screen and (max-width: 767px) {
+        position: unset;
+        font-size: 11px;
+      }
+      a {
+        color: #33c3c7;
+        text-decoration: underline;
+      }
+    }
+  }
+  .leftInfo {
+    width: calc(50% - 18px);
+    margin-right: 36px;
+    .inputField {
+      margin: 38px 0 0 0;
+    }
+  }
+  .rightInfo {
+    width: calc(50% - 18px);
+    .stepActions {
+      p {
+        text-align: right;
+      }
+      .onOff {
+        background-color: #94d6d6;
+        width: 30px;
+        height: 22px;
+        display: inline-block;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 5px;
+      }
+      .paging {
+        display: flex;
+        justify-content: flex-end;
+        .onOff {
+          background-color: #94d6d6;
+          box-shadow: -2px -2px 4px #b3bcbc,
+            inset -2px -2px 3px 0px rgba(0, 0, 0, 0.36);
+        }
+        .activeIndex {
+          background-color: @green-light;
+        }
+        div {
+          width: 30px;
+          height: 22px;
+          display: inline-block;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          border-radius: 5px;
+          box-shadow: -2px -2px 4px #b3bcbc;
+          margin-right: 5px;
+          cursor: pointer;
+        }
+        .pencilIcon {
+          width: 18px;
+          height: 18px;
+          background-color: transparent;
+          box-shadow: none;
+          cursor: pointer;
+          margin-left: 10px;
+          img {
+            width: 18px;
+            height: 18px;
+          }
+        }
+      }
+      .advancedSetting {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        margin: 15px 0 0 0;
+        .pinionIcon {
+          width: 18px;
+          height: 18px;
+          background-color: transparent;
+          box-shadow: none;
+          cursor: pointer;
+          margin-right: 10px;
+        }
+      }
+    }
+  }
+  .moreInput {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    margin-top: 25px;
+    @media screen and (max-width: 767px) {
+      margin-top: 0;
+    }
+    .inputField {
+      width: calc(50% - 18px);
+      @media screen and (max-width: 767px) {
+        width: 100%;
+        align-items: flex-start;
+      }
+    }
+    .inputField:nth-child(odd) {
+      margin-right: 36px;
+      @media screen and (max-width: 767px) {
+        margin-right: 0;
+      }
+    }
+  }
+  :global {
+    @media screen and (max-width: 767px) {
+      .ant-collapse-content > .ant-collapse-content-box {
+        padding: 0 16px;
+      }
+    }
+  }
+  .moreInputField {
+    width: calc(100% - 163px);
+    @media screen and (max-width: 767px) {
+      width: calc(100% - 150px);
+    }
+  }
+}
+
+.calendarViewContainer {
+  .calendarHeader {
+    margin: 5px 0 5px 0;
+    p {
+      font-size: 13px;
+      color: #c6c8c6;
+      margin-bottom: 0px;
+    }
+    .date {
+      font-size: 19px;
+      color: @black-1;
+    }
+  }
+  :global {
+    .ant-switch-checked {
+      min-width: 68px;
+      height: 19px;
+      border: 1px solid #e2dfdf;
+      box-sizing: border-box;
+      background-color: #e3f4f4 !important;
+
+      .ant-switch-handle {
+        left: calc(100% - 23px);
+        width: 22px;
+        height: 15px;
+        top: 1px;
+      }
+
+      .ant-switch-handle::before {
+        background-image: url('../../assets/images/icon-on-creation.png') !important;
+        right: 3px;
+        left: 0 !important;
+      }
+    }
+    .ant-switch {
+      min-width: 68px;
+      height: 21px;
+      border: 1px solid #e2dfdf;
+      box-sizing: border-box;
+      background-color: #ffffff;
+      box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.36);
+      .ant-switch-handle {
+        width: 22px;
+        height: 15px;
+        top: 1px;
+      }
+
+      .ant-switch-handle::before {
+        background-image: url('../../assets/images/icon-off-creation.png');
+        background-color: unset;
+        box-shadow: none;
+        left: 3px;
+        top: 3px;
+      }
+      &:hover {
+        box-shadow: inset 2px 2px 3px 0px rgba(0, 0, 0, 0.36);
+      }
+    }
+    .fc-scroller {
+      .fc-scroller-liquid-absolute::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    .fc-scrollgrid-section-header .fc-scroller {
+      &::-webkit-scrollbar {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+    .ant-tooltip-inner {
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      min-height: 24px;
+    }
+    .fc-event-main {
+      background-color: #e3f4f4;
+    }
+    .fc-media-screen .fc-timegrid-event {
+      border: none;
+    }
+    .fc-media-screen .fc-timegrid-event-harness {
+      background-color: #e3f4f4;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .fc-media-screen .fc-timegrid-event {
+      border-radius: 10px;
+      overflow: hidden;
+      background-color: #e3f4f4;
+    }
+  }
+  .eventContent {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #00b6d3;
+    border: 1px solid #9af0ed;
+    border-radius: 5px;
+    overflow: visible;
+    position: relative;
+    .resizeIconTop {
+      position: absolute;
+      top: -1px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: pointer;
+      opacity: 0;
+      width: 100%;
+      height: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-flow: column;
+      div {
+        height: 2px;
+        background-color: #3c3e3e;
+        width: 17px;
+        margin: 1px 0;
+      }
+    }
+    &:hover {
+      background-color: #33c3c7;
+      .resizeIconBottom,
+      .resizeIconTop {
+        opacity: 1;
+      }
+    }
+    .timeText {
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+    }
+  }
+  .recentAdded {
+    border: 2px dashed #33c3c7;
+    background-color: #d1f3f2;
+    .timeText {
+      color: #818c8c;
+    }
+    &:hover {
+      border: 2px dashed #33c3c7;
+      background-color: #d1f3f2;
+    }
+  }
+  .currentEvent {
+    background-color: #279ca0;
+    .timeText {
+      color: #ffffff;
+    }
+  }
+}
+
+:global {
+  .ant-tooltip-inner {
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    min-height: 24px;
+  }
+  .fc-event-resizer-end {
+    position: relative;
+    height: 15px !important;
+    &::before {
+      content: '';
+      height: 2px;
+      width: 17px;
+      position: absolute;
+      bottom: 10px;
+      background-color: #3c3e3e;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    &::after {
+      content: '';
+      height: 2px;
+      width: 17px;
+      position: absolute;
+      bottom: 5px;
+      background-color: #3c3e3e;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+  }
+}
+.basicSettingTemp {
+  :global {
+    .ant-select-selector {
+      height: 32px !important;
+    }
+  }
+}
+
+.deleteEventBtn {
+  height: 14px;
+  min-width: 60px;
+  background-color: transparent;
+  color: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 12px;
+  img {
+    margin-right: 7px;
+    width: 11px;
+    height: 13px;
+  }
+}
+
+.imageEventTypeIcon {
+  width: 20px;
+  height: 20px;
+  margin-right: 8px;
+}
+
+.createEventButtonGroup {
+  .editDetail {
+    height: 1px;
+    width: 100%;
+    position: relative;
+    background-color: #707070;
+    margin: 50px 0 70px 0;
+    .editDetailButton {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      height: 34px;
+      min-width: 105px;
+      padding: 0 20px;
+      font-size: 14px;
+      color: #434343;
+      border-radius: 16px;
+      background-color: @grey-10;
+    }
+  }
+  .buttonZone {
+    .previewBtnZone {
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      .previewButton {
+        margin-left: 26px;
+        height: 32px;
+        min-width: 170px;
+        background-color: #555555;
+        color: @white-2;
+        text-align: center;
+        border-radius: 6px;
+      }
+    }
+    .cancelButton {
+      height: 48px;
+      min-width: 150px;
+      padding: 0 55px;
+      font-size: 17px;
+      color: #535353;
+      border-radius: 19px;
+      background-color: @white-2;
+      margin: 0 20px;
+      box-shadow: 3px -1px 15px @shadow-1;
+      border: none;
+    }
+    .submitButton {
+      height: 48px;
+      min-width: 150px;
+      padding: 0 55px;
+      font-size: 17px;
+      color: @white-2;
+      border-radius: 19px;
+      background-color: @green-2;
+      margin: 0 20px;
+    }
+  }
+}
+
+.basicSettingButtonZone {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  .cancelBtn {
+    height: 48px;
+    min-width: 148px;
+    background-color: #e8e6e6;
+    border: 1px solid #e8e6e6;
+    border-radius: 24px;
+    margin: 0 10px;
+    font-size: 14px;
+    color: #414141;
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+    }
+  }
+  .saveBtn {
+    height: 48px;
+    min-width: 150px;
+    padding: 0 55px;
+    font-size: 14px;
+    color: @white-2;
+    border-radius: 24px;
+    background-color: @green-2;
+    margin: 0 10px;
+    border: 0;
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+    }
+  }
+}
+.templateContent {
+  :global {
+    .ant-select {
+      height: auto !important;
+    }
+    .ant-select-single .ant-select-selector .ant-select-selection-item {
+      justify-content: flex-start !important;
+    }
+  }
+}

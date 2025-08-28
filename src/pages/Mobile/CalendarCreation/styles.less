@@ -1,0 +1,256 @@
+.calendarCreationContainer {
+  padding: 20px;
+  hr {
+    margin: 20px 0;
+  }
+  .labelName {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    .labelIcon {
+      padding-right: 3px;
+      width: 20px;
+    }
+  }
+  .inputField {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+  }
+  .selectField {
+    width: 40%;
+    height: 40px;
+  }
+  .candidateContainer {
+    display: flex;
+    align-items: center;
+    .candidateButton {
+      height: 40px;
+      border-radius: 10px;
+      background-color: #3368c7;
+      color: #ffffff;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+    }
+    img {
+      margin-left: 5px;
+      width: 30px;
+    }
+  }
+  .calendarTimeGroup {
+    padding: 20px 30px 0 30px;
+    .datePickerContainer {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      .datePickerItem {
+        font-weight: 500;
+        font-size: 1.2rem;
+      }
+    }
+    .calendarBtn {
+      margin-top: 15px;
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      background-color: #ffffff;
+      color: #3368c7;
+      font-weight: 600;
+      border: 1px solid #3368c7;
+      box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+    }
+    .calendarTime {
+      display: flex;
+      align-items: center;
+      margin: 15px 0;
+      padding-left: 10px;
+      width: 100%;
+      height: 40px;
+      border-radius: 10px;
+      background-color: #ffffff;
+      color: #3368c7;
+      border: 1px solid #3368c7;
+    }
+  }
+  .collapseContainer {
+    margin-top: 15px;
+    background-color: #ffffff;
+    .collapseExtractCandidate {
+      background-color: #deebf5;
+      padding: 10px;
+      .candidateHeader {
+        padding: 0 10px;
+      }
+      .calendarTimeContainer {
+        margin-top: 10px;
+        background-color: #ffffff;
+        border-radius: 7px;
+        padding: 10px;
+      }
+      .candidateItem {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        .candidateItemName {
+          color: #3368c7;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+  .saveBtn {
+    width: 50%;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: #3368c7;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+  }
+}
+.modalContent {
+  .shareCalendarFrame {
+    border: 1px solid #7f7e7e;
+    border-radius: 10px;
+    padding: 10px;
+    .shareCalendarLink {
+      color: #0f87e4;
+    }
+    .shareCalendarItem {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .bgBlue500 {
+        background-color: #4a6bc0;
+      }
+      .bgBlue700 {
+        background-color: #1f4f96;
+      }
+      .shareCalendarTitle {
+        font-weight: 500;
+      }
+      .shareCalendarBtn {
+        height: 25px;
+        padding: 0 10px;
+        border-radius: 5px;
+        color: #ffffff;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        border: none;
+        box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+      }
+    }
+  }
+}
+.bookingCalendarParent {
+  @media screen and (max-width: 767px) {
+    position: relative;
+    overflow: scroll;
+    height: 80vh;
+    & > div {
+      position: absolute;
+    }
+  }
+}
+.calendarLinkOtherDesc {
+  background-color: rgba(24, 144, 255, 0.15);
+  border-radius: 20px;
+  padding: 15px;
+  color: #0f87e4;
+  .calendarLinkOtherTitle {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0;
+    > svg {
+      fill: #0c3dc9;
+      margin-right: 5px;
+    }
+  }
+  .calendarLinkOtherContent {
+    font-size: 0.9rem;
+  }
+}
+.calendarLinkOtherBtn {
+  padding-top: 20px;
+  .calendarLinkOtherItem {
+    margin: 20px auto 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #b3bcbc;
+    background: transparent;
+    padding: 5px 10px;
+    box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    > img {
+      width: 25px;
+      margin-right: 10px;
+    }
+  }
+}
+.calendarLinkOtherFooter {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > a {
+    padding: 0 10px;
+    color: #0f87e4;
+    text-decoration: underline;
+  }
+}
+:global {
+  .ant-form-item {
+    margin-bottom: 0;
+  }
+  .ant-collapse {
+    border-radius: 5px !important;
+    .ant-collapse-item {
+      border-radius: 10px;
+      .ant-collapse-header {
+        padding: 10px 20px;
+      }
+    }
+    .ant-collapse-content {
+      .ant-collapse-content-box {
+        padding: 0;
+        height: 30vh;
+        overflow-x: hidden;
+        overflow-y: scroll;
+      }
+    }
+    .ant-checkbox-group {
+      width: 100%;
+    }
+  }
+  .ant-picker {
+    width: 100%;
+    border-radius: 10px;
+    .ant-picker-input {
+      input {
+        text-align: center;
+      }
+      .ant-picker-suffix {
+        display: none;
+      }
+      .ant-picker-clear {
+        display: none;
+      }
+    }
+  }
+  .fc-timegrid-event.fc-v-event.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-future {
+    border: 2px dashed rgb(24, 144, 255) !important;
+  }
+}

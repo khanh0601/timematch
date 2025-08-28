@@ -1,0 +1,405 @@
+@import '../../base.less';
+.mainHeader {
+  background-color: @white-1;
+  border-bottom: 1px solid @grey-6;
+  @media screen and (max-width: 425px) {
+    padding: 0.3rem 0;
+  }
+}
+
+.header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  flex-flow: row;
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
+  padding: 0 15px;
+
+  .headerTitle {
+    display: flex;
+    //width: 100%;
+    //max-width: 50%;
+    flex-grow: 2;
+
+    .headerLogo {
+      margin: auto 0;
+      color: @black-1;
+      .imgLogo {
+        width: 132px;
+        height: 30px;
+        cursor: pointer;
+        background-image: url('../../assets/images/logo-black.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+    }
+
+    .boxMessageName {
+      //padding-left: 16px;
+      max-width: 400px;
+      width: 100%;
+
+      .headerTitleText {
+        border: 1px solid #ececec;
+        background: #fff;
+        border-radius: 20px;
+        padding: 0 15px;
+        margin: auto;
+        display: block;
+        box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+        font-size: 1rem;
+        line-height: 2.4rem;
+        width: 96%;
+        color: #3c3c3c;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        word-break: break-word;
+        white-space: nowrap;
+      }
+    }
+
+    .headerInforBooking {
+      font-size: 13px;
+      background: #606060;
+      padding: 0 16px;
+      line-height: 2.4rem;
+      border-radius: 5px;
+      cursor: pointer;
+      outline: none;
+      display: none;
+      a {
+        font-size: 14px;
+        color: white;
+      }
+    }
+  }
+
+  .headerMenu {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+    justify-content: flex-end;
+
+    .headerMenuItem {
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 56px;
+
+      &:last-child {
+        margin-right: 0;
+        display: flex;
+        align-items: center;
+      }
+    }
+
+    .headerMenuItemAvt {
+      width: 30px;
+      height: 30px;
+      margin-right: 14px;
+      margin-top: 3px;
+      position: relative;
+      border-radius: 50%;
+      border: 2px solid @green-2;
+      overflow: hidden;
+      display: inline-table;
+      @media screen and (max-width: 767px) {
+        margin-right: 5px;
+        margin-top: 0;
+      }
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .defaultAvatar {
+        width: 30px;
+        height: 30px;
+        position: relative;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-position: center;
+          object-fit: contain;
+        }
+
+        .bgAvatar {
+          background-image: url('../../assets/images/logo-black.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+          width: 30px;
+          height: 30px;
+        }
+      }
+    }
+
+    @media screen and (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 1023px) and (min-width: 768px) {
+    .headerTitle {
+      width: auto;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 0 7px;
+    .headerTitle {
+      justify-content: space-between;
+      .boxMessageName {
+        display: none;
+        width: unset;
+        flex-grow: 2;
+      }
+
+      .headerInforBooking {
+        display: unset;
+      }
+    }
+  }
+
+  //@media screen and (max-width: 669px) {
+  //  .headerTitle {
+  //    .headerLogo {
+  //      padding: 0;
+  //      .imgLogo {
+  //        width: 15px;
+  //        background-position: unset;
+  //        background-size: unset;
+  //      }
+  //    }
+  //  }
+  //}
+
+  @media screen and (max-width: 523px) {
+    .headerTitle {
+      .boxMessageName {
+        .headerTitleText {
+          padding: 0 7px;
+          width: 94%;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 511px) {
+    .headerTitle {
+      .headerInforBooking {
+        font-size: 11px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 500px) {
+    .headerTitle {
+      .boxMessageName {
+        .headerTitleText {
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 463px) {
+    .headerMenu {
+      .headerMenuItem {
+        font-size: 11px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 437px) {
+    .headerTitle {
+      .boxMessageName {
+        width: 60%;
+      }
+      .headerInforBooking {
+        a {
+          font-size: 11px;
+        }
+      }
+    }
+    .headerMenu {
+      width: 20%;
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    height: unset;
+    .headerTitle {
+      .headerLogo {
+        .imgLogo {
+          width: 100px;
+          height: 24px;
+        }
+      }
+      .headerInforBooking {
+        line-height: 2.1rem;
+      }
+    }
+  }
+
+  @media screen and (max-width: 408px) {
+    .headerTitle {
+      .boxMessageName {
+        width: 55%;
+      }
+    }
+    .headerMenu {
+      width: 25%;
+    }
+  }
+
+  :global {
+    .ant-dropdown-link {
+      display: flex;
+      align-items: center;
+      @media screen and (max-width: 767px) {
+        min-width: 83px;
+      }
+    }
+    .ant-dropdown-trigger > .anticon.anticon-down,
+    .ant-dropdown-link > .anticon.anticon-down,
+    .ant-dropdown-button > .anticon.anticon-down {
+      font-size: 13px;
+      margin-left: 5px;
+    }
+  }
+}
+
+.dropdownMenu {
+  border-radius: 20px !important;
+  // text-align: center;
+  padding: 0 !important;
+  overflow: hidden;
+  min-width: 160px;
+  left: -20px;
+  top: 30px;
+  li:last-child {
+    border-top: 1px solid @grey-4;
+  }
+}
+
+.dropdownMenuAccount {
+  margin-top: 7px;
+  border-radius: 3px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  min-width: 160px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0,
+    rgba(255, 255, 255, 0.05) 0 0 0 1px inset !important;
+  li:last-child {
+    border-top: 1px solid @grey-4;
+  }
+}
+
+.logoutConfirm {
+  border-radius: 20px !important;
+}
+
+.headerPreviewAdjustment,
+.headerPreviewVote {
+  display: block;
+  margin-top: initial;
+  .header {
+    max-width: initial;
+
+    @media screen and (min-width: 1300px) {
+      max-width: 1300px;
+    }
+
+    @media screen and (max-width: 768px) {
+      :global {
+        .ant-dropdown-link {
+          min-width: auto !important;
+        }
+      }
+
+      .headerTitle {
+        .boxMessageName {
+          .headerTitleText {
+            border-radius: 10px;
+          }
+        }
+      }
+
+      .headerMenuItemAvt {
+        display: none;
+      }
+
+      .headerMenu {
+        li {
+          margin-right: 0;
+        }
+
+        .headerMenuItemFirst {
+          display: none;
+        }
+      }
+
+      .hideItemNav {
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 425px) {
+      .headerTitle {
+        .boxMessageName {
+          .headerTitleText {
+            padding: 0 5px;
+          }
+        }
+      }
+
+      .headerMenuItemAvt {
+        display: none;
+      }
+
+      .headerMenu {
+        li {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+}
+
+.headerPreviewVote {
+  .header {
+    max-width: 1080px;
+  }
+}
+
+.headerCalendar {
+  margin-top: -60px;
+  z-index: 1;
+}
+
+.headerSuccessVote {
+  .header {
+    max-width: 1080px !important;
+    .headerMenu {
+      .headerMenuItem {
+        .headerMenuItemAvt {
+          display: none;
+        }
+      }
+    }
+  }
+}

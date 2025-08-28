@@ -1,0 +1,68 @@
+@import '../../base.less';
+.dropdownMenu {
+  position: relative;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 400;
+  cursor: pointer;
+  .dropdownContent {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0.2s ease-in, opacity 0.1s ease-in;
+    position: absolute;
+    min-width: 116px;
+    z-index: 300;
+    right: -12px;
+  }
+}
+
+.dropdownHoverMenu {
+  &:hover {
+    .dropdownContent {
+      visibility: visible;
+      opacity: 1;
+    }
+    :global {
+      .ant-dropdown-link {
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+    @media screen and (max-width: 425px) {
+      .dropdownContent {
+        visibility: hidden;
+        opacity: 0;
+      }
+      :global {
+        .ant-dropdown-link {
+          span {
+            font-weight: normal;
+          }
+        }
+      }
+    }
+  }
+}
+
+.visibleDropdownMenu {
+  .dropdownContent {
+    visibility: visible !important;
+    opacity: 1 !important;
+  }
+  :global {
+    .ant-dropdown-link {
+      span {
+        font-weight: bold;
+      }
+    }
+  }
+}
+.dropDownCustomLeft {
+  margin-bottom: 1.5rem;
+  .dropdownContent {
+    left: 100%;
+    top: 0;
+    width: fit-content;
+  }
+}

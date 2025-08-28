@@ -1,0 +1,186 @@
+.toolBox {
+  border-radius: 5px;
+  //max-width: 450px;
+  width: 415px;
+  background: #dff3ff;
+  padding: 0.8rem;
+  box-shadow: #00000026 0 1px 2px 0, #00000026 0 2px 6px 2px;
+  .title {
+    margin-bottom: 2rem;
+    text-align: center;
+    p {
+      font-weight: bold;
+      color: #4a6bc0;
+      font-size: 20px;
+      margin-bottom: 0;
+    }
+  }
+  .stepItem {
+    padding-left: 0.8rem;
+    .stepHeader {
+      display: flex;
+      font-size: 16px;
+      .lineItem {
+        display: flex;
+        height: 21px;
+        div {
+          background: #4a6bc0;
+          height: 100%;
+          &.lineBig {
+            width: 6px;
+            margin-right: 0.1rem;
+          }
+          &.lineChild {
+            width: 2px;
+          }
+        }
+      }
+      .stepName {
+        padding: 0 0.7rem;
+        p {
+          font-weight: bold;
+          color: #3c3c3c;
+          margin-bottom: 0;
+          text-transform: uppercase;
+        }
+      }
+      span {
+        font-weight: bold;
+        color: #3c3c3c;
+      }
+    }
+    .stepContent {
+      padding: 1rem 0 2rem 20px;
+      .inputName {
+        border: 2px solid #3c3c3c;
+        border-radius: 12px;
+        width: 83%;
+        outline: none;
+        padding: 0.2rem 0.5rem;
+      }
+      .switchSetting {
+        border: 2px solid #3c3c3c;
+        border-radius: 15px;
+        width: 83%;
+        display: flex;
+        font-size: 16px;
+        background: #fff;
+        margin-bottom: 1.5rem;
+        div {
+          cursor: pointer;
+          padding: 0.2rem 0.5rem;
+          flex: 1;
+          text-align: center;
+          border-radius: 12px 0 0 12px;
+          color: #3c3c3c;
+          &:last-child {
+            border-radius: 0 12px 12px 0;
+          }
+          &.active {
+            background: #4a6bc0;
+            color: #fff;
+          }
+        }
+      }
+      .formSettingItem {
+        &:not(:last-child) {
+          padding-bottom: 2rem;
+        }
+        .formSettingTitle {
+          font-weight: bold;
+          font-size: 16px;
+          color: #3c3c3c;
+          margin-bottom: 0.5rem;
+        }
+        .formSettingContent {
+          width: 83%;
+          .fontSize {
+            text-align: center;
+            width: 33%;
+            outline: none;
+            border: 2px solid #3c3c3c !important;
+          }
+          .selectFontSize {
+            width: 33%;
+          }
+        }
+
+        &:last-child {
+          .formSettingContent {
+            display: flex;
+            .widthHeight {
+              &:first-child {
+                padding-right: 1rem;
+              }
+              display: flex;
+              .title {
+                line-height: 1.9rem;
+                color: #6d6d6d;
+                font-size: 14px;
+              }
+              .content {
+                width: 65%;
+                :global {
+                  .ant-select-single .ant-select-selector {
+                    width: 90px !important;
+                  }
+                }
+              }
+              .selectButton {
+                width: 100%;
+              }
+            }
+          }
+        }
+      }
+      :global {
+        .ant-input-suffix {
+          margin-left: 0;
+        }
+        .ant-select-single .ant-select-selector {
+          border: 2px solid #3c3c3c !important;
+          border-radius: 8px !important;
+        }
+      }
+    }
+  }
+  .btnGroupSubmit {
+    display: flex;
+    justify-content: center;
+    margin: 3rem 0;
+    button {
+      height: 90%;
+      border: 1px solid transparent;
+      background: #fff;
+      color: #3c3c3c;
+      border-radius: 0.6rem;
+      padding: 0.4rem 0.8rem;
+      cursor: pointer;
+      box-shadow: #00000017 0 2px 8px 0;
+      &:first-child {
+        margin: auto 1rem auto 0;
+      }
+      &:last-child {
+        color: #fff;
+        background: #3773e1;
+        margin: auto 0 auto 1rem;
+      }
+      .iconNextLef {
+        margin-right: 0.3rem;
+      }
+      .iconNextRight {
+        margin-left: 0.3rem;
+      }
+    }
+    &.btnGroupSubmitText {
+      margin-top: 0;
+    }
+  }
+
+  @media screen and(max-width: 1440px) {
+    width: 460px;
+  }
+  @media screen and(max-width: 1268px) {
+    width: 480px;
+  }
+}

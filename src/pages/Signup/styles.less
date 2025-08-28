@@ -1,0 +1,164 @@
+@import '../../base.less';
+.signup {
+  max-width: 1080px;
+  margin: auto;
+  padding: 36px 44px 180px;
+  .eventTitle {
+    color: #3c3c3c;
+    display: flex;
+    align-items: center;
+    margin-bottom: 18px;
+    .titleIcon {
+      margin-right: 15px;
+      display: flex;
+      align-items: center;
+      .bolderColIcon {
+        display: inline-block;
+        background-color: #33c3c7;
+        height: 52px;
+        width: 13px;
+        margin-right: 5px;
+      }
+      .normalColIcon {
+        display: inline-block;
+        background-color: #33c3c7;
+        height: 52px;
+        width: 5px;
+      }
+    }
+    h2 {
+      font-size: 45px;
+      margin-bottom: 0;
+    }
+  }
+  .signupHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 90px;
+  }
+  .signupHeaderRightGreen {
+    background: #33c3c7;
+    position: relative;
+    height: fit-content;
+    font-size: 31px;
+    color: #fff;
+    font-weight: 700;
+    padding: 6px 30px 6px 18px;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-top: 8px;
+    &::before {
+      content: '';
+      position: absolute;
+      left: -45px;
+      width: 0;
+      height: 0;
+      top: 0px;
+      border-top: 30px solid transparent;
+      border-bottom: 30px solid transparent;
+      border-right: 45px solid #33c3c7;
+    }
+  }
+  .signupHeaderRightText {
+    text-align: right;
+    margin-right: 30px;
+    font-size: 16px;
+    margin-top: 7px;
+  }
+  .signupOtherText {
+    font-size: 26px;
+    padding-bottom: 80px;
+    max-width: 730px;
+    margin: auto;
+  }
+  .labelCheckbox {
+    font-size: 25px;
+    position: relative;
+    letter-spacing: 1px;
+    a {
+      color: #33c3c7;
+      text-decoration: underline;
+    }
+  }
+  .signupCheckbox {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  .btnGoogle {
+    background: #daeeff;
+  }
+  .btnOther {
+    font-size: 25px;
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 20px;
+    margin: 0 auto 30px;
+    box-shadow: 6px 6px 3px -3px #ccc;
+    img {
+      margin-right: 48px;
+    }
+  }
+  .btnOffice {
+    background: #eb3c03;
+    color: #fff;
+  }
+  .signupLinkOther {
+    margin-top: 100px;
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: block;
+    text-align: center;
+    color: #353535;
+  }
+  .btnLogin {
+    font-size: 22px;
+    color: #fff;
+    background: #d8d8d8;
+    max-width: 460px;
+    display: block;
+    text-align: center;
+    margin: auto;
+    border-radius: 20px;
+    padding: 5px 20px;
+    width: 100%;
+    height: auto;
+    font-weight: bold;
+  }
+  .signupCheckboxItem {
+    display: flex;
+    align-items: center;
+  }
+}
+.signup {
+  :global {
+    .ant-checkbox-input,
+    .ant-checkbox-inner {
+      display: none;
+    }
+    .ant-checkbox-checked::after {
+      display: none;
+    }
+    .ant-checkbox {
+      &::before {
+        content: '';
+        width: 28px;
+        height: 28px;
+        position: absolute;
+        left: -53px;
+        border-radius: 9px;
+        border: 3px solid #7f7f7f;
+        top: -12px;
+      }
+      &.ant-checkbox-checked {
+        &::before {
+          background: url('../../assets/images/icon-checked.svg') center
+            no-repeat;
+          background-size: 70% 70%;
+        }
+      }
+    }
+  }
+}

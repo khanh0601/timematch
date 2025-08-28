@@ -1,0 +1,186 @@
+.dialogChooseTemplate {
+  .bodyTemplate {
+    padding-bottom: 4rem;
+    .embedTitle {
+      text-align: center;
+      padding-bottom: 0.7rem;
+    }
+    .embedModalContent {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      gap: 4px;
+      height: 408px;
+      padding: 0 57px;
+
+      .embedModalInner {
+        border: 4px solid #40a9ff;
+        width: 100%;
+        height: 100%;
+        padding: 14px;
+        cursor: pointer;
+        &:hover {
+          background-color: #33c3c7 !important;
+          color: white !important;
+          h2 {
+            color: white !important;
+          }
+        }
+        & > div:first-child {
+          height: 280px;
+          border: 2px solid #1a1b1b60;
+          border-radius: 12px;
+          background-color: white;
+          position: relative;
+          padding: 40px 18px 0 18px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          & > div:first-child {
+            width: 100%;
+            height: 37px;
+            background-color: #e8e3e3;
+            border-radius: 10px;
+          }
+
+          & > div:nth-child(2) {
+            width: 100%;
+            height: 114px;
+            display: flex;
+            justify-content: space-around;
+            gap: 10px;
+            & > div {
+              width: 100%;
+              height: 100%;
+              background-color: #e8e3e3;
+
+              &:last-child {
+                display: none;
+              }
+            }
+          }
+
+          & > div:last-child {
+            flex-grow: 1;
+            width: 100%;
+            background-color: #e8e3e3;
+            padding: 17px 0px;
+          }
+
+          &::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 23px;
+            background-color: #d4d1d1;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+          }
+        }
+
+        button {
+          display: block;
+          margin: 0 auto;
+          border-radius: 16px;
+          font-weight: bold;
+          background-color: #33c3c7;
+          color: white;
+        }
+
+        .embedLinkButton {
+          text-align: center;
+          display: block;
+          margin: 0 auto;
+          font-weight: bold;
+          font-size: 14px;
+          text-decoration: underline;
+          color: #33c3c7;
+          padding: 4px 15px;
+        }
+
+        a {
+          display: block;
+          margin: 0 auto;
+          font-size: 14px;
+          width: 157px;
+          height: 32px;
+          padding-top: 3px;
+          font-weight: bold;
+          background-color: #e8e3e3;
+          color: #33c3c7;
+          text-align: center;
+          border-bottom: 2px solid #33c3c7;
+        }
+
+        h2 {
+          margin-top: 8px;
+          margin-bottom: 4px;
+          font-size: 1.2rem;
+        }
+
+        p {
+          margin-bottom: 2px;
+          font-size: 12px;
+          padding-left: 11px;
+        }
+
+        & > div:last-child {
+          margin: 0 auto;
+        }
+
+        &:last-child {
+          & > div:first-child {
+            & > div:nth-child(2) {
+              gap: 3px;
+              & > div {
+                &:nth-child(2) {
+                  background: #0bc3c6;
+                }
+                &:last-child {
+                  display: unset;
+                  width: 10%;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      @media screen and(max-width:768px) {
+        display: block;
+        .embedModalInner {
+          width: 100%;
+          &:last-child {
+            margin-top: 1rem;
+          }
+        }
+      }
+
+      @media only screen and (max-width: 556px) {
+        padding: 0;
+        .embedModalInner {
+          button {
+            font-size: 10px;
+          }
+
+          h2 {
+            font-size: 16px;
+          }
+
+          p {
+            font-size: 10px;
+          }
+        }
+      }
+    }
+  }
+
+  :global {
+    .ant-modal-content {
+      border-radius: 15px !important;
+    }
+  }
+}

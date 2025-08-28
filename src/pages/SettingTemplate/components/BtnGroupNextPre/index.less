@@ -1,0 +1,44 @@
+.btnGroupNextPre {
+  display: flex;
+  button {
+    height: 90%;
+    border: 1px solid transparent;
+    background: #fff;
+    color: #3c3c3c;
+    border-radius: 0.6rem;
+    padding: 0 1.2rem;
+    cursor: pointer;
+    box-shadow: #00000017 0 2px 8px 0;
+    &:first-child {
+      margin: auto 1rem auto 0;
+    }
+    &:last-child {
+      color: #fff;
+      background: #3773e1;
+      margin: auto 0 auto 1rem;
+    }
+    .iconNextLef {
+      margin-right: 0.5rem;
+    }
+    .iconNextRight {
+      margin-left: 0.5rem;
+    }
+  }
+  @media screen and(max-width: 1346px) {
+    button {
+      padding: 0 0.8rem;
+      &:first-child {
+        margin: auto 0.5rem auto 0;
+      }
+      &:last-child {
+        color: #fff;
+        background: #3773e1;
+        margin: auto 0 auto 0.5rem;
+      }
+    }
+  }
+
+  @media screen and(max-width: 425px) {
+    display: none;
+  }
+}

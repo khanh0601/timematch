@@ -1,0 +1,96 @@
+.forgotPassword {
+  position: relative;
+  height: fit-content;
+  padding-bottom: 80px;
+  h2 {
+    font-size: 30px;
+    text-align: center;
+    padding: 100px 0 700px 0;
+  }
+  .bodyContent {
+    padding: 65px 0 127px;
+    p {
+      font-size: 24px;
+      text-indent: 37px;
+      @media screen and (max-width: 767px) {
+        text-indent: 0;
+      }
+    }
+    .headTitle {
+      display: flex;
+      align-items: center;
+      margin-bottom: 50px;
+      @media screen and (max-width: 767px) {
+        margin-bottom: 20px;
+      }
+      .bolderIcon {
+        width: 12px;
+        height: 52px;
+        background-color: #33c3c7;
+        margin-right: 8px;
+        display: inline-block;
+      }
+      .titleIcon {
+        width: 5px;
+        height: 52px;
+        background-color: #33c3c7;
+        margin-right: 8px;
+        display: inline-block;
+      }
+      span {
+        color: #3c3c3c;
+        font-size: 30px;
+        @media screen and (max-width: 767px) {
+          font-size: 35px;
+        }
+      }
+    }
+    .intruction {
+      font-size: 18px;
+    }
+    .inputField {
+      max-width: 508px;
+      margin: auto;
+      span {
+        margin-bottom: 10px;
+        font-size: 25px;
+      }
+      input {
+        height: 58px;
+        border-radius: 20px;
+        font-size: 22px;
+      }
+      .errorNotice {
+        color: #ff4d4f;
+        font-size: 14px;
+      }
+    }
+    .btnZone {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 80px;
+      margin-bottom: 25px;
+      .signUpBtn {
+        min-width: 237px;
+        height: 50px;
+        background-color: #33c3c7;
+        color: #ffffff;
+        font-size: 18px;
+        border-radius: 20px;
+        margin: 0;
+      }
+    }
+  }
+  :global {
+    .ant-form-item {
+      margin: 0;
+    }
+    .ant-form {
+      max-width: 1080px;
+      width: 100%;
+      padding: 0 15px;
+      margin: auto;
+    }
+  }
+}

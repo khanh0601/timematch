@@ -1,0 +1,201 @@
+@import '../../base.less';
+
+.profileContainer {
+  max-width: 1080px;
+  margin: auto;
+  width: 100%;
+  .header {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .avtImage {
+    border-radius: 50%;
+    border: 3px solid @green-2;
+    display: inline-table;
+  }
+  .informationForm {
+    padding: 0 35px;
+    @media screen and (max-width: 767px) {
+      padding: 0;
+    }
+  }
+  button {
+    border-radius: 20px;
+    height: 49px;
+    padding: 4px 15px !important;
+  }
+  .groupBtn {
+    display: flex;
+    justify-content: center;
+    button {
+      height: 49px;
+      min-width: 130px;
+      @media screen and (max-width: 767px) {
+        min-width: auto;
+      }
+    }
+    button:first-child {
+      margin-right: 30px !important;
+      @media screen and (max-width: 767px) {
+        margin-right: 15px !important;
+      }
+    }
+  }
+  .headTitle {
+    display: flex;
+    align-items: center;
+    margin-bottom: 50px;
+    @media screen and (max-width: 767px) {
+      margin-bottom: 20px;
+    }
+    .bolderIcon {
+      width: 12px;
+      height: 52px;
+      background-color: #33c3c7;
+      margin-right: 8px;
+      display: inline-block;
+    }
+    .titleIcon {
+      width: 5px;
+      height: 52px;
+      background-color: #33c3c7;
+      margin-right: 8px;
+      display: inline-block;
+    }
+    span {
+      color: #3c3c3c;
+      font-size: 30px;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+  }
+  :global {
+    .ant-avatar img {
+      object-fit: fill;
+    }
+    .ant-avatar.ant-avatar-circle {
+      border: 0;
+    }
+    input {
+      height: 58px;
+      border-radius: 16px !important;
+      font-size: 16px;
+    }
+    label {
+      font-size: 16px;
+    }
+    .ant-form-item-control-input-content {
+      display: flex;
+      align-items: center;
+    }
+    .btn.btn-custom-height {
+      font-size: 16px;
+    }
+  }
+  .avatarRow {
+    .avatarButton {
+      margin-left: 50px;
+      @media screen and (max-width: 767px) {
+        margin-left: 25px;
+      }
+    }
+  }
+  .urlRow {
+    :global {
+      .ant-input-group-addon {
+        background: none;
+        border: none;
+        padding-left: 0;
+        font-size: 16px;
+      }
+      .ant-input {
+        border-radius: 8px;
+      }
+    }
+  }
+  .wrapperAvatar {
+    width: 136px;
+    height: 136px;
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+  }
+  .btnUpdate {
+    margin-bottom: 0;
+    button {
+      margin-top: 80px;
+      margin-bottom: 50px;
+      font-size: 20px;
+      height: 49px;
+      width: 209px;
+      border-radius: 20px;
+      @media screen and (max-width: 767px) {
+        margin-top: 30px;
+        margin-bottom: 50px;
+      }
+    }
+  }
+  .groupPart {
+    margin-bottom: 50px;
+    @media screen and (max-width: 767px) {
+      margin-bottom: 50px;
+    }
+    .partName {
+      display: flex;
+      align-items: center;
+      margin-bottom: 50px;
+      @media screen and (max-width: 767px) {
+        margin-bottom: 30px;
+      }
+    }
+    .disconnectBtn:not(:disabled) {
+      color: #ffffff;
+      background-color: #b6b6b6;
+      &:hover {
+        color: #ffffff;
+        background-color: #b6b6b6;
+        opacity: 0.8;
+      }
+    }
+    button {
+      border-radius: 20px;
+      margin-left: 90px;
+      font-size: 20px;
+      max-width: 340px;
+      width: 340px;
+      height: 49px;
+      @media screen and (max-width: 767px) {
+        margin-left: 0;
+        font-size: 18px;
+      }
+    }
+    .partNameTitle {
+      font-size: 30px;
+      color: @black-4;
+      @media screen and (max-width: 767px) {
+        font-size: 18px;
+      }
+    }
+    .partNameBorder {
+      display: inline-block;
+      width: 9px;
+      height: 30px;
+      background: @black-4;
+      margin-right: 10px;
+    }
+  }
+  .backToHome {
+    // margin-bottom: 80px;
+
+    button {
+      border-radius: 20px;
+      height: 49px;
+      font-size: 20px;
+      width: 209px;
+    }
+  }
+}

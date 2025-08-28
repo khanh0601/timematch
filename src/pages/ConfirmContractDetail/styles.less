@@ -1,0 +1,174 @@
+@import '../../base.less';
+.confirmContractDetail {
+  padding: 0 15px 165px;
+  max-width: 1080px;
+  width: 100%;
+  margin: auto;
+  @media screen and (max-width: 767px) {
+    padding: 0 15px 210px;
+  }
+  .paymentTitle {
+    margin: 65px 0px 55px;
+    display: flex;
+    align-items: center;
+    @media screen and (max-width: 767px) {
+      margin: 30px 0;
+    }
+    .paymentTitleText {
+      color: @black-4;
+      font-size: 45px;
+      font-weight: 500;
+      display: inline-block;
+    }
+    .confirmContractTitle {
+      font-size: 30px;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+  }
+  .backButton {
+    .cardAsterisk {
+      vertical-align: sub;
+    }
+    .changeBtn {
+      height: 42px;
+      border: 3px solid @green-2;
+      font-size: 16px;
+      // font-family: 'HGSGothic';
+      border-radius: 15px;
+      background-color: @white;
+      color: @black-1;
+      margin: 0 30px;
+      @media screen and (max-width: 767px) {
+        height: 35px;
+        font-size: 13px;
+        margin: 0px 10px;
+      }
+    }
+  }
+  .titleIcon {
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+    .bolderColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 13px;
+      margin-right: 6px;
+    }
+    .normalColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 5px;
+    }
+  }
+  .description {
+    font-size: 23px;
+    color: #3c3c3c;
+    margin-bottom: 50px;
+    margin-left: 40px;
+    @media screen and (max-width: 767px) {
+      margin-left: 0;
+      margin-bottom: 30px;
+    }
+  }
+  .confirmContractDescript {
+    font-size: 14px;
+  }
+  .table {
+    margin: 30px 0;
+  }
+  .tr {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .tr {
+    font-size: 23px;
+    color: #3d3d3d;
+    @media screen and (max-width: 767px) {
+      font-size: 15px;
+    }
+    @media screen and (max-width: 1023px) and (min-width: 768px) {
+      font-size: 18px;
+    }
+    .td {
+      border-right: 2px solid #f3f3f3;
+      border-bottom: 2px solid #f3f3f3;
+      padding: 15px 50px;
+      flex-basis: 50%;
+      @media screen and (max-width: 767px) {
+        padding: 5px 10px;
+        flex-basis: 50%;
+        min-height: 60px;
+        display: flex;
+        align-items: center;
+      }
+      @media screen and (max-width: 1023px) and (min-width: 768px) {
+        min-height: 72px;
+        display: flex;
+        align-items: center;
+        padding: 15px;
+      }
+      &:last-child {
+        border-right: 0px;
+      }
+    }
+    &:last-child {
+      .td {
+        border-bottom: 0;
+      }
+    }
+  }
+  .confirmContractTr {
+    font-size: 16px;
+  }
+  .confirmContractTrOther {
+    height: 69px;
+    .td {
+      padding: 0 50px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      @media screen and (max-width: 767px) {
+        padding: 0 10px;
+      }
+    }
+    @media screen and (max-width: 767px) {
+      .backButton {
+        justify-content: space-between;
+        .changeBtn {
+          margin: 0 0 0 5px;
+          padding: 0 10px;
+        }
+      }
+    }
+  }
+  .tbody {
+    -webkit-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
+    box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+  }
+  .change {
+    font-size: 19px;
+    border: 2px solid #33c3c7;
+    border-radius: 10px;
+    padding: 5px 22px;
+    margin-left: 35px;
+  }
+  .btnGroup {
+    margin-top: 50px;
+    button:not(:last-child) {
+      margin-right: 30px;
+    }
+  }
+  :global {
+    .btn {
+      font-size: 16px;
+    }
+  }
+}

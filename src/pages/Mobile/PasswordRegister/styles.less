@@ -1,0 +1,101 @@
+.forgotPassword {
+  position: relative;
+  height: fit-content;
+  padding-bottom: 80px;
+  h2 {
+    font-size: 30px;
+    text-align: center;
+    padding: 100px 0 700px 0;
+  }
+  .bodyContent {
+    padding: 30px 0 127px;
+    p {
+      font-size: 24px;
+      text-indent: 37px;
+      @media screen and (max-width: 767px) {
+        text-indent: 0;
+      }
+    }
+    .headTitle {
+      display: flex;
+      align-items: center;
+      margin-bottom: 50px;
+      @media screen and (max-width: 767px) {
+        margin-bottom: 20px;
+      }
+      .bolderIcon {
+        width: 12px;
+        height: 52px;
+        background-color: #33c3c7;
+        margin-right: 8px;
+        display: inline-block;
+      }
+      .titleIcon {
+        width: 5px;
+        height: 52px;
+        background-color: #33c3c7;
+        margin-right: 8px;
+        display: inline-block;
+      }
+      span {
+        color: #3c3c3c;
+        font-size: 30px;
+        @media screen and (max-width: 767px) {
+          font-size: 35px;
+        }
+      }
+    }
+    .intruction {
+      font-size: 18px;
+    }
+    .inputField {
+      width: 100%;
+      margin: auto;
+      span {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+      }
+      input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #999999 !important;
+        border-radius: 5px;
+        padding: 5px;
+        margin-bottom: 0;
+      }
+      .errorNotice {
+        color: #ff4d4f;
+        font-size: 14px;
+      }
+    }
+    .btnZone {
+      margin-top: 20px;
+      margin-bottom: 25px;
+      .signUpBtn {
+        width: 100%;
+        height: 40px;
+        background-color: #023768;
+        color: #ffffff;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        &:hover {
+          background-color: #1f4f96;
+        }
+      }
+    }
+  }
+  :global {
+    .ant-form-item {
+      margin: 0;
+    }
+    .ant-form {
+      max-width: 1080px;
+      width: 100%;
+      padding: 0 15px;
+      margin: auto;
+    }
+  }
+}

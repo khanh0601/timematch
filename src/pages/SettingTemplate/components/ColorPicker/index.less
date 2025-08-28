@@ -1,0 +1,41 @@
+.colorPicker {
+  display: flex;
+  flex-flow: wrap;
+  max-width: 300px;
+  .rowColor {
+    display: flex;
+    &:not(:last-child) {
+      margin-bottom: 0.5rem;
+    }
+    .colorItem {
+      height: 25px;
+      width: 25px;
+      cursor: pointer;
+      margin-right: 0.5rem;
+      border-radius: 50%;
+      border: 1px solid #c5c5c5;
+    }
+    .active {
+      border-color: #0f87e4;
+    }
+  }
+}
+.searchColor {
+  margin-top: 1rem;
+  display: flex;
+  div {
+    width: 55%;
+    span {
+      font-size: 14px;
+      color: #6d6d6d;
+    }
+  }
+  input {
+    width: 40%;
+    border: 2px solid #c5c5c5;
+    outline: none;
+  }
+}
+.errorColor {
+  color: red;
+}

@@ -1,0 +1,121 @@
+@import '../../base.less';
+.CalendarContainer {
+  max-width: 554px;
+  width: 100%;
+  padding: 30px 54px 54px;
+  box-shadow: 1px 1px 10px @shadow-1;
+  border-radius: 15px;
+  margin: 60px auto 40px;
+  @media screen and (max-width: 767px) {
+    padding: 30px 15px;
+    margin: 30px auto;
+  }
+
+  .header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+      margin-right: 13px;
+      margin-left: 13px;
+    }
+  }
+
+  .calendarLabel {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+  }
+
+  .lineCalendar {
+    border-bottom: 1px solid #a1a0a0;
+    margin: 0 12px 15px;
+  }
+
+  :global {
+    .week-cell {
+      text-align: center;
+      color: #707070;
+      font-size: 20px;
+    }
+
+    .anticon {
+      font-size: 20px;
+    }
+
+    .datetime {
+      font-size: 20px;
+      font-weight: 600;
+    }
+  }
+
+  .errorMessage {
+    color: red;
+    text-align: center;
+    margin-top: 20px;
+  }
+
+  .dayContainer {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto auto auto;
+    grid-gap: 15px;
+    @media screen and (max-width: 767px) {
+      grid-gap: 3px;
+    }
+
+    :global {
+      .day-cell {
+        text-align: center;
+        font-size: 20px;
+        border-radius: 5px;
+        padding-top: 13px 15px;
+        border: 3px solid transparent;
+        width: 50px;
+        cursor: pointer;
+        @media screen and (max-width: 767px) {
+          margin: auto;
+          font-size: 13px;
+          width: 100%;
+        }
+
+        &:hover {
+          background: @white;
+          border: 3px solid @green-2;
+        }
+
+        &-active {
+          background-color: @green-2 !important;
+          color: @white;
+        }
+
+        &-available {
+          background-color: #ddf6f5;
+        }
+
+        &-disabled {
+          cursor: default;
+          pointer-events: none;
+          background: @white;
+        }
+
+        &-current {
+          position: relative;
+          &::after {
+            content: '';
+            width: 5px;
+            height: 5px;
+            background-color: grey;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 0px;
+            left: 44%;
+            @media screen and (max-width: 767px) {
+              bottom: -2px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

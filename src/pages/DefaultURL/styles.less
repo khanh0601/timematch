@@ -1,0 +1,78 @@
+.defaultURL {
+  max-width: 1080px;
+  margin: auto;
+  position: relative;
+  padding: 72px 0 182px 0;
+  &.defaultURLNotFound {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-weight: 700;
+    font-size: 1.5rem;
+  }
+  @media screen and (max-width: 767px) {
+    padding: 10px 0 182px 0;
+  }
+  .notFound {
+    text-align: center;
+  }
+  .headInfo {
+    font-size: 25px;
+    color: #000000;
+    margin: 0 0 72px 0;
+    text-align: center;
+    font-weight: 600;
+    @media screen and (max-width: 767px) {
+      font-size: 18px;
+      margin: 0 0 5px 0;
+    }
+  }
+  .suggestion {
+    font-size: 24px;
+    margin-bottom: 30px;
+    text-indent: 15px;
+    padding: 0 15px;
+    font-weight: normal;
+    @media screen and (max-width: 767px) {
+      font-size: 14px;
+      text-indent: 0;
+      margin-bottom: 5px;
+    }
+  }
+  .listEventType {
+    max-width: 1080px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    margin: auto;
+    @media screen and (max-width: 1199px) {
+      justify-content: center;
+    }
+  }
+  .backToHome {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+    img {
+      background-color: #0f87e4;
+      width: 25px;
+      border-radius: 100%;
+      margin-right: 5px;
+    }
+  }
+  :global {
+    .ant-pagination {
+      display: flex;
+      justify-content: flex-end;
+      padding: 0 30px;
+      margin-top: 30px;
+      @media screen and (max-width: 767px) {
+        padding: 0 30px 30px;
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+@import '../../base.less';
+.ModalContainer {
+  .textLine1,
+  .textLine2 {
+    padding-left: 50px;
+    @media screen and (max-width: 767px) {
+      padding-left: 0;
+    }
+  }
+
+  .textLine1 {
+    font-size: 21px;
+  }
+
+  .textLine2 {
+    font-size: 15px;
+    color: #3c3c3c;
+  }
+
+  :global {
+    .ant-modal {
+      width: 810px !important;
+    }
+
+    .ant-modal-content {
+      padding: 50px;
+      @media screen and (max-width: 767px) {
+        padding: 20px 0;
+        .ant-modal-body {
+          padding-top: 0;
+          padding-bottom: 0;
+        }
+      }
+    }
+
+    .ant-modal-footer {
+      display: flex;
+      justify-content: center;
+      border-top: none;
+
+      button {
+        max-width: 150px;
+      }
+
+      button:first-child {
+        margin-right: 50px;
+        background-color: rgb(194, 194, 194);
+      }
+
+      button:disabled {
+        cursor: not-allowed;
+        opacity: 0.5;
+      }
+    }
+  }
+}

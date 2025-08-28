@@ -1,0 +1,244 @@
+@import '../../../base.less';
+
+.calendarCreation {
+  max-width: 1080px;
+  margin: auto;
+  padding: 25px 0 50px 0;
+  @media screen and (max-width: 767px) {
+    padding: 0 0 50px;
+  }
+}
+
+.advancedSettingContainer {
+  max-width: 1080px;
+  padding: 30px 0 0 0;
+  margin: auto;
+  .collapseSettingContainer {
+    box-shadow: 1px 1px 12px @shadow-2;
+    border-radius: 20px;
+    margin-bottom: 35px;
+  }
+  .messageSettingContainer {
+    :global {
+      .ant-collapse-header .ant-collapse-arrow {
+        left: 250px !important;
+      }
+    }
+  }
+  :global {
+    .ant-collapse-icon-position-right
+      > .ant-collapse-item
+      > .ant-collapse-header
+      .ant-collapse-arrow {
+      left: 180px;
+      right: unset;
+      font-size: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .ant-collapse {
+      border: 0;
+      background-color: #fff;
+    }
+    .ant-collapse-header,
+    .ant-collapse > .ant-collapse-item:last-child,
+    .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+      background-color: #fff;
+      border-radius: 20px;
+    }
+    .ant-collapse-content,
+    .ant-collapse-item:last-child > .ant-collapse-content {
+      border-top: 0;
+      border-radius: 0 0 20px 20px;
+    }
+    .ant-collapse > .ant-collapse-item {
+      border-bottom: 0;
+    }
+    .ant-select-single:not(.ant-select-customize-input) {
+      .ant-select-selector {
+        padding: 0 10px;
+        height: 23px;
+        min-width: 99px;
+        border: 2px solid #d9d9d9 !important;
+        border-radius: 12px !important;
+        font-size: 13px;
+        color: #414141;
+        line-height: 23px;
+        display: flex;
+        align-items: center;
+        .ant-select-selection-item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+          height: 100%;
+          img {
+            height: 15px;
+            width: 15px;
+          }
+          > div {
+            height: 100%;
+            display: flex;
+            align-items: center;
+          }
+        }
+      }
+    }
+    .ant-picker {
+      max-width: 100px;
+      font-size: 13px;
+      height: 24px;
+      border-radius: 15px;
+      border-width: 2px;
+    }
+    .ant-picker-input > input {
+      font-size: 13px;
+    }
+  }
+  .scheduleSetting {
+    padding: 24px 64px 0 64px;
+    box-shadow: 1px 1px 12px @shadow-2;
+    border-radius: 20px;
+    margin-bottom: 40px;
+  }
+  .timeSetting {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .messageSetting {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .dropdownHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    @media screen and (max-width: 767px) {
+      width: 100%;
+      position: relative;
+    }
+    .dropdownHeaderTitle {
+      font-size: 26px;
+      @media screen and (max-width: 767px) {
+        font-size: 18px;
+      }
+    }
+    .dropdownHeaderTitleOther {
+      @media screen and (max-width: 767px) {
+        font-size: 16px;
+      }
+    }
+    .helperDropdown {
+      margin-left: 55px;
+      @media screen and (max-width: 768px) {
+        position: absolute;
+        right: 0;
+      }
+    }
+    img {
+      height: 26px;
+      width: 26px;
+      margin-right: 8px;
+      @media screen and (max-width: 767px) {
+        height: 20px;
+        width: 20px;
+      }
+    }
+    a {
+      font-size: 25px;
+      color: @black-1;
+      :global {
+        .anticon-down {
+          margin-left: 30px;
+        }
+      }
+    }
+  }
+}
+
+.buttonZoneContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 50px 0;
+
+  .cancelButton {
+    background-color: #e8e6e6;
+    height: 48px;
+    max-width: 150px;
+    width: 100%;
+    padding: 0 15px;
+    font-size: 17px;
+    color: #535353;
+    border-radius: 19px;
+    margin: 0 20px;
+    box-shadow: 3px -1px 15px @shadow-1;
+    border: none;
+    @media screen and (max-width: 767px) {
+      margin: 0 10px;
+      font-size: 14px;
+    }
+  }
+  .submitButton {
+    height: 48px;
+    max-width: 150px;
+    width: 100%;
+    padding: 0 15px;
+    font-size: 17px;
+    color: @white-2;
+    border-radius: 19px;
+    background-color: @green-2;
+    margin: 0 20px;
+    @media screen and (max-width: 767px) {
+      margin: 0 10px;
+      font-size: 14px;
+    }
+  }
+}
+
+.helper {
+  //margin-left: 75px;
+  //margin-top: 7px;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  img {
+    position: relative;
+  }
+  .helperTooltip {
+    transition: all 0.3s ease;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    left: calc(100% + 50px);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    height: 120px;
+    width: 400px;
+    background-color: @black-1;
+    color: @white-2;
+    font-size: 15px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    img {
+      position: absolute;
+      left: -25px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  &:hover {
+    .helperTooltip {
+      visibility: visible;
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+  }
+}

@@ -1,0 +1,600 @@
+@import '../../base.less';
+
+.dropdownMenu {
+  border-radius: 20px !important;
+  // text-align: center;
+  padding: 0px !important;
+  overflow: hidden;
+  min-width: 160px;
+  left: -20px;
+  top: 30px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset !important;
+  li:last-child {
+    border-top: 1px solid @grey-4;
+  }
+}
+.dropdownMenuSelectCalendar {
+  max-height: 500px;
+  overflow: auto;
+  border-radius: 4px !important;
+  padding: 10px 0 !important;
+  width: 280px;
+  left: 65px;
+  position: absolute;
+  top: 7px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0,
+    rgba(255, 255, 255, 0.05) 0 0 0 1px inset !important;
+
+  .unstyleItem {
+    padding: 0;
+    height: auto;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    background: transparent !important;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+    .customInput {
+      width: 100%;
+      padding: 5px 10px;
+      :global {
+        .ant-select-selector {
+          border: 3px solid #ebebeb !important;
+          input {
+            padding: 4px 0;
+          }
+          @media screen and (max-width: 415px) {
+            width: 249px;
+          }
+        }
+      }
+    }
+  }
+
+  .wrapperProfile {
+    padding: 5px 5px 5px 1.5rem;
+    border-bottom: 1px solid @grey-1;
+    display: flex;
+    align-items: center;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+
+    .avatar {
+      .defaultAvatar {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+
+  .wrapperProfileTeam {
+    .avatar {
+      border: none;
+      margin-right: 22px;
+      img {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and(max-width:767px) {
+    left: 30px;
+  }
+}
+
+.dropdownMenuSelectCalendarLeft {
+  max-height: 500px;
+  overflow: auto;
+  border-radius: 4px !important;
+  padding: 10px 0 !important;
+  width: 280px;
+  left: 0;
+  top: 0;
+  position: absolute;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0,
+    rgba(255, 255, 255, 0.05) 0 0 0 1px inset !important;
+
+  .unstyleItem {
+    padding: 0;
+    height: auto;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    background: transparent !important;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+    .customInput {
+      width: 100%;
+      padding: 5px 10px;
+      :global {
+        .ant-select-selector {
+          border: 3px solid #ebebeb !important;
+          input {
+            padding: 4px 0;
+          }
+          @media screen and (max-width: 415px) {
+            width: 249px;
+          }
+        }
+      }
+    }
+  }
+
+  .wrapperProfile {
+    padding: 5px 5px 5px 1.5rem;
+    border-bottom: 1px solid @grey-1;
+    display: flex;
+    align-items: center;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+
+    .avatar {
+      .defaultAvatar {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+
+  .wrapperProfileTeam {
+    .avatar {
+      border: none;
+      margin-right: 22px;
+      img {
+        display: none;
+      }
+    }
+  }
+}
+
+.dropdownMenuAccount {
+  margin-top: 10px;
+  border-radius: 3px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  min-width: 160px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0,
+    rgba(255, 255, 255, 0.05) 0 0 0 1px inset !important;
+  li:last-child {
+    border-top: 1px solid @grey-4;
+  }
+}
+
+.dropdownSettingTemplate {
+  margin-top: 10px;
+  border-radius: 3px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  min-width: 160px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0,
+    rgba(255, 255, 255, 0.05) 0 0 0 1px inset !important;
+  li {
+    img {
+      margin-right: 0.8rem;
+    }
+    span {
+      color: #3c3c3c !important;
+    }
+  }
+}
+
+.wrapperUser {
+  //margin: 0 12px;
+  color: @grey-3;
+  display: flex;
+  justify-content: space-between;
+  .linkAdd {
+    color: #1ca9ad;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+
+    .iconGreen {
+      width: 6px !important;
+      height: 50%;
+      background: #33c3c7;
+      margin: auto;
+    }
+
+    .iconGrey {
+      width: 6px !important;
+      height: 50%;
+      background: #33c3c7;
+      margin: auto;
+    }
+
+    p {
+      font-size: 20px;
+      padding-left: 0.5rem;
+      margin-bottom: 0;
+    }
+    &:first-child {
+      padding-left: 0.3rem;
+      color: #33c3c7;
+    }
+    &:last-child {
+      font-weight: 500;
+    }
+  }
+}
+
+.wrapperProfileMember {
+  display: flex;
+  align-items: center;
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    .defaultAvatar {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  margin-right: 14px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid @green-2;
+  display: inline-table;
+  .defaultAvatar {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      object-fit: contain;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-right: 5px;
+    margin-top: 0;
+  }
+}
+.titleMain {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 1.8rem;
+  color: @black-0;
+  font-weight: 500;
+  font-size: 20px;
+}
+.nameAccount {
+  // margin: 5px 0px;
+  padding-top: 0;
+  color: @black-0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logoutConfirm {
+  border-radius: 20px !important;
+}
+.disabledLink {
+  cursor: not-allowed;
+}
+.confirmDeleteTemplate {
+  :global {
+    .ant-modal-confirm-btns {
+      button {
+        &:first-child {
+          background: #1890ff;
+          border-color: #1890ff;
+          color: #fff;
+        }
+        &:last-child {
+          background: white;
+          border-color: #bbb6b6;
+          color: #3c3c3c;
+        }
+      }
+    }
+  }
+}
+.greyHover {
+  margin-top: 0 !important;
+  margin-bottom: 0.4rem !important;
+  background: transparent !important;
+  padding-left: 1.5rem !important;
+
+  .listUser {
+    display: flex;
+    justify-items: center;
+    .iconUser {
+      width: 40px;
+      text-align: center;
+      border-radius: 25px;
+      background-color: #b6b6b6;
+      img {
+        margin-bottom: 5px;
+      }
+    }
+    a {
+      font-size: 16px;
+      padding-left: 0.5rem;
+    }
+  }
+  span {
+    a {
+      color: rgba(0, 0, 0, 0.85) !important;
+    }
+  }
+  &:hover {
+    background-color: #f0f0f0 !important;
+    span {
+      a {
+        color: rgba(0, 0, 0, 0.85) !important;
+      }
+    }
+  }
+}
+
+.notifySettingTemplate {
+  span {
+    a {
+      color: white;
+    }
+  }
+
+  :global {
+    .ant-notification-notice-close {
+      display: none;
+    }
+  }
+}
+
+.headerV2 {
+  width: 300px;
+  height: 100%;
+  position: fixed;
+  z-index: 150;
+  border-right: 1px solid #eff0f1;
+  padding: 2rem 0;
+  background: #f1fcfb;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  .listMenu {
+    padding: 0 3rem;
+    .logoImage {
+      margin-bottom: 3rem;
+      img {
+        width: 132px;
+        height: 30px;
+        cursor: pointer;
+      }
+    }
+
+    .headerMenu {
+      display: flex;
+      flex-direction: column;
+      .headerMenuItemLast {
+        margin-right: 0;
+        display: flex;
+        align-items: center;
+      }
+
+      .dropdownItemLeft {
+        cursor: pointer;
+        justify-content: space-between;
+        display: flex;
+        //margin-bottom: 1.5rem;
+
+        span {
+          &.titleMenu {
+            font-size: 18px !important;
+            font-weight: bold;
+          }
+
+          &:last-child {
+            font-size: 15px;
+            margin: auto 0;
+          }
+        }
+        &:hover {
+          span {
+            font-weight: bold;
+          }
+        }
+
+        //@media screen and (max-width: 920px) {
+        //  font-size: 12px;
+        //  margin-right: 20px;
+        //}
+        //@media screen and (max-width: 536px) {
+        //  .textAccount {
+        //    display: none;
+        //  }
+        //}
+        //@media screen and (max-width: 476px) {
+        //  margin-right: unset;
+        //}
+        //@media screen and (max-width: 378px) {
+        //  font-size: 11px;
+        //}
+      }
+
+      .fontWeightNormal {
+        font-weight: normal;
+      }
+
+      .buttonDeleteCalendarContainer {
+        display: none;
+        button {
+          background: transparent;
+          border: none;
+          cursor: pointer;
+          img {
+            color: white;
+            margin-right: 5px;
+          }
+          .buttonDeleteCalendar {
+            margin-right: 5px;
+            font-size: 16px;
+            font-weight: 500;
+          }
+        }
+      }
+
+      .closeMenu {
+        display: none;
+        margin-bottom: 1.5rem;
+      }
+
+      .dropdownItemProfileMb {
+        display: none;
+      }
+    }
+  }
+
+  .profile {
+    display: flex;
+    justify-content: center;
+    .headerMenuItemAvt {
+      width: 30px;
+      height: 30px;
+      margin-right: 14px;
+      margin-top: 3px;
+      position: relative;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 2px solid @green-2;
+      display: inline-table;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+      }
+      .defaultAvatar {
+        width: 100%;
+        height: 26px;
+        position: relative;
+        border-radius: 50%;
+        overflow: hidden;
+        img {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          object-position: center;
+          object-fit: contain;
+        }
+      }
+    }
+    .dropdownItemProfile {
+      cursor: pointer;
+      justify-content: center;
+      display: flex;
+      margin-bottom: 1.5rem;
+      //padding: 0 3rem;
+
+      .nameAccount {
+        margin: auto 0;
+        font-size: 18px;
+      }
+
+      span {
+        &:last-child {
+          font-size: 15px;
+          margin: auto 0 auto 0.5rem;
+        }
+      }
+      &:hover {
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+    :global {
+      .ant-dropdown {
+        min-width: unset !important;
+      }
+    }
+  }
+
+  &.showMenu {
+    left: 0;
+  }
+
+  @media screen and (max-width: 1140px) {
+    top: 0;
+    left: -300px;
+    transition: left 1s;
+    .profile {
+      display: none;
+    }
+    .listMenu {
+      .logoImage {
+        display: none;
+      }
+      .headerMenu {
+        .closeMenu {
+          display: unset;
+        }
+
+        .dropdownItemProfileMb {
+          display: flex;
+        }
+      }
+    }
+  }
+}
+.headerV2Mb {
+  display: none;
+  .logoImage {
+    text-align: center;
+    padding-top: 1.5rem;
+    position: relative;
+    img {
+      width: 132px;
+      height: 35px;
+      cursor: pointer;
+    }
+
+    .menuTogether {
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      width: 9%;
+      height: 55%;
+      top: 40%;
+      left: 5%;
+      max-width: 35px;
+      cursor: pointer;
+      justify-content: space-around;
+      div {
+        border-radius: 10px;
+        height: 14%;
+        width: 100%;
+        background: #3c3c3c;
+      }
+    }
+  }
+
+  @media screen and (max-width: 1140px) {
+    display: unset;
+  }
+}

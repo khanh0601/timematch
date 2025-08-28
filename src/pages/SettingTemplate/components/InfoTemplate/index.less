@@ -1,0 +1,161 @@
+.confirmBooking {
+  width: 50%;
+  padding: 165px 30px 120px 40px;
+  .title {
+    line-height: 21px;
+    letter-spacing: 1px;
+    color: #3c3c3c;
+    position: relative;
+    padding-left: 12px;
+    :before {
+      content: '';
+      width: 7px;
+      height: 23px;
+      background-color: #3c3c3c;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
+  .inputComponent {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    position: relative;
+    padding: 10px 15px;
+    border: 5px solid transparent;
+    .listOption {
+      margin-bottom: 10px;
+      color: #3c3c3c;
+    }
+    .subtitle {
+      padding-left: 12px;
+      font-size: 14px;
+      line-height: 19px;
+      letter-spacing: 1px;
+    }
+    .checkboxLabel {
+      margin-left: 8px;
+    }
+    .overlay {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: none;
+      cursor: pointer;
+      color: #fff;
+      background-color: #666666;
+      text-align: center;
+      .overlayMessage {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        height: 100%;
+        width: 100%;
+      }
+      .actionOverlay {
+        display: flex;
+        justify-content: flex-end;
+        position: absolute;
+        top: 0;
+        right: 0;
+        transform: translateY(-50%);
+      }
+    }
+    &:hover .overlay {
+      display: block;
+    }
+    // :hover &.overlay{
+    //   position: relative;
+    // }
+    .inputTitle {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .inputTitle > div:first-child {
+      line-height: 21px;
+      letter-spacing: 1px;
+      color: #3c3c3c;
+      margin-right: 16px;
+    }
+    .inputTitleRequired {
+      color: #fe0000;
+    }
+    .notRequired {
+      color: #a3a3a3;
+    }
+    .input {
+      height: 36px;
+      font-size: 14px;
+      line-height: 16px;
+      padding: 8px 10px;
+      border: 2px solid #3c3c3c !important;
+      border-radius: 4px;
+      :hover {
+        border-color: #3c3c3c;
+      }
+    }
+  }
+  .action {
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    align-items: center;
+    margin-top: 62px;
+    button {
+      width: 140px;
+      border-radius: 5px;
+      font-size: 16px;
+      line-height: 16px;
+      padding: 8px 0;
+    }
+    .primaryBtn {
+      background: #4a6bc0;
+      color: #fff;
+      margin-bottom: 24px;
+      :hover {
+        background: #4a6bc0;
+      }
+    }
+    .secondaryBtn {
+      border: none;
+      color: #3c3c3c;
+      background-color: #fff;
+      box-shadow: #00000017 0 2px 8px 0;
+    }
+  }
+}
+.inputComponent {
+  .checkboxContainer {
+    padding-left: 12px;
+    .checkbox {
+      width: 18px;
+      height: 18px;
+      border: 1px solid #3c3c3c;
+      border-radius: 0;
+      margin-right: 9px;
+    }
+    input[type='checkbox'] {
+      vertical-align: sub;
+    }
+  }
+}
+.textareaSetting {
+  margin-top: 18px;
+  .textAreaCptNav {
+    height: 130px;
+    border: 2px solid #3c3c3c !important;
+    border-radius: 10px;
+    :hover {
+      border-color: #3c3c3c !important;
+    }
+  }
+}
+.errorMessage {
+  color: #ff0000;
+  font-size: 14px;
+  line-height: 19px;
+  margin-top: 8px;
+}

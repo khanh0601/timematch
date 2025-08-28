@@ -1,0 +1,353 @@
+@import '../../../base.less';
+
+.calendarCreation {
+  max-width: 1080px;
+  margin: auto;
+  padding: 25px 15px 50px;
+  @media screen and (max-width: 767px) {
+    padding: 25px 15px 130px;
+  }
+  .saveToTemplateBtn {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px 0 20px;
+    @media screen and (max-width: 767px) {
+      flex-wrap: wrap;
+    }
+    button {
+      height: 40px;
+      width: 33%;
+      border-radius: 5px;
+      border: 1px solid #d9d9d9;
+      color: #000000;
+      @media screen and (max-width: 767px) {
+        width: 100%;
+        margin-bottom: 15px;
+      }
+    }
+  }
+  .registerTemplateText {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 16px;
+  }
+}
+.createEventType {
+  padding-bottom: 80px;
+}
+
+.advancedSettingContainer {
+  max-width: 1080px;
+  padding: 30px 15px 80px;
+  margin: auto;
+  .collapseSettingContainer {
+    box-shadow: 1px 1px 12px @shadow-2;
+    border-radius: 20px;
+    margin-bottom: 35px;
+  }
+  .messageSettingContainer {
+    :global {
+      .ant-collapse-header .ant-collapse-arrow {
+        left: 250px !important;
+      }
+    }
+  }
+  :global {
+    .ant-collapse-icon-position-right
+      > .ant-collapse-item
+      > .ant-collapse-header
+      .ant-collapse-arrow {
+      left: 180px;
+      right: unset;
+      font-size: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .ant-collapse {
+      border: 0;
+      background-color: #fff;
+    }
+    .ant-collapse-header,
+    .ant-collapse > .ant-collapse-item:last-child,
+    .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+      background-color: #fff;
+      border-radius: 20px;
+    }
+    .ant-collapse-content,
+    .ant-collapse-item:last-child > .ant-collapse-content {
+      border-top: 0;
+      border-radius: 0 0 20px 20px;
+    }
+    .ant-collapse > .ant-collapse-item {
+      border-bottom: 0;
+    }
+    .ant-select-single:not(.ant-select-customize-input) {
+      .ant-select-selector {
+        padding: 0 10px;
+        height: 23px;
+        min-width: 99px;
+        border: 2px solid #d9d9d9 !important;
+        border-radius: 12px !important;
+        font-size: 13px;
+        color: #414141;
+        line-height: 23px;
+        display: flex;
+        align-items: center;
+        .ant-select-selection-item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+        }
+      }
+    }
+    .ant-picker {
+      max-width: 100px;
+      font-size: 13px;
+      height: 24px;
+      border-radius: 15px;
+      border-width: 2px;
+    }
+    .ant-picker-input > input {
+      font-size: 13px;
+    }
+  }
+  .scheduleSetting {
+    padding: 24px 64px 0 64px;
+    box-shadow: 1px 1px 12px @shadow-2;
+    border-radius: 20px;
+    margin-bottom: 40px;
+  }
+  .timeSetting {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .messageSetting {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .dropdownHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    @media screen and (max-width: 767px) {
+      position: relative;
+      width: 100%;
+    }
+    .dropdownHeaderTitle {
+      font-size: 26px;
+      @media screen and (max-width: 767px) {
+        font-size: 16px;
+      }
+    }
+    img {
+      height: 23px;
+      width: 23px;
+      margin-right: 8px;
+    }
+    a {
+      font-size: 25px;
+      color: @black-1;
+      :global {
+        .anticon-down {
+          margin-left: 30px;
+        }
+      }
+    }
+  }
+}
+.buttonZoneContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 50px 0;
+  .backBtn {
+    height: 48px;
+    min-width: 148px;
+    background-color: @white;
+    border-radius: 24px;
+    border: 1px solid @white;
+    color: @black-1;
+    box-shadow: 1px 1px 12px @shadow-1;
+  }
+}
+
+.helper {
+  margin-left: 75px;
+  margin-top: 7px;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  @media screen and (max-width: 767px) {
+    position: absolute;
+    right: 0;
+  }
+  img {
+    position: relative;
+  }
+  .helperTooltip {
+    transition: all 0.3s ease;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    left: calc(100% + 50px);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    height: 120px;
+    width: 400px;
+    background-color: @black-1;
+    color: @white-2;
+    font-size: 15px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    img {
+      position: absolute;
+      left: -25px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  &:hover {
+    .helperTooltip {
+      visibility: visible;
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+  }
+}
+.tooltipAdvanced {
+  white-space: pre-line;
+  :global {
+    .ant-tooltip-inner {
+      height: 119px;
+      min-width: 300px;
+      justify-content: center;
+      font-size: 15px;
+      @media screen and (max-width: 767px) {
+        min-width: auto;
+        height: auto;
+      }
+    }
+    .ant-tooltip-content {
+      .ant-tooltip-arrow {
+        width: 30px;
+        height: 30px;
+      }
+      .ant-tooltip-arrow-content {
+        background-color: transparent;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid rgba(0, 0, 0, 0.75);
+        transform: unset;
+        box-shadow: unset;
+        top: 13px;
+      }
+    }
+  }
+}
+.bookingCalendarParent {
+  @media screen and (max-width: 767px) {
+    position: relative;
+    overflow: scroll;
+    height: 80vh;
+    & > div {
+      position: absolute;
+    }
+  }
+}
+.btnCreateCalendar {
+  position: absolute;
+  right: 20px;
+  bottom: 30px;
+  padding: 15px;
+  background: #0f87e4;
+  border: none;
+  border-radius: 10px;
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: #ffffff;
+  z-index: 999;
+}
+.calendarLinkOtherDesc {
+  background-color: rgba(24, 144, 255, 0.15);
+  border-radius: 20px;
+  padding: 15px;
+  color: #0f87e4;
+  .calendarLinkOtherTitle {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 0;
+    > svg {
+      fill: #0c3dc9;
+      margin-right: 5px;
+    }
+  }
+  .calendarLinkOtherContent {
+    font-size: 0.9rem;
+  }
+}
+.calendarLinkOtherBtn {
+  padding-top: 20px;
+  .calendarLinkOtherItem {
+    margin: 20px auto 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #b3bcbc;
+    background: transparent;
+    padding: 5px 10px;
+    box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    > img {
+      width: 25px;
+      margin-right: 10px;
+    }
+  }
+}
+.calendarLinkOtherFooter {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  > a {
+    padding: 0 10px;
+    color: #0f87e4;
+    text-decoration: underline;
+  }
+}
+:global {
+  .ant-modal-root {
+    .ant-modal-wrap {
+      .ant-modal-content {
+        .ant-modal-close {
+          .ant-modal-close-icon {
+            background: #0f87e4;
+            padding: 7px;
+            border-radius: 5px;
+            box-shadow: 0 5px 5px -5px rgba(0, 0, 0, 0.75);
+            > svg {
+              color: #ffffff;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,34 @@
+@import '../../../base.less';
+
+.container {
+  :global {
+    .ant-form-item-label
+      > label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+      content: '*';
+    }
+
+    .ant-input-password {
+      border-radius: 8px;
+      box-sizing: border-box;
+      border: 2px solid #ececec !important;
+    }
+
+    .ant-input-password:focus {
+      border: #33c3c7 2px solid !important;
+      box-shadow: none;
+    }
+
+    .ant-input-password:hover {
+      border: #33c3c7 2px solid !important;
+      box-shadow: none;
+    }
+    .ant-form-item-has-error .ant-input-password:focus {
+      border-right-width: 2px !important;
+    }
+  }
+
+  .customButton {
+    font-size: 15px;
+    max-width: 100px;
+  }
+}

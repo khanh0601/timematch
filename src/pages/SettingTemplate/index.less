@@ -1,0 +1,89 @@
+.settingTemplate {
+  background: #f0f5f8;
+  position: relative;
+  .navigate {
+    display: flex;
+    justify-content: space-between;
+    background: #fff;
+    padding: 0.25rem 1.5rem;
+    .title {
+      //flex: 1;
+      margin: auto 0;
+      h3 {
+        margin-bottom: 0;
+        padding-left: 1rem;
+        color: #3c3c3c;
+      }
+    }
+    .menu {
+      display: flex;
+      justify-content: space-between;
+      //flex: 1;
+      min-width: 70%;
+      h3 {
+        margin-bottom: 0;
+      }
+    }
+  }
+  .contentTemplate {
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  @media screen and(max-width: 1580px) {
+    .navigate {
+      padding: 0.25rem 0.75rem;
+      .title {
+        h3 {
+          font-size: 1rem;
+        }
+      }
+      .menu {
+        min-width: 65%;
+      }
+    }
+  }
+
+  @media screen and(max-width: 1440px) {
+    .navigate {
+      .title {
+        h3 {
+          font-size: 1rem;
+        }
+      }
+    }
+  }
+  @media screen and(max-width: 1320px) {
+    .navigate {
+      .title {
+        h3 {
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  @media screen and(max-width: 1250px) {
+    .navigate {
+      .title {
+        h3 {
+          padding-left: unset;
+        }
+      }
+    }
+  }
+
+  @media screen and(max-width: 425px) {
+    .navigate {
+      .title {
+        display: none;
+      }
+      .menu {
+        margin: auto;
+      }
+    }
+    .contentTemplate {
+      padding: 0.75rem;
+    }
+  }
+}

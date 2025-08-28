@@ -1,0 +1,401 @@
+@import '../../base.less';
+
+.bookingCalendar {
+  position: relative;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+
+  @media screen and (max-width: 767px) {
+    box-shadow: none;
+  }
+
+  :global {
+    .fc-scroller {
+      .fc-scroller-liquid-absolute::-webkit-scrollbar {
+        display: none;
+      }
+    }
+    .fc-scrollgrid-section-header .fc-scroller {
+      &::-webkit-scrollbar {
+        border-bottom: 1px solid #ddd;
+      }
+    }
+    .ant-tooltip-inner {
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      min-height: 24px;
+    }
+    .fc-event-main {
+      // background-color: #e3f4f4;
+      background-color: transparent;
+      border-radius: 7px;
+    }
+    .fc .fc-view-harness {
+      @media screen and (max-width: 767px) {
+        min-height: 400px;
+      }
+    }
+    .fc-media-screen .fc-timegrid-event {
+      border: none;
+    }
+    .fc-media-screen .fc-timegrid-event-harness {
+      background-color: #e3f4f4;
+      border-radius: 10px;
+      overflow: unset;
+      &:hover {
+        width: 100% !important;
+        left: 0 !important;
+        z-index: 0.9 !important;
+      }
+    }
+    .fc-media-screen .fc-timegrid-event {
+      border-radius: 10px;
+      overflow: unset;
+      background-color: #e3f4f4;
+    }
+  }
+
+  .disabledNav {
+    pointer-events: none;
+    display: none !important;
+  }
+  .prevBtn {
+    background-color: #ffffff;
+    box-shadow: 0 0 5px @shadow-1;
+    border: none;
+    border-radius: 7px;
+    position: absolute;
+    top: 27px;
+    left: -15px;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+
+    .nextBtnIcon {
+      height: 35px;
+      width: 30px;
+      background-image: url('../../assets/images/black-navigation-button.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      transform: rotate(180deg);
+    }
+    span {
+      font-size: 0.7rem;
+    }
+
+    &:hover,
+    &:active {
+      .nextBtnIcon {
+        background-image: url('../../assets/images/blue-navigation-button.png');
+        transform: rotate(0deg);
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      position: sticky;
+      left: 5px;
+      background-color: transparent;
+      box-shadow: none;
+      margin-right: 16px;
+      span {
+        display: none;
+      }
+      .nextBtnIcon {
+        height: 25px;
+        width: 25px;
+      }
+    }
+  }
+  .nextBtn {
+    background-color: #ffffff;
+    box-shadow: 0 0 5px @shadow-1;
+    border: none;
+    border-radius: 7px;
+    position: absolute;
+    top: 27px;
+    right: -15px;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    .nextBtnIcon {
+      height: 35px;
+      width: 30px;
+      background-image: url('../../assets/images/black-navigation-button.png');
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+    span {
+      font-size: 0.7rem;
+    }
+    &:hover,
+    &:active {
+      .nextBtnIcon {
+        background-image: url('../../assets/images/blue-navigation-button.png');
+        transform: rotate(180deg);
+      }
+    }
+    @media screen and (max-width: 1023px) {
+      position: sticky;
+      right: 5px;
+      background-color: transparent;
+      box-shadow: none;
+      margin-left: 16px;
+      span {
+        display: none;
+      }
+      .nextBtnIcon {
+        height: 25px;
+        width: 25px;
+      }
+    }
+  }
+  .btnScheduleAdjust {
+    padding: 0.4rem 0.3rem;
+    flex-direction: column;
+    .nextBtnIcon {
+      height: 15px !important;
+      width: 20px !important;
+      margin-bottom: 3px;
+    }
+  }
+  .calendarHeader {
+    margin: 5px 0 5px 0;
+    @media screen and (max-width: 767px) {
+      margin: 5px 0 5px 0;
+    }
+    p {
+      font-size: 13px;
+      color: #c6c8c6;
+      margin-bottom: 0px;
+      @media screen and (max-width: 767px) {
+        margin-bottom: 0;
+      }
+    }
+    .date {
+      font-size: 19px;
+      color: @black-1;
+    }
+  }
+
+  .eventContent {
+    height: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    //background-color: #33c3c7;
+    //border: 1px solid #9af0ed;
+    background-color: #fff;
+    border: 2px solid #00b6d3;
+    border-radius: 5px;
+    overflow: visible;
+    position: relative;
+
+    .timeText {
+      margin: 0;
+      height: fit-content;
+      width: 100%;
+      text-align: center;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      //color: #ffffff;
+      p {
+        color: @black-2;
+        font-size: 15px;
+        font-weight: bolder;
+        margin: 0;
+        position: relative;
+        @media screen and (max-width: 1120px) {
+          font-size: 12px;
+          // font-weight: bolder;
+          p {
+            margin: 10px 0;
+          }
+          span {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            left: 50%;
+          }
+        }
+      }
+    }
+
+    &:hover {
+      background-color: #00b6d3;
+      .timeText {
+        p {
+          color: #ffffff;
+        }
+      }
+    }
+    &:visited {
+      background-color: #00b6d3;
+      border: 1px solid #9af0ed;
+    }
+  }
+
+  .isBooked {
+    pointer-events: none;
+    background-color: #e8e6e6;
+    display: flex;
+    overflow: hidden;
+    border: 1px solid #e8e6e6;
+    .timeText {
+      margin: 0;
+      width: 100%;
+      justify-content: left;
+      flex-wrap: wrap;
+      overflow: hidden;
+      .time {
+        width: 100%;
+        text-align: left;
+        //letter-spacing: 1px;
+        color: #5b5b5b;
+        padding: 0 5px;
+        font-weight: normal;
+        text-shadow: 1px 0 0 #5b5b5b, 1px 0 0 #5b5b5b;
+        position: relative;
+        @media screen and (max-width: 767px) {
+          text-shadow: none;
+          text-align: center;
+          padding: 0;
+          font-size: 11px;
+          p {
+            margin: 10px 0;
+          }
+          span {
+            position: absolute;
+            top: 50%;
+            transform: translate(-50%, -50%) rotate(90deg);
+            left: 50%;
+          }
+        }
+        @media screen and (max-width: 992px) and (min-width: 768px) {
+          font-size: 10px;
+        }
+      }
+      .eventName {
+        width: 100%;
+        text-align: left;
+        color: #5b5b5b;
+        font-weight: bold;
+        padding: 0 5px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+        margin: 0;
+        @media screen and (max-width: 767px) {
+          padding: 0;
+          font-weight: normal;
+          font-size: 11px;
+          text-align: center;
+        }
+      }
+    }
+    &:hover {
+      background-color: #e8e6e6;
+      border: 1px solid #555555;
+      .resizeIconBottom,
+      .resizeIconTop {
+        opacity: 0;
+      }
+    }
+  }
+
+  .currentEvent {
+    background-color: #279ca0;
+    .timeText {
+      color: #ffffff;
+    }
+  }
+}
+.btnAction {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  width: 100%;
+  @media screen and (max-width: 1023px) {
+    display: none;
+  }
+}
+.bookingCalendar {
+  .showOnMobile {
+    display: none;
+
+    @media screen and (max-width: 576px) {
+      display: block;
+      .rotateOnMobile {
+        color: @black-2;
+        display: inline-block;
+        transform: rotate(90deg);
+      }
+    }
+
+    @media screen and (max-width: 405px) {
+      p {
+        font-size: 10px !important;
+      }
+    }
+  }
+  .notShowOnMobile {
+    display: block;
+    @media screen and (max-width: 576px) {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 768px) {
+    :global {
+      .fc .fc-view-harness {
+        min-height: 400px;
+      }
+      .fc .fc-timegrid-slot {
+        .fc-timegrid-slot-label-frame {
+          display: flex;
+          justify-content: center;
+          .fc-timegrid-slot-label-cushion {
+            width: 50px;
+            text-align: center;
+            white-space: break-spaces;
+          }
+        }
+      }
+    }
+  }
+}
+.btnActionMobile {
+  display: none;
+
+  @media screen and (max-width: 768px) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    top: -50px;
+    position: absolute;
+    width: 100%;
+
+    div {
+      display: flex;
+      align-items: center;
+    }
+  }
+  @media screen and (max-width: 375px) {
+    top: -32px;
+  }
+}
+
+.bookingCalendarParent {
+  @media screen and (max-width: 767px) {
+    position: relative;
+    overflow: scroll;
+    height: 570px;
+    & > div {
+      position: absolute;
+    }
+  }
+}

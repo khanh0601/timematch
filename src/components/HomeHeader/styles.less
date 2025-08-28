@@ -1,0 +1,58 @@
+.headerContainer {
+  border-bottom: 1px solid #acd9db;
+  .homeHeader {
+    height: 110px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    @media screen and (max-width: 767px) {
+      padding: 0 10px;
+      height: 60px;
+    }
+    .logo {
+      height: 40px;
+      width: 180px;
+      position: relative;
+      cursor: pointer;
+      @media screen and (max-width: 767px) {
+        width: 120px;
+        height: auto;
+      }
+      img {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        object-fit: cover;
+        object-position: center;
+        @media screen and (max-width: 767px) {
+          position: unset;
+          object-fit: unset;
+          object-position: unset;
+        }
+      }
+    }
+    .menu {
+      @media screen and (max-width: 767px) {
+        display: flex;
+      }
+      span {
+        min-width: 100px;
+        display: inline-block;
+        margin-left: 43px;
+        text-align: left;
+        text-decoration: underline;
+        font-size: 18px;
+        letter-spacing: 0px;
+        color: #038b8f;
+        cursor: pointer;
+        @media screen and (max-width: 767px) {
+          min-width: auto;
+          margin-left: 15px;
+          font-size: 13px;
+        }
+      }
+    }
+  }
+}

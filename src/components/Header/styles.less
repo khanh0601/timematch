@@ -1,0 +1,708 @@
+@import '../../base.less';
+.mainHeader {
+  background-color: @white-1;
+  border-bottom: 1px solid @grey-6;
+}
+
+.hideHeader {
+  display: none;
+}
+
+.hideLogo {
+  display: none;
+}
+
+.header {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1080px;
+  margin: auto;
+  padding: 0 15px;
+
+  .headerTitle {
+    display: flex;
+    width: 100%;
+    max-width: 20%;
+    @media screen and (max-width: 768px) {
+      width: auto;
+      max-width: unset;
+      .headerLogo {
+        color: @black-1;
+        .imgLogo {
+          width: 25px;
+          height: 40px;
+          background-position: unset;
+          background-size: unset;
+        }
+      }
+
+      .headerMenu {
+        max-width: unset;
+      }
+      .headerMenuItemAvt {
+        margin-right: 5px;
+        margin-top: 0;
+      }
+    }
+
+    .headerLogo {
+      margin: auto 0;
+      color: @black-1;
+      .imgLogo {
+        width: 132px;
+        height: 30px;
+        cursor: pointer;
+        background-image: url('../../assets/images/logo-black.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      @media screen and (max-width: 575px) {
+        // padding: 0 11px 0 0;
+
+        .imgLogo {
+          width: 30px;
+          background-image: url('../../assets/images/logoMobile.svg');
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: contain;
+        }
+      }
+      .imgLogoNotLogin {
+        width: 132px;
+        height: 30px;
+        cursor: pointer;
+        background-image: url('../../assets/images/logo-black.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
+      }
+      @media screen and (max-width: 305px) {
+        padding: 0 11px 0 0;
+
+        .imgLogoNotLogin {
+          width: 15px;
+          background-position: unset;
+          background-size: unset;
+        }
+      }
+    }
+
+    .headerTitleText {
+      background: #fff;
+      border: 1px solid #ececec;
+      box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
+      border-radius: 20px;
+      padding: 0 15px;
+      display: flex;
+      align-items: center;
+      margin-left: 16px;
+      max-width: 300px;
+      width: 100%;
+      font-size: 20px;
+      color: #3c3c3c;
+      @media screen and (max-width: 1024px) {
+        display: none;
+      }
+    }
+  }
+
+  .headerMenu {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    max-width: 100%;
+    justify-content: flex-end;
+    .headerMenuItem {
+      cursor: pointer;
+      font-size: 14px;
+      margin-right: 56px;
+      &:hover {
+        span {
+          font-weight: bold;
+        }
+      }
+
+      @media screen and (max-width: 920px) {
+        font-size: 12px;
+        margin-right: 20px;
+      }
+      @media screen and (max-width: 536px) {
+        .textAccount {
+          display: none;
+        }
+      }
+      @media screen and (max-width: 476px) {
+        margin-right: unset;
+      }
+      @media screen and (max-width: 378px) {
+        font-size: 11px;
+      }
+    }
+    .headerMenuItemLast {
+      margin-right: 0;
+      display: flex;
+      align-items: center;
+    }
+    .fontWeightNormal {
+      font-weight: normal;
+    }
+    .buttonDeleteCalendarContainer {
+      display: none;
+      button {
+        background: transparent;
+        border: none;
+        cursor: pointer;
+        img {
+          color: white;
+          margin-right: 5px;
+        }
+        .buttonDeleteCalendar {
+          margin-right: 5px;
+          font-size: 16px;
+          font-weight: 500;
+        }
+      }
+    }
+  }
+
+  .headerMenuItemAvt {
+    width: 30px;
+    height: 30px;
+    margin-right: 14px;
+    margin-top: 3px;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid @green-2;
+    display: inline-table;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .defaultAvatar {
+      width: 100%;
+      height: 26px;
+      position: relative;
+      border-radius: 50%;
+      overflow: hidden;
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-position: center;
+        object-fit: contain;
+      }
+    }
+  }
+
+  :global {
+    .ant-dropdown-link {
+      display: flex;
+      align-items: center;
+      @media screen and (max-width: 767px) {
+        // min-width: 83px;
+      }
+    }
+    .ant-dropdown-trigger > .anticon.anticon-down,
+    .ant-dropdown-link > .anticon.anticon-down,
+    .ant-dropdown-button > .anticon.anticon-down {
+      font-size: 13px;
+      margin-left: 5px;
+    }
+  }
+
+  @media screen and (max-width: 1024px) {
+    .headerTitle {
+      max-width: 20%;
+      .headerTitleText {
+        display: none;
+      }
+    }
+  }
+
+  @media screen and (max-width: 920px) {
+    .headerMenuItem {
+      font-size: 12px;
+      margin-right: 20px;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .headerTitle {
+      width: auto;
+      max-width: unset;
+      .headerLogo {
+        color: @black-1;
+      }
+    }
+    .headerMenu {
+      max-width: unset;
+    }
+    .headerMenuItemAvt {
+      margin-right: 5px;
+      margin-top: 0;
+    }
+  }
+
+  @media screen and (max-width: 638px) {
+    .headerTitle {
+      .headerLogo {
+        .imgLogo {
+          // width: 15px;
+          // background-position: unset;
+          // background-size: unset;
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 536px) {
+    .headerMenu {
+      max-width: unset;
+    }
+  }
+
+  @media screen and (max-width: 476px) {
+    height: unset;
+    padding: 0.5rem 7px;
+    .headerMenu {
+      max-width: unset;
+      .headerMenuItem {
+        margin-right: 8px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 425px) {
+    .headerMenu {
+      justify-content: space-between;
+      .headerMenuItem {
+        font-size: 11px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 408px) {
+    .headerMenu {
+      .headerMenuItem {
+        margin-right: 5px;
+      }
+    }
+  }
+
+  @media screen and (max-width: 378px) {
+    .headerMenu {
+      .headerMenuItem {
+        font-size: 11px;
+      }
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .headerMenu {
+      justify-content: flex-end;
+      .headerMenuItem {
+        font-size: 12px;
+        padding-left: 0.5rem;
+        &.qAItem,
+        &.homeItem {
+          display: none;
+        }
+      }
+    }
+  }
+}
+
+.headerCalendar {
+  max-width: initial;
+  @media screen and (max-width: 1024px) {
+    .headerMenu {
+      justify-content: space-around;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .headerMenu {
+      justify-content: space-between;
+      padding-left: 0.5rem;
+      .headerMenuItem:not(:first-child) {
+        display: none;
+      }
+      .dropDownItem {
+        display: none;
+      }
+      .buttonDeleteCalendarContainer {
+        display: unset;
+      }
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .headerMenu {
+      .headerMenuItem {
+        &.homeItem {
+          display: block;
+        }
+      }
+    }
+  }
+}
+
+.headerCalendarCopy {
+  @media screen and (max-width: 768px) {
+    .headerMenu {
+      justify-content: space-between;
+      .dropDownItem {
+        &:nth-child(2),
+        &:nth-child(3) {
+          display: none;
+        }
+      }
+      .headerMenuItem:not(:first-child) {
+        display: none;
+      }
+    }
+  }
+  @media screen and (max-width: 375px) {
+    .headerMenu {
+      justify-content: space-between;
+      .headerMenuItem {
+        &.homeItem {
+          display: unset;
+        }
+      }
+    }
+  }
+}
+
+.headerSettingAdvanceCalendar {
+  max-width: 1080px !important;
+}
+
+.headerLogin {
+  padding: 0 15px;
+  .headerMenu {
+    .dropDownItem {
+      display: none;
+    }
+  }
+  @media screen and (max-width: 638px) {
+    .headerTitle {
+      .headerLogo {
+        .imgLogo {
+          // width: 132px;
+          // background-repeat: no-repeat;
+          // background-position: center;
+          // background-size: contain;
+        }
+      }
+    }
+    .headerMenu {
+      justify-content: flex-end;
+      .headerMenuItem {
+        display: unset !important;
+      }
+    }
+  }
+}
+
+.dropdownMenu {
+  border-radius: 20px !important;
+  // text-align: center;
+  padding: 0px !important;
+  overflow: hidden;
+  min-width: 160px;
+  left: -20px;
+  top: 30px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 12px 28px 0px,
+    rgba(0, 0, 0, 0.1) 0px 2px 4px 0px,
+    rgba(255, 255, 255, 0.05) 0px 0px 0px 1px inset !important;
+  li:last-child {
+    border-top: 1px solid @grey-4;
+  }
+}
+.dropdownMenuSelectCalendar {
+  max-height: 500px;
+  overflow: auto;
+  border-radius: 4px !important;
+  padding: 10px 0 !important;
+  width: 280px;
+  left: 65px;
+  position: absolute;
+  top: 7px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0,
+    rgba(255, 255, 255, 0.05) 0 0 0 1px inset !important;
+  @media screen and(max-width:767px) {
+    left: 30px;
+  }
+  .unstyleItem {
+    padding: 0;
+    height: auto;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    background: transparent !important;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+    .customInput {
+      width: 100%;
+      padding: 5px 10px;
+      :global {
+        .ant-select-selector {
+          border: 3px solid #ebebeb !important;
+          input {
+            padding: 4px 0;
+          }
+          @media screen and (max-width: 415px) {
+            width: 249px;
+          }
+        }
+      }
+    }
+  }
+
+  .wrapperProfile {
+    padding: 5px 5px 5px 1.5rem;
+    border-bottom: 1px solid @grey-1;
+    display: flex;
+    align-items: center;
+    &:hover {
+      background-color: #f0f0f0;
+    }
+
+    .avatar {
+      .defaultAvatar {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+
+  .wrapperProfileTeam {
+    .avatar {
+      border: none;
+      margin-right: 22px;
+      img {
+        display: none;
+      }
+    }
+  }
+}
+
+.dropdownMenuAccount {
+  margin-top: 10px;
+  border-radius: 3px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  min-width: 160px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0,
+    rgba(255, 255, 255, 0.05) 0 0 0 1px inset !important;
+  li:last-child {
+    border-top: 1px solid @grey-4;
+  }
+}
+
+.dropdownSettingTemplate {
+  margin-top: 10px;
+  border-radius: 3px !important;
+  padding: 0 !important;
+  overflow: hidden;
+  min-width: 160px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 12px 28px 0, rgba(0, 0, 0, 0.1) 0 2px 4px 0,
+    rgba(255, 255, 255, 0.05) 0 0 0 1px inset !important;
+  li {
+    img {
+      margin-right: 0.8rem;
+    }
+    span {
+      color: #3c3c3c !important;
+    }
+  }
+}
+
+.wrapperUser {
+  //margin: 0 12px;
+  color: @grey-3;
+  display: flex;
+  justify-content: space-between;
+  .linkAdd {
+    color: #1ca9ad;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    font-size: 16px;
+
+    .iconGreen {
+      width: 6px !important;
+      height: 50%;
+      background: #33c3c7;
+      margin: auto;
+    }
+
+    .iconGrey {
+      width: 6px !important;
+      height: 50%;
+      background: #33c3c7;
+      margin: auto;
+    }
+
+    p {
+      font-size: 20px;
+      padding-left: 0.5rem;
+      margin-bottom: 0;
+    }
+    &:first-child {
+      padding-left: 0.3rem;
+      color: #33c3c7;
+    }
+    &:last-child {
+      font-weight: 500;
+    }
+  }
+}
+
+.wrapperProfileMember {
+  display: flex;
+  align-items: center;
+
+  .avatar {
+    width: 36px;
+    height: 36px;
+    .defaultAvatar {
+      width: 36px;
+      height: 36px;
+    }
+  }
+}
+.avatar {
+  width: 40px;
+  height: 40px;
+  margin-right: 14px;
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid @green-2;
+  display: inline-table;
+  .defaultAvatar {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    border-radius: 50%;
+    overflow: hidden;
+    img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-position: center;
+      object-fit: contain;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    margin-right: 5px;
+    margin-top: 0;
+  }
+}
+.titleMain {
+  padding-top: 0.4rem;
+  padding-bottom: 0.4rem;
+  padding-left: 1.8rem;
+  color: @black-0;
+  font-weight: 500;
+  font-size: 20px;
+}
+.nameAccount {
+  // margin: 5px 0px;
+  padding-top: 0;
+  color: @black-0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.logoutConfirm {
+  border-radius: 20px !important;
+}
+.disabledLink {
+  cursor: not-allowed;
+}
+.confirmDeleteTemplate {
+  :global {
+    .ant-modal-confirm-btns {
+      button {
+        &:first-child {
+          background: #1890ff;
+          border-color: #1890ff;
+          color: #fff;
+        }
+        &:last-child {
+          background: white;
+          border-color: #bbb6b6;
+          color: #3c3c3c;
+        }
+      }
+    }
+  }
+}
+.greyHover {
+  margin-top: 0 !important;
+  margin-bottom: 0.4rem !important;
+  background: transparent !important;
+  padding-left: 1.5rem !important;
+
+  .listUser {
+    display: flex;
+    justify-items: center;
+    .iconUser {
+      width: 40px;
+      text-align: center;
+      border-radius: 25px;
+      background-color: #b6b6b6;
+      img {
+        margin-bottom: 5px;
+      }
+    }
+    a {
+      font-size: 16px;
+      padding-left: 0.5rem;
+    }
+  }
+  span {
+    a {
+      color: rgba(0, 0, 0, 0.85) !important;
+    }
+  }
+  &:hover {
+    background-color: #f0f0f0 !important;
+    span {
+      a {
+        color: rgba(0, 0, 0, 0.85) !important;
+      }
+    }
+  }
+}
+
+.notifySettingTemplate {
+  span {
+    a {
+      color: white;
+    }
+  }
+
+  :global {
+    .ant-notification-notice-close {
+      display: none;
+    }
+  }
+}

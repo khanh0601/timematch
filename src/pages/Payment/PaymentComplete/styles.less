@@ -1,0 +1,87 @@
+@import '../../../base.less';
+.complete {
+  padding-bottom: 120px;
+}
+.paymentComplete {
+  max-width: 1080px;
+  width: 100%;
+  margin: auto;
+  padding: 0 15px 80px;
+  @media screen and (max-width: 767px) {
+    padding: 0 15px 130px;
+    padding: 0;
+  }
+  .titleIcon {
+    padding: 0px 15px;
+    margin: 65px 0px 55px;
+    display: flex;
+    align-items: center;
+    @media screen and (max-width: 767px) {
+      padding: 0;
+      margin: 0;
+    }
+    .bolderColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 13px;
+      margin-right: 6px;
+    }
+    .normalColIcon {
+      display: inline-block;
+      background-color: @green-2;
+      height: 52px;
+      width: 5px;
+    }
+  }
+  .paymentTitle {
+    padding: 0 15px;
+    margin: 65px 30px 55px;
+    display: flex;
+    align-items: center;
+    @media screen and (max-width: 767px) {
+      margin: 20px 0;
+    }
+    .paymentTitleText {
+      color: @black-4;
+      font-size: 30px;
+      font-weight: 700;
+      display: inline-block;
+      padding-left: 15px;
+      @media screen and (max-width: 767px) {
+        font-size: 20px;
+      }
+    }
+  }
+  .paymentDescription {
+    font-size: 14px;
+    color: rgb(60, 60, 60);
+    line-height: 1.54;
+    padding: 0px 75px;
+    @media screen and (max-width: 767px) {
+      padding: 0 15px;
+    }
+  }
+  .paymentBtnGroup {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 90px;
+    margin-top: 100px;
+    button:first-child {
+      margin-right: 50px;
+    }
+    @media screen and (max-width: 767px) {
+      margin-top: 30px;
+      padding-right: 15px;
+      padding-left: 15px;
+    }
+  }
+  :global {
+    .btn.btnWhite:hover {
+      border: 2px solid @grey-7;
+    }
+    .btn.btn-custom-height {
+      font-size: 16px;
+    }
+  }
+}

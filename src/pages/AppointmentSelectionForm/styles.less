@@ -1,0 +1,73 @@
+@import '../../base.less';
+
+.appointmentSelectionConfirmContainer {
+  max-width: 1080px;
+  margin: auto;
+  width: 100%;
+  .header {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  .inputField {
+    max-width: 508px;
+    margin: 0 auto 20px auto;
+    .fieldFlex {
+      display: flex;
+      justify-content: space-between;
+    }
+    .fieldLabel {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      .inputRequired {
+        color: #ff4d4f;
+        font-size: 14px;
+        margin-top: 10px;
+      }
+    }
+    input {
+      width: 100%;
+      height: 40px;
+      border: 1px solid #999999 !important;
+      border-radius: 5px;
+      padding: 5px;
+      margin-bottom: 5px;
+    }
+    .errorNotice {
+      color: #ff4d4f;
+      font-size: 14px;
+    }
+  }
+  .btnZone {
+    margin-top: 20px;
+    margin-bottom: 25px;
+    display: flex;
+    gap: 10px;
+    .confirmBtn {
+      width: 100%;
+      height: 40px;
+      background-color: #023768;
+      color: #ffffff;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      &:hover {
+        background-color: #1f4f96;
+      }
+    }
+    .backBtn {
+      width: 100%;
+      height: 40px;
+      background-color: rgb(157, 185, 250);
+      color: #ffffff;
+      border-radius: 5px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      &:hover {
+        background-color: rgb(157, 185, 250);
+      }
+    }
+  }
+}

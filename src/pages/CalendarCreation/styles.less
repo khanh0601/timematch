@@ -1,0 +1,508 @@
+@import '../../base.less';
+
+.calendarCreation {
+  // PC
+  //max-width: 1080px;
+  //margin: auto;
+  //padding: 25px 15px 0;
+
+  // SM
+  display: flex;
+  flex-flow: row;
+
+  .settingBasic {
+    //width: 0;
+    display: none;
+    width: 45%;
+    max-width: 495px;
+    background: #f1fbfb;
+    transition: width 2s ease;
+    &.active {
+      background: #fff;
+      border-right: 1px #f7f5f8 solid;
+    }
+  }
+  .settingBasicActive {
+    //width: 30%;
+    display: unset;
+  }
+
+  .settingBasicMb {
+    display: none;
+    top: 20px;
+  }
+
+  .formCalendar {
+    padding: 20px 30px;
+    background: #fff;
+    // PC
+    width: 100%;
+    position: relative;
+    // SM
+    //width: 100%;
+    transition: width 2s ease;
+
+    .registerTemplateText {
+      text-align: center;
+      font-size: 20px;
+      br {
+        display: none;
+      }
+    }
+    .saveToTemplateBtn {
+      display: flex;
+      justify-content: space-around;
+      margin: 30px 0 20px;
+      button {
+        height: 40px;
+        width: 28%;
+        border-radius: 5px;
+        border: 1px solid #d9d9d9;
+        color: #000000;
+        box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+      }
+    }
+    .groupSaveMb {
+      background: white;
+      position: fixed;
+      width: 100%;
+      left: 0;
+      bottom: 0;
+      box-shadow: rgba(0, 0, 0, 0.15) 0 2px 8px;
+      z-index: 350;
+      display: none;
+      justify-content: space-evenly;
+      padding: 0.5rem 0.1rem;
+      button {
+        width: 40%;
+        padding: 0.8rem 0.1rem;
+        border: none;
+
+        &:first-child {
+          background: transparent;
+          color: #33c3c7;
+        }
+        &:last-child {
+          background: #9d9d9d;
+          color: white;
+          font-weight: 600;
+          border-radius: 6px;
+          &.active {
+            background: #00b6d3;
+          }
+        }
+      }
+    }
+
+    .btnSaveGroup {
+      background: #f5f5f5;
+      height: 20px;
+      width: 100%;
+      position: sticky;
+      z-index: 3;
+      bottom: 9vh;
+      left: 0;
+      .previewBtnZone {
+        position: absolute;
+        top: 100%;
+        left: 1%;
+        .previewButton {
+          border: transparent;
+          outline: none;
+          cursor: pointer;
+          height: 32px;
+          min-width: 170px;
+          background-color: #555555;
+          color: @white-2;
+          text-align: center;
+          border-radius: 6px;
+        }
+      }
+      .listBtn {
+        text-align: center;
+        background: #f5f5f5;
+        border: 2px solid #ececec;
+        padding: 0.5rem 0;
+        button {
+          height: 48px;
+          max-width: 150px;
+          padding: 0 15px;
+          font-size: 17px;
+          border-radius: 19px;
+          width: 100%;
+          border: transparent;
+          outline: none;
+          cursor: pointer;
+          &:first-child {
+            margin: 0 20px 0 0;
+            color: #535353;
+            background-color: @white-2;
+            box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+            border: none;
+          }
+          &:last-child {
+            margin: 0 20px;
+            color: @white-2;
+            background-color: #00b6d3;
+            transition: 0.3s;
+          }
+        }
+        .disabledBtnSave {
+          background: #a6a3a3 !important;
+        }
+      }
+    }
+  }
+  .formCalendarActive {
+    width: 100%;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .settingBasic {
+      width: 40%;
+    }
+
+    .formCalendar {
+      .registerTemplateText {
+        br {
+          display: block;
+        }
+      }
+      .saveToTemplateBtn {
+        flex-direction: column;
+        button {
+          width: 30%;
+          margin: auto;
+          min-width: 200px;
+          &:not(:last-child) {
+            margin-bottom: 2rem;
+          }
+        }
+      }
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    padding: 25px 0;
+    flex-wrap: wrap;
+    position: relative;
+    .settingBasicActive {
+      top: -40px;
+      position: absolute;
+      z-index: 250;
+      width: calc(100vw - 28px);
+      max-width: unset;
+    }
+    .settingBasic {
+      display: none;
+    }
+    .settingBasicMb {
+      display: unset;
+    }
+    .formCalendar {
+      padding: 0;
+      .registerTemplateText {
+        br {
+          display: block;
+        }
+      }
+      .saveToTemplateBtn {
+        flex-direction: column;
+        button {
+          width: 30%;
+          margin: auto;
+          min-width: 200px;
+          &:not(:last-child) {
+            margin-bottom: 2rem;
+          }
+        }
+      }
+      .groupSaveMb {
+        display: flex;
+      }
+    }
+  }
+  @media screen and (max-width: 470px) {
+    .formCalendar {
+      .registerTemplateText {
+        font-size: 18px;
+      }
+    }
+  }
+  @media screen and (max-width: 425px) {
+    padding: 1rem 0 2rem 0;
+    .formCalendar {
+      .registerTemplateText {
+        font-size: 16px;
+      }
+      .groupSaveMb {
+        display: none;
+      }
+    }
+  }
+  @media screen and (max-width: 381px) {
+    .formCalendar {
+      .registerTemplateText {
+        font-size: 15px;
+      }
+    }
+  }
+}
+.calendarSM {
+  display: flex;
+  flex-flow: row;
+}
+.advancedSettingContainer {
+  max-width: 1080px;
+  padding: 30px 15px 80px;
+  margin: auto;
+  .collapseSettingContainer {
+    box-shadow: 1px 1px 12px @shadow-2;
+    border-radius: 20px;
+    margin-bottom: 35px;
+  }
+  .messageSettingContainer {
+    :global {
+      .ant-collapse-header .ant-collapse-arrow {
+        left: 250px !important;
+      }
+    }
+  }
+  :global {
+    .ant-collapse-icon-position-right
+      > .ant-collapse-item
+      > .ant-collapse-header
+      .ant-collapse-arrow {
+      left: 180px;
+      right: unset;
+      font-size: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+    .ant-collapse {
+      border: 0;
+      background-color: #fff;
+    }
+    .ant-collapse-header,
+    .ant-collapse > .ant-collapse-item:last-child,
+    .ant-collapse > .ant-collapse-item:last-child > .ant-collapse-header {
+      background-color: #fff;
+      border-radius: 20px;
+    }
+    .ant-collapse-content,
+    .ant-collapse-item:last-child > .ant-collapse-content {
+      border-top: 0;
+      border-radius: 0 0 20px 20px;
+    }
+    .ant-collapse > .ant-collapse-item {
+      border-bottom: 0;
+    }
+    .ant-select-single:not(.ant-select-customize-input) {
+      .ant-select-selector {
+        padding: 0 10px;
+        height: 23px;
+        min-width: 99px;
+        border: 2px solid #d9d9d9 !important;
+        border-radius: 12px !important;
+        font-size: 13px;
+        color: #414141;
+        line-height: 23px;
+        display: flex;
+        align-items: center;
+        .ant-select-selection-item {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0;
+        }
+      }
+    }
+    .ant-picker {
+      max-width: 100px;
+      font-size: 13px;
+      height: 24px;
+      border-radius: 15px;
+      border-width: 2px;
+    }
+    .ant-picker-input > input {
+      font-size: 13px;
+    }
+  }
+  .scheduleSetting {
+    padding: 24px 64px 0 64px;
+    box-shadow: 1px 1px 12px @shadow-2;
+    border-radius: 20px;
+    margin-bottom: 40px;
+  }
+  .timeSetting {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .messageSetting {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .dropdownHeader {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    .dropdownHeaderTitle {
+      font-size: 26px;
+    }
+    img {
+      height: 23px;
+      width: 23px;
+      margin-right: 8px;
+    }
+    a {
+      font-size: 25px;
+      color: @black-1;
+      :global {
+        .anticon-down {
+          margin-left: 30px;
+        }
+      }
+    }
+    .helperDropdown {
+      margin-left: 55px;
+    }
+    @media screen and (max-width: 768px) {
+      position: relative;
+      width: 100%;
+      .dropdownHeaderTitle {
+        font-size: 16px;
+      }
+    }
+  }
+}
+.buttonZoneContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 0 50px 0;
+  .backBtn {
+    height: 48px;
+    min-width: 148px;
+    background-color: @white;
+    border-radius: 24px;
+    border: 1px solid @white;
+    color: @black-1;
+    box-shadow: 1px 1px 12px @shadow-1;
+  }
+}
+
+.helper {
+  margin-left: 75px;
+  margin-top: 7px;
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  @media screen and (max-width: 767px) {
+    position: absolute;
+    right: 0;
+  }
+  img {
+    position: relative;
+  }
+  .helperTooltip {
+    transition: all 0.3s ease;
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    left: calc(100% + 50px);
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    height: 120px;
+    width: 400px;
+    background-color: @black-1;
+    color: @white-2;
+    font-size: 15px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    img {
+      position: absolute;
+      left: -25px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  }
+  &:hover {
+    .helperTooltip {
+      visibility: visible;
+      opacity: 1;
+      transition: all 0.3s ease;
+    }
+  }
+}
+.tooltipAdvanced {
+  white-space: pre-line;
+  :global {
+    .ant-tooltip-inner {
+      height: 119px;
+      min-width: 300px;
+      justify-content: center;
+      font-size: 15px;
+      @media screen and (max-width: 767px) {
+        min-width: auto;
+        height: auto;
+      }
+    }
+    .ant-tooltip-content {
+      .ant-tooltip-arrow {
+        width: 30px;
+        height: 30px;
+      }
+      .ant-tooltip-arrow-content {
+        background-color: transparent;
+        width: 0;
+        height: 0;
+        border-left: 10px solid transparent;
+        border-right: 10px solid transparent;
+        border-top: 10px solid rgba(0, 0, 0, 0.75);
+        transform: unset;
+        box-shadow: unset;
+        top: 13px;
+      }
+    }
+  }
+}
+.modalDelete {
+  .modalTitle {
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+  .modalDescription {
+    text-align: center;
+    font-size: 17px;
+    margin-bottom: 50px;
+  }
+  :global {
+    .btn.btnWhite {
+      &:hover {
+        border: 2px solid @grey-7;
+      }
+    }
+  }
+}
+
+.padding {
+  @media screen and (max-width: 768px) {
+    padding: 0 15px;
+  }
+}
+.basicSettingModal {
+  :global {
+    .ant-modal-body {
+      padding: 0;
+    }
+  }
+}
