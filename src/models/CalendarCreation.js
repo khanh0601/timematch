@@ -1,8 +1,6 @@
 import EventRequest from '@/services/eventRequest.js';
 import UserRequest from '@/services/userRequest.js';
-import { message } from 'antd';
 import moment from 'moment';
-import zone from 'moment-timezone';
 import { TYPE_VOTE_RELATIONSHIP } from './../constant';
 import { deepCopyData, notify } from '@/commons/function';
 
@@ -272,7 +270,7 @@ export default {
       }
 
       yield put.resolve({
-        type: 'AVAILABLE_TIME/getMemberList',
+        type: 'AVAILABLE_TIME/getMemberListMobile',
         payload: {
           teamId,
           profile,
@@ -362,6 +360,66 @@ export default {
       yield put.resolve({
         type: 'EVENT/setEventTemplate',
         payload: { requestBody: payload },
+      });
+
+      yield put({ type: 'setLoading', payload: false });
+    },
+    *loadingDataMobile(action, { put }) {
+      yield put({ type: 'setLoading', payload: true });
+      const {
+        teamId,
+        memberId,
+        eventId,
+        profile,
+        isEdit,
+        isClone,
+        timeAsync,
+      } = action.payload;
+      // yield put({ type: 'getURL' });
+
+      // only get team if not clone
+      if (eventId && !isClone) {
+        yield put({
+          type: 'EVENT/getFreeTime',
+          payload: { event_id: eventId },
+        });
+      } else if (teamId && !isClone) {
+        yield put({
+          type: 'EVENT/getFreeTime',
+          payload: { team_id: teamId },
+        });
+      } else if (memberId && !isClone) {
+        yield put({
+          type: 'EVENT/getFreeTime',
+          payload: { member_id: memberId },
+        });
+      } else {
+        yield put({
+          type: 'EVENT/getFreeTime',
+          payload: {},
+        });
+      }
+
+      let members = [];
+      if (eventId) {
+        members = yield put.resolve({
+          type: 'EVENT/getDetailEventTypeMobile',
+          payload: { eventTypeId: eventId, isEdit, isClone },
+        });
+      }
+
+      yield put.resolve({
+        type: 'AVAILABLE_TIME/getMemberListMobile',
+        payload: {
+          teamId,
+          profile,
+          memberId,
+          members,
+          eventId,
+          isEdit,
+          isClone,
+          timeAsync,
+        },
       });
 
       yield put({ type: 'setLoading', payload: false });

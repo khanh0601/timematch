@@ -1,0 +1,83 @@
+.sidebarContainer {
+  .sidebarItem {
+    border: none;
+    background-color: transparent;
+
+    &.notWeight {
+      :global {
+        .ant-collapse-header-text {
+          font-weight: 400 !important;
+        }
+      }
+    }
+
+    :global {
+      .ant-drawer {
+        z-index: 200 !important;
+      }
+      .ant-collapse-item {
+        border: none;
+        background-color: transparent;
+
+        .ant-collapse-header,
+        .ant-collapse-content {
+          padding: 0 0 10px 0;
+          border: none;
+          background-color: transparent;
+
+          .ant-collapse-expand-icon {
+            .anticon-right {
+              top: 40%;
+            }
+          }
+
+          .ant-collapse-header-text {
+            font-weight: 600;
+            color: #263240;
+          }
+
+          .info {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            img {
+              width: 20px;
+              height: 20px;
+              margin-right: 5px;
+              background-color: #7f7e7e;
+              border-radius: 100%;
+            }
+          }
+
+          .ant-collapse-content-box {
+            height: 100%;
+            overflow-y: hidden;
+          }
+        }
+      }
+    }
+  }
+
+  .addCalendarBtn {
+    color: #263240;
+    font-weight: 500;
+    margin-top: 10px;
+    border: none;
+    background-color: transparent;
+    box-shadow: none;
+    padding: 5px 0;
+  }
+
+  .listCheckBoxTeamMember {
+    display: flex;
+    overflow-wrap: anywhere;
+    :global {
+      .ant-checkbox-checked {
+        .ant-checkbox-inner {
+          background-color: var(--background-color);
+          border-color: var(--border-color);
+        }
+      }
+    }
+  }
+}

@@ -254,7 +254,7 @@ const EditCheckbox = memo(props => {
       </div>
       <div className={styles.inputContainer}>
         <Button className={styles.primaryBtn} onClick={handleSubmit}>
-          保存
+          保存{' '}
         </Button>
       </div>
     </div>

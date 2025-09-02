@@ -1,3 +1,4 @@
+@import '../../../base.less';
 .calendarCreationContainer {
   padding: 20px;
   hr {
@@ -35,6 +36,12 @@
       font-weight: 600;
       letter-spacing: 1px;
       box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+      margin-right: 10px;
+    }
+    .candidateBtnTooltip {
+      padding: 0;
+      margin: 0;
+      border: none;
     }
     img {
       margin-left: 5px;
@@ -60,9 +67,7 @@
       height: 40px;
       border-radius: 10px;
       background-color: #ffffff;
-      color: #3368c7;
       font-weight: 600;
-      border: 1px solid #3368c7;
       box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
     }
     .calendarTime {
@@ -82,10 +87,9 @@
     margin-top: 15px;
     background-color: #ffffff;
     .collapseExtractCandidate {
-      background-color: #deebf5;
       padding: 10px;
       .candidateHeader {
-        padding: 0 10px;
+        padding: 0 10px !important;
       }
       .calendarTimeContainer {
         margin-top: 10px;
@@ -97,6 +101,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+        padding: 5px 0;
         .candidateItemName {
           color: #3368c7;
           font-weight: 500;
@@ -155,7 +160,7 @@
   @media screen and (max-width: 767px) {
     position: relative;
     overflow: scroll;
-    height: 80vh;
+    height: 75dvh;
     & > div {
       position: absolute;
     }
@@ -211,6 +216,14 @@
     text-decoration: underline;
   }
 }
+.deleteTimeSelected {
+  width: 100%;
+  border: 0;
+  border-radius: 0;
+  font-weight: 700;
+  background-color: #eb3c03;
+  color: #ffffff;
+}
 :global {
   .ant-form-item {
     margin-bottom: 0;
@@ -250,7 +263,28 @@
       }
     }
   }
-  .fc-timegrid-event.fc-v-event.fc-event.fc-event-draggable.fc-event-resizable.fc-event-start.fc-event-end.fc-event-future {
-    border: 2px dashed rgb(24, 144, 255) !important;
+}
+
+@media (min-width: 834px) {
+  .saveBtn {
+    height: 44px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
+
+  .cancelBtn {
+    height: 44px !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: #fff !important;
+    border-radius: 10px;
+    margin-top: 20px;
+  }
+
+  .btnGroup {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
 }

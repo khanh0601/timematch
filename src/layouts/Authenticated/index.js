@@ -52,6 +52,7 @@ function Authenticated({ children }) {
     <div className={classes.join(' ')}>
       <Header createEventType={createEventType} />
       {children}
+      <div id="tooltip-root"></div>
     </div>
   );
 }

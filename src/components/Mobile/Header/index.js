@@ -1,115 +1,123 @@
 import { connect } from 'dva';
 import styles from './styles.less';
-import { useIntl } from 'umi';
-import iconBack from '@/assets/images/i-back-white.png';
-import iconCalendarClose from '@/assets/images/i-close-white.png';
-import { Button, Select } from 'antd';
+import { history } from 'umi';
+import { DownOutlined } from '@ant-design/icons';
+import { ROUTER } from '@/constant';
+import { profileFromStorage } from '@/commons/function';
 
 function HeaderMobile(props) {
-  const intl = useIntl();
   const {
-    createEventType,
-    hideHeader,
-    typeHeader,
-    showModal,
     title,
-    isShowBack,
-    isCalendarCreation,
-    isSelectDetail,
-    backURL,
-    isRight,
+    primary,
+    isShowLeft,
+    isShowRight,
+    itemLeft,
+    itemRight,
+    customStyleLeft,
+    customStyleRight,
+    handleEventLeft,
+    handleEventRight,
+    showLogo,
   } = props;
-  const { formatMessage } = intl;
-  const mapTypeHeader = ['calendar'];
+  const profile = profileFromStorage();
 
-  const handleShowModal = () => {
-    showModal();
-  };
-
-  const handleBackPage = () => {
-    window.location.href = '/login';
-  };
-
-  const handleBackCalendar = () => {
-    window.location.href = '/calendar';
+  const handleEventType = event => {
+    if (!profile?.id) {
+      history.push(ROUTER.login);
+      return;
+    }
+    switch (event) {
+      case 'back':
+        history.push(itemLeft?.url);
+        break;
+      case 'left':
+        handleEventLeft();
+        break;
+      case 'right':
+        handleEventRight();
+        break;
+      case 'backRight':
+        history.push(itemRight?.url);
+        break;
+      case 'history':
+        history.go(-1);
+        break;
+      default:
+        history.push(ROUTER.home);
+        break;
+    }
   };
 
   const headerLeft = () => {
-    if (isCalendarCreation) {
+    if (isShowLeft) {
       return (
-        <Button
-          className={styles.headerMenuLeft}
-          style={{ width: '10%' }}
-          onClick={handleBackCalendar}
+        <div
+          onClick={() => handleEventType(itemLeft?.event)}
+          className={`${styles.backURL} ${itemLeft?.bgColor} ${itemLeft?.borderColor} ${itemLeft?.textColor} ${styles.rounded}`}
+          style={customStyleLeft}
         >
-          <img src={iconCalendarClose} alt={'icon'} />
-        </Button>
-      );
-    } else {
-      return (
-        <Button className={styles.headerMenuLeft} onClick={handleShowModal}>
-          {formatMessage({ id: 'i18n_name' })}
-        </Button>
+          {itemLeft?.icon ? (
+            <img src={itemLeft?.icon} alt={'icon'} />
+          ) : (
+            <div className={styles.itemName}>{itemLeft?.text}</div>
+          )}
+        </div>
       );
     }
   };
 
-  const handleSelectDetail = value => {
-    isSelectDetail(value);
-  };
-
   const headerRight = () => {
-    if (isCalendarCreation && isRight) {
+    if (isShowRight) {
       return (
-        <Select defaultValue={'true'} onChange={handleSelectDetail}>
-          <Select.Option value="false">
-            {formatMessage({ id: 'i18n_view_hide' })}
-          </Select.Option>
-          <Select.Option value="true">
-            {formatMessage({ id: 'i18n_view_detail' })}
-          </Select.Option>
-        </Select>
+        <div
+          onClick={() => handleEventType(itemRight?.event)}
+          className={`${styles.backURL} ${itemRight?.bgColor} ${itemRight?.borderColor} ${itemRight?.textColor} ${styles.rounded}`}
+          style={customStyleRight}
+        >
+          {itemRight?.icon ? (
+            <img src={itemRight?.icon} alt={'icon'} />
+          ) : (
+            <>
+              <div className={styles.itemName}>{itemRight?.text}</div>
+              <DownOutlined />
+            </>
+          )}
+        </div>
       );
-    } else {
-      return <div className={styles.headerMenuRight}></div>;
     }
   };
 
   const renderHeader = () => {
-    if (!mapTypeHeader.includes(typeHeader) && !hideHeader) {
-      return (
-        <div className={`${styles.mainHeader}`}>
-          <div className={`${styles.flexHeader} ${styles.bgBlue}`}>
-            {isShowBack ? (
-              <Button
-                className={`${styles.headerMenuLeft} ${styles.bgBackBtn}`}
-                onClick={handleBackPage}
-              >
-                <img src={iconBack} alt={'icon'} />
-              </Button>
-            ) : (
-              <div className={styles.headerMenuRight}></div>
-            )}
-            <div className={`${styles.headerTitle} ${styles.textWhite}`}>
-              {title}
+    return (
+      <div className={`${styles.mainHeader} main-header`}>
+        <div
+          className={`${styles.flexHeader} ${primary?.bgColor} ${
+            primary?.textColor
+          } ${showLogo ? styles.flexHeaderLogo : ''}`}
+          style={{
+            backgroundColor: primary?.bgColor,
+            color: primary?.textColor,
+          }}
+        >
+          <div className={`${styles.headerMenuLeft}`}>{headerLeft()}</div>
+          {showLogo ? (
+            <div className={`${styles.headerLogo}`}>
+              <img
+                src={require('@/assets/images/logo.png')}
+                alt={'logo'}
+                className={styles.logo}
+              />
             </div>
-            <div className={styles.headerMenuRight}></div>
-          </div>
-        </div>
-      );
-    } else if (mapTypeHeader.includes(typeHeader) && !hideHeader) {
-      return (
-        <div className={`${styles.mainHeader}`}>
-          <div className={`${styles.flexHeader}`}>
-            {headerLeft()}
+          ) : (
             <div className={`${styles.headerTitle}`}>{title}</div>
+          )}
+
+          <div className={`${styles.headerMenuRight} header-menu-right`}>
             {headerRight()}
           </div>
         </div>
-      );
-    } else {
-      return <></>;
-    }
+      </div>
+    );
   };
 
   return <>{renderHeader()}</>;

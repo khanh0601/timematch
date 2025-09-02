@@ -389,7 +389,7 @@ function ListTab(props) {
         page: pageIndex,
       };
       if (location.query.team_id) {
-        history.push({ pathname: '/', search: '?tab=2&team_all=true' });
+        history.push({ pathname: '/', search: '?team_all=true' });
         await dispatch({ type: 'TEAM/getTeam' });
       } else {
         await dispatch({ type: 'TAB/getPaginateTeam', payload });
@@ -465,7 +465,7 @@ function ListTab(props) {
       return;
     }
     history.push(
-      `/calendar-creation?idEvent=${idEvent}&clone=1&relationship_type=${TYPE_VOTE_RELATIONSHIP}&member_id=${memberId}`,
+      `/create-calendar?idEvent=${idEvent}&clone=1&relationship_type=${TYPE_VOTE_RELATIONSHIP}&member_id=${memberId}`,
     );
   }
   function editEvent(event, item) {
@@ -487,13 +487,9 @@ function ListTab(props) {
     }
 
     if (event && event.team_id) {
-      history.push(
-        `/calendar-creation?idEvent=${idEvent}&edit=true&relationship_type=${TYPE_VOTE_RELATIONSHIP}&team_id=${event.team_id}&member_id=${memberId}`,
-      );
+      history.push(`/calendar/${idEvent}`);
     } else {
-      history.push(
-        `/calendar-creation?idEvent=${idEvent}&edit=true&relationship_type=${TYPE_VOTE_RELATIONSHIP}&member_id=${memberId}`,
-      );
+      history.push(`/calendar/${idEvent}`);
     }
   }
 
@@ -1704,7 +1700,7 @@ function ListTab(props) {
                                                           'i18n_you_have_been_delete_from_team',
                                                       }),
                                                     );
-                                                    history.push('/?tab=2');
+                                                    history.push('/');
                                                   }
                                                 }
                                               }}
@@ -1788,7 +1784,7 @@ function ListTab(props) {
                                                         'i18n_you_have_been_delete_from_team',
                                                     }),
                                                   );
-                                                  history.push('/?tab=2');
+                                                  history.push('/');
                                                 }
                                               }}
                                               disabled={
@@ -2235,7 +2231,7 @@ function ListTab(props) {
                                           'i18n_you_have_been_delete_from_team',
                                       }),
                                     );
-                                    history.push('/?tab=2');
+                                    history.push('/');
                                   }
                                 }
                               }}

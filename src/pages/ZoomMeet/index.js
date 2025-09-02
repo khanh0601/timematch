@@ -105,7 +105,7 @@ function ZoomMeet(props) {
                 <div className={styles.explainContent}>
                   Google Meet はオンラインミーティングツールです。
                   <br />
-                  Smoothly と GoogleMeet を連携いただくことで、 GoogleMeet
+                  タイムマッチ と GoogleMeet を連携いただくことで、 GoogleMeet
                   のミーティングURLが自動発行され、調整相手へも自動連絡されるので、別途ミーティング
                   URL を送る必要もなくなり大変便利です。
                   <br />

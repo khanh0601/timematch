@@ -1,7 +1,14 @@
 @import '../../base.less';
 
 .invalidURL {
-  padding: 100px 0;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 0 10px;
   p,
   h2,
   a {
@@ -10,5 +17,17 @@
   a {
     text-decoration: underline;
     color: @green-2;
+  }
+  .backToHome {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+    img {
+      background-color: #0f87e4;
+      width: 25px;
+      border-radius: 100%;
+      margin-right: 5px;
+    }
   }
 }

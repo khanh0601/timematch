@@ -12,8 +12,10 @@ import {
   YYYYMMDD,
   YYYYMMDDTHHmm,
   MIN_AUTO_EVENT_A_DAY,
+  ADMIN_FULL_DATE_HOUR,
 } from '@/constant';
 import { message } from 'antd';
+import { formatMessage } from 'umi';
 import moment from 'moment';
 import { v4 as uuidv4 } from 'uuid';
 import {
@@ -41,6 +43,13 @@ const initState = {
   needGenerate: false,
   generateOption: MEMBER_REQUIRED_TYPE.AND,
   headerSettingAdvance: false,
+  // state mobile
+  memberMobile: [],
+  listCheckedBlockGenerate: [],
+  dataEventMobile: [],
+  blockTime: '',
+  viewEventCalendar: 3,
+  currentStartDate: moment().format('YYYY-MM-DD'),
 };
 
 export default {
@@ -1259,6 +1268,580 @@ export default {
         generateOption: payload,
       };
     },
+
+    // Handle mobile logic
+    setMemberMobile(state, { payload }) {
+      return {
+        ...state,
+        memberMobile: payload,
+      };
+    },
+    setBookedEventsMobile(state, { payload }) {
+      const { memberMobile } = state;
+      const { listEvents, userId } = payload;
+
+      const index = memberMobile.findIndex(member => member.id === userId);
+
+      // dot not thing if member not exits
+      if (index == -1) {
+        return state;
+      }
+
+      memberMobile[index].events = listEvents.map(event => {
+        const start = moment(event.start_time);
+        const end = moment(event.end_time);
+
+        return {
+          ...event,
+          id: event.id,
+          user_id: userId,
+          end: end.format(YYYYMMDDTHHmm),
+          start: start.format(YYYYMMDDTHHmm),
+          end_time: end.format(YYYYMMDDTHHmm),
+          start_time: start.format(YYYYMMDDTHHmm),
+          day_of_week: start.day(),
+          status: 1,
+          color: memberMobile[index].color,
+          srcId: uuidv4(),
+          recentAdded: true,
+          overlap: true,
+          custom_type: DATE_TIME_TYPE.default,
+          isBooked: true,
+          editable: false,
+          option: memberMobile[index].option,
+          name: event.name || event.event_name,
+          title: event.title,
+          hide: memberMobile[index].hide,
+          textColor: event.text_color,
+          isSync: true,
+        };
+      });
+
+      // reset new booked event
+      const bookedEvents = [];
+      memberMobile.forEach(member =>
+        member.checked ? bookedEvents.push(...(member.events || [])) : null,
+      );
+
+      return {
+        ...state,
+        bookedEvents: [...bookedEvents],
+        // autoEvents: [], // reset auto event
+        members: [...memberMobile],
+      };
+    },
+    customizeGenerateEventMobile(state) {
+      const { listCheckedBlockGenerate, bookedEvents, dataEventMobile } = state;
+      let unCheckIds = [];
+      // handle convert listCheckedBlockGenerate to event
+      const flatData = Object.entries(listCheckedBlockGenerate)
+        .map(([key, value]) => {
+          const unchecks = value.filter(item => !item.checked);
+          unCheckIds = [...unCheckIds, ...unchecks.map(item => item.srcId)];
+          return value.filter(item => item.checked);
+        })
+        .flat();
+
+      const showDataEventMobile = dataEventMobile.filter(
+        item => !unCheckIds.includes(item.id),
+      );
+
+      return {
+        ...state,
+        displayEvents: [...showDataEventMobile, ...flatData, ...bookedEvents],
+      };
+    },
+    addEventMobile(state, { payload }) {
+      let { displayEvents, listCheckedBlockGenerate } = state;
+      // console.log('addEventMobile displayEvents: ', displayEvents);
+      const { info, block_number } = payload;
+
+      const start = moment(info.date);
+      const end = moment(info.date).add(block_number, 'minutes');
+
+      const event = {
+        title: formatMessage({ id: 'i18n_votes' }),
+        end: end.format(YYYYMMDDTHHmm),
+        start: start.format(YYYYMMDDTHHmm),
+        end_time: end.format(YYYYMMDDTHHmm),
+        start_time: start.format(YYYYMMDDTHHmm),
+        day_of_week: start.day(),
+        status: 1,
+        srcId: uuidv4(),
+        dayStr: start.format(YYYYMMDD),
+        thisDay: start.format(YYYYMMDD),
+        recentAdded: true,
+        overlap: true,
+        color: null,
+        custom_type: DATE_TIME_TYPE.default,
+        textColor: '#333333',
+        backgroundColor: 'transparent',
+        borderColor: '#1890ff',
+        // flag check event is auto generated
+        isSync: false,
+        checked: true,
+      };
+
+      displayEvents = [...displayEvents, event];
+
+      if (listCheckedBlockGenerate[start.format(YYYYMMDD)]) {
+        listCheckedBlockGenerate[start.format(YYYYMMDD)].push({
+          ...event,
+        });
+      } else {
+        listCheckedBlockGenerate[start.format(YYYYMMDD)] = [
+          {
+            ...event,
+          },
+        ];
+      }
+
+      return {
+        ...state,
+        displayEvents: [...displayEvents],
+        listCheckedBlockGenerate: listCheckedBlockGenerate,
+      };
+    },
+    deleteEventMobile(state, { payload }) {
+      let { displayEvents, listCheckedBlockGenerate } = state;
+
+      displayEvents = displayEvents.filter(e => {
+        if (e.randomId) {
+          return e.randomId != payload.randomId;
+        }
+        const existEvent =
+          e.id === payload.srcId &&
+          moment(e.start_time).format(ADMIN_FULL_DATE_HOUR) ==
+            moment(payload.start_time).format(ADMIN_FULL_DATE_HOUR) &&
+          moment(e.end_time).format(ADMIN_FULL_DATE_HOUR) ==
+            moment(payload.end_time).format(ADMIN_FULL_DATE_HOUR);
+        return !existEvent;
+      });
+
+      // set checked block generate to false
+      listCheckedBlockGenerate = Object.entries(listCheckedBlockGenerate).map(
+        ([key, value]) => {
+          return {
+            [key]: value.map(item => {
+              if (item.srcId == payload.srcId) {
+                item.checked = false;
+              }
+
+              return item;
+            }),
+          };
+        },
+      );
+
+      // revert to object
+      listCheckedBlockGenerate = listCheckedBlockGenerate.reduce((acc, cur) => {
+        return { ...acc, ...cur };
+      }, {});
+
+      return {
+        ...state,
+        displayEvents: displayEvents,
+        listCheckedBlockGenerate: listCheckedBlockGenerate,
+      };
+    },
+    resizeEventMobile(state, { payload }) {
+      let { displayEvents, listCheckedBlockGenerate } = state;
+      const event = payload.event;
+      const eventProp = payload.event._def.extendedProps;
+
+      const start = moment(event.start);
+      const newEnd = moment(event.end);
+
+      displayEvents = displayEvents.map(e => {
+        if (e.srcId == eventProp.srcId) {
+          e.end = newEnd.format(YYYYMMDDTHHmm);
+          e.end_time = newEnd.format(YYYYMMDDTHHmm);
+        }
+
+        return e;
+      });
+
+      if (listCheckedBlockGenerate[start.format(YYYYMMDD)]) {
+        listCheckedBlockGenerate[
+          start.format(YYYYMMDD)
+        ] = listCheckedBlockGenerate[start.format(YYYYMMDD)].map(e => {
+          if (e.srcId == eventProp.srcId) {
+            e.end = newEnd.format(YYYYMMDDTHHmm);
+            e.end_time = newEnd.format(YYYYMMDDTHHmm);
+            e.checked = true;
+          }
+
+          return e;
+        });
+      }
+
+      return {
+        ...state,
+        displayEvents: [...displayEvents],
+        listCheckedBlockGenerate: listCheckedBlockGenerate,
+      };
+    },
+    dropEventMobile(state, { payload }) {
+      let { displayEvents, listCheckedBlockGenerate } = state;
+      const event = payload.event;
+      const eventProp = event._def.extendedProps;
+
+      const newStart = moment(event.start);
+      const newEnd = moment(event.end);
+
+      // loop displayEvents to update new time
+      displayEvents = displayEvents.map(e => {
+        if (e.srcId == eventProp.srcId) {
+          e.end = newEnd.format(YYYYMMDDTHHmm);
+          e.start = newStart.format(YYYYMMDDTHHmm);
+          e.end_time = newEnd.format(YYYYMMDDTHHmm);
+          e.start_time = newStart.format(YYYYMMDDTHHmm);
+          e.thisDay = newStart.format(YYYYMMDD);
+          e.day_of_week = newStart.isoWeekday();
+          e.dayStr = newStart.format(YYYYMMDD);
+        }
+
+        return e;
+      });
+
+      // convert data displayEvents to listCheckedBlockGenerate to update new time
+      const convertDataFromDisplayEvents = displayEvents.reduce((acc, cur) => {
+        if (acc[cur.thisDay]) {
+          acc[cur.thisDay].push(cur);
+        } else {
+          acc[cur.thisDay] = [cur];
+        }
+
+        return acc;
+      }, {});
+
+      // keep old data and update new time, remove old time if drop to other day
+      listCheckedBlockGenerate = Object.entries(listCheckedBlockGenerate).map(
+        ([key, value]) => {
+          if (convertDataFromDisplayEvents[key]) {
+            return {
+              [key]: convertDataFromDisplayEvents[key],
+            };
+          }
+
+          return {
+            [key]: value.filter(e => e.srcId != eventProp.srcId),
+          };
+        },
+      );
+
+      // revert to object
+      listCheckedBlockGenerate = listCheckedBlockGenerate.reduce((acc, cur) => {
+        return { ...acc, ...cur };
+      }, {});
+
+      return {
+        ...state,
+        displayEvents: [...displayEvents],
+        listCheckedBlockGenerate: listCheckedBlockGenerate,
+      };
+    },
+    setSPBookedEvents(state, { payload }) {
+      const { memberMobile } = state;
+      const { listEvents, userId } = payload;
+
+      const index = memberMobile.findIndex(member => member.id === userId);
+
+      // dot not thing if member not exits
+      if (index == -1) {
+        return state;
+      }
+
+      memberMobile[index].events = listEvents.map(event => {
+        const start = moment(event.start_time);
+        const end = moment(event.end_time);
+
+        return {
+          id: event.id,
+          user_id: userId,
+          end: end.format(YYYYMMDDTHHmm),
+          start: start.format(YYYYMMDDTHHmm),
+          end_time: end.format(YYYYMMDDTHHmm),
+          start_time: start.format(YYYYMMDDTHHmm),
+          day_of_week: start.day(),
+          status: 1,
+          color: memberMobile[index].color,
+          srcId: uuidv4(),
+          recentAdded: true,
+          overlap: true,
+          custom_type: DATE_TIME_TYPE.default,
+          isBooked: true,
+          editable: false,
+          option: memberMobile[index].option,
+          name: event.name || event.event_name,
+          hide: memberMobile[index].hide,
+        };
+      });
+
+      // reset new booked event
+      const bookedEvents = [];
+      memberMobile.forEach(member =>
+        member.checked ? bookedEvents.push(...(member.events || [])) : null,
+      );
+
+      return {
+        ...state,
+        bookedEvents: [...bookedEvents],
+        // autoEvents: [], // reset auto event
+        members: [...memberMobile],
+      };
+    },
+    memberCheckedMobile(state, { payload }) {
+      const { memberMobile } = state;
+      const { checked, member } = payload;
+
+      const index = memberMobile.findIndex(m => m.id === member.id);
+
+      const events = [];
+      if (index !== -1) {
+        memberMobile[index].checked = checked;
+      }
+
+      memberMobile.forEach(m =>
+        m.checked && m.events ? events.push(...m.events) : null,
+      );
+
+      return {
+        ...state,
+        members: [...memberMobile],
+        displayEvents: [...events].concat(state.displayEvents),
+        bookedEvents: [...events],
+      };
+    },
+    rerenderMemberCheckedMobile(state) {
+      const { memberMobile } = state;
+      // reset new booked event
+      const bookedEvents = [];
+      memberMobile.forEach(member =>
+        member.checked ? bookedEvents.push(...(member.events || [])) : null,
+      );
+
+      return {
+        ...state,
+        bookedEvents: [...bookedEvents],
+        autoEvents: [], // reset auto event
+      };
+    },
+    deleteCheckedGenerateBlockCalendar(state, { payload }) {
+      let listCheckedBlockGenerate = state.listCheckedBlockGenerate || {};
+      const groupKey = moment(payload.start_time).format(YYYYMMDD);
+
+      if (listCheckedBlockGenerate[groupKey]) {
+        const eventIndex = listCheckedBlockGenerate[groupKey]?.findIndex(
+          e =>
+            moment(e.start_time).format(ADMIN_FULL_DATE_HOUR) ==
+              moment(payload.start_time).format(ADMIN_FULL_DATE_HOUR) &&
+            moment(e.end_time).format(ADMIN_FULL_DATE_HOUR) ==
+              moment(payload.end_time).format(ADMIN_FULL_DATE_HOUR),
+        );
+
+        if (eventIndex != -1) {
+          listCheckedBlockGenerate[groupKey][eventIndex].checked = false;
+        }
+      }
+
+      return {
+        ...state,
+        listCheckedBlockGenerate,
+      };
+    },
+    setCheckedGenerateBlockCalendar(state, { payload }) {
+      return {
+        ...state,
+        listCheckedBlockGenerate: payload,
+      };
+    },
+    toggleBlockCalendar(state, { payload }) {
+      if (!payload) return;
+      const listCheckedBlockGenerate = state.listCheckedBlockGenerate || {};
+      const groupKey = payload.thisDay;
+      const eventIndex = listCheckedBlockGenerate[groupKey]?.findIndex(
+        x => x.randomId === payload.randomId || x.srcId === payload.src,
+      );
+
+      if (eventIndex !== -1 && eventIndex !== undefined) {
+        listCheckedBlockGenerate[groupKey][eventIndex].checked =
+          payload.checked;
+      }
+
+      return {
+        ...state,
+        listCheckedBlockGenerate,
+      };
+    },
+    dropBlockCalendar(state, { payload }) {
+      const event = payload.event._def.extendedProps;
+      const eventStartTime = moment(event.start_time).format(YYYYMMDDTHHmm);
+      const eventEndTime = moment(event.end_time).format(YYYYMMDDTHHmm);
+      const milliseconds = payload.delta.milliseconds;
+      const days = payload.delta.days;
+
+      const newStart = moment(event.start_time)
+        .add(milliseconds, 'milliseconds')
+        .add(days, 'days');
+      const newStartTime = newStart.format(YYYYMMDDTHHmm);
+      const newEnd = moment(event.end_time)
+        .add(milliseconds, 'milliseconds')
+        .add(days, 'days');
+      const newEndTime = newEnd.format(YYYYMMDDTHHmm);
+
+      const thisDay = newStart.format(YYYYMMDD);
+      const day_of_week = newStart.isoWeekday();
+
+      const newBlocks = state.listCheckedBlockGenerate || [];
+      const groupKey =
+        event.thisDay || moment(event.start_time).format(YYYYMMDD);
+
+      const newGroupKey = newStart.format(YYYYMMDD);
+
+      const result = newBlocks[groupKey];
+
+      if (groupKey == newGroupKey) {
+        const eventIndex = result?.findIndex(
+          e =>
+            moment(e.start_time).format(YYYYMMDDTHHmm) == eventStartTime &&
+            moment(e.end_time).format(YYYYMMDDTHHmm) == eventEndTime,
+        );
+        const newEventIndex = result?.findIndex(
+          e =>
+            moment(e.start_time).format(YYYYMMDDTHHmm) == newStartTime &&
+            moment(e.end_time).format(YYYYMMDDTHHmm) == newEndTime,
+        );
+
+        if (eventIndex !== undefined && eventIndex != -1) {
+          newBlocks[groupKey][eventIndex].start_time = newStartTime;
+          newBlocks[groupKey][eventIndex].start = newStartTime;
+          newBlocks[groupKey][eventIndex].end_time = newEndTime;
+          newBlocks[groupKey][eventIndex].end = newEndTime;
+          newBlocks[groupKey][eventIndex].thisDay = thisDay;
+          newBlocks[groupKey][eventIndex].dayStr = thisDay;
+          newBlocks[groupKey][eventIndex].day_of_week = day_of_week;
+        }
+      } else {
+        newBlocks[groupKey] = newBlocks[groupKey]?.filter(
+          e =>
+            moment(e.start_time).format(YYYYMMDDTHHmm) != eventStartTime &&
+            moment(e.end_time).format(YYYYMMDDTHHmm) != eventEndTime,
+        );
+
+        newBlocks[newGroupKey] = newBlocks[newGroupKey] || [];
+        newBlocks[newGroupKey].push({
+          ...event,
+          start_time: newStartTime,
+          start: newStartTime,
+          end_time: newEndTime,
+          end: newEndTime,
+          thisDay: thisDay,
+          dayStr: thisDay,
+          day_of_week: day_of_week,
+        });
+      }
+      return {
+        ...state,
+        listCheckedBlockGenerate: newBlocks,
+      };
+    },
+    dragStopBlockCalendar(state, { payload }) {
+      // console.log('dragStopBlockCalendar payload: ', payload);
+      const event = payload.event._def.extendedProps;
+      const eventStartTime = moment(event.start_time).format(
+        ADMIN_FULL_DATE_HOUR,
+      );
+      const eventEndTime = moment(event.end_time).format(ADMIN_FULL_DATE_HOUR);
+      const milliseconds = payload.delta.milliseconds;
+      const days = payload.delta.days;
+
+      const newStart = moment(event.start_time)
+        .add(milliseconds, 'milliseconds')
+        .add(days, 'days');
+      const newStartTime = newStart.format(YYYYMMDDTHHmm);
+      const newEnd = moment(event.end_time)
+        .add(milliseconds, 'milliseconds')
+        .add(days, 'days');
+      const newEndTime = newEnd.format(YYYYMMDDTHHmm);
+
+      const thisDay = newStart.format(YYYYMMDD);
+      const day_of_week = newStart.isoWeekday();
+
+      const newBlocks = state.listCheckedBlockGenerate || [];
+      const groupKey =
+        event.thisDay || moment(event.start_time).format(YYYYMMDD);
+
+      const newGroupKey = newStart.format(YYYYMMDD);
+
+      const result = newBlocks[groupKey];
+
+      if (groupKey == newGroupKey) {
+        const eventIndex = result?.findIndex(
+          e =>
+            moment(e.start_time).format(ADMIN_FULL_DATE_HOUR) ==
+              eventStartTime &&
+            moment(e.end_time).format(ADMIN_FULL_DATE_HOUR) == eventEndTime,
+        );
+
+        if (eventIndex !== undefined && eventIndex != -1) {
+          newBlocks[groupKey][eventIndex].start_time = newStartTime;
+          newBlocks[groupKey][eventIndex].start = newStartTime;
+          newBlocks[groupKey][eventIndex].end_time = newEndTime;
+          newBlocks[groupKey][eventIndex].end = newEndTime;
+          newBlocks[groupKey][eventIndex].thisDay = thisDay;
+          newBlocks[groupKey][eventIndex].dayStr = thisDay;
+          newBlocks[groupKey][eventIndex].day_of_week = day_of_week;
+        }
+      } else {
+        newBlocks[groupKey] = newBlocks[groupKey]?.filter(
+          e =>
+            moment(e.start_time).format(ADMIN_FULL_DATE_HOUR) !=
+              eventStartTime &&
+            moment(e.end_time).format(ADMIN_FULL_DATE_HOUR) != eventEndTime,
+        );
+
+        newBlocks[newGroupKey] = newBlocks[newGroupKey] || [];
+        newBlocks[newGroupKey].push({
+          ...event,
+          start_time: newStartTime,
+          start: newStartTime,
+          end_time: newEndTime,
+          end: newEndTime,
+          thisDay: thisDay,
+          dayStr: thisDay,
+          day_of_week: day_of_week,
+        });
+      }
+      return {
+        ...state,
+        listCheckedBlockGenerate: newBlocks,
+      };
+    },
+    setDataEventMobile(state, { payload }) {
+      return {
+        ...state,
+        dataEventMobile: payload,
+      };
+    },
+    setBlockCalendar(state, { payload }) {
+      return {
+        ...state,
+        blockTime: payload,
+      };
+    },
+    setViewEventCalendar(state, { payload }) {
+      return {
+        ...state,
+        viewEventCalendar: payload,
+      };
+    },
+    setCurrentStartDate(state, { payload }) {
+      return {
+        ...state,
+        currentStartDate: payload,
+      };
+    },
   },
   effects: {
     *getMemberList(action, { put, call }) {
@@ -1401,8 +1984,6 @@ export default {
       // add load to week
       for (const member of allMembers) {
         if (member.type == 3 && member.checked) {
-          console.log(111111111111111111111111111111);
-          console.log(member);
           yield put.resolve({
             type: 'EVENT/getAllBookedScheduleByUser',
             payload: {
@@ -1428,9 +2009,6 @@ export default {
 
       yield put({ type: 'generateOption', payload: option });
       yield put({ type: 'setLoading', payload: false });
-    },
-    *sendAddMemberEmail({ payload }, { call }) {
-      yield call(EventRequest.sendEmailAddMember, payload);
     },
     *memberChecked({ payload }, { put }) {
       const { checked, member, timeAsync } = payload;
@@ -1504,6 +2082,223 @@ export default {
         }
       }
 
+      yield put({ type: 'setLoading', payload: false });
+    },
+    // Handle mobile logic
+    *sendAddMemberEmail({ payload }, { call }) {
+      const { body } = yield call(EventRequest.sendEmailAddMember, payload);
+      if (body && body.status) {
+        notify('メンバーに招待状を送信しました。', 'bgWhite', 'success');
+      } else {
+        notify('メンバーに招待状を送信できませんでした。');
+      }
+    },
+    *memberCheckedMobile({ payload }, { put }) {
+      const { checked, member, timeAsync } = payload;
+
+      yield put({
+        type: 'setLoading',
+        payload: true,
+      });
+
+      if (member.type == 3 && checked) {
+        yield put.resolve({
+          type: 'EVENT/getAllBookedScheduleByUserMobile',
+          payload: {
+            user_id: member.id,
+            color: member.color,
+            option: member.option,
+            checked: checked,
+            ...timeAsync,
+          },
+        });
+      } else if (checked) {
+        yield put.resolve({
+          type: 'EVENT/getCalendarByProviderMobile',
+          payload: {
+            email: member.email,
+            provider: member.provider,
+            member: member,
+            ...timeAsync,
+          },
+        });
+      } else {
+        // rerenderMemberChecked
+        yield put({
+          type: 'rerenderMemberCheckedMobile',
+        });
+      }
+
+      yield put({
+        type: 'setLoading',
+        payload: false,
+      });
+    },
+    *getMemberListMobile(action, { put, call }) {
+      let {
+        teamId,
+        profile,
+        memberId,
+        members,
+        eventId,
+        isClone,
+        timeAsync,
+      } = action.payload;
+      // async loading api calendar need_sync
+      yield put({ type: 'setLoading', payload: true });
+
+      const newMembers = [];
+
+      try {
+        // contract user
+        const contractRes = yield call(EventRequest.getUserContract);
+        if (contractRes.status == 200 && contractRes.body.data) {
+          newMembers.push(...contractRes.body.data);
+        }
+        // share user
+        const shareRes = yield call(EventRequest.getUserShare, {
+          event_id: eventId,
+        });
+        if (shareRes.status == 200 && shareRes.body.data) {
+          let hide = 1;
+          shareRes.body.data.forEach(member => {
+            if (!newMembers.some(m => m.email === member.email)) {
+              if (member.user_id == null) {
+                member.hide = hide++;
+              }
+
+              newMembers.push(member);
+            }
+          });
+        }
+      } catch (err) {
+        console.log('failed to call share calendar request ', err);
+      }
+
+      // get member options - only call team if not is clone
+      // if (teamId && !isClone) {
+      //   const optionRes = yield call(TeamRequest.getTeamOption, {
+      //     team_id: teamId,
+      //   });
+      //   if (optionRes.status == 200 && optionRes.body.result.result) {
+      //     optionRes.body.result.result.forEach(member => {
+      //       const exist = newMembers.find(m => m.user_id === member.user_id);
+      //       if (exist) {
+      //         exist.checked = member.option != MEMBER_REQUIRED_TYPE.NOT;
+      //         exist.option = member.option;
+      //       }
+      //     });
+      //   }
+      // }
+
+      // get option of team defaul is AND
+      const option = newMembers.some(m => m.option === MEMBER_REQUIRED_TYPE.OR)
+        ? MEMBER_REQUIRED_TYPE.OR
+        : MEMBER_REQUIRED_TYPE.AND;
+
+      // add agent member
+      if (profile?.id) {
+        const email =
+          profile.email || profile.google_email || profile.microsoft_email;
+        const agent = newMembers.find(
+          member => member.email.toLowerCase() === email.toLowerCase(),
+        );
+
+        if (agent) {
+          agent.id = profile?.id;
+          agent.checked = true;
+        } else {
+          const type =
+            isClone || !eventId
+              ? 3
+              : profile.google_email
+              ? 1
+              : profile.microsoft_email
+              ? 2
+              : 3;
+
+          newMembers.push({
+            id: profile?.id,
+            email,
+            option,
+            type,
+            checked: true,
+          });
+        }
+      }
+      // conver array
+      const allMembers = newMembers.map(member => {
+        let checkedMember = member.checked;
+
+        // if create event in booking of member => member checked true
+        if (!member.type && member.user_id === memberId) {
+          checkedMember = true;
+        }
+
+        // if teamId clear all checked member when member expired
+        if (teamId && member?.is_expired) {
+          checkedMember = false;
+        }
+
+        return {
+          id: !member.type ? member.user_id : member.email,
+          type: member.type ? member.type : 3,
+          email: member.email || member.google_email || member.microsoft_email,
+          name: member.type == 2 ? member.name : null,
+          checked: checkedMember,
+          provider:
+            member.type == 1 ? 'google' : member.type == 2 ? 'microsoft' : null,
+          option: member.option || option,
+          hide: member.hide,
+          is_expired: member?.is_expired,
+        };
+      });
+
+      // client members
+      members.forEach(member => {
+        const exist = allMembers.find(m => m.email == member.email);
+        if (exist) exist.checked = member.checked;
+        else {
+          member.option = option;
+          allMembers.push(member);
+        }
+      });
+
+      // agent to top
+      allMembers.sort(member => (member.id === profile?.id ? -1 : 1));
+
+      // add color
+      allMembers.forEach((member, id) => (member.color = getColor(id)));
+
+      yield put({ type: 'setMemberMobile', payload: allMembers });
+      // get list booked vote
+      // add load to week
+      for (const member of allMembers) {
+        if (member.type == 3 && member.checked) {
+          yield put.resolve({
+            type: 'EVENT/getAllBookedScheduleByUserMobile',
+            payload: {
+              user_id: member.id,
+              color: member.color,
+              option: member.option,
+              checked: member.checked,
+              ...timeAsync,
+            },
+          });
+        } else if (member.checked) {
+          yield put.resolve({
+            type: 'EVENT/getCalendarByProviderMobile',
+            payload: {
+              email: member.email,
+              provider: member.provider,
+              member: member,
+              ...timeAsync,
+            },
+          });
+        }
+      }
+
+      yield put({ type: 'generateOption', payload: option });
       yield put({ type: 'setLoading', payload: false });
     },
   },

@@ -1,3 +1,4 @@
+@import '../../../base.less';
 .mainHeader {
   .flexHeader {
     display: flex;
@@ -6,31 +7,83 @@
     padding: 10px 20px;
     border-bottom: 1px solid #3368c7;
     .headerMenuLeft {
+      width: 20%;
       display: flex;
-      justify-content: center;
+      justify-content: left;
       align-items: center;
-      width: 15%;
-      background: #3368c7;
       border-radius: 5px;
       font-weight: 700;
       color: #ffffff;
       border: none;
+      .backURL {
+        padding: 5px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        img {
+          width: 100%;
+          height: auto;
+        }
+        .itemName {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
       &.bgBackBtn {
         background: rgba(255, 255, 255, 0.1);
       }
-      img {
-        width: 30px;
-        height: 30px;
+      span {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
     }
     .headerTitle {
-      width: 70%;
+      width: 60%;
       font-weight: 700;
       font-size: 1.2rem;
       text-align: center;
     }
     .headerMenuRight {
-      width: 15%;
+      width: 20%;
+      display: flex;
+      justify-content: right;
+      align-items: center;
+      .backURL {
+        padding: 5px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+        img {
+          width: 100%;
+          height: auto;
+        }
+        span {
+          padding-left: 5px;
+        }
+        .itemName {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+    }
+    .headerMenuRightManual {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1rem;
+      color: #0f87e4;
+      font-weight: 500;
+      border-radius: 5px;
     }
   }
   .header {
@@ -44,10 +97,19 @@
       text-align: center;
     }
   }
-  .bgBlue {
-    background-color: #3368c7;
-  }
   .textWhite {
     color: #ffffff;
+  }
+
+  .headerLogo {
+    img {
+      width: 200px;
+      height: 43px;
+      object-fit: contain;
+    }
+  }
+
+  .flexHeaderLogo {
+    border-bottom: none;
   }
 }

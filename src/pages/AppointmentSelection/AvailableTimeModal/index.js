@@ -51,7 +51,7 @@ const AvailableTimeModal = ({
   } = props;
   const dispatch = useDispatch();
   const { listCalendar } = calendarStore;
-  const { listEventType, totalEventType } = eventStore;
+  const { listEventType, totalEventType, listBookedScheduleGuest } = eventStore;
   const [loading, setLoading] = useState(true);
   const [loadingCalendar, setLoadingCalendar] = useState(false);
   const [currentTab, setCurrentTab] = useState('2');
@@ -199,6 +199,32 @@ const AvailableTimeModal = ({
   const handleEventClick = info => {
     onSelect(info.event);
   };
+
+  useEffect(() => {
+    if (open) {
+      const data = listBookedScheduleGuest.map(dt => {
+        return {
+          title: dt?.name,
+          start: dt?.start_time,
+          end: moment(dt?.start_time)
+            .add(dt?.block_number, 'minutes')
+            .format('YYYY-MM-DD HH:mm:ss'),
+          id: dt?.id,
+          isDeleted: dt?.deleted_at,
+          blockNumber: dt?.block_number,
+        };
+      });
+
+      const combinedArray = data.reduce((acc, val) => acc.concat(val), []);
+      const filteredArray = combinedArray.filter(function(el) {
+        return el != null;
+      });
+      dispatch({
+        type: 'AVAILABLE_TIME/setDisplayEvents',
+        payload: filteredArray,
+      });
+    }
+  }, [listEventType, open]);
 
   return (
     <Modal

@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, use } from 'react';
 import styles from './styles.less';
 import { useIntl, history } from 'umi';
 import { connect } from 'dva';
@@ -8,6 +8,12 @@ import Footer from '@/components/Footer';
 import { passwordRegex } from '@/constant';
 import { LeftOutlined } from '@ant-design/icons';
 import { profileFromStorage } from '@/commons/function';
+import HeaderMobile from '@/components/Mobile/Header';
+import iconBack from '@/assets/images/i-back-white.png';
+import { ROUTER } from '@/constant';
+import useIsMobile from '../../hooks/useIsMobile';
+import PCHeader from '../../components/PC/Header';
+import FooterMobile from '../../components/Mobile/Footer';
 
 function ChangePassword(props) {
   const { dispatch, masterStore } = props;
@@ -22,10 +28,24 @@ function ChangePassword(props) {
   const [focus1, setFocus1] = useState(false);
   const [focus2, setFocus2] = useState(false);
   const [focus3, setFocus3] = useState(false);
+
+  const emailRef = useRef(null);
   const inputRef1 = useRef(null);
   const inputRef2 = useRef(null);
   const inputRef3 = useRef(null);
   const profile = profileFromStorage();
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (!isMobile) {
+      emailRef.current?.focus();
+    }
+  }, [isMobile]);
+
+  const handleGoBack = () => {
+    history.go(-1);
+  };
+
   const onSubmit = () => {
     form
       .validateFields(['email', 'currentPassword', 'password', 'passwordAgain'])
@@ -36,12 +56,12 @@ function ChangePassword(props) {
               new_password: value.password,
               old_password: value.currentPassword,
             },
-            token: history.location.query.token
-              ? history.location.query.token
-              : '',
-            isAdmin: history.location.query.is_admin
-              ? history.location.query.is_admin
-              : undefined,
+            // token: history.location.query.token
+            //   ? history.location.query.token
+            //   : '',
+            // isAdmin: history.location.query.is_admin
+            //   ? history.location.query.is_admin
+            //   : undefined,
           };
           setLoading(true);
           await dispatch({ type: 'USER/resetPassword', payload });
@@ -106,39 +126,26 @@ function ChangePassword(props) {
       ) : (
         <div></div>
       )}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid darkblue',
-          padding: 15,
-        }}
-      >
-        <div
-          style={{
-            width: 30,
-            height: 30,
-            background: 'dodgerblue',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 5,
+      {isMobile ? (
+        <HeaderMobile
+          title={formatMessage({ id: 'i18n_change_password_title' })}
+          isShowLeft={true}
+          itemLeft={{
+            event: 'back',
+            url: ROUTER.profile,
+            icon: iconBack,
+            bgColor: 'bgPrimaryBlue',
           }}
-          onClick={() => history.goBack()}
-        >
-          <LeftOutlined style={{ color: '#FFF' }} />
-        </div>
-        <div style={{ fontWeight: '600', fontSize: 18 }}>パスワードを変更</div>
-        <div
-          style={{
-            width: 30,
-            height: 30,
-          }}
-        ></div>
-      </div>
+        />
+      ) : (
+        <PCHeader />
+      )}
 
       <div className={styles.bodyContent}>
+        {isMobile ? null : (
+          <div className={styles.PartTitle}>パスワードを変更</div>
+        )}
+
         <div className={styles.bodyContainer}>
           <Form form={form}>
             <div className={styles.fieldName}>ご登録のメールアドレス</div>
@@ -153,9 +160,10 @@ function ChangePassword(props) {
             >
               <Input
                 className={styles.inputField}
-                placeholder={'例) evergreen1129@smoothly.jp'}
+                placeholder={'例) evergreen1129@timematch.jp'}
                 autoComplete="on"
                 readOnly
+                ref={emailRef}
               />
             </Form.Item>
             <div className={styles.fieldName}>旧パスワード</div>
@@ -186,6 +194,22 @@ function ChangePassword(props) {
                   required: true,
                   message: formatMessage({ id: 'i18n_required_text' }),
                 },
+                ({ getFieldValue }) => ({
+                  validator(rule, value) {
+                    if (value && !passwordRegex.test(value)) {
+                      return Promise.reject(
+                        formatMessage({ id: 'i18n_wrong_password_length' }),
+                      );
+                    }
+                    if (value && value === getFieldValue('currentPassword')) {
+                      return Promise.reject(
+                        formatMessage({ id: 'i18n_password_must_different' }),
+                      );
+                    }
+
+                    return Promise.resolve();
+                  },
+                }),
               ]}
               name={'password'}
             >
@@ -212,17 +236,12 @@ function ChangePassword(props) {
                 },
                 ({ getFieldValue }) => ({
                   validator(rule, value) {
-                    if (!value || getFieldValue('password') === value) {
-                      if (value && value.length < 8) {
-                        return Promise.reject(
-                          formatMessage({ id: 'i18n_wrong_password_length' }),
-                        );
-                      }
-                      return Promise.resolve();
+                    if (value && value !== getFieldValue('password')) {
+                      return Promise.reject(
+                        formatMessage({ id: 'i18n_confirm_password_wrong' }),
+                      );
                     }
-                    return Promise.reject(
-                      formatMessage({ id: 'i18n_confirm_password_wrong' }),
-                    );
+                    return Promise.resolve();
                   },
                 }),
               ]}
@@ -246,15 +265,29 @@ function ChangePassword(props) {
                   loading={loading}
                   htmlType="submit"
                   onClick={onSubmit}
-                  className={styles.signUpBtn}
+                  className={`${styles.signUpBtn} btn-pc-primary`}
                 >
-                  変更
+                  変更{' '}
                 </Button>
               </Form.Item>
+
+              {!isMobile && (
+                <Form.Item>
+                  <Button
+                    htmlType="button"
+                    onClick={handleGoBack}
+                    className={`${styles.cancelSignUpBtn} bgLightRed`}
+                  >
+                    キャンセル{' '}
+                  </Button>
+                </Form.Item>
+              )}
             </div>
           </Form>
         </div>
       </div>
+
+      {isMobile ? null : <FooterMobile />}
     </div>
   );
 }

@@ -112,6 +112,7 @@ export default {
             // if (is_first_set_up) {
             //   history.push('/setting-url');
             // } else {
+            yield put({ type: 'getProfile' });
             history.push('/');
             if (localStorage.getItem('checkLogin')) {
               const {
@@ -198,6 +199,7 @@ export default {
             });
 
             history.push('/');
+            yield put({ type: 'getProfile' });
             // is_first_set_up
             //   ? history.push('/setting-url')
             //   : history.push('/event');
@@ -312,10 +314,14 @@ export default {
         notify('このURLは使用できません');
       }
     },
-    *updateTimeDefault(action, { call, post }) {
+    *updateTimeDefault(action, { call, post, put }) {
       try {
         const res = yield UserRequest.updateTimeDefault(action.payload);
         if (res.status === 200) {
+          yield put({
+            type: 'MASTER/getProfile',
+            payload: {},
+          });
           history.push('/event');
         }
       } catch (error) {
@@ -348,6 +354,7 @@ export default {
             // if (is_first_set_up) {
             //   history.push('/setting-url');
             // } else {
+            yield put({ type: 'getProfile' });
             history.push('/');
             if (localStorage.getItem('checkLogin')) {
               const {
@@ -438,6 +445,7 @@ export default {
             });
 
             history.push('/');
+            yield put({ type: 'getProfile' });
             // is_first_set_up
             //   ? history.push('/setting-url')
             //   : history.push('/event');
@@ -523,15 +531,18 @@ export default {
       }
       setLoadingBtnSave(false);
     },
-    *accountUnlinkage(action) {
+    *cancelAccountIntegrates(action) {
       const {
         showMessage,
         formatMessage,
         setDetailProfile,
         detailProfile,
+        isMobile,
       } = action.payload;
       try {
-        const { body } = yield UserRequest.cancelIntegrates();
+        const { body } = yield UserRequest.cancelAccountIntegrates({
+          account_type: action.payload.account_type,
+        });
         const { status } = body;
         if (status) {
           const updatedProfile = {
@@ -542,6 +553,12 @@ export default {
           showMessage.success(
             formatMessage({ id: 'i18n_cancel_integrates_success' }),
           );
+          if (!isMobile) {
+            window.location.reload();
+          }
+          setTimeout(() => {
+            window.location.href = '/profile/collaboration';
+          }, 500);
         }
       } catch (error) {
         const { body } = error.response;
@@ -610,7 +627,7 @@ export default {
       try {
         yield UserRequest.deleteHistoryInvitation(action.payload);
         yield put({
-          type: 'getHistoryInvitation',
+          type: 'MASTER/getHistoryInvitation',
           payload: {
             pageSize: 20,
             page: 1,

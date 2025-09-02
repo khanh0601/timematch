@@ -103,6 +103,9 @@ const emailRegex = new RegExp('^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,4}$');
 const emailRegex2 = new RegExp(
   /^(?!.*[-]{2})(?!.*[.]{2})(?!.*[_]{2})(([a-zA-Z0-9_.-]+)[@]([a-zA-Z0-9]+)(.[a-zA-Z0-9]+)+)$/,
 );
+const emailRegex3 = new RegExp(
+  "(?!^[.+&'_-]*@.*$)(^[_\\w\\d+&'-]+(\\.[_\\w\\d+&'-]*)*@[\\w\\d-]+(\\.[\\w\\d-]+)*\\.(([\\d]{1,3})|([\\w]{2,}))$)",
+);
 
 const ROLE_MANAGER = 0;
 const ROLE_MEMBER = 1;
@@ -421,7 +424,7 @@ const DEFAULT_LIST_INPUT = [
     id: 2,
     key_id: 2,
     question_name: '会社名',
-    placeholder: '例）Smoothly株式会社',
+    placeholder: '例）タイムマッチ株式会社',
     status: 0,
     contents: [],
     type: INPUT_TYPE.text,
@@ -430,7 +433,7 @@ const DEFAULT_LIST_INPUT = [
     id: 3,
     key_id: 3,
     question_name: 'メールアドレス',
-    placeholder: '例）taro.tanaka@smoothly.net',
+    placeholder: '例）taro.tanaka@timematch.jp',
     status: 1,
     contents: [],
     type: INPUT_TYPE.text,
@@ -502,6 +505,22 @@ const MESSAGE_ERROR_BUTTON_EMBED_EMPTY = [
   '「次へ」をクリックください。',
 ];
 
+const ROUTER = {
+  home: '/',
+  login: '/login',
+  menu: '/menu',
+  calendar: '/calendar',
+  calendarCreation: '/create-calendar',
+  profile: '/profile',
+  inviteParticipant: '/invite-participant',
+  profileCollaboration: '/profile/collaboration',
+  document: '/documentation',
+};
+
+const STATUS_CODE = {
+  success: 200,
+};
+
 export {
   YYYYMMDDTHHmm,
   DATE_TIME_TYPE,
@@ -538,6 +557,7 @@ export {
   OTHER_M_LOCATION_ID,
   emailRegex,
   emailRegex2,
+  emailRegex3,
   ROLE_MANAGER_CLIENT,
   ROLE_MEMBER_CLIENT,
   passwordRegex,
@@ -606,4 +626,6 @@ export {
   CALENDAR_TEMPLATE_ITEM,
   UNPROCESSABLE_ENTITY_STATUS,
   MESSAGE_ERROR_BUTTON_EMBED_EMPTY,
+  ROUTER,
+  STATUS_CODE,
 };

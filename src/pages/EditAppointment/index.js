@@ -64,7 +64,7 @@ const EditAppointment = props => {
                 </div>
               </div>
               <div className="flexSpaceBetween">
-                <div className="flex2">調整済</div>{' '}
+                <div className="flex2">調整状況</div>{' '}
                 <div className="flex1">: {detailCalendar.owner_name}</div>
               </div>
               <div className="flexSpaceBetween">

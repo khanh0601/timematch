@@ -4,8 +4,13 @@ import SwipableItem from '../../../components/SwipableItem';
 import 'react-swipeable-list/dist/styles.css';
 import './styles.css';
 const AdjustmentList = props => {
+  const { height } = props;
   return (
-    <SwipeableList className="swipeableList" fullSwipe={true}>
+    <SwipeableList
+      className="swipeableList"
+      style={{ height: `${height}px` }}
+      fullSwipe={true}
+    >
       {props.data?.map((item, index) => {
         return (
           <React.Fragment key={index}>

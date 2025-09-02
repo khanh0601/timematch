@@ -1,7 +1,6 @@
 @import '../../base.less';
 
 .profileContainer {
-  max-width: 1080px;
   margin: auto;
   width: 100%;
   .header {
@@ -140,9 +139,20 @@
     }
   }
   .groupPart {
-    margin-bottom: 50px;
+    width: 720px;
+    padding: 40px 0 15px 0;
+    margin: 0 auto;
     @media screen and (max-width: 767px) {
+      width: unset;
+      padding: 15px;
       margin-bottom: 50px;
+    }
+    .PartTitle {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 100%;
+      text-align: center;
+      padding-bottom: 60px;
     }
     .partName {
       display: flex;
@@ -163,19 +173,18 @@
     }
     button {
       border-radius: 20px;
-      margin-left: 90px;
       font-size: 20px;
       max-width: 340px;
       width: 340px;
       height: 49px;
       @media screen and (max-width: 767px) {
-        margin-left: 0;
         font-size: 18px;
       }
     }
     .partNameTitle {
       font-size: 30px;
       color: @black-4;
+      font-weight: 600;
       @media screen and (max-width: 767px) {
         font-size: 18px;
       }
@@ -197,5 +206,8 @@
       font-size: 20px;
       width: 209px;
     }
+  }
+  @media screen and (max-width: 767px) {
+    max-width: 1080px;
   }
 }

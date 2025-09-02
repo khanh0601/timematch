@@ -7,11 +7,11 @@
     "jsx": "react",
     "esModuleInterop": true,
     "sourceMap": true,
-    "baseUrl": "./",
+    "baseUrl": "src",
     "strict": true,
     "paths": {
-      "@/*": ["src/*"],
-      "@@/*": ["src/.umi/*"]
+      "@/*": ["./*"],
+      "@@/*": ["./.umi/*"]
     },
     "allowSyntheticDefaultImports": true
   },

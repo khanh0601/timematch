@@ -1,7 +1,4 @@
 @import '../../../base.less';
-.wrapperFooter {
-  margin-top: 50px;
-}
 .footer {
   .footerContent {
     display: flex;
@@ -27,6 +24,44 @@
       &:last-child {
         margin-right: 0;
       }
+    }
+  }
+
+  .footerCopyright {
+    display: none;
+  }
+}
+
+@media (min-width: 834px) {
+  .footerCopyright {
+    display: block !important;
+    text-align: center;
+    margin-top: 16px;
+    font-size: 12px;
+    color: #333333;
+  }
+
+  .wrapperFooter {
+    position: fixed;
+    z-index: 100;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 8px;
+    background-color: #fff;
+  }
+
+  .link {
+    font-size: 14px;
+    font-weight: 500;
+    color: #333333 !important;
+  }
+
+  .footerContent li {
+    margin-right: 24px !important;
+
+    &:last-child {
+      margin-right: 0 !important;
     }
   }
 }

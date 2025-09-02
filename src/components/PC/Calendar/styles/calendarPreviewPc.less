@@ -1,0 +1,272 @@
+@media (min-width: 834px) {
+  .calendar-pc {
+    .fc-media-screen {
+      height: 100%;
+
+      tbody tr th:first-child,
+      .fc-timegrid-slot-label,
+      .fc-scrollgrid-section {
+        background-color: #ebf0f9;
+      }
+
+      .fc-timegrid-divider {
+        display: none;
+      }
+
+      .fc-scrollgrid-section.fc-scrollgrid-section-body:first-child > td {
+        border: none;
+      }
+
+      .fc-col-header-cell-cushion,
+      .fc-timegrid-body,
+      .fc-daygrid-day {
+        background-color: #fff;
+      }
+
+      tbody tr th:first-child {
+        border: none !important;
+      }
+
+      tbody tr th:nth-child(2) {
+        background: #ebf0f9;
+        border-left: 0;
+
+        div {
+          border-top-left-radius: 16px;
+          background-color: #fff;
+        }
+      }
+
+      .fc-col-header-cell-cushion {
+        width: 100% !important;
+      }
+
+      .fc-timegrid-slot-label {
+        border-top: none !important;
+        border: none !important;
+      }
+
+      .fc-timegrid .fc-scrollgrid {
+        border: none !important;
+        border-top-right-radius: 16px;
+      }
+    }
+
+    .leftArrow {
+      position: relative;
+      padding-left: 16px;
+
+      &::before {
+        content: '';
+        border-top: 11px solid #fff;
+        border-bottom: 11px solid #fff;
+        border-right: 12px solid #e8e6e6;
+        position: absolute;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+      }
+    }
+
+    .rightArrow {
+      position: relative;
+      padding-right: 16px;
+
+      &::after {
+        content: '';
+        border-top: 11px solid #fff;
+        border-bottom: 11px solid #fff;
+        border-left: 12px solid #e8e6e6;
+        position: absolute;
+        z-index: 1000;
+        right: 0;
+        top: 0;
+      }
+    }
+
+    .isBooked {
+      pointer-events: none;
+      background-color: #e8e6e6;
+      display: flex;
+      overflow: hidden;
+      border: 1px solid #e8e6e6;
+
+      .timeText {
+        margin: 0;
+        width: 100%;
+        justify-content: left;
+        flex-wrap: wrap;
+        overflow: hidden;
+
+        .time {
+          width: 100%;
+          text-align: left;
+          color: #5b5b5b;
+          padding: 0 5px;
+          font-weight: normal;
+          letter-spacing: 1px;
+          text-shadow: 1px 0 0 #5b5b5b, 1px 0 0 #5b5b5b;
+          position: relative;
+
+          @media screen and (max-width: 767px) {
+            text-shadow: none;
+            text-align: center;
+            padding: 0;
+            font-size: 11px;
+
+            p {
+              margin: 10px 0;
+            }
+
+            span {
+              position: absolute;
+              top: 50%;
+              transform: translate(-50%, -50%) rotate(90deg);
+              left: 50%;
+            }
+          }
+
+          @media screen and (max-width: 992px) and (min-width: 768px) {
+            font-size: 10px;
+          }
+        }
+
+        .eventName {
+          width: 100%;
+          text-align: left;
+          color: #5b5b5b;
+          font-weight: bold;
+          padding: 0 5px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          white-space: nowrap;
+          margin: 0;
+
+          @media screen and (max-width: 767px) {
+            padding: 0;
+            font-weight: normal;
+            font-size: 11px;
+            text-align: center;
+          }
+        }
+      }
+
+      &:hover {
+        background-color: #e8e6e6;
+        border: 1px solid #555555;
+
+        .resizeIconBottom,
+        .resizeIconTop {
+          opacity: 0;
+        }
+      }
+    }
+
+    .recentAdded {
+      border: 2px dashed #3368c7 !important;
+      background-color: #fff !important;
+
+      // p {
+      //   font-size: 16px;
+      //   color: #3368c7 !important;
+      //   font-weight: 500;
+      // }
+    }
+
+    .syncData {
+      border: 2px dashed rgb(232, 230, 230) !important;
+    }
+
+    .fc-popover-body {
+      .leftArrow {
+        padding-left: 0;
+      }
+
+      .rightArrow {
+        padding-right: 0;
+      }
+
+      .leftArrow::before,
+      .rightArrow::after {
+        display: none;
+      }
+    }
+
+    .isEventClose {
+    }
+
+    .existNg {
+      border: 1px solid red !important;
+
+      p {
+        color: red !important;
+      }
+    }
+
+    .expiredTime {
+      opacity: 0.5 !important;
+    }
+
+    .timeTextShort {
+      .fc-event-main {
+        padding: 0 !important;
+      }
+    }
+  }
+
+  .ant-modal-root {
+    position: relative;
+    z-index: 200000000000000;
+  }
+
+  .detail-calendar-modal {
+    .close-btn {
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .swipableItemInnerDiv {
+      width: 6px;
+      height: 24px;
+      background-color: #234ab6;
+      margin-top: -6px;
+    }
+
+    .past-event-time {
+      flex: 1;
+      color: #333333;
+      font-weight: bold;
+      font-size: 20px;
+      margin-bottom: 10px;
+      padding-right: 10px;
+      padding-left: 5px;
+    }
+
+    .ant-modal-content {
+      border-radius: 16px;
+    }
+
+    .ant-modal-footer {
+      display: none;
+    }
+
+    .ant-modal-body {
+      padding: 16px;
+      padding-top: 5px;
+
+      .flexSpaceBetween {
+        div:first-child {
+          color: #333333;
+          font-weight: 500;
+          font-size: 16px;
+        }
+
+        align-items: flex-start;
+      }
+    }
+  }
+
+  .ant-picker-dropdown {
+    z-index: 100000000000000;
+  }
+}

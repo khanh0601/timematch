@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { ApplyPluginsType } from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime';
+import { ApplyPluginsType } from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime';
 import * as umiExports from './umiExports';
 import { plugin } from './plugin';
 
@@ -145,6 +145,11 @@ export function getRoutes() {
     "exact": true
   },
   {
+    "path": "/calendar/:id",
+    "component": require('@/pages/Mobile/CalendarEdit').default,
+    "exact": true
+  },
+  {
     "path": "/calendar-creation-success",
     "component": require('@/pages/User').default,
     "exact": true
@@ -180,12 +185,12 @@ export function getRoutes() {
   },
   {
     "path": "/login",
-    "component": require('@/pages/User').default,
+    "component": require('@/pages/Mobile/Login').default,
     "exact": true
   },
   {
     "path": "/register",
-    "component": require('@/pages/User').default,
+    "component": require('@/pages/Mobile/Register').default,
     "exact": true
   },
   {
@@ -297,11 +302,6 @@ export function getRoutes() {
     "exact": true
   },
   {
-    "path": "/base-notation",
-    "component": require('@/pages/BaseNotation').default,
-    "exact": true
-  },
-  {
     "path": "/smooth-login",
     "component": require('@/pages/SmoothLogin').default,
     "exact": true
@@ -328,7 +328,7 @@ export function getRoutes() {
   },
   {
     "path": "/reset-password",
-    "component": require('@/pages/ChangePassword').default,
+    "component": require('@/pages/Mobile/ResetPassword').default,
     "exact": true
   },
   {
@@ -390,9 +390,19 @@ export function getRoutes() {
     "exact": true
   },
   {
+    "path": "/pc/calendar",
+    "component": require('@/pages/CalendarPC').default,
+    "exact": true
+  },
+  {
     "path": "/create-calendar",
     "component": require('@/pages/Mobile/CalendarCreation').default,
     "wrappers": [require('@/components/CheckTrialAuthentication').default],
+    "exact": true
+  },
+  {
+    "path": "/pc/create-calendar",
+    "component": require('@/pages/CreateNewCalendar').default,
     "exact": true
   },
   {

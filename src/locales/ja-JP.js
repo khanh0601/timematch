@@ -27,7 +27,7 @@ export default {
     '特定の個人とミーティング設定は「ピンポイント設定」をご利用ください。使用例）会食、ランチミーティング、面談、1on1ミーティングなど',
   i18n_list_event: '予約一覧',
   i18n_tab_list_event_tooltip:
-    'Smoothlyを利用いただいて日程調整が完了した予定に関して、\n' +
+    'タイムマッチを利用いただいて日程調整が完了した予定に関して、\n' +
     '「今後の予定」と「過去の予定」で確認いただけます。\n' +
     'それぞれの予定詳細や、日程調整相手の情報も確認できます。\n' +
     '\n' +
@@ -149,6 +149,7 @@ export default {
   i18n_error_delete_event: '指定されたデータは無効でした。',
   i18n_required: '必須',
   i18n_email: 'メールアドレス',
+  i18n_email_invite_pc: 'メール送付先管理',
   i18n_add_contact: '+ ゲストを追加',
   i18n_advance_setting: '詳細設定',
   i18n_random: '任意',
@@ -365,7 +366,7 @@ export default {
   i18n_jp_format_date_month_day: '{month}月{date}日',
   i18n_email_guest: 'ゲストのメールアドレス',
   i18n_vote_tooltip_login:
-    'Smoothlyに登録すると、登録いただいたカレンダーの予定が下記カレンダーに表示されるので大変効率的に日程調整していたけます。\n' +
+    'タイムマッチに登録すると、登録いただいたカレンダーの予定が下記カレンダーに表示されるので大変効率的に日程調整していたけます。\n' +
     '※Google カレンダーや Microsoft（Outlook）のカレンダーを都度確認いただく必要がなく大変便利です。\n' +
     '「無料」で新規会員登録していただけますのでぜひお試しください。',
   i18n_error_vote_limit_day: `{nameCreaterEvent}様は{minVoteNumber}個以上の候補日程の選択をご希望されていますが、ご希望の選択数に足りておりません。このまま進めてよろしいでしょうか？`,
@@ -430,12 +431,13 @@ export default {
   i18n_login_to_set_valid_url_2: 'ログイン',
   // i18n_login_to_set_valid_url_3: 'し、有効にすることができます',
   i18n_login_to_set_valid_url_3:
-    '日程調整をご希望の場合は、URL送信者（Smoothlyご利用者）の方へご連絡をお願い致します。',
+    '日程調整をご希望の場合は、URL送信者（タイムマッチご利用者）の方へご連絡をお願い致します。',
   i18n_connect_to_zoom_success: 'Zoomと連携完了しました',
-  i18n_connect_to_google_meet_success: 'GoogleMeetと連携完了しました',
+  i18n_connect_to_google_meet_success: 'GoogleCalendarとの連携が完了しました',
   i18n_connect_to_microsoft_team_success: 'MicrosoftTeamsと連携完了しました',
   i18n_sync: '連携',
-  i18n_term_of_user: '利用規格',
+  i18n_term_of_user: '利用規約',
+  i18n_term_of_user_pc: 'タイムマッチ利用規約',
   i18n_privacy_policy: 'プライバシーポリシー',
   i18n_book_calendar: '予約',
   i18n_contract_by_month: '{price}円/月契約',
@@ -456,7 +458,7 @@ export default {
   i18n_register_new_free_acc: '新規会員登録（無料）',
   i18n_confirm_password_wrong: 'パスワードが一致していません',
   i18n_wrong_password_length:
-    '８文字から20文字の間の強力なパスワードを作成する必要があります',
+    '半角英大文字・小文字・数字混合で8文字以上の入力をお願いします。',
   i18n_account_already_existed:
     '入力されたメールアドレスは既に登録されているため、利用できません',
   i18n_register_success: 'メールで会員登録の確認が完了しました ',
@@ -472,6 +474,7 @@ export default {
   i18n_use_recommend_password: '提案されたパスワードを使用',
   i18n_auto_login_then: '次回から自動ログインする',
   i18n_if_forgot_pass_click_here: 'パスワードを忘れた方はこちら',
+  i18n_if_forgot_title_pc: 'パスワード再設定',
   i18n_valid_pass_length: '※半角英大文字・小文字・数字混合で8文字以上',
   i18n_register_free: '無料登録する',
   i18n_you_will_recieve_mail: '会員登録認証メールが届きます。',
@@ -539,8 +542,7 @@ export default {
   i18n_empty_row_value: 'アカウントを入力してください',
   i18n_forgot_password_error: 'パスワードが正しくありません。',
   i18n_reset: '再設定',
-  i18n_password_validate_notice:
-    '半角英大文字・小文字・数字混合で8文字以上の入力をお願いします。',
+  i18n_password_validate_notice: 'パスワードが一致しません。',
   i18n_please_login_with_your_acc:
     '※ご登録済みのアカウントでログインしてください。',
   i18n_click_here_if_not_register: '会員登録がまだの方はこちら',
@@ -664,7 +666,7 @@ export default {
   i18n_csv_download: 'CSVダウンロード',
   // i18n_here: 'こちら',
   i18n_delete_user_success: 'ユーザーを削除しました。',
-  i18n_how_to_use: 'Smoothlyの使い方',
+  i18n_how_to_use: 'タイムマッチの使い方',
   i18n_QA_question_1: 'カレンダーの基本的な使い方 ',
   i18n_QA_answer_11: '・カレンダー作成ページ',
   i18n_QA_answer_12: '・ダッシュボード\n（用途別・ピンポイント）',
@@ -782,7 +784,7 @@ export default {
   i18n_account_is_not_existed: 'アカウントが登録されていません。',
   i18n_update_default_time_error: '自由時間を選択してください',
   i18n_update_default_time_success: '保存しました。',
-  i18n_update_default_settings: 'スケジュール簡単設定',
+  i18n_update_default_settings: '調整日時(勤務時間)',
   i18n_end_free_membership_registration: '利用停止（無料会員登録終了）',
   i18n_termination_contract: '解約（本契約終了）',
   i18n_message_invalid_syntax_number: '半角数字を入力ください。',
@@ -862,7 +864,7 @@ export default {
   i18n_modal_add_calendar_team_header_line_1: '表示するカレンダーを',
   i18n_modal_add_calendar_team_header_line_2: '選択して下さい',
   i18n_modal_add_calendar_team_content_line_1: '下記から選択したカレンダーが',
-  i18n_modal_add_calendar_team_content_line_2: 'Smoothly上に表示されます。',
+  i18n_modal_add_calendar_team_content_line_2: 'タイムマッチ上に表示されます。',
   i18n_modal_add_calendar_team_content_line_3:
     '※連携したカレンダーは許可しない限り、',
   i18n_modal_add_calendar_team_content_line_4:
@@ -929,15 +931,15 @@ export default {
   i18n_add_member_send_email_title: 'メールでのリクエスト送信',
   i18n_add_member_send_email_body_1: '連携したいカレンダーの',
   i18n_add_member_send_email_body_2: 'メールアドレスを下記にご入力ください。',
-  i18n_add_member_send_email_placeholder: '例）taro.tanaka@smoothly.net',
+  i18n_add_member_send_email_placeholder: '例）taro.tanaka@timematch.jp',
   i18n_add_member_send_email_button: 'リクエストメール送信',
   i18n_anonymous_member: 'アドレス名非公開',
   i18n_anonymous_event: '予定あり',
   i18n_expired_free_thank:
-    'いつもSmoothlyをご利用いただきありがとうございます。',
+    'いつもタイムマッチをご利用いただきありがとうございます。',
   i18n_expired_free_member_1:
     '申し訳ございませんが、無料体験期間もしくは有料期間が終了したため、',
-  i18n_expired_free_member_2: '現在Smoothlyをご利用いただけません。',
+  i18n_expired_free_member_2: '現在タイムマッチをご利用いただけません。',
   i18n_expired_free_member_3:
     '「マスター権限（購入権限あり）」をお持ちの方より、',
   i18n_expired_free_member_4:
@@ -945,16 +947,16 @@ export default {
   i18n_expired_free_member_5: 'またのご利用をお待ちしております。',
   i18n_expired_free_admin_slot_1:
     '申し訳ございませんが、無料体験期間もしくは有料期間が終了したため、',
-  i18n_expired_free_admin_slot_2: '現在Smoothlyをご利用いただけません。',
+  i18n_expired_free_admin_slot_2: '現在タイムマッチをご利用いただけません。',
   i18n_expired_free_admin_slot_3: '下記より有料登録いただけますでしょうか。',
   i18n_expired_free_admin_auto_1:
     '申し訳ございませんが、クレジットカードの自動決済が行われなかったため',
-  i18n_expired_free_admin_auto_2: '現在Smoothlyをご利用いただけません。',
+  i18n_expired_free_admin_auto_2: '現在タイムマッチをご利用いただけません。',
   i18n_expired_free_admin_auto_3:
     'クレジットカードの決済ができなかった理由は弊社ではわかりかねるため、',
   i18n_expired_free_admin_auto_4:
     '恐れ入りますがご利用のクレジットカード会社へお問い合わせください。',
-  i18n_expired_free_admin_auto_5: '再度Smoothlyをご利用いただくためには、',
+  i18n_expired_free_admin_auto_5: '再度タイムマッチをご利用いただくためには、',
   i18n_expired_free_admin_auto_6:
     '別のクレジットカードをご用意のうえ下記よりお申し込みください。',
   i18n_dialog_cancel_button: 'キャンセル',
@@ -988,12 +990,17 @@ export default {
   i18n_calendar_link_other: 'カレンダを追加',
   i18n_calendar_link_other_title: '権限が必要な理由',
   i18n_calendar_link_other_content_1:
-    'Smoothlyでは予定を見つつ候補を設定したり、 確定した予定を登録するために、カレンダー情 報の表示・編集・アクセスが必要となります。',
+    'タイムマッチでは予定を見つつ候補を設定したり、 確定した予定を登録するために、カレンダー情 報の表示・編集・アクセスが必要となります。',
   i18n_calendar_link_other_content_2:
-    'Smoothly上の予定作成や日程調整を除くカレン ダー情報はSmoothly内に保存されません。 また、第三者が許可なく連携したカレンダー情 報を閲覧・アクセスすることはできません。',
-  i18n_calendar_link_other_google: 'Googleカレンダー連携',
-  i18n_calendar_link_other_microsoft: 'Microsoftカレンダー連携',
+    'タイムマッチ上の予定作成や日程調整を除くカレン ダー情報はタイムマッチ内に保存されません。 また、第三者が許可なく連携したカレンダー情 報を閲覧・アクセスすることはできません。',
+  i18n_calendar_link_other_google: 'Googleアカウントでログイン',
+  i18n_calendar_link_other_microsoft: 'Microsoftアカウントでログイン',
   i18n_register_link: '利用登録は',
+  i18n_left_signup_title: 'タイムマッチ専用アカウントで新規登録',
+  i18n_left_signin_title: 'タイムマッチアカウントでログイン',
+  i18n_right_signin_title: 'その他アカウントでログイン',
+  i18n_right_signup_title: 'その他アカウントで新規登録',
+  i18n_register_adv: '事前にアカウント登録が必要です',
   i18n_email_registed_label: 'ご登録のメールアドレス',
   i18n_set_password_label: 'パスワードを設定',
   i18n_set_password_confirm_label: 'パスワードを設定(確認用)',
@@ -1001,8 +1008,10 @@ export default {
   i18n_token_invalid_or_expired: 'トークンが無効または期限切れです。',
   i18n_password_not_match: 'パスワードが一致しません。',
   i18n_calendar_creation_title: '候補を提案',
-  i18n_label_title: 'タイトル',
+  i18n_label_title: 'イベント名',
+  i18n_title_placeholder: 'イベント名',
   i18n_label_meet_time: '打ち合わせ時間',
+  i18n_label_meet_time_pc: '打合せ時間',
   i18n_auto_extract_candidate_btn: '候補を自動抽出',
   i18n_no_candidate: '候補はありません',
   i18n_label_other_info: 'その他の情報',
@@ -1032,7 +1041,7 @@ export default {
   i18n_register_partner: 'お相手を登録してください',
   i18n_add_partner: '調整メール送信',
   i18n_voting: '調整中',
-  i18n_voted: '調整済み',
+  i18n_voted: '調整状況み',
   i18n_calendar_unlink_other_google: 'Googleカレンダー連携解除',
   i18n_calendar_unlink_other_microsoft: 'Microsoftカレンダー連携解除',
   i18n_invite_member_success: '招待が完了しました',
@@ -1043,4 +1052,52 @@ export default {
   i18n_microsoft_login: 'Microsoftでログイン',
   i18n_password_rule: '8文字以上の半角英数字で入力してください。',
   i18n_password_register_btn: '登録する',
+  i18n_password_must_different:
+    '新しいパスワードは現在のパスワードと異なるものを入力してください。',
+  i18n_forgot_password_link: 'パスワードを忘れた場合はこちら',
+  i18n_click_register_link: '利用登録はこちら',
+  i18n_reset_password_title: '新パスワード登録',
+  i18n_reset_password_label: '新パスワード登録',
+  i18n_reset_password_confirm_label: '新パスワード登録(確認用)',
+  i18n_reset_password_error: 'パスワードが一致しません。',
+  i18n_reset_password_success: 'パスワードを変更しました。',
+  i18n_scroll_note: '※最後までスクロールする必要があります。',
+  i18n_choose_calendar: 'カレンダーから選択',
+  i18n_auto_extract_candidate_tooltip: '候補日時を自動抽出します。',
+  i18n_individual_title: '個人',
+  i18n_my_calendar: 'マイカレンダー',
+  i18n_other_calendar: '他のカレンダー',
+  i18n_add_calendar: 'カレンダーを追加',
+  i18n_email_address_is_required: 'メールアドレスは必須です。',
+  i18n_calendar_creation_title_filed: 'イベント名',
+  i18n_end_date_invalid: '終了日付を開始日付後に選択してください。',
+  i18n_recommend_block: '候補日時がありません。',
+  i18n_email_existed: 'メールが重複されています。',
+  i18n_add_contact_success: 'メール送付先を更新しました',
+  i18n_datepicker_not_setting: '未設定',
+  i18n_template_mail_modal_title: '定型文の作成',
+  i18n_menu_title: 'メニュー',
+  i18n_profile_title: 'プロフィール',
+  i18n_mail_template_title: '定型文の作成',
+  i18n_contact_management_title: 'メール送付先管理',
+  i18n_base_notation_title: 'プロフィール',
+  i18n_document_title: 'ご利用ガイド',
+  i18n_appointment_success_title: '送信完了',
+  i18n_link_company_other: '他社カレンダー連携',
+  i18n_change_password_title: 'パスワードを変更',
+  i18n_schedule_setting_title: '自動日程調整オプション',
+  i18_delete_event_title: 'このイベントを削除しますか？',
+  i18n_label_event_created_by_me: '自分',
+  i18n_label_event_created_by_other: '様',
+  i18n_label_user_voted: '回答済',
+  i18n_label_user_not_voted: '未回答',
+  i18n_label_event_created: '出欠回答',
+  i18n_copy_url_btn: 'URLで共有',
+  i18n_btn_cancel_collaboration: '解除する',
+  i18n_cancel_collaboration_confirm: '本当にカレンダー連携を解除しますか',
+  i18n_appointment_send_to_email: '日程の受信メールアドレス',
+  i18n_btn_registration: '新規登録',
+  i18n_collaboration_google_title: 'Googleカレンダーと連携',
+  i18n_collaboration_microsoft_title: 'Outlookカレンダーと連携',
+  i18n_top_pc_create_event: '予定を作成',
 };

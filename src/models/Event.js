@@ -4,8 +4,7 @@ import {
   DATE_TIME_TYPE,
   YYYYMMDD,
   YYYYMMDDTHHmm,
-  TYPE_EVENT_RELATIONSHIP,
-  TYPE_VOTE_RELATIONSHIP,
+  STATUS_CODE,
 } from '@/constant';
 import { message } from 'antd';
 import moment from 'moment';
@@ -41,6 +40,7 @@ export default {
     firstSetupFreeTime: [],
     currentEvent: {},
     listBookedSchedule: [],
+    listBookedScheduleGuest: [],
     scheduleInfo: {},
     listDatetimes: [],
     bookedList: [],
@@ -68,6 +68,7 @@ export default {
   },
   reducers: {
     getListEventTypeSuccess(state, action) {
+      // console.log('action 111: ', action);
       return {
         ...state,
         listEventType: action.payload.data,
@@ -232,6 +233,13 @@ export default {
       };
     },
 
+    getAllBookedScheduleGuestSuccess(state, action) {
+      return {
+        ...state,
+        listBookedScheduleGuest: action.payload,
+      };
+    },
+
     appendBookedSchedule(state, action) {
       return {
         ...state,
@@ -387,16 +395,21 @@ export default {
         createCalendarSuccess: payload,
       };
     },
+    checkCreateEventAfterDelete(state, { payload }) {
+      if (
+        state.createCalendarSuccess?.id &&
+        state.createCalendarSuccess?.id === payload.event_id
+      ) {
+        return {
+          ...state,
+          createCalendarSuccess: {},
+        };
+      }
+    },
     setDataCalendarSuccess(state, { payload }) {
       return {
         ...state,
         dataCalendarSuccess: payload,
-      };
-    },
-    setAllBookedScheduleByUserMobile(state, { payload }) {
-      return {
-        ...state,
-        allBookedScheduleByUserSP: payload,
       };
     },
     setUrlMeet(state, { payload }) {
@@ -409,6 +422,32 @@ export default {
       return {
         ...state,
         urlZoom: payload,
+      };
+    },
+    // Handle for mobile
+    setLoadingEvent(state, { payload }) {
+      return {
+        ...state,
+        isLoadingEvent: payload,
+      };
+    },
+    setLoadingSync(state, { payload }) {
+      return {
+        ...state,
+        isLoadingSync: payload,
+      };
+    },
+    setUpdateCalendarSuccess(state, { payload }) {
+      return {
+        ...state,
+        updateCalendarSuccess: payload,
+      };
+    },
+    resetDataCalendarCreation(state) {
+      return {
+        ...state,
+        createCalendarSuccess: {},
+        dataCalendarSuccess: {},
       };
     },
   },
@@ -516,6 +555,7 @@ export default {
       yield put({ type: 'increaseLoaderCount' });
       try {
         const res = yield EventRequest.getFreeTime(action.payload);
+        // console.log('free time', res.body.data);
         yield put({
           type: 'CALENDAR_CREATION/setFreeTimes',
           payload: res.body.data,
@@ -671,8 +711,21 @@ export default {
     *deleteEventType(action, { call, put }) {
       try {
         const res = yield EventRequest.deleteEventType(action.payload);
-        return res;
+        const { body, status } = res;
+        if (body.success || status === STATUS_CODE.success) {
+          if (action.callback) {
+            action.callback();
+          }
+
+          yield put({
+            type: 'checkCreateEventAfterDelete',
+            payload: {
+              event_id: action.payload.eventTypeId,
+            },
+          });
+        }
       } catch (err) {
+        console.log('err: ', err);
         notify(formatMessage({ id: 'i18n_error_delete_event' }));
         return false;
       }
@@ -830,17 +883,10 @@ export default {
         };
       });
 
-      if (payload.is_manual_setting) {
-        return yield put({
-          type: 'AVAILABLE_TIME/setManualEvents',
-          payload: events,
-        });
-      } else {
-        return yield put({
-          type: 'AVAILABLE_TIME/setCustomEvents',
-          payload: events,
-        });
-      }
+      return yield put({
+        type: 'AVAILABLE_TIME/setCustomEvents',
+        payload: events,
+      });
     },
     *getGoogleMeetURL(action, { call, put }) {
       yield put({ type: 'increaseLoaderCount' });
@@ -1070,6 +1116,21 @@ export default {
         yield put({ type: 'decreaseLoaderCount' });
       }
     },
+    *getCalendarByCode(action, { put, call }) {
+      try {
+        yield put({ type: 'increaseLoaderCount' });
+        const res = yield call(EventRequest.getCalendarByCode, action.payload);
+        console.log('res==========================================', res);
+        yield put({
+          type: 'getAllBookedScheduleGuestSuccess',
+          payload: res.body.data,
+        });
+      } catch (error) {
+      } finally {
+        yield put({ type: 'decreaseLoaderCount' });
+      }
+    },
+
     *getAllBookedScheduleByGuest(action, { put, call }) {
       try {
         yield put({ type: 'increaseLoaderCount' });
@@ -1394,10 +1455,11 @@ export default {
       }
     },
     *updateAskNotifyCalendar(action, { put, call }) {
-      const { payload } = action;
+      const { payload, callback } = action;
       try {
         yield put({ type: 'setLoading', payload: true });
         yield call(EventRequest.updateNotifyAskCalendar, payload);
+        callback?.();
       } catch (error) {
         console.log(error);
       } finally {
@@ -1464,6 +1526,24 @@ export default {
       }
     },
 
+    // Handle for mobile
+    *getListEventTypeMobile(action, { call, put }) {
+      // console.log('action: ', action);
+      try {
+        yield put({ type: 'setLoadingEvent', payload: true });
+
+        const res = yield EventRequest.getListEventType(action.payload);
+
+        yield put({
+          type: 'getListEventTypeSuccess',
+          payload: res.body.data,
+        });
+      } catch (e) {
+        console.log(e);
+      } finally {
+        yield put({ type: 'setLoadingEvent', payload: false });
+      }
+    },
     *createCalendarMobile(action, { call, put }) {
       try {
         yield put({
@@ -1485,7 +1565,7 @@ export default {
       }
     },
     *getDetailEventTypeMobile({ payload }, { call, put }) {
-      yield put({ type: 'setLoading', payload: true });
+      yield put({ type: 'AVAILABLE_TIME/setLoading', payload: true });
 
       try {
         const res = yield EventRequest.getDetailEventType(payload);
@@ -1495,7 +1575,40 @@ export default {
           history.push('/');
         }
         yield put({ type: 'setDataCalendarSuccess', payload: body.data });
-        yield put({ type: 'setLoading', payload: false });
+        // no need get data if is cloned
+        let members = [];
+        if (payload.isEdit) {
+          yield put.resolve({
+            type: 'getTimeAvailable',
+            payload: {
+              event_id: payload.eventTypeId,
+              is_manual_setting: res.body.data.is_manual_setting,
+            },
+          });
+
+          if (res.body.data.client && res.body.data.client.length > 0) {
+            members = res.body.data.client.map(member => {
+              if (member.type !== 3) {
+                const provider = member.type == 1 ? 'google' : 'microsoft';
+                member.id = `${provider}-${member.email}`;
+                member.provider = provider;
+              }
+
+              return {
+                id: member.user_id || member.id,
+                type: member.type,
+                email: member.email,
+                checked: !!member.status,
+                provider: member.provider,
+                user_id: member.user_id,
+              };
+            });
+          }
+        }
+
+        yield put({ type: 'AVAILABLE_TIME/setLoading', payload: false });
+
+        return members;
       } catch (error) {
         history.push('/');
         notify(error.response.body.message);
@@ -1526,8 +1639,76 @@ export default {
             'bgWhite',
             'success',
           );
-          history.push('/calendar');
+          history.push(action.payload.isPc ? '/pc/calendar' : '/calendar');
         }
+      } catch (error) {
+        notify(formatMessage({ id: 'i18n_invite_member_error' }));
+      } finally {
+        yield put({ type: 'setLoading', payload: false });
+      }
+    },
+    *getCalendarByProviderMobile({ payload }, { call, put }) {
+      try {
+        yield put({ type: 'increaseLoaderCount' });
+        yield put({
+          type: 'setLoading',
+          payload: true,
+        });
+
+        const { body } = yield EventRequest.getCalendarByProvider(payload);
+        const events = body.result.events || body.result;
+        if (events.length !== 0) {
+          const listEvents = events.map(event => {
+            const startTime = moment(event.start_time);
+            const endTime = moment(event.end_time);
+
+            return {
+              id: event.id,
+              start_time: startTime.format(YYYYMMDDTHHmm),
+              end_time: endTime.format(YYYYMMDDTHHmm),
+              option: payload.member.option,
+              name: event.summary,
+              user_id: payload.member.id,
+              color: payload.member.color,
+            };
+          });
+
+          yield put({
+            type: 'AVAILABLE_TIME/setSPBookedEvents',
+            payload: { listEvents, userId: payload.member.id },
+          });
+        }
+      } catch (error) {
+        notify(
+          formatMessage({
+            id: 'i18n_message_error_get_calendar_by_provider',
+          }),
+        );
+      } finally {
+        yield put({
+          type: 'setLoading',
+          payload: false,
+        });
+        yield put({ type: 'decreaseLoaderCount' });
+      }
+    },
+    *addEmailInvites(action, { call, put }) {
+      try {
+        yield put({ type: 'setLoading', payload: true });
+        const res = yield EventRequest.addEmailInvites(action.payload);
+        const { body } = res;
+        notify(
+          formatMessage({ id: 'i18n_add_contact_success' }),
+          'bgWhite',
+          'success',
+        );
+        yield put({
+          type: 'MASTER/getHistoryInvitation',
+          payload: {
+            pageSize: 20,
+            page: 1,
+          },
+        });
       } catch (error) {
         notify(formatMessage({ id: 'i18n_invite_member_error' }));
       } finally {
@@ -1537,7 +1718,7 @@ export default {
     *getAllBookedScheduleByUserMobile({ payload }, { call, put }) {
       const { user_id, color, option, startTime, endTime } = payload;
       try {
-        yield put({ type: 'setLoading', payload: true });
+        yield put({ type: 'setLoadingSync', payload: true });
 
         const { status, body } = yield EventRequest.getAllBookedScheduleByUser({
           user_id: user_id,
@@ -1548,28 +1729,61 @@ export default {
 
         const listEvents = body.result.result.map(event => ({
           ...event,
+          title: event.name ?? event.holiday_name,
           user_id: user_id,
           color: color,
           option: option,
-          end_time: moment(event.start_time)
-            .add(event.block_number, 'm')
-            .format(YYYYMMDDTHHmm),
+          end_time: !event.block_number
+            ? moment(event.end_time).format(YYYYMMDDTHHmm)
+            : moment(event.start_time)
+                .add(event.block_number, 'm')
+                .format(YYYYMMDDTHHmm),
+          text_color: '#333333',
+          ...(!event.block_number && { allDay: true }),
         }));
 
         yield put({
-          type: 'setAllBookedScheduleByUserMobile',
-          payload: listEvents,
+          type: 'AVAILABLE_TIME/setBookedEventsMobile',
+          payload: { listEvents, userId: user_id },
         });
       } catch (e) {
         console.log(e);
       } finally {
-        yield put({ type: 'setLoading', payload: false });
+        yield put({ type: 'setLoadingSync', payload: false });
       }
     },
     *updateTimeAvailable(action, { call, put }) {
       try {
         yield put({ type: 'setLoading', payload: true });
         const res = yield EventRequest.updateTimeAvailable(action.payload);
+      } catch (error) {
+        notify('更新が失敗しました');
+      } finally {
+        yield put({ type: 'setLoading', payload: false });
+      }
+    },
+    *updateCalendarMobile(action, { call, put }) {
+      try {
+        yield put({ type: 'setLoading', payload: true });
+        const res = yield EventRequest.updateCalendar(action.payload);
+        const { body } = res;
+        yield put({ type: 'setUpdateCalendarSuccess', payload: body.status });
+      } catch (error) {
+        notify('更新が失敗しました');
+      } finally {
+        yield put({ type: 'setLoading', payload: false });
+      }
+    },
+    *updateEventCalendarMobile(action, { call, put }) {
+      try {
+        yield put({ type: 'setLoading', payload: true });
+        const res = yield EventRequest.updateEventCalendar(action.payload);
+        const { body } = res;
+        yield put({
+          type: 'setUpdateEventCalendarSuccess',
+          payload: body.status,
+        });
+        notify('更新が完了しました', 'bgWhite', 'success');
       } catch (error) {
         notify('更新が失敗しました');
       } finally {

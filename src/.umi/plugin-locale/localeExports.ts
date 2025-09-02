@@ -3,11 +3,11 @@ import {
   createIntl,
   IntlShape,
   MessageDescriptor,
-} from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/node_modules/react-intl';
+} from 'D:/Vision_Timematch/timematch-front/node_modules/react-intl';
 import { ApplyPluginsType } from 'umi';
 import { event, LANG_CHANGE_EVENT } from './locale';
 // @ts-ignore
-import warning from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/node_modules/@umijs/plugin-locale/node_modules/warning/warning.js';
+import warning from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/plugin-locale/node_modules/warning/warning.js';
 
 import { plugin } from '../core/plugin';
 
@@ -34,23 +34,20 @@ export {
   defineMessages,
   injectIntl,
   useIntl,
-} from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/node_modules/react-intl';
+} from 'D:/Vision_Timematch/timematch-front/node_modules/react-intl';
 
 let g_intl: IntlShape;
 
 const useLocalStorage = true;
 
-import jaJP0 from 'antd/es/locale/ja_JP';
-import lang_jaJP0 from "/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/locales/ja-JP.js";
-
 export const localeInfo: {[key: string]: any} = {
   'ja-JP': {
     messages: {
-      ...lang_jaJP0,
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('D:/Vision_Timematch/timematch-front/src/locales/ja-JP.js')),
     },
     locale: 'ja-JP',
     antd: {
-      ...jaJP0,
+      ...require('antd/es/locale/ja_JP').default,
     },
     momentLocale: 'ja',
   },
@@ -78,19 +75,13 @@ export const addLocale = (
     ? Object.assign({}, localeInfo[name].messages, messages)
     : messages;
 
-
   const { momentLocale, antd } = extraLocales || {};
-  const locale = name.split('-')?.join('-')
   localeInfo[name] = {
     messages: mergeMessages,
-    locale,
+    locale: name.split('-')?.join('-'),
     momentLocale: momentLocale,
     antd,
   };
-   // 如果这是的 name 和当前的locale 相同需要重新设置一下，不然更新不了
-  if (locale === getLocale()) {
-    event.emit(LANG_CHANGE_EVENT, locale);
-  }
 };
 
 /**
@@ -148,7 +139,7 @@ export const getLocale = () => {
   // please clear localStorage if you change the baseSeparator config
   // because changing will break the app
   const lang =
-    navigator.cookieEnabled && typeof localStorage !== 'undefined' && useLocalStorage
+    typeof localStorage !== 'undefined' && useLocalStorage
       ? window.localStorage.getItem('umi_locale')
       : '';
   // support baseNavigator, default true
@@ -181,6 +172,8 @@ export const getDirection = () => {
  * @returns string
  */
 export const setLocale = (lang: string, realReload: boolean = true) => {
+  const localeExp = new RegExp(`^([a-z]{2})-?([A-Z]{2})?$`);
+
   const runtimeLocale = plugin.applyPlugins({
     key: 'locale',
     type: ApplyPluginsType.modify,
@@ -188,8 +181,12 @@ export const setLocale = (lang: string, realReload: boolean = true) => {
   });
 
   const updater = () => {
+    if (lang !== undefined && !localeExp.test(lang)) {
+      // for reset when lang === undefined
+      throw new Error('setLocale lang format error');
+    }
     if (getLocale() !== lang) {
-      if (navigator.cookieEnabled && typeof window.localStorage !== 'undefined' && useLocalStorage) {
+      if (typeof window.localStorage !== 'undefined' && useLocalStorage) {
         window.localStorage.setItem('umi_locale', lang || '');
       }
       setIntl(lang);
@@ -214,7 +211,7 @@ export const setLocale = (lang: string, realReload: boolean = true) => {
     });
     return;
   }
-
+  
   updater();
 };
 

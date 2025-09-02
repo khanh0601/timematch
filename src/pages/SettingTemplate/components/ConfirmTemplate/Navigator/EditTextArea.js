@@ -155,7 +155,7 @@ const EditTextArea = memo(props => {
       <div className={styles.inputContainer}>
         <InputNav
           title="設定方法1：URLで設定する"
-          placeholder="例）https://info.smoothly.jp/company/"
+          placeholder="例）https://info.timematch.jp/company/"
           isSecondaryTitle
           value={link || ''}
           onChange={e => {
@@ -195,7 +195,7 @@ const EditTextArea = memo(props => {
       </div>
       <div className={styles.inputContainer}>
         <Button className={styles.primaryBtn} onClick={handleSubmit}>
-          保存
+          保存{' '}
         </Button>
       </div>
     </div>

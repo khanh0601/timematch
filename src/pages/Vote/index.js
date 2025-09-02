@@ -140,7 +140,7 @@ function Vote({
       return;
     }
     !eventDateTimeGuest &&
-      history.push({ pathname: '/', search: '?tab=2&team_all=true' });
+      history.push({ pathname: '/', search: '?team_all=true' });
   }, [eventDateTimeGuest]);
 
   useEffect(() => {

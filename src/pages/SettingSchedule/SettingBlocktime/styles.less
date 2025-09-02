@@ -10,6 +10,21 @@
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     padding: 60px 15px 80px;
   }
+  .mainSetting {
+    display: flex;
+    column-gap: 120px;
+    @media screen and (max-width: 767px) {
+      display: block;
+      column-gap: unset;
+    }
+  }
+  .partTitle {
+    font-weight: 510;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: 0;
+    padding-bottom: 24px;
+  }
   .partName {
     display: flex;
     align-items: center;
@@ -21,6 +36,7 @@
   .partNameTitle {
     font-size: 30px;
     color: @black-4;
+    font-weight: 600;
     @media screen and (max-width: 767px) {
       font-size: 18px;
     }
@@ -39,7 +55,6 @@
       border-radius: 20px;
       margin-left: 0;
       font-size: 20px;
-      max-width: 250px;
       height: 49px;
     }
     .cancelBtn {
@@ -53,10 +68,11 @@
     }
   }
   .settingIcon {
-    font-size: 23px;
-    margin: 0 24px;
+    font-size: 8px;
+    margin: 0 4px;
     @media screen and (max-width: 767px) {
       margin: 0 5px;
+      font-size: 23px;
     }
   }
   .labelCheckbox {
@@ -64,18 +80,20 @@
   }
 }
 .labelCheckbox {
-  margin-left: 50px;
+  margin-left: 26px;
   font-size: 25px;
   display: flex;
   align-items: center;
 }
 .checkboxSelect {
   display: flex;
-  margin-left: 60px;
+  margin-left: 5px;
   align-items: center;
   min-width: 50%;
+  width: 200px;
   @media screen and (max-width: 767px) {
     margin-left: 0;
+    width: unset;
   }
 }
 .selectTime {
@@ -101,14 +119,10 @@
 }
 .checkboxItem {
   display: flex;
-  align-items: center;
+  justify-content: space-between;
   margin-bottom: 25px;
   flex-wrap: wrap;
-  justify-content: center;
   max-width: 615px;
-  @media screen and (max-width: 767px) {
-    justify-content: space-between;
-  }
   .errorTime {
     color: @red-required;
     display: block;
@@ -121,6 +135,10 @@
   position: relative;
   display: flex;
   justify-content: center;
+  width: 300px;
+  @media screen and (max-width: 767px) {
+    width: unset;
+  }
 }
 
 .setting {
@@ -129,18 +147,21 @@
     .ant-checkbox-inner {
       display: none;
     }
+    .ant-picker .ant-picker-input .ant-picker-suffix {
+      display: unset;
+    }
     .ant-checkbox-checked::after {
       display: none;
     }
     .ant-checkbox {
       &::before {
         content: '';
-        width: 34px;
-        height: 35px;
+        width: 22px;
+        height: 22px;
         position: absolute;
         left: 0;
         top: -15px;
-        border-radius: 9px;
+        border-radius: 4px;
         box-shadow: inset 1px 1px 3px 1px rgba(0, 0, 0, 0.26);
       }
       &.ant-checkbox-checked {
@@ -155,8 +176,8 @@
       width: 100%;
     }
     .ant-select {
-      max-width: 170px;
-      height: 50px;
+      max-width: fit-content;
+      height: 30px;
       border-radius: 15px;
       font-size: 20px;
       display: flex;
@@ -181,19 +202,18 @@
       align-items: center;
     }
     .ant-picker {
-      max-width: 170px;
-      height: 50px;
+      height: 30px;
       border: 2px solid #d4d4d4;
-      border-radius: 15px;
+      border-radius: 8px;
       font-size: 16px;
       display: flex;
       align-items: center;
       color: #333;
-      padding: 0 10px 0 28px;
+      padding: 0 10px 0 12px;
       @media screen and (max-width: 767px) {
         max-width: 95px;
         padding: 0 10px;
-        height: 40px;
+        height: 30px;
       }
     }
     .ant-picker-input > input {
@@ -203,6 +223,9 @@
       &:hover {
         border: 2px solid @grey-7;
       }
+    }
+    .ant-select-selector .ant-select-selection-item {
+      padding-right: 10px !important;
     }
   }
 }

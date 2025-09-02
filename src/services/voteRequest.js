@@ -35,4 +35,12 @@ export default {
     const url = `/api/users/votes/${data.vote}/code `;
     return rf.get(url);
   },
+  getUserVoteShow: (data = {}) => {
+    const url = `/api/users/votes`;
+    return rf.get(url, data);
+  },
+  postVoteUserConfirm: (data = {}) => {
+    const url = `/api/users/votes/vote-by-user`;
+    return rf.post(url, data);
+  },
 };

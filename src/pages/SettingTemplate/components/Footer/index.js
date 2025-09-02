@@ -27,7 +27,7 @@ function Footer() {
           </Link>
         </li>
         <li onClick={handleClickLink}>
-          <Link to={'/privacy-policy'}>
+          <Link to={'https://vision-net.co.jp/privacy.html'}>
             {intl.formatMessage({ id: 'i18n_footer_privacy' })}
           </Link>
         </li>

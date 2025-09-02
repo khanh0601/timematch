@@ -23,11 +23,13 @@ function CardCompany({
           onClick={() => (!acceptTerm ? setRemindAcceptTerm(true) : null)}
         >
           <div className={!acceptTerm ? styles.preventClickCover : ''}>
-            <Button className={styles.loginButton} onClick={googleLogin}>
+            <Button
+              onClick={googleLogin}
+              className={`${styles.loginButton} ${styles.borderMediumGray}`}
+            >
               <img src={iconGoogle} alt={'Google'} />
-              <span>{formatMessage({ id: 'i18n_signup_google' })}</span>
-              <span className={styles.rightSpan}>
-                {formatMessage({ id: 'i18n_individual' })}
+              <span className={styles.textDarkGray}>
+                {formatMessage({ id: 'i18n_signup_google' })}
               </span>
             </Button>
           </div>
@@ -42,9 +44,6 @@ function CardCompany({
             <Button className={styles.loginButton} onClick={microsoftLogin}>
               <img src={iconOffice} alt={'Microsoft'} />
               <span>{formatMessage({ id: 'i18n_signup_office' })}</span>
-              <span className={styles.rightSpan}>
-                {formatMessage({ id: 'i18n_individual' })}
-              </span>
             </Button>
           </div>
         </div>

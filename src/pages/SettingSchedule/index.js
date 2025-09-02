@@ -7,6 +7,12 @@ import React, { useEffect, useState } from 'react';
 import { useHistory, useIntl, withRouter } from 'umi';
 import SettingBlocktime from './SettingBlocktime';
 import styles from './styles.less';
+import HeaderMobile from '@/components/Mobile/Header';
+import iconBack from '@/assets/images/i-back-white.png';
+import { ROUTER } from '@/constant';
+import FooterMobile from '../../components/Mobile/Footer';
+import useIsMobile from '../../hooks/useIsMobile';
+import PCHeader from '../../components/PC/Header';
 const { Item } = Form;
 const { confirm } = Modal;
 const listDataTooltipCancelPackage = [
@@ -41,6 +47,7 @@ function SettingSchedule(props) {
   const history = useHistory();
   const { width } = useWindowDimensions();
   const [disableCancelPlan, setDisableCancelPlan] = useState(true);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     dispatch({
@@ -54,7 +61,7 @@ function SettingSchedule(props) {
 
   useEffect(() => {
     const profile = profileFromStorage();
-    const { avatar, name, company, katakana_name, code } = profile;
+    const { name, company, katakana_name, code } = profile;
 
     form.setFieldsValue({
       fullName: name,
@@ -63,12 +70,10 @@ function SettingSchedule(props) {
       calendarUrl: code,
     });
     setDetailProfile(profile);
-    setAvatar(avatar);
   }, []);
 
   const updateLocalStorage = values => {
     const profile = profileFromStorage();
-    if (fileImage) profile.avatar = avatar;
     profile.company = values.company;
     profile.name = values.fullName;
     profile.katakana_name = values.userName;
@@ -197,160 +202,38 @@ function SettingSchedule(props) {
         <Spin className="loading-page" size="large" />
       ) : (
         <div className={styles.profileContainer}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              borderBottom: '1px solid darkblue',
-              padding: 15,
-            }}
-          >
-            <div
-              style={{
-                width: 30,
-                height: 30,
-                background: 'dodgerblue',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 5,
+          {isMobile ? (
+            <HeaderMobile
+              title={formatMessage({ id: 'i18n_schedule_setting_title' })}
+              isShowLeft={true}
+              itemLeft={{
+                event: 'back',
+                url: ROUTER.profile,
+                icon: iconBack,
+                bgColor: 'bgPrimaryBlue',
               }}
-              onClick={() => history.goBack()}
-            >
-              <LeftOutlined style={{ color: '#FFF' }} />
-            </div>
-            <div className={styles.header}>プロフィール</div>
-            <div></div>
-          </div>
-          <div
-            style={{ padding: 15 }}
-            ref={scrollToScheduleSetting}
-            className={styles.groupPart}
-          >
-            <div className={styles.partName}>
-              <div className={styles.partNameBorder}></div>
-              <div className={styles.partNameTitle}>
-                {formatMessage({ id: 'i18n_update_default_settings' })}
+            />
+          ) : (
+            <PCHeader />
+          )}
+
+          <div ref={scrollToScheduleSetting} className={styles.groupPart}>
+            {isMobile ? (
+              <div className={styles.partName}>
+                <div className={styles.partNameBorder}></div>
+                <div className={styles.partNameTitle}>
+                  {formatMessage({ id: 'i18n_update_default_settings' })}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className={styles.PartTitle}>自動日程調整オプション</div>
+            )}
             <SettingBlocktime />
           </div>
-          {/* 
-          
-
-          <div className={styles.groupPart}>
-            <div className={styles.partName}>
-              <div className={styles.partNameBorder}></div>
-              <div className={styles.partNameTitle}>
-                {formatMessage({ id: 'i18n_cancel_plan' })}
-                <Tooltip
-                  title={
-                    <TooltipFormat dataFormat={listDataTooltipCancelPackage} />
-                  }
-                  trigger={['hover', 'click']}
-                >
-                  <img
-                    src={helper}
-                    style={{
-                      marginLeft: width <= 767 ? '8px' : '10px',
-                      marginTop: width <= 767 ? '-2px' : '-5px',
-                      width: width <= 767 ? '20px' : '30px',
-                      height: width <= 767 ? '20px' : '30px',
-                    }}
-                    className="helper"
-                  />
-                </Tooltip>
-              </div>
-            </div>
-            <Button
-              loading={loadingCancelPlan}
-              className={`btn btn-grey ${styles.disconnectBtn}`}
-              onClick={handleClickCancelPlan}
-              disabled={disableCancelPlan}
-            >
-              解約する
-            </Button>
-          </div>
-
-          <div className={styles.groupPart}>
-            <div className={styles.partName}>
-              <div className={styles.partNameBorder}></div>
-              <div className={styles.partNameTitle}>
-                {formatMessage({ id: 'i18n_account_unlinkage' })}
-                <Tooltip
-                  title={
-                    <TooltipFormat dataFormat={listDataTooltipUnlinkPackage} />
-                  }
-                  trigger={['hover', 'click']}
-                >
-                  <img
-                    src={helper}
-                    style={{
-                      marginLeft: '10px',
-                      marginTop: '-5px',
-                      width: width <= 767 ? '20px' : '30px',
-                      height: width <= 767 ? '20px' : '30px',
-                    }}
-                    className="helper"
-                  />
-                </Tooltip>
-              </div>
-            </div>
-            <Button
-              disabled={!detailProfile.has_token}
-              onClick={handleClickUnlinkage}
-              className={`btn btn-grey ${styles.disconnectBtn}`}
-            >
-              {formatMessage({ id: 'i18n_btn_delete_linked' })}
-            </Button>
-          </div>
-          <div className={styles.groupPart}>
-            <div className={styles.partName}>
-              <div className={styles.partNameBorder}></div>
-              <div className={styles.partNameTitle}>
-                {formatMessage({ id: 'i18n_delete_account' })}
-                <Tooltip
-                  title={
-                    <TooltipFormat dataFormat={listDataTooltipDeleteAccount} />
-                  }
-                  trigger={['hover', 'click']}
-                >
-                  <img
-                    src={helper}
-                    style={{
-                      marginLeft: width <= 767 ? '-2px' : '-10px',
-                      marginTop: '-5px',
-                      width: width <= 767 ? '20px' : '30px',
-                      height: width <= 767 ? '20px' : '30px',
-                    }}
-                    className="helper"
-                  />
-                </Tooltip>
-              </div>
-            </div>
-            <Button
-              loading={loadingDeleteAccount}
-              className={`btn btn-grey ${styles.disconnectBtn}`}
-              onClick={handleClickDeleteAccount}
-            >
-              {formatMessage({ id: 'i18n_account_delete' })}
-            </Button>
-          </div> */}
-          {/* <Form>
-            <Item className={styles.backToHome}>
-              <Button
-                onClick={() => history.push('/')}
-                className="btn btnGreen m-auto"
-              >
-                {formatMessage({ id: 'i18n_return_home' })}
-              </Button>
-            </Item>
-          </Form> */}
         </div>
       )}
 
-      {/* <Footer /> */}
+      {isMobile ? null : <FooterMobile />}
     </div>
   );
 }

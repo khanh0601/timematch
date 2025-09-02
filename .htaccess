@@ -1,0 +1,13 @@
+RewriteEngine On
+RewriteBase /
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -f [OR]
+RewriteCond %{DOCUMENT_ROOT}%{REQUEST_URI} -d
+RewriteRule ^ - [L]
+RewriteRule ^ ./index.html
+
+
+#AuthType Basic
+#AuthName "smoooth"
+#AuthBasicProvider file
+#AuthUserFile /var/www/html/smo-fe/.htpasswd
+#Require valid-user

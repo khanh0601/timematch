@@ -1,7 +1,8 @@
 import React from 'react';
 import styles from './styles.less';
-import { useIntl } from 'umi';
+import { Link, useIntl } from 'umi';
 import { history } from 'umi';
+import iconBack from '@/assets/images/i-back-white.png';
 
 function InvalidURL() {
   const intl = useIntl();
@@ -17,6 +18,10 @@ function InvalidURL() {
         {/*</a>*/}
         <span>{formatMessage({ id: 'i18n_login_to_set_valid_url_3' })}</span>
       </h2>
+      <Link to={'/'} className={styles.backToHome}>
+        <img src={iconBack} alt={'back'} />
+        {formatMessage({ id: 'i18n_back_to_homepage' })}
+      </Link>
     </div>
   );
 }

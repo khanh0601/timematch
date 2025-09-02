@@ -32,7 +32,7 @@ function Home(props) {
           xs={{ span: 24, offset: 0 }}
         >
           <div className={styles.homeContent}>
-            <h1 className={styles.title}>Smoothly</h1>
+            <h1 className={styles.title}>タイムマッチ</h1>
             <p>
               あなたとあなたが出会うすべての人にとって最高の自動スケジューリングソフトウェア
             </p>

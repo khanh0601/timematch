@@ -37,7 +37,7 @@ const CurrentAppointmentDetail = () => {
               </div>
             </div>
             <div className="flexSpaceBetween">
-              <div className="flex2">調整済</div>{' '}
+              <div className="flex2">調整状況</div>{' '}
               <div className="flex1">: 私から</div>
             </div>
             <div className="flexSpaceBetween">

@@ -1,3 +1,4 @@
+@import '../../../base.less';
 .forgotPassword {
   position: relative;
   height: fit-content;
@@ -8,7 +9,7 @@
     padding: 100px 0 700px 0;
   }
   .bodyContent {
-    padding: 65px 0 127px;
+    padding: 20px 0;
     p {
       font-size: 24px;
       text-indent: 37px;
@@ -49,7 +50,6 @@
       font-size: 18px;
     }
     .inputField {
-      max-width: 508px;
       margin: auto;
       span {
         font-size: 1rem;
@@ -59,10 +59,9 @@
       input {
         width: 100%;
         height: 40px;
-        border: 1px solid #999999 !important;
         border-radius: 5px;
         padding: 5px;
-        margin-bottom: 20px;
+        margin-bottom: 0;
       }
       .errorNotice {
         color: #ff4d4f;
@@ -70,7 +69,7 @@
       }
     }
     .btnZone {
-      margin-top: 80px;
+      margin-top: 20px;
       margin-bottom: 25px;
       .signUpBtn {
         width: 100%;
@@ -97,5 +96,33 @@
       padding: 0 15px;
       margin: auto;
     }
+  }
+
+  .bgDarkGray {
+    background-color: #949494 !important;
+
+    &:hover {
+      background-color: #333 !important;
+    }
+  }
+}
+
+@media (min-width: 834px) {
+  .bodyContent {
+    width: 375px;
+    margin: auto;
+  }
+
+  .btnBack {
+    margin-top: -16px !important;
+  }
+
+  .titleForm {
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: #333333;
+    font-size: 24px;
+    font-weight: bold;
   }
 }

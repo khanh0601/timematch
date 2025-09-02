@@ -1,5 +1,5 @@
 // @ts-nocheck
-import React,{ useState } from 'react';
+import React from 'react';
 import { Menu, Dropdown } from 'antd';
 import { ClickParam } from 'antd/es/menu';
 import { DropDownProps } from 'antd/es/dropdown';
@@ -39,7 +39,6 @@ interface SelectLangProps {
   onItemClick?: (params: ClickParam) => void;
   className?: string;
   reload?: boolean;
-  icon?: React.ReactNode;
 }
 
 const transformArrayToObject = (allLangUIConfig:LocalData[])=>{
@@ -73,12 +72,6 @@ const defaultLangUConfigMap = {
     label: 'Български език',
     icon: '🇧🇬',
     title: 'език'
-  },
-  'bn-BD': {
-    lang: 'bn-BD',
-    label: 'বাংলা',
-    icon: '🇧🇩',
-    title: 'ভাষা'
   },
   'ca-ES': {
     lang: 'ca-ES',
@@ -284,12 +277,6 @@ const defaultLangUConfigMap = {
     icon: '🇳🇱',
     title: 'Taal'
   },
-  'pl-PL': {
-    lang: 'pl-PL',
-    label: 'Polski',
-    icon: '🇵🇱',
-    title: 'Język'
-  },
   'pt-BR': {
     lang: 'pt-BR',
     label: 'Português',
@@ -310,7 +297,7 @@ const defaultLangUConfigMap = {
   },
   'ru-RU': {
     lang: 'ru-RU',
-    label: 'Русский',
+    label: 'русский',
     icon: '🇷🇺',
     title: 'язык'
   },

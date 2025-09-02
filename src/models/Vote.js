@@ -13,6 +13,7 @@ export default {
     voteGuest: [],
     eventDateTimeUser: [],
     voteUser: [],
+    event: null,
   },
   reducers: {
     setLoading(state, action) {
@@ -79,6 +80,18 @@ export default {
         voteUser: action.payload,
       };
     },
+    setEvent(state, action) {
+      return {
+        ...state,
+        event: action.payload,
+      };
+    },
+    setInformationUserVote(state, action) {
+      return {
+        ...state,
+        informationUserVote: action.payload,
+      };
+    },
   },
   effects: {
     *getVoteShow(action, { put }) {
@@ -87,11 +100,20 @@ export default {
         const { statusCode, body } = yield voteRequest.getVoteShow(
           action.payload,
         );
+
         if (statusCode === 200)
-          yield put({
-            type: 'setInformationVote',
-            payload: body.result.result,
-          });
+          if (
+            window.location.pathname === '/appointment-selection' &&
+            body.result.result.vote.is_finished
+          ) {
+            history.push('/invalid-url');
+            return;
+          }
+
+        yield put({
+          type: 'setInformationVote',
+          payload: body.result.result,
+        });
       } catch (error) {
         const { body } = error.response;
         const errorMsg = body.message;
@@ -181,6 +203,7 @@ export default {
             payload: body.result.event_datetimes,
           });
           yield put({ type: 'setVoteUser', payload: body.result.voters });
+          yield put({ type: 'setEvent', payload: body.result.event });
         }
       } catch (error) {
         const { body } = error.response;
@@ -209,6 +232,47 @@ export default {
       } finally {
         yield put({ type: 'setSendEmailLoading', payload: false });
       }
+    },
+    *getUserVoteShow(action, { put }) {
+      yield put({ type: 'setLoading', payload: true });
+      try {
+        const { statusCode, body } = yield voteRequest.getUserVoteShow(
+          action.payload,
+        );
+
+        if (statusCode === 200)
+          if (
+            window.location.pathname === '/appointment-selection' &&
+            body.result.result.vote.is_finished
+          ) {
+            history.push('/invalid-url');
+            return;
+          }
+
+        yield put({
+          type: 'setInformationUserVote',
+          payload: body.result.result,
+        });
+      } catch (error) {
+        const { body } = error.response;
+        const errorMsg = body.message;
+        history.push({ pathname: 'invalid-url' });
+      }
+      yield put({ type: 'setLoading', payload: false });
+    },
+    *postVoteUserConfirm(action, { put }) {
+      yield put({ type: 'setLoading', payload: true });
+      try {
+        const { statusCode, body } = yield voteRequest.postVoteUserConfirm(
+          action.payload,
+        );
+
+        yield put({ type: 'setLoading', payload: false });
+        return body;
+      } catch (error) {
+        handleError(error);
+      }
+      yield put({ type: 'setLoading', payload: false });
     },
   },
 };

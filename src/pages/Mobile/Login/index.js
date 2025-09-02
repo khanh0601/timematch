@@ -1,13 +1,18 @@
 import { connect } from 'dva';
-import { Button, Form, Input, Spin, Checkbox } from 'antd';
+import { Button, Form, Input, Spin } from 'antd';
 import styles from './styles.less';
+import './stylesPc.less';
 import React, { useEffect, useRef, useState } from 'react';
 import { useIntl } from 'umi';
 import config from '@/config';
-import GoogleLogin from 'react-google-login';
+import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import FooterMobile from '@/components/Mobile/Footer';
 import { Link } from 'umi';
-import CardLogin from '@/pages/Mobile/Login/components/CardLogin';
+import HeaderMobile from '@/components/Mobile/Header';
+import iconGoogle from '@/assets/images/google.png';
+import iconOffice from '@/assets/images/microsoft.png';
+import iconLogoTimeMatch from '@/assets/images/logo.png';
+import useIsMobile from '@/hooks/useIsMobile';
 
 function LoginMobile(props) {
   const { dispatch, masterStore } = props;
@@ -22,13 +27,33 @@ function LoginMobile(props) {
   const [bgFocus, setBGFocus] = useState(false);
   const inputRef1 = useRef(null);
 
-  const [isScrollIntoCardPerson, setIsScrollIntoCardPerson] = useState(false);
+  const isMobile = useIsMobile();
 
-  const scrollIntoCardPerson = ref => {
-    if (ref && isScrollIntoCardPerson === true) {
-      ref.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      setIsScrollIntoCardPerson(false);
-    }
+  const GoogleLoginButton = () => {
+    const handleGoogleAuth = useGoogleLogin({
+      onSuccess: codeResponse => {
+        console.log(codeResponse);
+        const payload = {
+          token: codeResponse.code,
+          account_type: 0,
+        };
+        dispatch({ type: 'MASTER/googleLogin', payload });
+      },
+      onError: () => console.log('Login Failed'),
+      flow: 'auth-code',
+      scope:
+        'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar',
+    });
+
+    return (
+      <Button
+        onClick={() => handleGoogleAuth()}
+        className={`${styles.btnSocial} ${styles.borderMediumGray}`}
+      >
+        <img src={iconGoogle} alt={'Google'} />
+        {formatMessage({ id: 'i18n_google_login' })}
+      </Button>
+    );
   };
 
   useEffect(() => {
@@ -53,31 +78,22 @@ function LoginMobile(props) {
           await dispatch({ type: 'USER/emailLogin', payload });
           setTimeout(() => {
             setLoading(false);
-          }, 2000);
+          }, 5000);
         }
       })
       .catch(err => err);
   };
 
   const inputFocus = e => {
+    if (!isMobile) {
+      return;
+    }
     setBGFocus(true);
     setFocus1(true);
     setTypeInput1(true);
     inputRef1.current.input.selectionStart = inputRef1.current.input.selectionEnd =
       e.target.selectionStart + e.target.value.length;
   };
-
-  const responseGoogle = googleResponse => {
-    if (!googleResponse.error) {
-      const payload = {
-        token: googleResponse.code,
-        account_type: localStorage.getItem('type') | 0,
-      };
-      dispatch({ type: 'MASTER/googleLogin', payload });
-    }
-  };
-
-  const loginGoogleFailed = googleResponse => {};
 
   const microsoftLogin = async accountType => {
     const redirectUri =
@@ -113,107 +129,131 @@ function LoginMobile(props) {
 
   return (
     <Spin spinning={loginLoading}>
-      <div className={styles.signIn}>
-        <Form form={form}>
-          <p className={styles.fieldName}>
-            {formatMessage({ id: 'i18n_email' })}
-          </p>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                message: formatMessage({ id: 'i18n_required_text' }),
-              },
-              {
-                type: 'email',
-                message: intl.formatMessage({
-                  id: 'i18n_email_error_notice',
-                }),
-              },
-            ]}
-            name={'email'}
-          >
-            <Input
-              className={styles.inputField}
-              placeholder={'例) evergreen1129@smoothly.jp'}
-              autoComplete="on"
-            />
-          </Form.Item>
+      <HeaderMobile
+        title={formatMessage({ id: 'i18n_btn_login' })}
+        primary={
+          isMobile
+            ? { bgColor: 'bgPrimaryBlue', textColor: 'textLightGray' }
+            : undefined
+        }
+        showLogo={!isMobile}
+      />
+      <div className={`${styles.signIn} login-page`}>
+        <Form form={form} className={styles.formSignIn}>
+          <div className={styles.leftForm}>
+            <h1 className={styles.leftFormTitle}>
+              {formatMessage({ id: 'i18n_left_signin_title' })}
+            </h1>
 
-          <p className={styles.fieldName} style={{ paddingTop: '10px' }}>
-            {formatMessage({ id: 'i18n_password' })}
-          </p>
-          <Form.Item
-            rules={[
-              {
-                required: true,
-                message: formatMessage({ id: 'i18n_required_text' }),
-              },
-            ]}
-            name={'password'}
-          >
-            <Input
-              className={`${styles.inputField} ${
-                focus1 ? styles.password : ''
-              }`}
-              placeholder={'例) Password12'}
-              iconRender={visible => (visible ? visible : visible)}
-              onFocus={e => inputFocus(e)}
-              type={'password'}
-              ref={inputRef1}
-              autoComplete="on"
-            />
-          </Form.Item>
-          <div className={styles.btnZone}>
-            <Button
-              className={styles.signInBtn}
-              loading={loading}
-              htmlType="submit"
-              onClick={onSubmit}
+            <p className={`${styles.fieldName} ${styles.textDarkGray}`}>
+              {formatMessage({ id: 'i18n_email' })}
+            </p>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: formatMessage({ id: 'i18n_required_text' }),
+                },
+                {
+                  type: 'email',
+                  message: intl.formatMessage({
+                    id: 'i18n_email_error_notice',
+                  }),
+                },
+              ]}
+              name={'email'}
             >
-              {formatMessage({ id: 'i18n_login_btn' })}
-            </Button>
-          </div>
-          <Form.Item rules={[]} name={'autoLogin'}>
-            <div className={styles.checkerViet}>
-              <Checkbox checked={saveLogin} onChange={event => onCheck(event)}>
-                {formatMessage({ id: 'i18n_auto_login_then' })}
-              </Checkbox>
+              <Input
+                className={`${styles.inputField} ${styles.borderMediumGray}`}
+                placeholder={'例) evergreen1129@timematch.jp'}
+                autoComplete="off"
+              />
+            </Form.Item>
+
+            <p
+              className={`${styles.fieldName} ${styles.textDarkGray}`}
+              style={{ paddingTop: '20px' }}
+            >
+              {formatMessage({ id: 'i18n_password' })}
+            </p>
+            <Form.Item
+              rules={[
+                {
+                  required: true,
+                  message: formatMessage({ id: 'i18n_required_text' }),
+                },
+              ]}
+              name={'password'}
+            >
+              <Input
+                className={`${styles.inputField} ${
+                  focus1 ? styles.password : ''
+                } ${styles.borderMediumGray}`}
+                placeholder={'例) Password12'}
+                iconRender={visible => (visible ? visible : visible)}
+                onFocus={e => inputFocus(e)}
+                type={'password'}
+                ref={inputRef1}
+                autoComplete="off"
+              />
+            </Form.Item>
+            <div className={styles.btnZone}>
+              <Button
+                className={`${styles.signInBtn} btn-pc-primary`}
+                loading={loading}
+                htmlType="submit"
+                onClick={onSubmit}
+              >
+                {formatMessage({ id: 'i18n_login_btn' })}
+              </Button>
             </div>
-          </Form.Item>
-          <div className={`${styles.divider} ${styles.line} ${styles.oneLine}`}>
-            <span>{formatMessage({ id: 'i18n_status_or' })}</span>
+            <Link
+              to={'/forgot-password'}
+              className={`${styles.forgotPassword} ${styles.textDarkBlue}`}
+            >
+              {formatMessage({ id: 'i18n_forgot_password_link' })}
+            </Link>
+
+            <Link to={'/register'} className={styles.registerLink}>
+              {formatMessage({ id: 'i18n_click_register_link' })}
+            </Link>
+
+            <div
+              className={`${styles.divider} ${styles.line} ${styles.oneLine}`}
+            >
+              <span>{formatMessage({ id: 'i18n_status_or' })}</span>
+            </div>
           </div>
-          <GoogleLogin
-            clientId={config.GOOGLE_CLIENT_KEY}
-            render={renderProps => (
-              <div className={styles.main}>
-                <div ref={scrollIntoCardPerson}>
-                  <CardLogin
-                    microsoftLogin={() => microsoftLogin(0)}
-                    googleLogin={() => {
-                      renderProps.onClick();
-                    }}
-                  />
-                </div>
-              </div>
-            )}
-            onSuccess={responseGoogle}
-            onFailure={loginGoogleFailed}
-            cookiePolicy={'single_host_origin'}
-            scope={
-              'https://www.googleapis.com/auth/calendar.events https://www.googleapis.com/auth/calendar'
-            }
-            accessType={'offline'}
-            responseType={'code'}
-            approvalPrompt={'force'}
-            prompt={'consent'}
-          />
-          <div className={styles.registerHere}>
-            {formatMessage({ id: 'i18n_register_link' })}
-            <Link to={'/register'}>{formatMessage({ id: 'i18n_here' })}</Link>
+
+          <div className={styles.rightForm}>
+            <h1 className={styles.rightFormTitle}>
+              {formatMessage({ id: 'i18n_right_signin_title' })}
+            </h1>
+            <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_KEY}>
+              <GoogleLoginButton />
+            </GoogleOAuthProvider>
+            <Button
+              onClick={() => microsoftLogin(0)}
+              className={`${styles.btnSocial} ${styles.borderMediumGray}`}
+            >
+              <img src={iconOffice} alt={'Microsoft'} />
+              {formatMessage({ id: 'i18n_microsoft_login' })}
+            </Button>
+            <div className={styles.registerHere}>
+              {formatMessage({ id: 'i18n_register_link' })}
+              <Link to={'/register'} className={styles.textDarkBlue}>
+                {formatMessage({ id: 'i18n_here' })}
+              </Link>
+            </div>
+
+            <Link to={'/register'} className={styles.registerAdv}>
+              {formatMessage({ id: 'i18n_register_adv' })}
+            </Link>
           </div>
         </Form>
+        <div className={styles.logo}>
+          <img src={iconLogoTimeMatch} alt={'Logo Time Match'} />
+        </div>
       </div>
       <FooterMobile />
     </Spin>

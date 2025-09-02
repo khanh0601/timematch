@@ -3,8 +3,11 @@ import styles from './styles.less';
 import { useIntl, history } from 'umi';
 import { connect } from 'dva';
 import { Row, Col } from 'antd';
-import HomeHeader from '@/components/HomeHeader';
 import { LeftOutlined } from '@ant-design/icons';
+import HeaderMobile from '@/components/Mobile/Header';
+import iconBack from '@/assets/images/i-back-white.png';
+import { ROUTER } from '@/constant';
+
 function PrivacyPolicy(props) {
   const { dispatch, masterStore } = props;
   const intl = useIntl();
@@ -12,45 +15,25 @@ function PrivacyPolicy(props) {
 
   return (
     <div className={styles.privacyPolicy}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid darkblue',
-          padding: 15,
+      <HeaderMobile
+        title={formatMessage({ id: 'i18n_privacy_policy' })}
+        isShowLeft={true}
+        itemLeft={{
+          event: 'back',
+          url: ROUTER.menu,
+          icon: iconBack,
+          bgColor: 'bgPrimaryBlue',
+          textColor: 'textLightGray',
         }}
-      >
-        <div
-          style={{
-            width: 30,
-            height: 30,
-            background: 'dodgerblue',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 5,
-          }}
-          onClick={() => history.go(-1)}
-        >
-          <LeftOutlined style={{ color: '#FFF' }} />
-        </div>
-        <div style={{ fontSize: 20, fontWeight: '500a' }}>
-          {formatMessage({ id: 'i18n_privacy_policy' })}
-        </div>
-        <div
-          style={{
-            width: 30,
-            height: 30,
-          }}
-        ></div>
-      </div>
+      />
       <div className={styles.content}>
         <Row>
           <Col xs={{ span: 24, offset: 0 }} sm={{ span: 20, offset: 2 }}>
             <p className={styles.title}>第1条　個人情報保護方針</p>
             <p>
-              LiTAER株式会社（以下「当社」という）は以下のとおり個人情報保護方針を定め、個人情報保護の仕組みを構築し、全従業員に個人情報保護の重要性の認識と取組みを徹底させることにより、個人情報の保護を推進します。
+              株式会社ビジョン（以下「当社」という）は以下のとおり個人情報保護方針を定め、個人情報保護の仕組みを構築し、
+              <br />{' '}
+              全従業員に個人情報保護の重要性の認識と取組みを徹底させることにより、個人情報の保護を推進します。
             </p>
 
             <p className={styles.title}>第2条　個人情報管理</p>
@@ -135,10 +118,10 @@ function PrivacyPolicy(props) {
             <p>
               お客様は、当社に対してご自身の個人情報の開示・訂正・削除を要求、当社がお客様の個人情報の利用、第三者への提供または預託することを中止させるために、以下お問い合わせ窓口に申し出ることができます。その際、当社はお客様ご本人であることを確認させていただいたうえで、合理的な期間内に対応いたします。
             </p>
-            <p>〒110-0008</p>
-            <p>東京都台東区池之端1-1-1</p>
-            <p>LiTAER株式会社　Smoothly運営 </p>
-            <p>E-Mail： info@smoothly.jp</p>
+            <p>〒160-0022</p>
+            <p>東京都新宿区新宿六丁目27番30号 新宿イーストサイドスクエア8階</p>
+            <p>株式会社ビジョン タイムマッチ運営</p>
+            <p>E-Mail： 「 」</p>
             <p className={styles.title}>第８条　法令、規範の遵守と見直し</p>
             <p>
               当社は、当社の保有する個人情報に関して適用される日本の法令、その他規範を遵守するとともに、本ポリシーの内容を適宜見直し、その改善に努めます。

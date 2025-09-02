@@ -183,16 +183,10 @@ export interface IConfigFromPlugins {
   antd?: {
     dark?: boolean;
     compact?: boolean;
-    mobile?: boolean;
-    disableBabelPluginImport?: boolean;
     config?: {};
   };
   dva?: {
     disableModelsReExport?: boolean;
-    /**
-     * lazy load dva model avoiding the import modules from umi undefined
-     */
-    lazyLoad?: boolean;
     extraModels?: string[];
     hmr?: boolean;
     immer?: boolean | {};

@@ -1,0 +1,11 @@
+services:
+    frontend:
+        restart: unless-stopped
+        image: node:18.16.1-alpine
+        working_dir: /app
+        volumes:
+            - ./:/app
+        ports:
+            - '${FRONTEND_PORT}:8888'
+        command: sh -c "npm install --force"
+        entrypoint: ['npm', 'start']

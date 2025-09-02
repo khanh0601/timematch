@@ -180,13 +180,13 @@ function UserPage(props) {
     }
   }, []);
 
-  if (window.location.hostname === config.ADMIN_HOSTNAME) {
-    return <Redirect to="/admin/accounts" />;
-  }
+  // if (window.location.hostname === config.ADMIN_HOSTNAME) {
+  //   return <Redirect to="/admin/accounts" />;
+  // }
 
-  if (location.pathname === '/booking-calendar') {
-    return <BookCalendarEmbed />;
-  }
+  // if (location.pathname === '/booking-calendar') {
+  //   return <BookCalendarEmbed />;
+  // }
 
   const switchHeader = () => {
     const { pathname } = location;
@@ -255,83 +255,83 @@ function UserPage(props) {
     >
       {switchHeader()}
 
-      {location.pathname === '/qa' && <QA />}
-      {location.pathname === '/event-template' && <EventTemplate />}
-      {location.pathname === '/preview' && <Preview />}
-      {location.pathname === '/preview-vote' && <Vote />}
+      {/* {location.pathname === '/qa' && <QA />} */}
+      {/* {location.pathname === '/event-template' && <EventTemplate />} */}
+      {/* {location.pathname === '/preview' && <Preview />} */}
+      {/* {location.pathname === '/preview-vote' && <Vote />} */}
       {location.pathname === '/' && <TopPage />}
       {location.pathname === '/term-of-user' && <TermOfUser />}
       {location.pathname === '/privacy-policy' && <PrivacyPolicy />}
       {location.pathname === '/invalid-url' && <InvalidURL />}
       {location.pathname === '/link-already-used' && <LinkAlreadyUsed />}
-      {location.pathname === '/setting-url' && <SettingUrl />}
-      {location.pathname === '/schedule-time' && <ScheduleTime />}
-      {location.pathname === '/event' && <EventManage />}
-      {location.pathname === '/send-contact-email' && <SendContactEmail />}
-      {(location.pathname === '/schedule-adjustment' ||
+      {/* {location.pathname === '/setting-url' && <SettingUrl />} */}
+      {/* {location.pathname === '/schedule-time' && <ScheduleTime />} */}
+      {/* {location.pathname === '/event' && <EventManage />} */}
+      {/* {location.pathname === '/send-contact-email' && <SendContactEmail />} */}
+      {/* {(location.pathname === '/schedule-adjustment' ||
         location.pathname === '/schedule-adjustment/many' ||
         location.pathname === '/schedule-adjustment/once') && (
         <ScheduleAdjustment />
-      )}
+      )} */}
       {location.pathname === '/cancel-booking' && <CancelBooking />}
-      {location.pathname === '/zoom-login-success' && <LoginZoomSuccess />}
-      {location.pathname === '/google-meet-login-success' && (
+      {/* {location.pathname === '/zoom-login-success' && <LoginZoomSuccess />} */}
+      {/* {location.pathname === '/google-meet-login-success' && (
         <LoginGoogleMeetSuccess />
-      )}
+      )} */}
       {location.pathname === '/msteam-login-success' && <LoginMSTeamSuccess />}
 
-      {location.pathname === '/account-status' && <AccountStatus />}
-      {location.pathname === '/calendar-creation' && <CalendarCreation />}
+      {/* {location.pathname === '/account-status' && <AccountStatus />} */}
+      {/* {location.pathname === '/calendar-creation' && <CalendarCreation />} */}
       {location.pathname === '/calendar-creation-success' && (
         <CalendarCreationCopy />
       )}
       {/*{location.pathname === '/calendar-creation-copy' && (*/}
       {/*  <CalendarCreationCopy />*/}
       {/*)}*/}
-      {location.pathname === '/setting-time' && <DetailSetting />}
+      {/* {location.pathname === '/setting-time' && <DetailSetting />} */}
       {location.pathname === '/signup' && <Signup />}
-      {location.pathname === '/contract-confirm' && <ContractConfirm />}
-      {location.pathname === '/payment' &&
+      {/* {location.pathname === '/contract-confirm' && <ContractConfirm />} */}
+      {/* {location.pathname === '/payment' &&
         profile.connection_role !== ROLE_MEMBER && <Payment />}
       {location.pathname === '/add-member' &&
         profile.connection_role !== ROLE_MEMBER && <AddMember />}
-      {location.pathname === '/payment-complete' && <PaymentComplete />}
+      {location.pathname === '/payment-complete' && <PaymentComplete />} */}
       {location.pathname === '/cancel-booking-complete' && (
         <CancelBookingComplete />
       )}
-      {location.pathname === '/add-member-complete' && <AddMemberComplete />}
-      {location.pathname === '/create-contract-complete' && (
+      {/* {location.pathname === '/add-member-complete' && <AddMemberComplete />} */}
+      {/* {location.pathname === '/create-contract-complete' && (
         <CreateContractComplete />
       )}
       {location.pathname === '/confirm-contract-detail' && (
         <ConfirmContractDetail />
-      )}
+      )} */}
       {location.pathname === '/smooth-login' && <SmoothLogin />}
       {location.pathname === '/confirm-register' && <ConfirmRegister />}
       {location.pathname === '/forgot-password' && <ForgotPassword />}
       {location.pathname === '/change-password' && <ChangePassword />}
       {location.pathname === '/profile' && <Profile />}
       {location.pathname === '/zoom-meet' && <ZoomMeet />}
-      {location.pathname === '/update-card' && <UpdateCard />}
-      {location.pathname === '/documentation' && <Documentation />}
-      {location.pathname === '/support' && <Documentation />}
-      {location.pathname === '/expired-free' && <ExpiredFree />}
-      {location.pathname === '/contract-detail' &&
-        profile.connection_role !== ROLE_MEMBER && <ContractDetail />}
+      {/* {location.pathname === '/update-card' && <UpdateCard />} */}
+      {/* {location.pathname === '/documentation' && <Documentation />} */}
+      {/* {location.pathname === '/support' && <Documentation />} */}
+      {/* {location.pathname === '/expired-free' && <ExpiredFree />} */}
+      {/* {location.pathname === '/contract-detail' &&
+        profile.connection_role !== ROLE_MEMBER && <ContractDetail />} */}
       {location.pathname === '/connected-google-calendar' && (
         <ConnectedGoogleCalendar />
       )}
       {location.pathname === '/connected-microsoft-365' && (
         <ConnectedMicrosoft365 />
       )}
-      {location.pathname === '/create-team' && <CreateTeam />}
-      {location.pathname === '/vote' && <Vote />}
-      {location.pathname === '/invite-member' && <InviteMember />}
-      {location.pathname === '/docs/:id' && <Documents />}
+      {/* {location.pathname === '/create-team' && <CreateTeam />} */}
+      {/* {location.pathname === '/vote' && <Vote />} */}
+      {/* {location.pathname === '/invite-member' && <InviteMember />}
+      {location.pathname === '/docs/:id' && <Documents />} */}
       {/*{location.pathname === '/setting-template' && <SettingTemplate />}*/}
-      {location.pathname === '/view-template' && <ViewTemplate />}
+      {/* {location.pathname === '/view-template' && <ViewTemplate />} */}
 
-      {location.pathname === '/view-answers' && <ViewAnswers />}
+      {/* {location.pathname === '/view-answers' && <ViewAnswers />} */}
       {location.pathname === '/calendar' && <CalendarMobile />}
       {location.pathname === '/create-calendar' && <CreateCalendar />}
       {location.pathname === '/top' && <TopPage />}

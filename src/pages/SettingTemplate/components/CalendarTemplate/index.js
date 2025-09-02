@@ -365,7 +365,7 @@ const CalendarTemplate = ({ listTimeBooking }) => {
           {renderToolbox()}
 
           <div className={styles.btnSubmit}>
-            <button onClick={() => onSubmit(optionSelected)}>保存</button>
+            <button onClick={() => onSubmit(optionSelected)}>保存 </button>
           </div>
         </div>
       )}

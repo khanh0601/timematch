@@ -43,7 +43,7 @@ function Footer({ dispatch, footerSuccessVote }) {
               </Link>
             </li>
             <li onClick={handleClickLink}>
-              <Link to={'/privacy-policy'}>
+              <Link to={'https://vision-net.co.jp/privacy.html'}>
                 {intl.formatMessage({ id: 'i18n_footer_privacy' })}
               </Link>
             </li>
@@ -71,7 +71,7 @@ function Footer({ dispatch, footerSuccessVote }) {
             </div>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <li onClick={handleClickLink}>
-                <Link to={'/privacy-policy'}>
+                <Link to={'https://vision-net.co.jp/privacy.html'}>
                   {intl.formatMessage({ id: 'i18n_footer_privacy' })}
                 </Link>
               </li>

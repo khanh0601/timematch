@@ -1,0 +1,71 @@
+stages:
+  - DeployTest
+  - DeployStaging
+
+
+DeployTest:
+  stage: DeployTest
+  image: node:10.19.0-alpine
+  only:
+    - develop@smoooth/smo-fe
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$TEST_ENV" > .umirc.prod.ts
+    - ssh-keyscan -H '54.254.20.6'  >> ~/.ssh/known_hosts
+    - echo "$TEST_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - rsync --progress -avzh --exclude='.git' -e "ssh -i ~/.ssh/id_rsa " --rsync-path="sudo rsync" . ubuntu@54.254.20.6:/var/www/html/new_smo-fe
+    - ssh -i ~/.ssh/id_rsa ubuntu@54.254.20.6 "
+        cd /var/www/html
+          && sudo rsync -a /var/www/html/smo-fe/node_modules /var/www/html/new_smo-fe
+          && sudo mv smo-fe tmp_smo-fe
+          && sudo mv new_smo-fe smo-fe
+          && sudo rm -rf tmp_smo-fe
+          && sudo chmod -R 777 /var/www/html/smo-fe
+          && cd /var/www/html/smo-fe
+          && sudo npm install --silent
+          && sudo npm run --silent build
+          && sudo cp .htaccess dist/.htaccess
+          && sudo cp .htpasswd dist/.htpasswd
+      && sudo cp google8c6577ca4bb08033.html dist/google8c6577ca4bb08033.html
+          && sudo cp -r zoomverify dist/zoomverify
+          && sudo cp -r .well-known dist/.well-known
+          && cd /var/www/html/smo-fe
+          && sudo chown -R www-data:www-data /var/www/html/smo-fe
+          && sudo find . -type d -exec chmod 0755 {} \;
+          && sudo find . -type f -exec chmod 0644 {} \;"
+
+DeployStaging:
+  stage: DeployStaging
+  image: node:10.19.0-alpine
+  only:
+    - staging@smoooth/smo-fe
+  script:
+    - apk add --no-cache rsync openssh
+    - mkdir -p ~/.ssh
+    - echo "$STG_ENV" > .umirc.prod.ts
+    - ssh-keyscan -H '54.168.88.83'  >> ~/.ssh/known_hosts
+    - echo "$STG_KEY" > ~/.ssh/id_rsa
+    - chmod 600 ~/.ssh/id_rsa
+    - rsync --progress -avzh --exclude='.git' -e "ssh -i ~/.ssh/id_rsa " --rsync-path="sudo rsync" . ubuntu@54.168.88.83:/var/www/html/new_smo-fe
+    - ssh -i ~/.ssh/id_rsa ubuntu@54.168.88.83 "
+        cd /var/www/html
+          && sudo rsync -a /var/www/html/smo-fe/node_modules /var/www/html/new_smo-fe
+          && sudo mv smo-fe tmp_smo-fe
+          && sudo mv new_smo-fe smo-fe
+          && sudo rm -rf tmp_smo-fe
+          && sudo chmod -R 777 /var/www/html/smo-fe
+          && cd /var/www/html/smo-fe
+          && sudo npm install --silent
+          && sudo npm run --silent build
+          && sudo cp .htaccess dist/.htaccess
+          && sudo cp .htpasswd dist/.htpasswd
+          && sudo cp google8c6577ca4bb08033.html dist/google8c6577ca4bb08033.html
+          && sudo cp google74132972792d1264.html dist/google74132972792d1264.html
+          && sudo cp -r zoomverify dist/zoomverify
+          && sudo cp -r .well-known dist/.well-known
+          && cd /var/www/html/smo-fe
+          && sudo chown -R www-data:www-data /var/www/html/smo-fe
+          && sudo find . -type d -exec chmod 0755 {} \;
+          && sudo find . -type f -exec chmod 0644 {} \;"

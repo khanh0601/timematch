@@ -46,7 +46,8 @@ export default {
     return rf.post(url, data);
   },
   resetPassword: (data = {}) => {
-    const url = `/api/profiles/change_password/${data.token}`;
+    // const url = `/api/profiles/change_password/${data.token}`;
+    const url = `/api/profiles/change_password`;
     return rf.post(url, data.data);
   },
   updateProfile: (data = {}) => {
@@ -65,8 +66,8 @@ export default {
     const url = `/api/profiles/me`;
     return rf.delete(url, data);
   },
-  cancelIntegrates: (data = {}) => {
-    const url = `/api/user/cancel_integrates`;
+  cancelAccountIntegrates: (data = {}) => {
+    const url = `/api/user/cancel-account-integrates`;
     return rf.post(url, data);
   },
   getLinkConnectGGCalendar: (data = {}) => {
@@ -133,5 +134,13 @@ export default {
   deleteHistoryInvitation: (data = {}) => {
     const url = `/api/user/history_invite/${data.id}`;
     return rf.delete(url, data);
+  },
+  resetPasswordMobile: (data = {}) => {
+    const url = `/api/auth/reset_password/${data.token}`;
+    return rf.put(url, { password: data.password });
+  },
+  verifyPasswordReset: (data = {}) => {
+    const url = '/api/auth/verify-reset-password';
+    return rf.get(url, data);
   },
 };

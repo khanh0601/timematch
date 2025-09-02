@@ -1,32 +1,48 @@
 import BubbleChatIcon from './icon/BubbleChatIcon';
 import './styles.less';
 import { connect } from 'dva';
-import { useEffect } from 'react';
+import { useState, useLayoutEffect, useEffect } from 'react';
 import { withRouter } from 'umi';
 import { HOUR_FORMAT } from '@/constant';
 import moment from 'moment';
-import { notify, personalExpiredModal } from '@/commons/function';
+import { personalExpiredModal } from '@/commons/function';
 import { TYPE_VOTE_RELATIONSHIP } from '@/constant';
-import { useState } from 'react';
-import { Modal } from 'antd';
-import { Button } from 'antd';
-import { useIntl } from 'umi';
-import { history } from 'umi';
+import {
+  Button,
+  Modal,
+  message,
+  Table,
+  Tooltip as AntTooltip,
+  Spin,
+} from 'antd';
+import { history, useIntl } from 'umi';
+import { CloseOutlined } from '@ant-design/icons';
 import {
   profileFromStorage,
   createTimeAsync,
   tz,
   getJPMonthAndDay,
 } from '@/commons/function';
-import { useParams } from 'umi';
+import { useCallback } from 'react';
+import useIsPc from '@/hooks/useIsPc';
+import Tooltip from '@/components/PC/Tooltip';
 
 const AppointmentDetail = props => {
   const { dispatch, voteStore, location } = props;
+  const confirm = Modal.confirm;
+  const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
+  const [comment, setComment] = useState('');
 
   const profile = profileFromStorage();
   const formatMessage = useIntl().formatMessage;
-  const { startTime, endTime } = createTimeAsync();
-  const { informationVote, voteUser, eventDateTimeUser } = voteStore;
+  const {
+    informationVote,
+    voteUser,
+    eventDateTimeUser,
+    sendEmailLoading,
+    voteLoading,
+  } = voteStore;
+  const [isLandScape, setIsLandScape] = useState(false);
   const [isShowModal, setIsShowModal] = useState({
     deleteTeam: false,
     deleteEventVote: false,
@@ -34,9 +50,33 @@ const AppointmentDetail = props => {
   });
   const [idEventDateTime, setIdEventDateTime] = useState('');
 
+  const eventId = props.eventId || location.query.id;
+  const isShowButtons =
+    informationVote && informationVote?.vote?.slug === eventId;
+  const eventName = props.eventName || location.query.name;
+  const isPc = useIsPc();
+
+  useLayoutEffect(() => {
+    setIsLandScape(
+      !isPc && (window.orientation === 90 || window.orientation === -90),
+    );
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener(
+      'orientationchange',
+      function() {
+        setIsLandScape(
+          !isPc && (window.orientation === 90 || window.orientation === -90),
+        );
+      },
+      false,
+    );
+  }, []);
+
   const handleSubmitOK = async (force = false) => {
     const payload = {
-      vote: location.query.id,
+      vote: eventId,
       user: profile.code,
       event_datetime: idEventDateTime,
       time_zone: tz(),
@@ -44,16 +84,16 @@ const AppointmentDetail = props => {
     };
     const res = await dispatch({ type: 'VOTE/postUserVote', payload });
     if (res) {
-      history.push('/calendar');
+      history.push(isPc ? '/pc/calendar' : '/calendar');
     }
   };
 
   const getData = async () => {
     const payloadShow = {
-      id: location.query.id,
+      id: eventId,
     };
-    if (location.query.name) {
-      payloadShow.name = location.query.name;
+    if (eventName) {
+      payloadShow.name = eventName;
     }
     await dispatch({ type: 'VOTE/getVoteShow', payload: payloadShow });
   };
@@ -61,7 +101,7 @@ const AppointmentDetail = props => {
   useEffect(() => {
     const { startTime, endTime } = createTimeAsync();
     const payload = {
-      vote: location.query.id,
+      vote: eventId,
       type: 1, // screen A
       start: startTime,
       end: endTime,
@@ -83,24 +123,29 @@ const AppointmentDetail = props => {
     );
   };
 
+  const scrollToSave = useCallback(() => {
+    var my_element = document.getElementById('save-btn');
+    my_element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+      inline: 'nearest',
+    });
+  }, []);
+
   const editEvent = () => {
-    if (informationVote && informationVote?.team_id) {
-      history.push(
-        `/calendar-creation?idEvent=${informationVote?.id}&edit=true&relationship_type=${TYPE_VOTE_RELATIONSHIP}&team_id=${informationVote?.team_id}&member_id=${informationVote?.user_id}`,
-      );
-    } else {
-      history.push(
-        `/calendar-creation?idEvent=${informationVote?.id}&edit=true&relationship_type=${TYPE_VOTE_RELATIONSHIP}&member_id=${informationVote?.user_id}`,
-      );
-    }
+    let path = isPc ? '/pc/create-calendar' : '/create-calendar';
+    history.push(
+      `${path}?idEvent=${informationVote?.id}&edit=true&relationship_type=${TYPE_VOTE_RELATIONSHIP}&member_id=${informationVote?.user_id}`,
+    );
   };
 
   const cloneEvent = item => {
     if (checkUserExpired(item?.has_member_expired)) {
       return;
     }
+    let path = isPc ? '/pc/create-calendar' : '/create-calendar';
     history.push(
-      `/calendar-creation?idEvent=${informationVote?.id}&clone=1&relationship_type=${TYPE_VOTE_RELATIONSHIP}&member_id=${informationVote?.user_id}`,
+      `${path}?idEvent=${informationVote?.id}&clone=1&relationship_type=${TYPE_VOTE_RELATIONSHIP}&member_id=${informationVote?.user_id}`,
     );
   };
 
@@ -117,10 +162,50 @@ const AppointmentDetail = props => {
   };
 
   const showModal = () => {
-    setIsShowModal({
-      deleteTeam: false,
-      deleteEventVote: true,
-      cloneEventVoted: false,
+    const eventId = informationVote?.id;
+    const payload = {
+      eventTypeId: eventId,
+    };
+
+    confirm({
+      title: formatMessage({ id: 'i18_delete_event_title' }),
+      okText: formatMessage({ id: 'i18n_confirm_delete' }),
+      okType: 'danger',
+      cancelText: formatMessage({ id: 'i18n_cancel_delete' }),
+      onOk() {
+        if (props.onClose) {
+          dispatch({
+            type: 'EVENT/deleteEventType',
+            payload: {
+              eventTypeId: eventId,
+            },
+            callback: () => {
+              setTimeout(() => {
+                props.onClose();
+                message.success('データを削除しました。');
+                props.onRefresh?.(payload);
+              }, 1000);
+            },
+          });
+        } else {
+          dispatch({ type: 'EVENT/deleteEventType', payload });
+          history.push('/', { event_id: eventId });
+        }
+      },
+      onCancel() {},
+    });
+  };
+
+  const info = (message, user) => {
+    Modal.info({
+      title: `${user}様から送信されたメッセージ`,
+      content: (
+        <div>
+          <p>{message}</p>
+        </div>
+      ),
+      onOk() {},
+      maskClosable: true,
     });
   };
 
@@ -140,7 +225,7 @@ const AppointmentDetail = props => {
         page: pageIndex,
       };
       if (location.query.team_id) {
-        history.push({ pathname: '/', search: '?tab=2&team_all=true' });
+        history.push({ pathname: '/', search: '?team_all=true' });
         await dispatch({ type: 'TEAM/getTeam' });
       } else {
         await dispatch({ type: 'TAB/getPaginateTeam', payload });
@@ -153,140 +238,417 @@ const AppointmentDetail = props => {
     const payload = {
       eventTypeId: informationVote?.id,
     };
-    const res = await dispatch({ type: 'EVENT/deleteEventType', payload });
-    history.go(-1);
+    await dispatch({ type: 'EVENT/deleteEventType', payload });
+
     await dispatch({ type: 'TAB/setLoading', payload: false });
+
+    if (props.onClose) {
+      props.onClose();
+      props.onRefresh?.(payload);
+    } else {
+      history.go(-1);
+    }
   }
+
+  const handlePastEvent = start_time => {
+    const now = moment();
+    return moment(start_time).isBefore(now);
+  };
+
+  const bgTypeChoice = item => {
+    return item.choices.length > 0 &&
+      item.choices.every(choice => choice?.option === 1)
+      ? '#b2cbf7'
+      : item.choices.length > 0 &&
+        item.choices.every(choice => choice.option === 2 || choice.option === 3)
+      ? '#ebebeb'
+      : '#ffffff';
+  };
+
+  const bgTypeChoiceClass = item => {
+    if (
+      item.choices.length > 0 &&
+      item.choices.every(choice => choice?.option === 1)
+    ) {
+      return 'bgLightBlue';
+    } else if (
+      item.choices.length > 0 &&
+      item.choices.every(choice => choice.option === 2 || choice.option === 3)
+    ) {
+      return 'bgLightGray';
+    }
+    return 'bgWhite';
+  };
+
+  const getOffset = el => {
+    const rect = el.getBoundingClientRect();
+    return {
+      top: rect.top + window.pageYOffset,
+      left: rect.left + window.pageXOffset,
+    };
+  };
+
+  const handleMouseEnter = (comment, event) => {
+    if (!isPc) return;
+    const offset = getOffset(event.currentTarget);
+    setTooltipPos({
+      x: offset.left + event.currentTarget.offsetWidth / 2,
+      y: offset.top - 8, // trừ để hiển thị tooltip phía trên
+    });
+    setComment(comment);
+  };
+
+  const handleMouseLeave = () => {
+    setComment('');
+  };
+
+  const columns = [
+    {
+      title: '日程',
+      dataIndex: 'dateTime',
+      key: 'dateTime',
+      fixed: 'left',
+      width: 110,
+      render: (_, record) => (
+        <>
+          {getJPMonthAndDay(record.start_time)}
+          {moment(record.start_time).format('(dd)')}
+          <br />
+          {moment(record.start_time).format(HOUR_FORMAT)}~
+          {moment(record.end_time).format(HOUR_FORMAT)}
+        </>
+      ),
+    },
+    {
+      title: 'OK',
+      dataIndex: 'ok',
+      key: 'ok',
+      fixed: 'left',
+      width: 40,
+      render: (_, record) =>
+        record.choices.filter(choice => choice.option === 1).length,
+    },
+    {
+      title: 'NG',
+      dataIndex: 'ng',
+      key: 'ng',
+      fixed: 'left',
+      width: 40,
+      render: (_, record) =>
+        record.choices.filter(
+          choice => choice.option === 2 || choice.option === 3,
+        ).length,
+    },
+    ...voteUser.map(voter => ({
+      title: () => (
+        <AntTooltip title={voter.name}>
+          <div className="px-2 truncate">{voter.name}</div>
+        </AntTooltip>
+      ),
+      dataIndex: voter.id,
+      key: voter.id,
+      width: 60,
+      render: (_, record) => {
+        const choice = record.choices.find(c => c.voter_id === voter.id);
+        return choice ? (choice.option === 1 ? '○' : '×') : '';
+      },
+    })),
+    {
+      title: '',
+      key: 'action',
+      fixed: 'right',
+      width: 70,
+      render: (_, record) => {
+        if (moment().isAfter(moment(record.start_time))) {
+          return null;
+        }
+        return record.choices.every(choice => choice?.option === 2) ? (
+          <Button
+            className={`my-2 px-1 py-0 h-full rounded shadowSecondary`}
+            disabled={true}
+          >
+            確定{' '}
+          </Button>
+        ) : (
+          <Button
+            onClick={() => {
+              setIdEventDateTime(record.id);
+              scrollToSave();
+            }}
+            className={`px-1 py-0 h-full bgWhite textPrimaryBlue rounded shadowSecondary borderPrimaryBlue ${
+              record.id === idEventDateTime
+                ? 'bgPrimaryBlue textLightGray borderPrimaryLight'
+                : ''
+            }`}
+            disabled={handlePastEvent(record.start_time)}
+          >
+            確定{' '}
+          </Button>
+        );
+      },
+    },
+  ];
+
+  const columnLandScape = [
+    {
+      title: ' ',
+      dataIndex: 'name',
+      key: 'name',
+      fixed: 'left',
+      width: 100,
+      render: text => (
+        <div className="px-2 py-2 truncate" style={{ width: 100 }}>
+          {text}
+        </div>
+      ),
+    },
+    ...eventDateTimeUser.map((event, index) => ({
+      title: () => (
+        <div className={'textLightGray px-2 py-2'}>
+          {getJPMonthAndDay(event.start_time)}(
+          {moment(event.start_time).format('dd')})<br />
+          {moment(event.start_time).format(HOUR_FORMAT)} ~{' '}
+          {moment(event.end_time).format(HOUR_FORMAT)}
+        </div>
+      ),
+      dataIndex: `event${index}`,
+      key: `event${index}`,
+      render: (text, record) => {
+        if (record.key === 'buttons') {
+          return event.choices.every(choice => choice?.option === 2) ? (
+            <Button
+              className={`my-2 px-1 py-0 h-full rounded shadowSecondary`}
+              disabled={true}
+            >
+              確定{' '}
+            </Button>
+          ) : (
+            <div
+              className={'px-2 py-2'}
+              style={{ background: bgTypeChoice(event) }}
+            >
+              <Button
+                onClick={() => {
+                  setIdEventDateTime(event.id);
+                  scrollToSave();
+                }}
+                className={`px-1 py-0 h-full bgWhite textPrimaryBlue rounded shadowSecondary borderPrimaryBlue ${
+                  event.id === idEventDateTime
+                    ? 'bgPrimaryBlue textLightGray borderPrimaryLight'
+                    : ''
+                }`}
+                disabled={handlePastEvent(event.start_time)}
+              >
+                確定{' '}
+              </Button>
+            </div>
+          );
+        }
+        if (record.name === 'OK' || record.name === 'NG') {
+          return (
+            <div
+              className={'px-2 py-2'}
+              style={{ background: bgTypeChoice(event), textAlign: 'center' }}
+            >
+              {text}
+            </div>
+          );
+        }
+        const choice = event.choices.find(c => c.voter_id === record.key);
+        return (
+          <div
+            className={'px-2 py-2'}
+            style={{ background: bgTypeChoice(event), textAlign: 'center' }}
+          >
+            {choice ? (choice.option === 1 ? '○' : '×') : ''}
+          </div>
+        );
+      },
+    })),
+    {
+      title: 'コメント',
+      key: 'comment',
+      render: (_, record) =>
+        record.comment && (
+          <BubbleChatIcon onClick={() => info(record.comment, record.name)} />
+        ),
+    },
+  ];
+
+  const dataLandScape = [
+    {
+      key: 'OK',
+      name: 'OK',
+      ...eventDateTimeUser.reduce(
+        (acc, event, index) => ({
+          ...acc,
+          [`event${index}`]: event.choices.filter(choice => choice.option === 1)
+            .length,
+        }),
+        {},
+      ),
+    },
+    {
+      key: 'NG',
+      name: 'NG',
+      ...eventDateTimeUser.reduce(
+        (acc, event, index) => ({
+          ...acc,
+          [`event${index}`]: event.choices.filter(
+            choice => choice.option === 2 || choice.option === 3,
+          ).length,
+        }),
+        {},
+      ),
+    },
+    ...voteUser.map(voter => ({
+      key: voter.id,
+      name: voter.name,
+      comment: voter.comment,
+      ...eventDateTimeUser.reduce(
+        (acc, event, index) => ({
+          ...acc,
+          [`event${index}`]: event.choices.find(c => c.voter_id === voter.id)
+            ?.option,
+        }),
+        {},
+      ),
+    })),
+    {
+      key: 'buttons',
+      name: '',
+      ...eventDateTimeUser.reduce(
+        (acc, event, index) => ({
+          ...acc,
+          [`event${index}`]: 'button',
+        }),
+        {},
+      ),
+    },
+  ];
 
   return (
     <div className="appointment-detail">
       <div className="header">
-        <div className="header-line"></div>
-        <div className="header-title">懇親会</div>
+        <div className="header-title">
+          <div className="header-line bgPrimaryBlue"></div>
+          <span className="header-name">{informationVote?.name}</span>
+        </div>
+        <div
+          className={`header-close bgDarkBlue shadowPrimary`}
+          style={{
+            width: 30,
+            height: 30,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 5,
+          }}
+          onClick={() => (props.onClose ? props.onClose() : history.go(-1))}
+        >
+          <CloseOutlined style={{ color: '#FFF' }} />
+        </div>
       </div>
-      <div className="content">
-        <div className="table-content">
-          <div
-            style={{
-              gridTemplateColumns: `repeat(${voteUser.length + 5}, 1fr)`,
-            }}
-            className="grid header-grid"
-          >
-            <div className="grid-item span-2">日程</div>
-            <div className="grid-item">OK</div>
-            <div className="grid-item">NG</div>
-            {voteUser.map(item => (
-              <div className="grid-item" title={item.name}>
-                {item.name}
-              </div>
-            ))}
-            <div className="grid-item"></div>
-          </div>
-          {eventDateTimeUser?.map(item => (
-            <div
-              style={{
-                gridTemplateColumns: `repeat(${voteUser?.length + 5}, 1fr)`,
-              }}
-              className="grid white-grid"
-            >
-              <div className="grid-item span-2">
-                {getJPMonthAndDay(item.start_time)}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                {moment(item.start_time).format('(dd)')}
-                <br />
-                {moment(item.start_time).format(HOUR_FORMAT)}
-                &nbsp; ～ &nbsp;
-                {moment(item.end_time).format(HOUR_FORMAT)}
-              </div>
-              <div className="grid-item">
-                {item.choices.filter(choice => choice.option === 1).length}
-              </div>
-              <div className="grid-item">
-                {' '}
-                {
-                  item.choices.filter(
-                    choice => choice.option === 3 || choice.option === 2,
-                  ).length
-                }
-              </div>
-              {voteUser.map(voter => (
-                <div className="grid-item">
-                  {item?.choices?.find(choice => choice.voter_id === voter.id)
-                    ?.option ? (
-                    <>
-                      {item?.choices?.find(
-                        choice => choice.voter_id === voter.id,
-                      )?.option === 1
-                        ? '○'
-                        : '×'}
-                    </>
-                  ) : (
-                    <></>
-                  )}
-                </div>
-              ))}
-              <div
+      <div className="apd-content-wrapper">
+        <div style={{ padding: 10 }}>
+          {informationVote?.calendar_create_comment ?? ''}
+        </div>
+        <div className="content">
+          {isLandScape ? (
+            <Table
+              className={'table-landscape'}
+              columns={columnLandScape}
+              dataSource={dataLandScape}
+              pagination={false}
+              scroll={{ x: 'max-content' }}
+              loading={voteLoading}
+              size="small"
+              bordered
+            />
+          ) : (
+            <Table
+              className={'table-portrait'}
+              columns={columns}
+              dataSource={eventDateTimeUser}
+              pagination={false}
+              scroll={{ x: 'max-content', y: 400 }}
+              loading={voteLoading}
+              rowClassName={record => bgTypeChoiceClass(record)}
+              summary={() => (
+                <Table.Summary fixed>
+                  <Table.Summary.Row>
+                    <Table.Summary.Cell index={0} colSpan={3}>
+                      コメント
+                    </Table.Summary.Cell>
+                    {voteUser.map((item, index) => (
+                      <Table.Summary.Cell index={index + 3} key={item.id}>
+                        {item.comment && (
+                          <BubbleChatIcon
+                            onMouseEnter={e =>
+                              handleMouseEnter(item.comment, e)
+                            }
+                            onMouseLeave={handleMouseLeave}
+                            onClick={() => info(item.comment, item.name)}
+                          />
+                        )}
+                      </Table.Summary.Cell>
+                    ))}
+                    <Table.Summary.Cell index={voteUser.length + 3} />
+                  </Table.Summary.Row>
+                </Table.Summary>
+              )}
+            />
+          )}
+          {!isShowButtons && isPc && (
+            <Spin
+              spinning
+              size="large"
+              style={{ position: 'absolute', left: '49%' }}
+            ></Spin>
+          )}
+          {isShowButtons && (
+            <div className="buttons">
+              <Button
+                loading={sendEmailLoading}
+                id="save-btn"
                 onClick={() => {
-                  setIdEventDateTime(item.id);
+                  if (idEventDateTime === '') {
+                    message.warning({
+                      key: 'warning',
+                      content: '日程を選択してください。',
+                    });
+                  } else {
+                    handleSubmitOK();
+                  }
                 }}
-                className={`grid-item bordered ${
-                  item.id === idEventDateTime ? 'blue-background' : ''
-                }`}
+                size="large"
+                // disabled={idEventDateTime === ''}
+                className="button bgDarkBlue shadowPrimary"
               >
-                確定
-              </div>
+                <div style={{ marginLeft: 10 }}>決定 </div>
+              </Button>
+              <Button
+                onClick={() => {
+                  editEvent(informationVote);
+                }}
+                className="button bgPrimaryBlue shadowPrimary"
+                size="large"
+              >
+                <div style={{ marginLeft: 10 }}>再調整</div>
+              </Button>
+              <Button
+                onClick={() => {
+                  showModal();
+                }}
+                className="button bgLightRed shadowPrimary"
+                size="large"
+              >
+                <div style={{ marginLeft: 10 }}>削除 </div>
+              </Button>
             </div>
-          ))}
-
-          <div
-            style={{
-              gridTemplateColumns: `repeat(${voteUser?.length + 5}, 1fr)`,
-            }}
-            className="grid white-grid"
-          >
-            <div className="grid-item span-2">コメント</div>
-            <div className="grid-item"></div>
-            <div className="grid-item"></div>
-            {voteUser.map(item => (
-              <div className="grid-item">
-                {item.comment && <BubbleChatIcon />}
-              </div>
-            ))}
-
-            <div className="grid-item"></div>
-            <div className="grid-item"></div>
-          </div>
+          )}
         </div>
-        <div className="buttons">
-          <div
-            onClick={() => {
-              if (idEventDateTime === '') {
-                return;
-              } else {
-                handleSubmitOK();
-              }
-            }}
-            className="button blue"
-          >
-            <div style={{ marginLeft: 10 }}>決定</div>
-          </div>
-          <div
-            onClick={() => {
-              cloneEvent(informationVote);
-            }}
-            className="button light-blue"
-          >
-            <div style={{ marginLeft: 10 }}>再調整</div>
-          </div>
-          <div
-            onClick={() => {
-              showModal();
-            }}
-            className="button red"
-          >
-            <div style={{ marginLeft: 10 }}>削除</div>
-          </div>
-        </div>
+        <div className="content-gap"></div>
       </div>
       <Modal open={isShowModal.deleteEventVote} closable={false} footer={null}>
         <div className="modalDelete">
@@ -312,6 +674,19 @@ const AppointmentDetail = props => {
           </div>
         </div>
       </Modal>
+
+      {!!comment && (
+        <Tooltip
+          x={tooltipPos.x}
+          y={tooltipPos.y}
+          visible={!!comment}
+          placement="top"
+          maxWidth={450}
+          textColor="#fff"
+        >
+          {comment}
+        </Tooltip>
+      )}
     </div>
   );
 };

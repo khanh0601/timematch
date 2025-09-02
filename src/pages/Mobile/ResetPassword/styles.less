@@ -1,0 +1,82 @@
+@import '../../../base.less';
+.resetPassword {
+  .bodyContent {
+    padding: 30px 0 30px;
+    .inputField {
+      margin: 0 auto 20px auto;
+      .fieldLabel {
+        font-size: 1rem;
+        font-weight: 700;
+        margin-bottom: 5px;
+        .inputRequired {
+          color: #ff4d4f;
+          font-size: 14px;
+          margin-top: 10px;
+        }
+      }
+      input {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #999999 !important;
+        border-radius: 5px;
+        padding: 5px;
+        margin-bottom: 5px;
+      }
+      .errorNotice {
+        color: #ff4d4f;
+        font-size: 14px;
+      }
+    }
+    .btnZone {
+      margin-top: 20px;
+      margin-bottom: 25px;
+      .signUpBtn {
+        width: 100%;
+        height: 40px;
+        background-color: #023768;
+        color: #ffffff;
+        border-radius: 5px;
+        font-size: 1rem;
+        font-weight: 700;
+        cursor: pointer;
+        &:hover {
+          background-color: #1f4f96;
+        }
+      }
+    }
+    :global {
+      .ant-form-item {
+        margin: 0;
+      }
+
+      .ant-form {
+        max-width: 1080px;
+        width: 100%;
+        padding: 0 15px;
+        margin: auto;
+
+        .fieldFlex___3YE91 {
+          .ant-row {
+            .ant-col {
+              > div:nth-child(2) {
+                width: 150px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 834px) {
+  .resetPassword {
+    .bodyContent {
+      :global {
+        .ant-form {
+          max-width: 345px !important;
+        }
+      }
+    }
+  }
+}

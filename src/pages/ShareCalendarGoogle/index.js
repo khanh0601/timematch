@@ -3,10 +3,13 @@ import styles from './styles.less';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { connect } from 'dva';
-import { history } from 'umi';
+import { history, useIntl } from 'umi';
+import iconBack from '@/assets/images/i-back-white.png';
 
 function ShareCalendarGoogle(props) {
   const { dispatch } = props;
+  const intl = useIntl();
+  const { formatMessage } = intl;
   const [mes, setMsg] = useState('');
   const code = history.location.query.code;
   const user_id = history.location.query.state;
@@ -24,18 +27,28 @@ function ShareCalendarGoogle(props) {
   };
 
   return (
-    <div>
-      <Header />
+    <div className={styles.shareCalendarGoogle}>
       {mes ? (
-        <div className={styles.style}>
-          <p>Googleカレンダーと共有完了しました</p>
+        <div className={styles.shareCalendarGoogleText}>
+          <p>
+            Googleカレンダーと共有
+            <br />
+            完了しました
+          </p>
         </div>
       ) : (
-        <div className={styles.style}>
-          <p>Googleカレンダーと共有失敗しました</p>
+        <div className={styles.shareCalendarGoogleText}>
+          <p>
+            Googleカレンダーと共有
+            <br />
+            失敗しました
+          </p>
         </div>
       )}
-      <Footer />
+      <a href="/" className={styles.backToHome}>
+        <img src={iconBack} alt={'back'} />
+        {formatMessage({ id: 'i18n_back' })}
+      </a>
     </div>
   );
 }

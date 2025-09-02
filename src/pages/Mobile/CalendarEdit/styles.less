@@ -1,0 +1,49 @@
+@import '../../../base.less';
+.calendarEditContainer {
+  padding: 20px;
+  .labelName {
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    font-weight: 500;
+    margin-bottom: 5px;
+    .labelIcon {
+      padding-right: 3px;
+      width: 20px;
+    }
+  }
+  .inputField {
+    width: 100%;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+  }
+  .saveBtn {
+    width: 50%;
+    height: 40px;
+    margin-top: 20px;
+    border-radius: 10px;
+    background-color: #3368c7;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+  }
+}
+
+@media (min-width: 834px) {
+  .calendarEditContainer {
+    min-width: 600px;
+    max-width: 600px;
+    margin: auto;
+  }
+
+  .pageTitle {
+    color: #333333;
+    text-align: center !important;
+    font-weight: bold;
+    font-size: 21px;
+    margin-top: 40px;
+    margin-bottom: 30px;
+  }
+}

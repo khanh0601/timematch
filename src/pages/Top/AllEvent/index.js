@@ -77,24 +77,44 @@ const AllEvent = props => {
                 </div>
               </div> */}
               <div className="flexSpaceBetween">
-                <div className="flex2">調整済</div>{' '}
-                <div className="flex1">: {item.owner_name}</div>
+                <div className="flex1">調整状況</div>{' '}
+                <div className="flex1">
+                  : {item.vote.is_finished === 0 ? '調整中' : '調整済'}
+                </div>
               </div>
               <div className="flexSpaceBetween">
-                <div className="flex2">会議形式</div>
-                <div className="flex1">: {item && item.real_category}</div>
+                <div className="flex1">依頼元</div>
+                <div className="flex1">
+                  : {item && item.real_category ? item.real_category : '私から'}
+                </div>
               </div>
               <div className="flexSpaceBetween">
-                <div className="flex2">イベント名</div>
-                <div className="flex1">: {item && item.name}</div>
+                <div className="flex1">イベント名</div>
+                <div
+                  style={{
+                    wordBreak: 'break-word',
+                  }}
+                  className="flex1"
+                >
+                  : {item && item.name}
+                </div>
               </div>
               <div className="flexSpaceBetween">
-                <div className="flex2">ミーティング形式</div>
-                <div className="flex1"> : {item && item.category_name}</div>
+                <div className="flex1">ミーティング形式</div>
+                <div className="flex1">
+                  {' '}
+                  :{' '}
+                  {item && item.category_name
+                    ? item.category_name
+                    : 'オンライン'}
+                </div>
               </div>
               <div className="flexSpaceBetween">
-                <div className="flex2">ミーティング相手</div>
-                <div className="flex1">: {item && item.location_name}</div>
+                <div className="flex1">ミーティング相手</div>
+                <div className="flex1">
+                  :{' '}
+                  {item && item.vote?.voters?.map(item => item.name).join(', ')}
+                </div>
               </div>
             </div>
           </SwipableItem>

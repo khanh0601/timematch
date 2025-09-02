@@ -3,8 +3,35 @@
 .eventManage {
   font-weight: 500;
   position: relative;
+  .todayFixed {
+    position: fixed;
+    top: 100px;
+    left: 0;
+    width: 100%;
+    height: 50px;
+    z-index: 5;
+    padding: 10px;
+    text-align: right;
+    background: #ebf0f9;
+    .todayFixedBtn {
+      background: rgba(255, 255, 255, 0.5);
+      border: 1px solid #3368c7;
+      color: #3368c7;
+      border-radius: 5px;
+      padding: 0 10px;
+    }
+  }
+  .swipableItem {
+    scroll-margin-top: 20px;
+  }
   .ant-tabs-nav {
     width: 100% !important;
+    position: fixed;
+    height: 50px;
+    top: 50px;
+    left: 0;
+    z-index: 5;
+    background-color: #ffffff;
   }
 
   .ant-tabs-tab {
@@ -25,7 +52,7 @@
     line-height: 25px;
   }
   .ant-tabs-tab.ant-tabs-tab-active {
-    background: #33c3c7 !important;
+    background: #3368c7 !important;
     .ant-tabs-tab-btn {
       color: white !important;
     }
@@ -39,11 +66,9 @@
   }
 
   .swipeableList {
-    background: #c8d1d5;
-    padding: 20px;
-    color: #4a4a4a;
-    max-width: 600px;
-    height: calc(100vh - 175px);
+    background: #ebf0f9;
+    padding: 20px 20px 50px 20px;
+    color: #333333;
   }
 
   .tabName {

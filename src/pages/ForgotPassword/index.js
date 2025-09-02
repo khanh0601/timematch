@@ -78,7 +78,7 @@ function ForgotPassword(props) {
               >
                 <Input
                   className={styles.inputField}
-                  placeholder={'例) evergreen1129@smoothly.jp'}
+                  placeholder={'例) evergreen1129@timematch.jp'}
                 />
               </Form.Item>
               {wrongEmailNotice && (

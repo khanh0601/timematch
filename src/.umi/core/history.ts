@@ -1,5 +1,5 @@
 // @ts-nocheck
-import { createBrowserHistory } from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime';
+import { createBrowserHistory } from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime';
 
 let options = {
   "basename": "/"

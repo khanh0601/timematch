@@ -16,6 +16,7 @@ import {
   profileFromStorage,
   tz,
 } from '@/commons/function.js';
+import { notify } from '../../commons/function';
 const AppointmentSelectionForm = props => {
   const intl = useIntl();
   const { eventStore, masterStore, dispatch } = props;
@@ -61,63 +62,49 @@ const AppointmentSelectionForm = props => {
     getData();
   }, []);
 
-  const onSubmit = async e => {
+  const onSubmit = async value => {
     setLoading(true);
     let finalListInvitee = [];
-    await form
-      .validateFields(['email', 'name'])
-      .then(async value => {
-        const info = {
-          name: form.getFieldValue('name'),
-          confirm_email: form.getFieldValue('email'),
-          company: form.getFieldValue('companyName'),
-          role: form.getFieldValue('role'),
-          comment: history.location.state.comment,
-          guests: finalListInvitee,
-        };
 
-        const payload = {
-          id: history.location.query.id,
-          name: history.location.query.name || null,
-          invitee: history.location.query.invitee || null,
-          code: history.location.query.code || null,
-          choices: history.location.state.choices.map(item => ({
-            event_datetime_id: item.id,
-            option: item.isOk === true ? 1 : 2,
-          })),
-          information: info,
-          time_zone: tz(),
-          user_code: profile ? profile.code : null,
-        };
-        const res = await dispatch({
-          type: 'VOTE/postVoteGuestConfirm',
-          payload,
-        });
-      })
-      .catch(err => {
-        console.log('err', err);
-      })
-      .finally(() => {
-        const info = {
-          name: form.getFieldValue('name'),
-          confirm_email: form.getFieldValue('email'),
-          company: form.getFieldValue('companyName'),
-          role: form.getFieldValue('role'),
-          comment: history.location.state.comment,
-          guests: finalListInvitee,
-        };
-        history.push(
-          `/appointment-selection-completed?id=${history.location.query.id}&name=${history.location.query.name}`,
-          {
-            information: info,
-            choices: history.location.state.choices.map(item => ({
-              event_datetime_id: item.id,
-              option: item.isOk === true ? 1 : 2,
-              comment: history.location.state?.comment,
-            })),
-          },
-        );
-      });
+    const info = {
+      name: form.getFieldValue('name'),
+      confirm_email: form.getFieldValue('email') ?? null,
+      company: form.getFieldValue('companyName') ?? null,
+      role: form.getFieldValue('role') ?? null,
+      comment: history.location.state.comment ?? null,
+      guests: finalListInvitee,
+    };
+
+    const payload = {
+      id: history.location.query.id,
+      name: history.location.query.name || null,
+      invitee: history.location.query.invitee || null,
+      code: history.location.query.code || null,
+      choices: history.location.state.choices.map(item => ({
+        event_datetime_id: item.id,
+        option: item.isOk === true ? 1 : 2,
+      })),
+      information: info,
+      time_zone: tz(),
+      user_code: profile ? profile.code : null,
+    };
+    const res = await dispatch({
+      type: 'VOTE/postVoteGuestConfirm',
+      payload,
+    });
+    if (!res?.result?.result) return;
+    console.log('>>> history form: ', history);
+    history.push(
+      `/appointment-selection-completed?id=${history.location.query.id}&name=${history.location.query.name}`,
+      {
+        information: info,
+        choices: history.location.state.choices.map(item => ({
+          event_datetime_id: item.id,
+          option: item.isOk === true ? 1 : 2,
+        })),
+        comment: history.location.state?.comment,
+      },
+    );
     setLoading(false);
   };
 
@@ -125,43 +112,17 @@ const AppointmentSelectionForm = props => {
     <div className={styles.appointmentSelectionConfirmContainer}>
       <div
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid darkblue',
-          padding: 15,
-        }}
-      >
-        <div></div>
-        <div className={styles.header}>プロフィール</div>
-        <div
-          style={{
-            width: 30,
-            height: 30,
-            background: 'dodgerblue',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 5,
-          }}
-          onClick={() => history.go(-1)}
-        >
-          <CloseOutlined style={{ color: '#FFF' }} />
-        </div>
-      </div>
-      <div
-        style={{
           padding: 10,
         }}
       >
         {' '}
-        <div style={{ marginBottom: 20 }}>
+        <div style={{ marginBottom: 20, textAlign: 'center' }}>
           ご自身のお名前、メールアドレスをご登録ください。
         </div>
-        <Form form={form}>
+        <Form onFinish={onSubmit} form={form}>
           <div className={styles.inputField}>
             <div className={styles.fieldLabel}>
-              氏名
+              {formatMessage({ id: 'i18n_full_name' })}
               <span className={styles.inputRequired}>
                 【{formatMessage({ id: 'i18n_required' })}】
               </span>
@@ -183,39 +144,43 @@ const AppointmentSelectionForm = props => {
             >
               <Input
                 className={styles.inputField}
-                placeholder={''}
-                autoComplete="on"
-              />
-            </Form.Item>
-          </div>
-          <div className={styles.inputField}>
-            <div className={styles.fieldLabel}>会社名</div>
-            <Form.Item name={'companyName'}>
-              <Input
-                className={styles.inputField}
-                placeholder={'氏名'}
-                autoComplete="on"
-              />
-            </Form.Item>
-          </div>
-          <div className={styles.inputField}>
-            <div className={styles.fieldLabel}>役職</div>
-            <Form.Item name={'role'}>
-              <Input
-                className={styles.inputField}
-                placeholder={'会社名'}
+                placeholder={formatMessage({ id: 'i18n_full_name' })}
                 autoComplete="on"
               />
             </Form.Item>
           </div>
           <div className={styles.inputField}>
             <div className={styles.fieldLabel}>
-              ご自身のメールにアドレスに日程を送る
+              {formatMessage({ id: 'i18n_company_name' })}
+            </div>
+            <Form.Item name={'companyName'}>
+              <Input
+                className={styles.inputField}
+                placeholder={formatMessage({ id: 'i18n_company_name' })}
+                autoComplete="on"
+              />
+            </Form.Item>
+          </div>
+          <div className={styles.inputField}>
+            <div className={styles.fieldLabel}>
+              {formatMessage({ id: 'i18n_role' })}
+            </div>
+            <Form.Item name={'role'}>
+              <Input
+                className={styles.inputField}
+                placeholder={formatMessage({ id: 'i18n_role' })}
+                autoComplete="on"
+              />
+            </Form.Item>
+          </div>
+          <div className={styles.inputField}>
+            <div className={styles.fieldLabel}>
+              {formatMessage({ id: 'i18n_appointment_send_to_email' })}
             </div>
             <Form.Item
               rules={[
                 {
-                  required: true,
+                  required: false,
                   message: formatMessage({ id: 'i18n_required_text' }),
                 },
                 {
@@ -229,22 +194,21 @@ const AppointmentSelectionForm = props => {
             >
               <Input
                 className={styles.inputField}
-                placeholder={'メールアドレス'}
+                placeholder={formatMessage({ id: 'i18n_email' })}
                 autoComplete="on"
               />
             </Form.Item>
           </div>
           <div className={styles.btnZone}>
             <Button
-              className={styles.confirmBtn}
+              className={`${styles.confirmBtn} ${styles.bgDarkBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
               loading={loading}
               htmlType="submit"
-              onClick={onSubmit}
             >
               返信
             </Button>
             <Button
-              className={styles.backBtn}
+              className={`${styles.backBtn} ${styles.bgPrimaryBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
               onClick={() => {
                 history.go(-1);
               }}
@@ -276,30 +240,26 @@ const AppointmentSelectionForm = props => {
             <div
               style={{
                 width: '50%',
-                background: '#9db9fa',
                 textAlign: 'center',
-                padding: 8,
-                color: 'white',
-                borderRadius: 8,
+                padding: 3,
               }}
               onClick={() => {
                 history.push('/register');
               }}
+              className={`${styles.bgPrimaryBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
             >
               新規会員登録(無料)
             </div>
             <div
               style={{
                 width: '50%',
-                background: '#004491',
                 textAlign: 'center',
-                padding: 8,
-                color: 'white',
-                borderRadius: 8,
+                padding: 3,
               }}
               onClick={() => {
                 history.push('/login');
               }}
+              className={`${styles.bgDarkBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
             >
               ログイン
             </div>

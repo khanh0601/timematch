@@ -47,6 +47,34 @@ export default {
         allEvents: action.payload,
       };
     },
+    deleteAdjustingEvents(state, action) {
+      const adjustingEvents = { ...(state.adjustingEvents || {}) };
+
+      const events = adjustingEvents?.data?.filter(
+        event => event.id !== action.payload.eventTypeId,
+      );
+
+      adjustingEvents.data = events;
+
+      return {
+        ...state,
+        adjustingEvents,
+      };
+    },
+    deleteAdjustedEvents(state, action) {
+      const adjustedEvents = { ...(state.adjustedEvents || {}) };
+
+      const events = adjustedEvents?.data?.filter(
+        event => event.id !== action.payload.eventTypeId,
+      );
+
+      adjustedEvents.data = events;
+
+      return {
+        ...state,
+        adjustedEvents,
+      };
+    },
     setAdjustingEvents(state, action) {
       return {
         ...state,
@@ -148,14 +176,28 @@ export default {
           ...action.payload,
           relationship_type: 3,
         });
-        if (statusCode === 200)
+
+        if (statusCode === 200) {
+          // Sort the events by start time voted and not get calendars array is empty
+          const sortedData = {
+            ...body.data,
+            data: body.data.data
+              .filter(item => item.calendars.length > 0)
+              .sort(
+                (a, b) =>
+                  new Date(a.calendars[0].start_time) -
+                  new Date(b.calendars[0].start_time),
+              ),
+          };
+
           yield put({
             type: 'setAdjustedEvents',
             payload: {
-              ...body.data,
+              ...sortedData,
               member_id: action.payload.user_id_of_member,
             },
           });
+        }
       } catch (error) {
         handleError(error, error.response.body.message);
       } finally {

@@ -172,7 +172,7 @@ function BookingFinalStep(props) {
                       >
                         <Input
                           className={styles.inputSchedule}
-                          placeholder="例）taro.tanaka@smoothly.net"
+                          placeholder="例）taro.tanaka@timematch.jp"
                         />
                       </Form.Item>
 
@@ -208,7 +208,7 @@ function BookingFinalStep(props) {
                           >
                             <Input
                               className={styles.inputSchedule}
-                              placeholder="例）taro.tanaka@smoothly.net"
+                              placeholder="例）taro.tanaka@timematch.jp"
                             />
                           </Form.Item>
                         );

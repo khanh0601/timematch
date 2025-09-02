@@ -15,6 +15,7 @@ export default {
     return rf.get(url, data);
   },
   getListPersonalEventType: (data = {}) => {
+    console.log('getListPersonalEventType data: ', data);
     const url = `/api/user/events`;
     return rf.get(url, data);
   },
@@ -53,6 +54,10 @@ export default {
   createEventType: (data = {}) => {
     const url = `/api/user/events`;
     return rf.post(url, data);
+  },
+  updateCalendar: (data = {}) => {
+    const url = `/api/user/events/${data.id}`;
+    return rf.put(url, data);
   },
   checkEventCode: (data = {}) => {
     const url = '/api/guest/event_codes';
@@ -161,6 +166,12 @@ export default {
     const url = `/api/user/user_calendars/${user_id}?need_sync=${need_sync}&timeZone=${tz}&start=${startTime}&end=${endTime}`;
     return rf.get(url, {});
   },
+  getCalendarByCode: (data = {}) => {
+    const { google_token, need_sync, startTime, endTime } = data;
+    const tz = moment.tz.guess();
+    const url = `/api/guest/get-calendar-by-code?google_token=${google_token}&timeZone=${tz}`;
+    return rf.get(url, {});
+  },
   getEventCustomizeDates: (data = {}) => {
     const url = `/api/user/events/custom_date/list`;
     return rf.get(url, data);
@@ -203,6 +214,14 @@ export default {
   },
   updateTimeAvailable: (data = {}) => {
     const url = `/api/user/event_datetimes`;
+    return rf.put(url, data);
+  },
+  addEmailInvites: (data = {}) => {
+    const url = `/api/user/email-invites`;
+    return rf.post(url, data);
+  },
+  updateEventCalendar: (data = {}) => {
+    const url = `/api/user/events/${data.eventTypeId}/update-event-calendar`;
     return rf.put(url, data);
   },
 };

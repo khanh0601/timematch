@@ -1,0 +1,70 @@
+@import '../../../base.less';
+.footerCalendarCreation {
+  width: 100%;
+  background-color: #fff;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  z-index: 3;
+  .footerCalendarCreationContent__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 7px 20px;
+    border-bottom: 1px solid #3368c7;
+    .footerCalendarCreation__title {
+      font-size: 1.2rem;
+      font-weight: 700;
+    }
+    .footerCalendarCreation__action {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      .footerCalendarCreation__action__select {
+        height: auto;
+        font-size: 1rem;
+        font-weight: 500;
+        border-radius: 5px;
+        padding: 2px 5px;
+      }
+      .footerCalendarCreation__action__button {
+        margin-left: 10px;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        > img {
+          width: 20px;
+        }
+      }
+    }
+  }
+  .footerCalendarCreation__form {
+    padding: 7px 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    .inputField {
+      width: 100%;
+      border-radius: 5px;
+      padding: 5px;
+    }
+    .saveBtn {
+      width: 20%;
+      height: 40px;
+      margin-left: 10px;
+      border-radius: 10px;
+      background-color: #3368c7;
+      color: #ffffff;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+    }
+    :global {
+      .ant-form-item {
+        width: 100%;
+      }
+    }
+  }
+}

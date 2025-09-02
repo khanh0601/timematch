@@ -1,13 +1,13 @@
 // @ts-nocheck
 import React from 'react';
-import initialState from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/.umi/plugin-initial-state/models/initialState';
+import initialState from 'D:/Vision_Timematch/timematch-front/src/.umi/plugin-initial-state/models/initialState';
 
 // @ts-ignore
-import Dispatcher from './helpers/dispatcher';
+import Dispatcher from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/plugin-model/lib/helpers/dispatcher';
 // @ts-ignore
-import Executor from './helpers/executor';
+import Executor from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/plugin-model/lib/helpers/executor';
 // @ts-ignore
-import { UmiContext } from './helpers/constant';
+import { UmiContext } from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/plugin-model/lib/helpers/constant';
 
 export const models = { '@@initialState': initialState,  };
 

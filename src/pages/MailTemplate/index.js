@@ -2,19 +2,29 @@ import { LeftOutlined } from '@ant-design/icons';
 import React from 'react';
 import styles from './styles.less';
 import { history } from 'umi';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { useState, useEffect } from 'react';
 import { Input } from 'antd';
 import { listTime, listTextAskCalendar } from '@/commons/function.js';
 import { connect } from 'dva';
 import { urlLinkEvent } from '@/commons/function.js';
+import HeaderMobile from '@/components/Mobile/Header';
+import iconBack from '@/assets/images/i-back-white.png';
+import { useIntl } from 'umi';
+import { ROUTER } from '@/constant';
+import useIsMobile from '../../hooks/useIsMobile';
+import PCHeader from '../../components/PC/Header';
+import FooterMobile from '../../components/Mobile/Footer';
 
 const { TextArea } = Input;
 const MailTemplatePage = props => {
+  const intl = useIntl();
+  const { formatMessage } = intl;
   const { eventStore, dispatch } = props;
   const [isLoadTextAskCalendar, setReloadTextAsk] = useState(true);
   const [formAskCalendar, setTextAskCalendar] = useState(undefined);
   const { listTextAskCalendar } = eventStore;
+  const isMobile = useIsMobile();
   const onGetNotifyAskCalendar = () =>
     dispatch({ type: 'EVENT/getNotifyAskCalendar' });
 
@@ -22,8 +32,15 @@ const MailTemplatePage = props => {
     onGetNotifyAskCalendar();
   }, []);
 
-  const onUpdateNotifyAskCalendar = payload =>
-    dispatch({ type: 'EVENT/updateAskNotifyCalendar', payload });
+  const onUpdateNotifyAskCalendar = payload => {
+    dispatch({
+      type: 'EVENT/updateAskNotifyCalendar',
+      payload,
+      callback: () => {
+        message.success('定型文を更新しました');
+      },
+    });
+  };
 
   const reloadFormAskCalendar = () => {
     const {
@@ -35,14 +52,12 @@ const MailTemplatePage = props => {
 ■候補日時`;
 
     e += '\n2024年mm月24日(水) 10:00~11:00';
+    e += '\n■ イベント名： タイムマッチ';
     e += `\n■ご予約方法
 下記URLからご予約いただくか、ご都合の良い日時をご連絡ください。
-https://smoothly.jp/schedule-adjustment/once? event_code=myJGBYo5&once=true
-\n
-※最新もしくはその他の日時も上記URLからご確認いただくことができ、ご予約も可能です。\n
- ■お打ち合わせ内容
- ミーティング時間：60分
- ミーティング方法：Zoom
+${window.location.href}/schedule-adjustment/once?event_code=myJGBYo5&once=true
+
+※最新もしくはその他の日時も上記URLからご確認いただくことができ、ご予約も可能です。
  --------------------------`;
 
     const listTextAsk =
@@ -59,38 +74,44 @@ https://smoothly.jp/schedule-adjustment/once? event_code=myJGBYo5&once=true
 
   return (
     <div>
+      {isMobile ? (
+        <HeaderMobile
+          title={formatMessage({ id: 'i18n_mail_template_title' })}
+          isShowLeft={true}
+          itemLeft={{
+            event: 'back',
+            url: ROUTER.menu,
+            icon: iconBack,
+            bgColor: 'bgPrimaryBlue',
+            textColor: 'textLightGray',
+          }}
+        />
+      ) : (
+        <PCHeader />
+      )}
+
       <div
+        className={`${styles.widthMailTemplate}`}
         style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid darkblue',
-          padding: 15,
+          padding: 10,
+          margin: 'auto',
         }}
       >
-        <div
-          style={{
-            width: 30,
-            height: 30,
-            background: 'dodgerblue',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 5,
-          }}
-          onClick={() => history.goBack()}
-        >
-          <LeftOutlined style={{ color: '#FFF' }} />
-        </div>
-        <div style={{ fontWeight: '600', fontSize: 18 }}>定型文の作成</div>
-        <div
-          style={{
-            width: 30,
-            height: 30,
-          }}
-        ></div>
-      </div>
-      <div style={{ padding: 10 }}>
+        {isMobile ? null : (
+          <div
+            style={{
+              fontWeight: 700,
+              fontSize: 24,
+              lineHeight: '100%',
+              textAlign: 'center',
+              paddingTop: 30,
+              paddingBottom: 24,
+            }}
+          >
+            定型文の作成
+          </div>
+        )}
+
         <TextArea
           value={formAskCalendar}
           rows={20}
@@ -114,16 +135,14 @@ https://smoothly.jp/schedule-adjustment/once? event_code=myJGBYo5&once=true
           }}
           type="primary"
           size="large"
-          style={{
-            background: 'rgb(31, 60, 83)',
-            borderColor: 'rgb(31, 60, 83)',
-            width: '50%',
-            borderRadius: '5px',
-          }}
+          style={{ border: 'none' }}
+          className={`${styles.bgDarkBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary} ${styles.widthButtonTemplate} btn-pc-primary`}
         >
-          登録
+          登録{' '}
         </Button>
       </div>
+
+      {isMobile ? null : <FooterMobile />}
     </div>
   );
 };

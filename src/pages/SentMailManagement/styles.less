@@ -1,0 +1,84 @@
+@import '../../base.less';
+.container {
+  padding: 20px;
+  .inputField {
+    width: 100%;
+    height: 40px;
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 20px;
+  }
+  .addPartner {
+    display: flex;
+    justify-content: right;
+    .addPartnerBtn {
+      border: none;
+      height: 40px;
+      border-radius: 10px;
+      background-color: #3368c7;
+      color: #ffffff;
+      font-weight: 600;
+      letter-spacing: 1px;
+      box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+    }
+  }
+  .FormBodyPartner {
+    width: 700px;
+    margin: auto;
+
+    p {
+      text-align: center;
+    }
+    .FormItemPartner {
+      width: 60%;
+      margin: auto;
+
+      @media screen and (max-width: 767px) {
+        width: unset;
+        margin: unset;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      width: unset;
+      margin: unset;
+    }
+  }
+  .savePartnerBtn {
+    margin-top: 10px;
+    width: 100%;
+    height: 40px;
+    border: none;
+    border-radius: 10px;
+    background-color: #3368c7;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+  }
+  .selectField {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    .formField {
+      width: 100%;
+      margin-top: 10px;
+      .inputField {
+        width: 100%;
+        height: 40px;
+        border: 1px solid #999999 !important;
+        border-radius: 5px;
+        padding: 5px;
+        margin-bottom: 10px;
+      }
+    }
+    .removeSelectBtn {
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 0 0 10px;
+      height: auto;
+    }
+  }
+}

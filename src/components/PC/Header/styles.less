@@ -1,0 +1,123 @@
+@import '../../../base.less';
+
+.headerContainer {
+  height: 75px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #234ab6;
+
+  .headerLeft {
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    .menuView {
+      width: 300px;
+      position: absolute;
+      z-index: 10000000;
+      top: 59px;
+      left: 16px;
+      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      background-color: #fff;
+    }
+
+    .icClose {
+      width: 34px;
+      height: 28px;
+      margin-left: 87px;
+      cursor: pointer;
+    }
+
+    .menuItem,
+    .logoutItem {
+      display: flex;
+      align-items: center;
+      border-bottom: 1px solid #234ab6;
+      padding: 16px 40px;
+      cursor: pointer;
+
+      img {
+        width: 24px;
+        height: 24px;
+        margin-right: 8px;
+        display: block;
+        object-fit: contain;
+        background: transparent;
+      }
+
+      span {
+        font-size: 16px;
+        color: #234ab6;
+        font-weight: bold;
+      }
+    }
+
+    // .menuItem:hover {
+    //   background-color: #f0f0f0;
+    // }
+
+    .lastItem,
+    .logoutItem {
+      border-bottom: none;
+    }
+
+    .logoutItem {
+      background-color: #919191;
+      border-bottom-left-radius: 16px;
+      border-bottom-right-radius: 16px;
+      span {
+        color: #fff !important;
+      }
+
+      // &:hover {
+      //   background-color: #a09d9d;
+      // }
+    }
+
+    .icBarView {
+      padding: 16px;
+      cursor: pointer;
+      color: #234ab6;
+      padding-right: 0;
+      // margin-right: 50px;
+    }
+
+    .icBar {
+      width: 34px;
+      height: 28px;
+    }
+
+    .logo {
+      width: 200px;
+      height: 43px;
+      object-fit: contain;
+      cursor: pointer;
+    }
+  }
+
+  .headerRight {
+    display: flex;
+    align-items: center;
+    padding-right: 16px;
+    cursor: pointer;
+    img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-right: 10px;
+    }
+
+    span {
+      font-size: 16px;
+      color: #000;
+    }
+  }
+}
+
+.logoutConfirm {
+  border-radius: 20px !important;
+}

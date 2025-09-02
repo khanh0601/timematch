@@ -2,7 +2,7 @@ import AvailableTimeSetting from '@/components/EventTypeSetting/AvailableTimeSet
 import BasicSetting from '@/components/EventTypeSetting/BasicSetting';
 import ButtonGroup from '@/components/EventTypeSetting/ButtonGroup';
 import Footer from '@/components/Footer';
-import { Button, Modal, Spin } from 'antd';
+import { Button, Modal, Spin, ConfigProvider } from 'antd';
 import { connect } from 'dva';
 import React, { useEffect, useRef, useState } from 'react';
 import { history, useIntl } from 'umi';
@@ -17,6 +17,7 @@ import {
   syncCalendar,
   setEventTemplate,
 } from './actions';
+import { jaJP } from 'antd/lib/locale-provider/ja_JP';
 import AdvancedSetting from './components/AdvancedSetting';
 import Preview from './components/Preview';
 
@@ -277,181 +278,183 @@ function CalendarCreation({
   };
 
   return (
-    <div>
-      {!preview && (
-        // <Spin spinning={loading} size="large">
-        <div>
-          {advencedSetting && (
-            <AdvancedSetting
-              relationshipType={relationshipType}
-              onClose={() => {
-                setAdvancePage(false);
-                togetherHeaderSettingAdvance(false);
-              }}
-            />
-          )}
+    <ConfigProvider locale={jaJP}>
+      <div>
+        {!preview && (
+          // <Spin spinning={loading} size="large">
+          <div>
+            {advencedSetting && (
+              <AdvancedSetting
+                relationshipType={relationshipType}
+                onClose={() => {
+                  setAdvancePage(false);
+                  togetherHeaderSettingAdvance(false);
+                }}
+              />
+            )}
 
-          {!advencedSetting && (
-            <div className={styles.calendarCreation}>
-              {/*PC*/}
-              <div className={settingBasicCss()}>
-                <BasicSetting
-                  showAdvancedSetting={() => {
-                    setAdvancePage(true);
-                    togetherHeaderSettingAdvance(true);
-                  }}
-                />
-              </div>
-
-              <div className={formCalendarCss()}>
-                <AvailableTimeSetting
-                  isShowTeam={isShowTeam()}
-                  togetherNavigate={togetherStep1}
-                  showShowNavigate={showShowNavigate}
-                  showTeamParent={showTeamParent}
-                  setShowTeamParent={setShowTeamParent}
-                />
-
-                <div className={styles.padding}>
-                  <ButtonGroup
-                    refBtn={btnSaveRef}
-                    created={!!eventId}
-                    disabledSubmit={canSaveCalendar()}
-                    onSave={saveCalendar}
-                    onCancel={() => history.push('/')}
-                    showPreview={openPreview}
+            {!advencedSetting && (
+              <div className={styles.calendarCreation}>
+                {/*PC*/}
+                <div className={settingBasicCss()}>
+                  <BasicSetting
                     showAdvancedSetting={() => {
                       setAdvancePage(true);
                       togetherHeaderSettingAdvance(true);
                     }}
                   />
+                </div>
 
-                  <div>
-                    <div className={styles.registerTemplateText}>
-                      上記の設定をテンプレートに登録される場合は、
-                      <br />
-                      下記よりご登録ください。
-                    </div>
-                    <div className={styles.saveToTemplateBtn}>
-                      <Button onClick={() => saveToTemplate(1)}>
-                        {formatMessage({ id: 'i18n_update_template_1' })}
-                      </Button>
-                      <Button onClick={() => saveToTemplate(2)}>
-                        {formatMessage({ id: 'i18n_update_template_2' })}
-                      </Button>
-                      <Button onClick={() => saveToTemplate(3)}>
-                        {formatMessage({ id: 'i18n_update_template_3' })}
-                      </Button>
-                    </div>
-                  </div>
+                <div className={formCalendarCss()}>
+                  <AvailableTimeSetting
+                    isShowTeam={isShowTeam()}
+                    togetherNavigate={togetherStep1}
+                    showShowNavigate={showShowNavigate}
+                    showTeamParent={showTeamParent}
+                    setShowTeamParent={setShowTeamParent}
+                  />
 
-                  <div className={styles.groupSaveMb}>
-                    <button
-                      onClick={() => {
-                        setShowTeamParent(!showTeamParent);
+                  <div className={styles.padding}>
+                    <ButtonGroup
+                      refBtn={btnSaveRef}
+                      created={!!eventId}
+                      disabledSubmit={canSaveCalendar()}
+                      onSave={saveCalendar}
+                      onCancel={() => history.push('/')}
+                      showPreview={openPreview}
+                      showAdvancedSetting={() => {
+                        setAdvancePage(true);
+                        togetherHeaderSettingAdvance(true);
                       }}
-                    >
-                      ＋ メンバーを編集する
-                    </button>
-                    <button
-                      className={canSaveCalendar() ? styles.active : ''}
-                      onClick={saveCalendar}
-                    >
-                      作成を完了する
-                    </button>
-                  </div>
-                </div>
+                    />
 
-                <div className={styles.btnSaveGroup} ref={btnSaveGroupRef}>
-                  {/*<div className={styles.previewBtnZone}>*/}
-                  {/*  <Button*/}
-                  {/*    onClick={openPreview}*/}
-                  {/*    className={styles.previewButton}*/}
-                  {/*  >*/}
-                  {/*    {formatMessage({ id: 'i18n_preview' })}*/}
-                  {/*  </Button>*/}
-                  {/*</div>*/}
-                  <div className={styles.listBtn}>
-                    <button onClick={() => history.push('/')}>
-                      {formatMessage({ id: 'i18n_return' })}
-                    </button>
-                    <button
-                      className={`${!canSaveCalendar() &&
-                        styles.disabledBtnSave}`}
-                      onClick={saveCalendar}
-                    >
-                      {formatMessage({
-                        id: !!eventId ? 'i18n_update' : 'i18n_create',
-                      })}
-                    </button>
-                  </div>
-                </div>
+                    <div>
+                      <div className={styles.registerTemplateText}>
+                        上記の設定をテンプレートに登録される場合は、
+                        <br />
+                        下記よりご登録ください。
+                      </div>
+                      <div className={styles.saveToTemplateBtn}>
+                        <Button onClick={() => saveToTemplate(1)}>
+                          {formatMessage({ id: 'i18n_update_template_1' })}
+                        </Button>
+                        <Button onClick={() => saveToTemplate(2)}>
+                          {formatMessage({ id: 'i18n_update_template_2' })}
+                        </Button>
+                        <Button onClick={() => saveToTemplate(3)}>
+                          {formatMessage({ id: 'i18n_update_template_3' })}
+                        </Button>
+                      </div>
+                    </div>
 
-                <Footer />
+                    <div className={styles.groupSaveMb}>
+                      <button
+                        onClick={() => {
+                          setShowTeamParent(!showTeamParent);
+                        }}
+                      >
+                        ＋ メンバーを編集する
+                      </button>
+                      <button
+                        className={canSaveCalendar() ? styles.active : ''}
+                        onClick={saveCalendar}
+                      >
+                        作成を完了する
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className={styles.btnSaveGroup} ref={btnSaveGroupRef}>
+                    {/*<div className={styles.previewBtnZone}>*/}
+                    {/*  <Button*/}
+                    {/*    onClick={openPreview}*/}
+                    {/*    className={styles.previewButton}*/}
+                    {/*  >*/}
+                    {/*    {formatMessage({ id: 'i18n_preview' })}*/}
+                    {/*  </Button>*/}
+                    {/*</div>*/}
+                    <div className={styles.listBtn}>
+                      <button onClick={() => history.push('/')}>
+                        {formatMessage({ id: 'i18n_return' })}
+                      </button>
+                      <button
+                        className={`${!canSaveCalendar() &&
+                          styles.disabledBtnSave}`}
+                        onClick={saveCalendar}
+                      >
+                        {formatMessage({
+                          id: !!eventId ? 'i18n_update' : 'i18n_create',
+                        })}
+                      </button>
+                    </div>
+                  </div>
+
+                  <Footer />
+                </div>
               </div>
+            )}
+          </div>
+        )}
+
+        {preview && relationshipType !== 3 && (
+          <Preview
+            onBackPrevious={closePreview}
+            eventId={eventId}
+            textComment={calendarStore.messageSetting.calendar_create_comment}
+          />
+        )}
+
+        {/* VOTE PREVIEW */}
+        {preview && relationshipType === TYPE_VOTE_RELATIONSHIP && (
+          <Vote
+            preview
+            dataCreateTeam={teamId && !eventId}
+            dataPreview={dataPreviewVote}
+            onBackPrevious={closePreview}
+          />
+        )}
+
+        {/* modal confirm clone Calendar create */}
+        <Modal visible={showConfirmClone} closable={false} footer={null}>
+          <div className={styles.modalDelete}>
+            <div className={styles.modalDescription}>
+              {formatMessage({ id: 'i18n_schedule_finished_notification' })}
             </div>
-          )}
-        </div>
-      )}
-
-      {preview && relationshipType !== 3 && (
-        <Preview
-          onBackPrevious={closePreview}
-          eventId={eventId}
-          textComment={calendarStore.messageSetting.calendar_create_comment}
-        />
-      )}
-
-      {/* VOTE PREVIEW */}
-      {preview && relationshipType === TYPE_VOTE_RELATIONSHIP && (
-        <Vote
-          preview
-          dataCreateTeam={teamId && !eventId}
-          dataPreview={dataPreviewVote}
-          onBackPrevious={closePreview}
-        />
-      )}
-
-      {/* modal confirm clone Calendar create */}
-      <Modal visible={showConfirmClone} closable={false} footer={null}>
-        <div className={styles.modalDelete}>
-          <div className={styles.modalDescription}>
-            {formatMessage({ id: 'i18n_schedule_finished_notification' })}
+            <div className={styles.btnGroup}>
+              <Button
+                onClick={() => setShowConfirmClone(false)}
+                className="btn btnWhite"
+              >
+                {formatMessage({ id: 'i18n_cancel_delete' })}
+              </Button>
+              <Button onClick={confirmCloneVote} className="btn btnGreen">
+                {formatMessage({ id: 'i18n_confirm_delete_event' })}
+              </Button>
+            </div>
           </div>
-          <div className={styles.btnGroup}>
-            <Button
-              onClick={() => setShowConfirmClone(false)}
-              className="btn btnWhite"
-            >
-              {formatMessage({ id: 'i18n_cancel_delete' })}
-            </Button>
-            <Button onClick={confirmCloneVote} className="btn btnGreen">
-              {formatMessage({ id: 'i18n_confirm_delete_event' })}
-            </Button>
-          </div>
-        </div>
-      </Modal>
-
-      {width <= 768 && (
-        <Modal
-          visible={showShowNavigate}
-          style={{ top: 20 }}
-          closable={false}
-          footer={null}
-          className={styles.basicSettingModal}
-        >
-          <Spin spinning={isLoading || availableTime.loading}>
-            <BasicSetting
-              showAdvancedSetting={() => {
-                setAdvancePage(true);
-                togetherHeaderSettingAdvance(true);
-              }}
-              onHideBasicSetting={() => setShowNavigate(false)}
-            />
-          </Spin>
         </Modal>
-      )}
-    </div>
+
+        {width <= 768 && (
+          <Modal
+            visible={showShowNavigate}
+            style={{ top: 20 }}
+            closable={false}
+            footer={null}
+            className={styles.basicSettingModal}
+          >
+            <Spin spinning={isLoading || availableTime.loading}>
+              <BasicSetting
+                showAdvancedSetting={() => {
+                  setAdvancePage(true);
+                  togetherHeaderSettingAdvance(true);
+                }}
+                onHideBasicSetting={() => setShowNavigate(false)}
+              />
+            </Spin>
+          </Modal>
+        )}
+      </div>
+    </ConfigProvider>
   );
 }
 

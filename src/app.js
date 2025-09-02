@@ -1,17 +1,17 @@
-import ReactGA from 'react-ga';
+// import ReactGA from 'react-ga';
 import { getCookie, setCookie } from '@/commons/function.js';
 import config from '@/config';
 import UserRequest from '@/services/userRequest.js';
 import 'antd/dist/antd.css';
-import cookie from 'js-cookie';
-import Echo from 'laravel-echo';
+// import cookie from 'js-cookie';
+// import Echo from 'laravel-echo';
 import { history } from 'umi';
 import './base.less';
-import usePageViews from '@/commons/googleAnalytics.js';
+// import usePageViews from '@/commons/googleAnalytics.js';
 
-ReactGA.initialize('UA-213371681-1', {
-  debug: true,
-});
+// ReactGA.initialize('UA-213371681-1', {
+//   debug: true,
+// });
 
 // import TagManager from 'react-gtm-module';
 //
@@ -38,25 +38,25 @@ if (
   })();
 }
 
-if (isLogin) {
-  // Setup:
-  window.io = require('socket.io-client');
-  window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: `${config.SOCKET_DOMAIN}`,
-    auth: {
-      headers: {
-        Authorization: 'Bearer ' + cookie.get('token'),
-      },
-    },
-    transports: ['websocket', 'polling', 'flashsocket'], // Fix CORS error!
-  });
-} else {
-  // Setup if user not login:
-  window.io = require('socket.io-client');
-  window.Echo = new Echo({
-    broadcaster: 'socket.io',
-    host: `${config.SOCKET_DOMAIN}`,
-    transports: ['websocket', 'polling', 'flashsocket'], // Fix CORS error!
-  });
-}
+// if (isLogin) {
+//   // Setup:
+//   window.io = require('socket.io-client');
+//   window.Echo = new Echo({
+//     broadcaster: 'socket.io',
+//     host: `${config.SOCKET_DOMAIN}`,
+//     auth: {
+//       headers: {
+//         Authorization: 'Bearer ' + cookie.get('token'),
+//       },
+//     },
+//     transports: ['websocket', 'polling', 'flashsocket'], // Fix CORS error!
+//   });
+// } else {
+//   // Setup if user not login:
+//   window.io = require('socket.io-client');
+//   window.Echo = new Echo({
+//     broadcaster: 'socket.io',
+//     host: `${config.SOCKET_DOMAIN}`,
+//     transports: ['websocket', 'polling', 'flashsocket'], // Fix CORS error!
+//   });
+// }

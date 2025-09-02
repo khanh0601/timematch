@@ -14,8 +14,6 @@ const Header = props => {
   const dispatch = useDispatch();
   const payloadAdjusted = {
     user_id_of_member: profile?.id,
-    page: 1,
-    page_size: 10,
     relationship_type: 3,
     is_finished: 1,
     keyword: searchValue,
@@ -31,26 +29,25 @@ const Header = props => {
 
   const payloadAdjusting = {
     user_id_of_member: profile?.id,
-    page: 1,
-    page_size: 10,
     relationship_type: 3,
     is_finished: 0,
     keyword: searchValue,
   };
 
   useEffect(() => {
-    dispatch({
-      type: 'TAB/getOnePaginateAllEventsMember',
-      payload: payloadAll,
-    });
-    dispatch({
-      type: 'TAB/getOnePaginateAdjustedEventsMember',
-      payload: payloadAdjusted,
-    });
-    dispatch({
-      type: 'TAB/getOnePaginateAdjustingEventsMember',
-      payload: payloadAdjusting,
-    });
+    if (window.location.search === '') {
+      dispatch({
+        type: 'TAB/getOnePaginateAdjustingEventsMember',
+        payload: payloadAdjusting,
+      });
+    }
+
+    if (window.location.search === '?tab=2') {
+      dispatch({
+        type: 'TAB/getOnePaginateAdjustedEventsMember',
+        payload: payloadAdjusted,
+      });
+    }
   }, [searchValue, profile?.id]);
 
   return (
@@ -60,9 +57,11 @@ const Header = props => {
         justifyContent: 'space-between',
         alignItems: 'center',
         padding: '10px 20px',
-        position: 'sticky',
+        position: 'fixed',
         top: 0,
         zIndex: 2,
+        width: '100%',
+        height: 50,
         backgroundColor: 'white',
       }}
     >
@@ -96,25 +95,10 @@ const Header = props => {
             onClick={() => {
               setIsSearch(!isSearch);
             }}
-            fill={'#004cff'}
+            fill={'#3368c7'}
             width={24}
             height={24}
           />
-          <a
-            style={{
-              paddingLeft: 2,
-              paddingRight: 2,
-              border: '1px solid #004cff',
-              color: '#004cff',
-              borderRadius: 4,
-              boxShadow: '0px 4px 4px rgba(0, 0, 0, 0.25)',
-              marginLeft: 8,
-              cursor: 'pointer',
-            }}
-            onClick={props.onScrollTop}
-          >
-            今日
-          </a>
         </div>
       ) : null}
     </div>

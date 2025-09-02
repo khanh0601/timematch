@@ -173,7 +173,7 @@ function ConfirmVote(props) {
                         name={'email'}
                       >
                         <Input
-                          placeholder="例）taro.tanaka@smoothly.net"
+                          placeholder="例）taro.tanaka@timematch.jp"
                           className={styles.inputSchedule}
                         />
                       </Form.Item>
@@ -209,7 +209,7 @@ function ConfirmVote(props) {
                             key={index}
                           >
                             <Input
-                              placeholder="例）taro.tanaka@smoothly.net"
+                              placeholder="例）taro.tanaka@timematch.jp"
                               className={styles.inputSchedule}
                             />
                           </Form.Item>
@@ -274,7 +274,7 @@ function ConfirmVote(props) {
                               name={'company_name'}
                             >
                               <Input
-                                placeholder="例）Smoothly株式会社"
+                                placeholder="例）タイムマッチ株式会社"
                                 className={styles.inputSchedule}
                               />
                             </Form.Item>

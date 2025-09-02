@@ -2,46 +2,28 @@ import React, { useEffect, useState } from 'react';
 import styles from './styles.less';
 import { useIntl, history } from 'umi';
 import { connect } from 'dva';
-import { Row, Col, Table } from 'antd';
-import HomeHeader from '@/components/HomeHeader';
 import { LeftOutlined } from '@ant-design/icons';
+import HeaderMobile from '@/components/Mobile/Header';
+import iconBack from '@/assets/images/i-back-white.png';
+import { ROUTER } from '@/constant';
+
 function BaseNotation(props) {
   const { dispatch, masterStore } = props;
   const intl = useIntl();
   const { formatMessage } = intl;
   return (
     <div>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid darkblue',
-          padding: 15,
+      <HeaderMobile
+        title={formatMessage({ id: 'i18n_base_notation_title' })}
+        isShowLeft={true}
+        itemLeft={{
+          event: 'back',
+          url: ROUTER.menu,
+          icon: iconBack,
+          bgColor: 'bgPrimaryBlue',
+          textColor: 'textLightGray',
         }}
-      >
-        <div
-          style={{
-            width: 30,
-            height: 30,
-            background: 'dodgerblue',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 5,
-          }}
-          onClick={() => history.go(-1)}
-        >
-          <LeftOutlined style={{ color: '#FFF' }} />
-        </div>
-        <div className={styles.header}>プロフィール</div>
-        <div
-          style={{
-            width: 30,
-            height: 30,
-          }}
-        ></div>
-      </div>
+      />
       <div className={styles.baseNotation}>
         <h3>特定商取引に基づく表記</h3>
         <table>
@@ -61,7 +43,7 @@ function BaseNotation(props) {
           <tr>
             <td>連絡先</td>
             <td>
-              「<a href="mailto:info@smoothly.jp">info@smoothly.jp</a>
+              「<a href="mailto:info@timematch.jp">info@timematch.jp</a>
               」よりお問い合わせください。
             </td>
           </tr>

@@ -292,7 +292,7 @@ const ToolboxTemplateAC = ({
         </div>
       )}
       <div className={styles.btnSubmit}>
-        <button onClick={onSubmit}>保存</button>
+        <button onClick={onSubmit}>保存 </button>
       </div>
     </>
   );

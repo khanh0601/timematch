@@ -15,8 +15,11 @@ import {
   WarningOutlined,
   MailOutlined,
 } from '@ant-design/icons';
+import HeaderMobile from '@/components/Mobile/Header';
+
 const MenuPage = () => {
   const intl = useIntl();
+  const { formatMessage } = intl;
   const handleLogout = () => {
     confirm({
       title: intl.formatMessage({ id: 'i18n_confirm_logout' }),
@@ -35,38 +38,38 @@ const MenuPage = () => {
   return (
     <div className="menu-page">
       <div className="header">メニュー</div>
-      <div className="menu-content">
+      <div className="menu-content bgGreyBlue">
         <div
           onClick={() => {
             history.push('/profile');
           }}
-          className="content-item"
+          className="content-item shadowPrimary bgWhite textPrimaryBlue"
         >
           <UserOutlined
             style={{
               fontSize: 22,
             }}
           />{' '}
-          <div> プロフィール</div>
+          <div>プロフィール</div>
         </div>
         <div
           onClick={() => {
             history.push('/mail-template');
           }}
-          className="content-item"
+          className="content-item shadowPrimary bgWhite textPrimaryBlue"
         >
           <MailOutlined
             style={{
               fontSize: 22,
             }}
           />{' '}
-          定型文の作成
+          <div>定型文の作成</div>
         </div>
         <div
           onClick={() => {
             history.push('/contact-management');
           }}
-          className="content-item"
+          className="content-item shadowPrimary bgWhite textPrimaryBlue"
         >
           <ContactsOutlined
             style={{
@@ -75,24 +78,24 @@ const MenuPage = () => {
           />
           <div>メールの送付先管理</div>
         </div>
-        <div
-          onClick={() => {
-            history.push('base-notation');
-          }}
-          className="content-item"
-        >
-          <DesktopOutlined
-            style={{
-              fontSize: 22,
-            }}
-          />{' '}
-          <div>このサイトについて</div>
-        </div>
+        {/*<div*/}
+        {/*  onClick={() => {*/}
+        {/*    history.push('base-notation');*/}
+        {/*  }}*/}
+        {/*  className="content-item shadowPrimary bgWhite textPrimaryBlue"*/}
+        {/*>*/}
+        {/*  <DesktopOutlined*/}
+        {/*    style={{*/}
+        {/*      fontSize: 22,*/}
+        {/*    }}*/}
+        {/*  />{' '}*/}
+        {/*  <div>このサイトについて</div>*/}
+        {/*</div>*/}
         <div
           onClick={() => {
             history.push('documentation');
           }}
-          className="content-item"
+          className="content-item shadowPrimary bgWhite textPrimaryBlue"
         >
           <TableOutlined
             style={{
@@ -103,9 +106,9 @@ const MenuPage = () => {
         </div>
         <div
           onClick={() => {
-            history.push('/privacy-policy');
+            window.open('https://vision-net.co.jp/privacy.html', '_blank');
           }}
-          className="content-item"
+          className="content-item shadowPrimary bgWhite textPrimaryBlue"
         >
           <WarningOutlined
             style={{
@@ -120,15 +123,13 @@ const MenuPage = () => {
             justifyContent: 'center',
             alignItems: 'center',
             padding: '10px',
-            backgroundColor: '#9d9d9d',
-            boxShadow: '0 5px 10px rgba(0, 12, 0, 0.5)',
-            border: '1px solid #8d8d8d',
-            borderRadius: '16px',
+            borderRadius: '8px',
             color: 'white',
             fontSize: 16,
             marginBottom: '20px',
           }}
           onClick={handleLogout}
+          className="bgMediumGray textLightGray shadowPrimary"
         >
           <LogoutOutlined
             style={{

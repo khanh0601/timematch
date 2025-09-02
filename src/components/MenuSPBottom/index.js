@@ -2,31 +2,26 @@ import React, { useState } from 'react';
 import styles from './styles.less';
 import { useIntl, history } from 'umi';
 
-import listEVTPurposeActive from '@/assets/images/sp-LET-purpose-active.png';
-import listEVTPurpose from '@/assets/images/sp-LET-purpose.png';
-import listEVTPersonalActive from '@/assets/images/sp-LET-personal-active.png';
-import listEVTPersonal from '@/assets/images/sp-LET-personal.png';
 import icon01 from '@/assets/images/i-menu-footer-01.png';
 import icon01Active from '@/assets/images/i-menu-footer-01-active.png';
 import icon02 from '@/assets/images/i-menu-footer-02.png';
 import icon02Active from '@/assets/images/i-menu-footer-02-active.png';
 import icon03 from '@/assets/images/i-menu-footer-03.png';
 import icon03Active from '@/assets/images/i-menu-footer-03-active.png';
-import HomeActiveIcon from '@/assets/images/sp-LET-home-active.png';
 import { Menu, Dropdown } from 'antd';
-import HomeIcon from '@/assets/images/sp-LET-home.png';
+
 import { TYPE_EVENT_RELATIONSHIP, TYPE_VOTE_RELATIONSHIP } from '@/constant';
 
 import logoCalendar from '@/assets/images/calendar.png';
 import logoCheckSuccess from '@/assets/images/check-success.png';
 import logoUserGroup from '@/assets/images/user-group.png';
 import { connect } from 'dva';
+import { profileFromStorage } from '../../commons/function';
 
 function MenuSPBottom(props) {
   const intl = useIntl();
   const { formatMessage } = intl;
   const {
-    currentTab,
     setCurrentTab,
     // relationshipType,
     // setRelationshipType,
@@ -35,38 +30,39 @@ function MenuSPBottom(props) {
     accountTeamStore,
   } = props;
 
-  const { profile } = masterStore;
-
+  const profile = profileFromStorage();
+  const location = history.location;
   const {
     listPaginateTeam,
     listPaginateEvents,
     paginateEvents,
   } = accountTeamStore;
 
+  const currentTab =
+    location.pathname === '/'
+      ? '1'
+      : location.pathname === '/calendar'
+      ? '2'
+      : '3';
+
   const redirectListEventTypePurpose = () => {
     if (setCurrentTab) {
       setCurrentTab('1');
     }
+
+    const payload = {
+      user_id_of_member: profile?.id,
+      relationship_type: 3,
+      is_finished: 0,
+    };
+
+    dispatch({
+      type: 'TAB/getOnePaginateAdjustingEventsMember',
+      payload,
+    });
+
     history.push('/');
   };
-  // const redirectListEventTypeVote = () => {
-  //   if (setCurrentTab) {
-  //     setCurrentTab('2');
-  //   }
-  //   history.push('/event?tab=2&team_all=true');
-  // };
-  // const redirectCreatePurpose = () => {
-  //   if (setRelationshipType) {
-  //     setRelationshipType('1');
-  //   }
-  //   history.push('/calendar-creation?relationship_type=1');
-  // };
-  // const redirectCreateVote = () => {
-  //   if (setRelationshipType) {
-  //     setRelationshipType('3');
-  //   }
-  //   history.push('/calendar-creation?relationship_type=3');
-  // };
 
   const createEventType = click_event => {
     const menu = [
@@ -163,7 +159,7 @@ function MenuSPBottom(props) {
       <Menu.Item key="0">
         <li
           onClick={() => {
-            history.push('/?tab=3');
+            history.push('/?tab=2');
             dispatch({ type: 'MASTER/setDefaultActiveKey', payload: '1' });
           }}
         >
@@ -173,7 +169,7 @@ function MenuSPBottom(props) {
       <Menu.Item key="1">
         <li
           onClick={() => {
-            history.push('/?tab=3');
+            history.push('/?tab=2');
             dispatch({ type: 'MASTER/setDefaultActiveKey', payload: '2' });
           }}
         >
@@ -224,44 +220,6 @@ function MenuSPBottom(props) {
             <img src={icon03} className={styles.imgNonActive} />
             <div className={`${styles.textList} ${styles.text}`}>メニュー</div>
           </li>
-          {/* <li
-            onClick={() => redirectCreatePurpose()}
-            className={`${styles.menuItem} ${
-              relationshipType === 1 ? styles.active : ''
-            }`}
-          >
-            <img src={listEVTPersonalActive} className={styles.imgActive} />
-            <img src={listEVTPersonal} className={styles.imgNonActive} />
-            <div className={`${styles.textCreate} ${styles.text}`}>
-              {formatMessage({ id: 'i18n_created_by_application1' })}
-              {formatMessage({ id: 'i18n_created_by_application2' })}
-            </div>
-          </li>
-          <li
-            onClick={() => redirectListEventTypeVote()}
-            className={`${styles.menuItem} ${
-              currentTab === '2' ? styles.active : ''
-            }`}
-          >
-            <img src={listEVTPurposeActive} className={styles.imgActive} />
-            <img src={listEVTPurpose} className={styles.imgNonActive} />
-            <div className={`${styles.textList} ${styles.text}`}>
-              {formatMessage({ id: 'i18n_by_pinpoint' })}
-            </div>
-          </li>
-          <li
-            onClick={() => redirectCreateVote()}
-            className={`${styles.menuItem} ${
-              relationshipType === 3 ? styles.active : ''
-            }`}
-          >
-            <img src={listEVTPersonalActive} className={styles.imgActive} />
-            <img src={listEVTPersonal} className={styles.imgNonActive} />
-            <div className={`${styles.textCreate} ${styles.text}`}>
-              {formatMessage({ id: 'i18n_created_by_pinpoint1' })}
-              {formatMessage({ id: 'i18n_created_by_pinpoint2' })}
-            </div>
-          </li> */}
         </ul>
       </div>
     </div>

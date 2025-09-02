@@ -26,7 +26,7 @@ import googleMeetCalendar from '@/assets/images/google-meet-calendar.png';
 import closeCircleMb from '@/assets/images/close-circle-mb.png';
 import EventTemplateModal from '../../EventTemplateModal';
 import imgArrowDown from '@/assets/images/icon-arrow-down.png';
-import { history } from '../../../.umi/core/history';
+import { history } from 'umi';
 import pencil from '@/assets/images/i-edit-template.png';
 import iClose from '@/assets/images/close-red.png';
 import pencil1 from '@/assets/images/calendar-green-1.png';
@@ -297,7 +297,12 @@ function BasicSetting(props) {
                   className={microsoftCss}
                   onClick={() => onChangeLocation(6)}
                 >
-                  <img src={microsoftCalendar} alt="huyngocpham-error" />
+                  <img
+                    width={34}
+                    height={56}
+                    src={microsoftCalendar}
+                    alt="huyngocpham-error"
+                  />
                   <p>
                     Microsoft
                     <br />

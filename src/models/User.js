@@ -71,6 +71,7 @@ export default {
             // if (data.is_first_set_up) {
             //   history.push('/setting-url');
             // } else {
+            yield put({ type: 'MASTER/getProfile' });
             history.push('/');
             if (localStorage.getItem('checkLogin')) {
               const {
@@ -106,7 +107,6 @@ export default {
           action.payload.data,
         );
         if (res.status === 201) {
-          action.payload.removeLoading();
           action.payload.showNotice();
         }
       } catch (error) {
@@ -118,11 +118,12 @@ export default {
         const { isAdmin, ...reqBody } = action.payload;
         const res = yield UserRequest.resetPassword(reqBody);
         message.success(formatMessage({ id: 'i18n_change_password_success' }));
-        if (isAdmin) {
-          window.location.assign(`${config.ADMIN_DOMAIN}/admin/login`);
-        } else {
-          history.push('/smooth-login?login=true');
-        }
+        history.push('/');
+        // if (isAdmin) {
+        //   window.location.assign(`${config.ADMIN_DOMAIN}/admin/login`);
+        // } else {
+        //   history.push('/smooth-login?login=true');
+        // }
       } catch (error) {
         const { body } = error.response;
         const errorMsg = body.message;
@@ -178,7 +179,7 @@ export default {
       } catch (error) {}
     },
 
-    *updateTimeDefault(action) {
+    *updateTimeDefault(action, { put }) {
       const {
         formatMessage,
         setLoading,
@@ -189,6 +190,10 @@ export default {
       try {
         const { status } = yield UserRequest.updateTimeDefault(reqBody);
         if (status === 200) {
+          yield put({
+            type: 'MASTER/getProfile',
+            payload: {},
+          });
           message.success(
             formatMessage({ id: 'i18n_update_default_time_success' }),
           );
@@ -243,6 +248,26 @@ export default {
         }
       } catch (error) {
         notify(formatMessage({ id: 'i18n_register_error' }));
+      }
+    },
+    *resetPasswordMobile(action, { put }) {
+      try {
+        const res = yield UserRequest.resetPasswordMobile(action.payload.data);
+        if (res.status === 201) {
+          action.payload.showNotice();
+        }
+      } catch (error) {
+        action.payload.removeLoading();
+      }
+    },
+    *resetPasswordVerify(action, { put }) {
+      try {
+        const res = yield UserRequest.verifyPasswordReset(action.payload);
+        if (res.status) {
+          action.payload.showNotice(res);
+        }
+      } catch (error) {
+        action.payload.removeLoading();
       }
     },
   },

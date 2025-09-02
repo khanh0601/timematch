@@ -1,7 +1,7 @@
 import { connect } from 'dva';
 import styles from './styles.less';
 import { Button, Select, Modal } from 'antd';
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useIntl } from 'umi';
 import moment from 'moment';
 import iconMenu from '@/assets/images/i-menu.png';
@@ -17,19 +17,53 @@ const Navigation = ({ showMenu = true, ...props }) => {
     onChangeViewEventCalendar,
     onTodayEvent,
     onSelectMonth,
+    onSelectYear,
+    showSidebar,
+    isSelectMonth,
+    isSelectYear,
+    changeMonth,
+    changeYear,
   } = props;
-  const [isModalVisible, setIsModalVisible] = React.useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedMonth, setSelectedMonth] = useState(moment().month() + 1);
+  const [selectedYear, setSelectedYear] = useState(moment().year());
+
+  useEffect(() => {
+    setSelectedMonth(Number(moment().month() + 1));
+  }, [isSelectMonth]);
+
+  useEffect(() => {
+    setSelectedYear(Number(moment().year()));
+  }, [isSelectYear]);
+
+  useEffect(() => {
+    if (changeMonth) {
+      setSelectedMonth(Number(changeMonth));
+    }
+  }, [changeMonth]);
+
+  useEffect(() => {
+    if (changeYear) {
+      setSelectedYear(Number(changeYear));
+    }
+  }, [changeYear]);
+
+  const renderYearNavigation = () => {
+    const currentYear = moment().year();
+    return Array.from(
+      { length: 11 },
+      (_, index) => currentYear - 5 + index,
+    ).map(year => ({
+      value: year,
+      label: `${year} ${formatMessage({ id: 'i18n_year' })}`,
+    }));
+  };
 
   const renderMonthNavigation = () => {
-    let optionHTML = [];
-    for (let i = 1; i <= 12; i++) {
-      optionHTML.push(
-        <Select.Option value={i} key={i}>
-          {i} {formatMessage({ id: 'i18n_month' })}
-        </Select.Option>,
-      );
-    }
-    return optionHTML;
+    return Array.from({ length: 12 }, (_, index) => index + 1).map(month => ({
+      value: month,
+      label: `${month} ${formatMessage({ id: 'i18n_month' })}`,
+    }));
   };
 
   const handleChangeViewEventCalendar = (val, isModal) => {
@@ -53,10 +87,6 @@ const Navigation = ({ showMenu = true, ...props }) => {
     setIsModalVisible(false);
   };
 
-  const handleRedirectPage = path => () => {
-    window.location.href = path;
-  };
-
   const handleChangeIcon = () => {
     if (viewEventCalendar === 1) {
       return iconDay;
@@ -68,60 +98,68 @@ const Navigation = ({ showMenu = true, ...props }) => {
   };
 
   const handleChangeMonth = value => {
-    onSelectMonth(value);
+    const monthValue = Number(value);
+    onSelectMonth(monthValue, selectedYear);
+    setSelectedMonth(monthValue);
+  };
+
+  const handleChangeYear = value => {
+    const yearValue = Number(value);
+    onSelectYear(yearValue, selectedMonth);
+    setSelectedYear(yearValue);
+  };
+
+  const handleShowSidebar = () => {
+    showSidebar();
   };
 
   return (
     <>
       <div className={styles.navigation}>
         <div className={styles.navItemLeft}>
-          <Button
-            className={styles.navMenu}
-            onClick={handleRedirectPage('/menu')}
-          >
-            <img src={iconMenu} />
+          <Button className={styles.navMenu} onClick={handleShowSidebar}>
+            <img src={iconMenu} alt="Menu" />
           </Button>
           <Select
-            defaultValue={moment().month() + 1}
+            value={selectedYear}
+            onChange={handleChangeYear}
+            dropdownMatchSelectWidth={false}
+            options={renderYearNavigation()}
+          />
+          <Select
+            value={selectedMonth}
             onChange={handleChangeMonth}
-          >
-            {renderMonthNavigation()}
-          </Select>
+            options={renderMonthNavigation()}
+          />
         </div>
         <div className={styles.navItemRight}>
           <div className={styles.navDayAction}>
             <Button
-              onClick={() => {
-                handlePrevCalendar(viewEventCalendar);
-              }}
+              onClick={() => handlePrevCalendar(viewEventCalendar)}
               className={styles.btnDayActionItem}
             >
               <div className={styles.prevBtnMobile} />
             </Button>
             <Button
-              onClick={() => {
-                onTodayEvent();
-              }}
-              className={styles.btnDayActionName}
+              onClick={onTodayEvent}
+              className={`${styles.btnDayActionName} ${styles.borderPrimaryBlue} ${styles.textPrimaryBlue}`}
             >
               {formatMessage({ id: 'i18n_today' })}
             </Button>
             <Button
-              onClick={() => {
-                handleNextCalendar(viewEventCalendar);
-              }}
+              onClick={() => handleNextCalendar(viewEventCalendar)}
               className={styles.btnDayActionItem}
             >
               <div className={styles.nextBtnMobile} />
             </Button>
           </div>
           <Button
-            onClick={e => handleChangeViewEventCalendar(null, true)}
+            onClick={() => handleChangeViewEventCalendar(null, true)}
             className={styles.calendarViewBtn}
           >
             <img
               src={handleChangeIcon()}
-              alt={'icon'}
+              alt="Calendar View"
               className={styles.calendarViewIcon}
             />
           </Button>
@@ -130,12 +168,12 @@ const Navigation = ({ showMenu = true, ...props }) => {
       <Modal open={isModalVisible} footer={null} onCancel={handleCloseModal}>
         <div className={styles.modalContent}>
           <Button
-            className={`${styles.modalItem}`}
-            onClick={e => handleChangeViewEventCalendar(1, false)}
+            className={styles.modalItem}
+            onClick={() => handleChangeViewEventCalendar(1, false)}
           >
             <img
               src={iconDay}
-              alt={'icon'}
+              alt="Day View"
               className={styles.calendarViewIcon}
             />
             {formatMessage({ id: 'i18n_day_number' })}
@@ -143,12 +181,12 @@ const Navigation = ({ showMenu = true, ...props }) => {
           </Button>
           <hr />
           <Button
-            className={`${styles.modalItem}`}
-            onClick={e => handleChangeViewEventCalendar(3, false)}
+            className={styles.modalItem}
+            onClick={() => handleChangeViewEventCalendar(3, false)}
           >
             <img
               src={icon3day}
-              alt={'icon'}
+              alt="3 Day View"
               className={styles.calendarViewIcon}
             />
             {formatMessage({ id: 'i18n_3day_number' })}
@@ -156,12 +194,12 @@ const Navigation = ({ showMenu = true, ...props }) => {
           </Button>
           <hr />
           <Button
-            className={`${styles.modalItem}`}
-            onClick={e => handleChangeViewEventCalendar(7, false)}
+            className={styles.modalItem}
+            onClick={() => handleChangeViewEventCalendar(7, false)}
           >
             <img
               src={iconWeek}
-              alt={'icon'}
+              alt="Week View"
               className={styles.calendarViewIcon}
             />
             {formatMessage({ id: 'i18n_week_number' })}

@@ -2,7 +2,7 @@ import rf from './baseRequests.js';
 
 export default {
   getUserEvents: (data = {}) => {
-    const url = '/api/user/events';
+    const url = '/api/user/events/top';
     return rf.get(url, data);
   },
   getAccountTeam: (data = {}) => {

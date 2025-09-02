@@ -7,7 +7,6 @@ import moment from 'moment';
 import 'moment/locale/ja';
 import { RawIntlProvider, getLocale, getDirection , setIntl, getIntl, localeInfo } from './localeExports';
 
-
 // @ts-ignore
 export const event = new EventEmitter();
 event.setMaxListeners(5);
@@ -49,10 +48,10 @@ export const _LocaleContainer = (props:any) => {
 
   const defaultAntdLocale = {
   }
-  const direction = getDirection();
+  const direcition = getDirection();
 
   return (
-    <ConfigProvider  direction={direction} locale={localeInfo[locale]?.antd || defaultAntdLocale}>
+    <ConfigProvider  direction={direcition} locale={localeInfo[locale]?.antd || defaultAntdLocale}>
       <RawIntlProvider value={intl}>{props.children}</RawIntlProvider>
     </ConfigProvider>
   )

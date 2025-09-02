@@ -1,0 +1,170 @@
+.event-detail-modal {
+  .ant-modal {
+    width: 850px !important;
+
+    .ant-modal-body {
+      padding: 16px !important;
+    }
+
+    .header {
+      padding: 0 !important;
+    }
+
+    .appointment-detail .content {
+      height: 57vh !important;
+
+      .ant-table-wrapper {
+        height: 85%;
+      }
+    }
+
+    .appointment-detail .buttons {
+      flex-direction: row !important;
+      padding-bottom: 16px !important;
+    }
+
+    .ant-modal-footer {
+      display: none !important;
+    }
+
+    .header-close {
+      cursor: pointer;
+    }
+  }
+}
+
+.event-detail-modal {
+  .appointment-detail {
+    height: calc(100vh - 250px);
+    display: flex;
+    flex-direction: column;
+
+    // .apd-content-wrapper {
+    //   flex: 1;
+    //   overflow-y: scroll;
+
+    //   .content-gap {
+    //     display: block;
+    //     height: 80px;
+    //   }
+
+    //   .ant-table-header {
+    //     position: sticky;
+    //     top: 0;
+    //     z-index: 100;
+    //   }
+    // }
+
+    .buttons {
+      position: absolute;
+      width: 96%;
+      bottom: 0;
+      background: #fff;
+      z-index: 10;
+      margin-top: 0 !important;
+    }
+
+    .ant-table {
+      padding-bottom: 45px !important;
+
+      .ant-table-body {
+        // overflow: unset !important;
+        max-height: 52vh !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 953px) {
+  .event-detail-modal {
+    .appointment-detail {
+      .ant-table .ant-table-body {
+        max-height: 54vh !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 932px) {
+  .event-detail-modal {
+    .appointment-detail {
+      .ant-table .ant-table-body {
+        max-height: 51vh !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 916x) {
+  .event-detail-modal {
+    .appointment-detail {
+      .ant-table .ant-table-body {
+        max-height: 50vh !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 865px) {
+  .event-detail-modal {
+    .appointment-detail {
+      .ant-table .ant-table-body {
+        max-height: 48vh !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 800px) {
+  .event-detail-modal {
+    .appointment-detail {
+      .ant-table .ant-table-body {
+        max-height: 46vh !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 790px) {
+  .event-detail-modal {
+    .appointment-detail {
+      .ant-table .ant-table-body {
+        max-height: 45vh !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 780px) {
+  .event-detail-modal {
+    .appointment-detail {
+      height: calc(100vh - 180px);
+
+      .ant-table .ant-table-body {
+        max-height: 52vh !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 720px) {
+  .event-detail-modal {
+    .appointment-detail {
+      height: calc(100vh - 100px);
+
+      .ant-table .ant-table-body {
+        max-height: 60vh !important;
+      }
+    }
+  }
+}
+
+@media (min-width: 1080px) and (max-height: 680px) {
+  .event-detail-modal {
+    .appointment-detail {
+      .ant-table .ant-table-body {
+        max-height: 317px !important;
+      }
+    }
+  }
+}

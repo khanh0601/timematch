@@ -19,7 +19,12 @@ function HomeHeader() {
               <span onClick={() => history.push('/term-of-user')}>
                 {formatMessage({ id: 'i18n_term_of_user' })}
               </span>
-              <span onClick={() => history.push('/privacy-policy')}>
+              <span
+                onClick={() =>
+                  (window.location.href =
+                    'https://vision-net.co.jp/privacy.html')
+                }
+              >
                 {formatMessage({ id: 'i18n_privacy_policy' })}
               </span>
             </div>

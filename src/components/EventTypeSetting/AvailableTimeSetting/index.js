@@ -35,7 +35,7 @@ import Content from './components/Content';
 import Header from './components/Header';
 import TeamList from './components/TeamList';
 import useWindowDimensions from '@/commons/useWindowDimensions';
-import { history } from '../../../.umi/core/history';
+import { history } from 'umi';
 
 function AvailableTimeSetting(props) {
   const { formatMessage } = useIntl();

@@ -3,10 +3,13 @@ import styles from './styles.less';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import { connect } from 'dva';
-import { history } from 'umi';
+import { history, useIntl } from 'umi';
+import iconBack from '@/assets/images/i-back-white.png';
 
 function ShareCalendarMicrosoft(props) {
   const { dispatch } = props;
+  const intl = useIntl();
+  const { formatMessage } = intl;
   const [mes, setMsg] = useState('');
   const code = history.location.query.code;
   const user_id = history.location.query.state;
@@ -24,18 +27,28 @@ function ShareCalendarMicrosoft(props) {
   };
 
   return (
-    <div>
-      <Header />
+    <div className={styles.shareCalendarMicrosoft}>
       {mes ? (
-        <div className={styles.style}>
-          <p>Microsoftカレンダーと共有完了しました</p>
+        <div className={styles.shareCalendarMicrosoftText}>
+          <p>
+            Microsoftカレンダーと共有
+            <br />
+            完了しました
+          </p>
         </div>
       ) : (
-        <div className={styles.style}>
-          <p>Microsoftカレンダーと共有失敗しました</p>
+        <div className={styles.shareCalendarMicrosoftText}>
+          <p>
+            Microsoftカレンダーと共
+            <br />
+            有失敗しました
+          </p>
         </div>
       )}
-      <Footer />
+      <a href="/" className={styles.backToHome}>
+        <img src={iconBack} alt={'back'} />
+        {formatMessage({ id: 'i18n_back' })}
+      </a>
     </div>
   );
 }

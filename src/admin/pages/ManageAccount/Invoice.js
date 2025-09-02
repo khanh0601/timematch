@@ -76,7 +76,7 @@ function Invoice({ data }) {
           <tbody>
             <tr>
               <td>{dayjs().month() + 1}月</td>
-              <td>Smoothlyサービス利用料</td>
+              <td>タイムマッチサービス利用料</td>
               <td>{data.quantity}</td>
               <td>
                 {data.type_contract === CONTRACT_BY_MONTH

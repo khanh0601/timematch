@@ -3,6 +3,7 @@ import styles from './styles.less';
 import { useIntl, history } from 'umi';
 import { connect } from 'dva';
 import { Form, Button, Input } from 'antd';
+import { passwordRegex } from '@/constant';
 import HeaderMobile from '@/components/Mobile/Header';
 
 function PasswordRegister(props) {
@@ -53,45 +54,50 @@ function PasswordRegister(props) {
       <div className={styles.bodyContent}>
         <Form form={form}>
           <div className={styles.inputField}>
-            <span>{formatMessage({ id: 'i18n_email_registed_label' })}</span>
+            <span className={styles.textDarkGray}>
+              {formatMessage({ id: 'i18n_email_registed_label' })}
+            </span>
             <Form.Item name={'email'}>
               <Input
-                className={styles.inputField}
+                className={`${styles.inputField} ${styles.borderMediumGray}`}
                 placeholder={verifySuccess}
                 disabled={true}
               />
             </Form.Item>
           </div>
           <div className={styles.inputField} style={{ marginTop: '10px' }}>
-            <span>{formatMessage({ id: 'i18n_set_password_label' })}</span>
+            <span className={styles.textDarkGray}>
+              {formatMessage({ id: 'i18n_set_password_label' })}
+            </span>
             <Form.Item
               rules={[
                 {
                   required: true,
                   message: formatMessage({ id: 'i18n_required_text' }),
                 },
-                {
-                  type: 'password',
-                  message: intl.formatMessage({
-                    id: 'i18n_email_error_notice',
-                  }),
-                },
-                {
-                  pattern: new RegExp('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])'),
-                  message: formatMessage({ id: 'i18n_password_rule' }),
-                },
+
+                () => ({
+                  validator(rule, value) {
+                    if (value && !passwordRegex.test(value)) {
+                      return Promise.reject(
+                        formatMessage({ id: 'i18n_wrong_password_length' }),
+                      );
+                    }
+                    return Promise.resolve();
+                  },
+                }),
               ]}
               name={'password'}
             >
               <Input
-                className={styles.inputField}
-                placeholder={'*****'}
+                className={`${styles.inputField} ${styles.borderMediumGray}`}
+                placeholder={'例) Password12'}
                 type={'password'}
               />
             </Form.Item>
           </div>
           <div className={styles.inputField} style={{ marginTop: '10px' }}>
-            <span>
+            <span className={styles.textDarkGray}>
               {formatMessage({ id: 'i18n_set_password_confirm_label' })}
             </span>
             <Form.Item
@@ -102,31 +108,21 @@ function PasswordRegister(props) {
                   required: true,
                   message: formatMessage({ id: 'i18n_required_text' }),
                 },
-                {
-                  type: 'password',
-                  message: intl.formatMessage({
-                    id: 'i18n_email_error_notice',
-                  }),
-                },
-                {
-                  pattern: new RegExp('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])'),
-                  message: formatMessage({ id: 'i18n_password_rule' }),
-                },
                 ({ getFieldValue }) => ({
                   validator(rule, value) {
-                    if (!value || getFieldValue('password') === value) {
-                      return Promise.resolve();
+                    if (value && value !== getFieldValue('password')) {
+                      return Promise.reject(
+                        formatMessage({ id: 'i18n_confirm_password_wrong' }),
+                      );
                     }
-                    return Promise.reject(
-                      formatMessage({ id: 'i18n_password_not_match' }),
-                    );
+                    return Promise.resolve();
                   },
                 }),
               ]}
             >
               <Input
-                className={styles.inputField}
-                placeholder={'*****'}
+                className={`${styles.inputField} ${styles.borderMediumGray}`}
+                placeholder={'例) Password12'}
                 type={'password'}
               />
             </Form.Item>
@@ -137,7 +133,7 @@ function PasswordRegister(props) {
                 loading={loading}
                 htmlType="submit"
                 onClick={onSubmit}
-                className={styles.signUpBtn}
+                className={`${styles.signUpBtn} ${styles.bgDarkBlue}`}
               >
                 {formatMessage({ id: 'i18n_password_register_btn' })}
               </Button>

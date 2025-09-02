@@ -953,8 +953,12 @@ export const slotLabelFormat = date => {
   let minute = date.date.minute;
   let prefix = '午前 ';
   if (hour > 12) {
-    hour = hour - 12;
+    // hour = hour - 12;
     prefix = '午後 ';
+  }
+
+  if (hour === 0) {
+    hour = '0';
   }
 
   if (hour < 10) {
@@ -965,7 +969,7 @@ export const slotLabelFormat = date => {
     minute = `0${minute}`;
   }
 
-  return `${prefix}${hour}:${minute}`;
+  return `${hour}:${minute}`;
 };
 
 export const filterReceptionTime = (blocks, receptionTime) => {
@@ -1436,3 +1440,42 @@ export const renderCssPageSize = (perPage, totalPage) => {
   }
   return totalPage < perPage || totalPage === perPage;
 };
+
+export function findBusyDays(events, startDate, endDate) {
+  const start = moment(startDate);
+  const end = moment(endDate);
+
+  const dayEvents = {};
+
+  events.forEach(event => {
+    if (!event.allDay) return;
+
+    const eventStart = moment(event.start);
+    const eventEnd = moment(event.end);
+
+    let day = eventStart.clone();
+    while (day.isSameOrBefore(eventEnd, 'day')) {
+      if (day.isSameOrAfter(start, 'day') && day.isSameOrBefore(end, 'day')) {
+        const dayStr = day.format('YYYY-MM-DD');
+        if (!dayEvents[dayStr]) {
+          dayEvents[dayStr] = [];
+        }
+        dayEvents[dayStr].push(event);
+      }
+      day.add(1, 'days');
+    }
+  });
+
+  const result = [];
+  for (const [date, eventsOfDay] of Object.entries(dayEvents)) {
+    if (eventsOfDay.length > 2) {
+      result.push({
+        date,
+        count: eventsOfDay.length,
+        events: eventsOfDay,
+      });
+    }
+  }
+
+  return result;
+}

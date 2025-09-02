@@ -3,8 +3,9 @@ import {
   profileFromStorage,
   tz,
   getJPMonthAndDay,
+  getCookie,
 } from '@/commons/function.js';
-import { LeftOutlined } from '@ant-design/icons';
+import { CloseOutlined, LeftOutlined } from '@ant-design/icons';
 import { Form } from 'antd';
 import { connect } from 'dva';
 import React, { useEffect, useState } from 'react';
@@ -12,19 +13,29 @@ import { history, useIntl, withRouter } from 'umi';
 import moment from 'moment';
 import { HOUR_FORMAT } from '@/constant';
 import styles from './styles.less';
+import HeaderMobile from '@/components/Mobile/Header';
+import iconBack from '@/assets/images/i-back-white.png';
+import iconClose from '@/assets/images/i-close-white.png';
+import { ROUTER } from '@/constant';
+import useIsPc from '@/hooks/useIsPc';
 
 const AppointmentSelectionConfirm = props => {
   const intl = useIntl();
   const [form] = Form.useForm();
+  const profile = profileFromStorage();
+  const { formatMessage } = intl;
   const [savePolicy, setSavePolicy] = useState(false);
   const [loading, setLoading] = useState(false);
   const { dispatch, voteStore, masterStore } = props;
+  const { informationVote, voteGuest, eventDateTimeGuest } = voteStore;
+
+  const isPc = useIsPc();
+
   const onCheck = event => {
     setSavePolicy(event.target.checked);
   };
-  const { informationVote, voteGuest, eventDateTimeGuest } = voteStore;
+
   const getData = async () => {
-    const profile = profileFromStorage();
     const payload = {
       vote: history.location.query.id,
       user_code: profile ? profile.code : '',
@@ -68,41 +79,23 @@ const AppointmentSelectionConfirm = props => {
 
   return (
     <div className={styles.appointmentSelectionConfirmContainer}>
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          borderBottom: '1px solid darkblue',
-          padding: 15,
+      <HeaderMobile
+        title={formatMessage({ id: 'i18n_appointment_success_title' })}
+        isShowLeft={true}
+        isShowRight={true}
+        itemLeft={{
+          event: 'back',
+          url: `/appointment-selection?id=${history.location.query.id}&name=${history.location.query.name}`,
+          icon: iconBack,
+          bgColor: 'bgPrimaryBlue',
         }}
-      >
-        <div
-          style={{
-            width: 30,
-            height: 30,
-            background: 'dodgerblue',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 5,
-          }}
-          onClick={() =>
-            history.push(
-              `/appointment-selection?id=${history.location.query.id}&name=${history.location.query.name}`,
-            )
-          }
-        >
-          <LeftOutlined style={{ color: '#FFF' }} />
-        </div>
-        <div className={styles.header}>送信完了</div>
-        <div
-          style={{
-            width: 30,
-            height: 30,
-          }}
-        ></div>
-      </div>
+        itemRight={{
+          event: 'backRight',
+          url: ROUTER.home,
+          icon: iconClose,
+          bgColor: 'bgPrimaryBlue',
+        }}
+      />
       <div
         style={{
           padding: 10,
@@ -121,9 +114,9 @@ const AppointmentSelectionConfirm = props => {
           }}
         >
           <p>
-            <div>イベント名</div>
+            <div>イベント名: {informationVote?.name}</div>
             <div>ミーティング詳細</div>
-            {history.location.state.choices
+            {history.location?.state?.choices
               .filter(item => item.option === 1)
               .map((item, index) => (
                 <>
@@ -131,84 +124,91 @@ const AppointmentSelectionConfirm = props => {
                   <div>
                     ▽開催日時:
                     {getJPMonthAndDay(
-                      eventDateTimeGuest.find(e => item?.id === e?.id)
-                        ?.start_time,
+                      eventDateTimeGuest.find(
+                        e => item?.event_datetime_id === e?.id,
+                      )?.start_time,
                     )}
+                    {moment(
+                      eventDateTimeGuest.find(
+                        e => item?.event_datetime_id === e?.id,
+                      )?.start_time,
+                    ).format('(dd)')}
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     {moment(
-                      eventDateTimeGuest.find(e => item?.id === e?.id)
-                        ?.start_time,
-                    ).format('(dd)')}
-                    {moment(
-                      eventDateTimeGuest.find(e => item?.id === e?.id)
-                        ?.start_time,
+                      eventDateTimeGuest.find(
+                        e => item?.event_datetime_id === e?.id,
+                      )?.start_time,
                     ).format(HOUR_FORMAT)}
                     &nbsp; ～ &nbsp;
                     {moment(
-                      eventDateTimeGuest.find(e => item?.id === e?.id)
-                        ?.end_time,
+                      eventDateTimeGuest.find(
+                        e => item?.event_datetime_id === e?.id,
+                      )?.end_time,
                     ).format(HOUR_FORMAT)}
                   </div>
                 </>
               ))}
           </p>
           <p>
-            <div>▽ミーティング参加予定者</div>
-            <div>▼ミーティング形式: {informationVote?.category_name}</div>
-            <div>マミーティング場所:{informationVote?.location_name}</div>
-            <div>▽ミーティング時間:1時間</div>
-            <div>▽コメント</div>
-            <div>{history.location.state?.comment}</div>
+            <div>
+              ▽ミーティング参加予定者: {history.location.state.information.name}
+            </div>
+            {/*<div>▼ミーティング形式: {informationVote?.category_name}</div>*/}
+            {/*<div>マミーティング場所:{informationVote?.location_name}</div>*/}
+            <div>▽ミーティング時間: {informationVote?.block_number}分</div>
+            <div>▽コメント: {history.location.state?.information?.comment}</div>
           </p>
         </div>
-        <div
-          style={{
-            padding: 20,
-            border: '1px solid #3a3a3a',
-            borderRadius: 8,
-          }}
-        >
-          <div style={{ textAlign: 'center' }}>
-            新規会員登録・ログインいただくと、
-            <br />
-            あなたの予定が入っている箇所が表示され便利です。
-          </div>
+        {!profile?.id && !getCookie('token') && (
           <div
             style={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: 20,
-              marginTop: 20,
+              padding: 20,
+              border: '1px solid #3a3a3a',
+              borderRadius: 8,
             }}
           >
-            <div
-              style={{
-                width: '50%',
-                background: '#9db9fa',
-                textAlign: 'center',
-                padding: 8,
-                color: 'white',
-                borderRadius: 8,
-              }}
-              onClick={() => history.push('/register')}
-            >
-              新規会員登録(無料)
+            <div style={{ textAlign: 'center' }}>
+              新規会員登録・ログインいただくと、
+              <br />
+              あなたの予定が入っている箇所が表示され便利です。
             </div>
             <div
               style={{
-                width: '50%',
-                background: '#004491',
-                textAlign: 'center',
-                padding: 8,
-                color: 'white',
-                borderRadius: 8,
+                display: 'flex',
+                justifyContent: 'center',
+                gap: 20,
+                marginTop: 20,
               }}
-              onClick={() => history.push('/login')}
             >
-              ログイン
+              <div
+                style={{
+                  width: '50%',
+                  background: '#9db9fa',
+                  textAlign: 'center',
+                  padding: 8,
+                  color: 'white',
+                  borderRadius: 8,
+                }}
+                onClick={() => history.push('/register')}
+              >
+                新規会員登録(無料)
+              </div>
+              <div
+                style={{
+                  width: '50%',
+                  background: '#004491',
+                  textAlign: 'center',
+                  padding: 8,
+                  color: 'white',
+                  borderRadius: 8,
+                }}
+                onClick={() => history.push('/login')}
+              >
+                ログイン
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

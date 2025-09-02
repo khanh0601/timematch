@@ -9,7 +9,8 @@ const format = 'HH:mm';
 const defaultStartTime = '09:00';
 const defaultEndTime = '18:00';
 const suffixIcon = <DownOutlined />;
-
+import { profileFromStorage } from '@/commons/function';
+import useIsMobile from '../../../hooks/useIsMobile';
 const baseTimes = [
   {
     day_of_week: 7,
@@ -74,8 +75,9 @@ function SettingBlocktime(props) {
     status: false,
     id: undefined,
   });
+  const profile = profileFromStorage();
   const [loading, setLoading] = useState(false);
-
+  const [period, setPeriod] = useState(1);
   const [openStart1, setOpenStart1] = useState(false);
   const [openStart2, setOpenStart2] = useState(false);
   const [openStart3, setOpenStart3] = useState(false);
@@ -90,6 +92,7 @@ function SettingBlocktime(props) {
   const [openEnd5, setOpenEnd5] = useState(false);
   const [openEnd6, setOpenEnd6] = useState(false);
   const [openEnd7, setOpenEnd7] = useState(false);
+  const isMobile = useIsMobile();
 
   const getUserDatetimes = useCallback(() => {
     dispatch({ type: 'EVENT/getFreeTime' });
@@ -278,6 +281,10 @@ function SettingBlocktime(props) {
     setTimes([...times.slice(0, index), day, ...times.slice(index + 1)]);
   };
 
+  const handleGoBack = () => {
+    history.go(-1);
+  };
+
   const updateTime = () => {
     const reqBody = [];
 
@@ -295,7 +302,10 @@ function SettingBlocktime(props) {
       dispatch({
         type: 'USER/updateTimeDefault',
         payload: {
-          reqBody,
+          reqBody: {
+            user_datetime: reqBody,
+            time_period: period,
+          },
           formatMessage,
           setLoading,
           updateTimesDefault: () => setUserTimeDefault(times),
@@ -305,6 +315,12 @@ function SettingBlocktime(props) {
       setErrorNoDataState(true);
     }
   };
+
+  useEffect(() => {
+    if (profile?.setting) {
+      setPeriod(profile?.setting?.time_period || 1);
+    }
+  }, []);
 
   const checkedDay = (event, index) => {
     const { checked } = event.target;
@@ -335,166 +351,268 @@ function SettingBlocktime(props) {
 
   return (
     <div className={styles.setting}>
-      <div className={styles.timeBlock}>
+      <div className={styles.mainSetting}>
         <div>
-          <div>
-            {times.map((timeItem, index) => {
-              let openStateStart;
-              let setOpenStateStart;
-              let openStateEnd;
-              let setOpenStateEnd;
-              if (index === 0) {
-                openStateStart = openStart1;
-                setOpenStateStart = setOpenStart1;
-                openStateEnd = openEnd1;
-                setOpenStateEnd = setOpenEnd1;
-              }
-              if (index === 1) {
-                openStateStart = openStart2;
-                setOpenStateStart = setOpenStart2;
-                openStateEnd = openEnd2;
-                setOpenStateEnd = setOpenEnd2;
-              }
-              if (index === 2) {
-                openStateStart = openStart3;
-                setOpenStateStart = setOpenStart3;
-                openStateEnd = openEnd3;
-                setOpenStateEnd = setOpenEnd3;
-              }
-              if (index === 3) {
-                openStateStart = openStart4;
-                setOpenStateStart = setOpenStart4;
-                openStateEnd = openEnd4;
-                setOpenStateEnd = setOpenEnd4;
-              }
-              if (index === 4) {
-                openStateStart = openStart5;
-                setOpenStateStart = setOpenStart5;
-                openStateEnd = openEnd5;
-                setOpenStateEnd = setOpenEnd5;
-              }
-              if (index === 5) {
-                openStateStart = openStart6;
-                setOpenStateStart = setOpenStart6;
-                openStateEnd = openEnd6;
-                setOpenStateEnd = setOpenEnd6;
-              }
-              if (index === 6) {
-                openStateStart = openStart7;
-                setOpenStateStart = setOpenStart7;
-                openStateEnd = openEnd7;
-                setOpenStateEnd = setOpenEnd7;
-              }
-              return (
-                <div className={styles.checkboxItem} key={index}>
-                  {(openStateStart || openStateEnd) && (
-                    <div
-                      onClick={() => {
-                        setOpenStateStart(false);
-                        setOpenStateEnd(false);
-                      }}
-                      className="bgTransparent"
-                    ></div>
-                  )}
-                  <Checkbox
-                    checked={timeItem.checked}
-                    className={styles.checkboxCustom}
-                    onChange={event => checkedDay(event, index)}
-                  >
-                    <div className={styles.checkboxContent}>
-                      <div className={styles.labelCheckbox}>
-                        {timeItem.name}
-                      </div>
-                    </div>
-                  </Checkbox>
-                  <div className={styles.checkboxSelect}>
-                    <TimePicker
-                      minuteStep={15}
-                      format={format}
-                      inputReadOnly={true}
-                      value={
-                        moment(timeItem.start_time, format)
-                          ? moment(timeItem.start_time, format)
-                          : null
-                      }
-                      suffixIcon={suffixIcon}
-                      placeholder={formatMessage({
-                        id: 'i18n_start_time_placeholder',
-                      })}
-                      allowClear={false}
-                      showNow={false}
-                      popupClassName={styles.timePicker}
-                      onChange={value =>
-                        changeStartTime(value, timeItem.day_of_week, index)
-                      }
-                      onSelect={value =>
-                        changeStartTime(value, timeItem.day_of_week, index)
-                      }
-                      open={openStateStart}
-                      onOpenChange={() => {
-                        setOpenStateStart(true);
-                        handleOpenChange();
-                      }}
-                    />
-                    <span className={styles.settingIcon}>～</span>
-                    <TimePicker
-                      minuteStep={15}
-                      format={format}
-                      inputReadOnly={true}
-                      value={moment(timeItem.end_time, format)}
-                      suffixIcon={suffixIcon}
-                      placeholder={formatMessage({
-                        id: 'i18n_end_time_placeholder',
-                      })}
-                      allowClear={false}
-                      showNow={false}
-                      popupClassName={styles.timePicker}
-                      onChange={value =>
-                        changeEndTime(value, timeItem.day_of_week, index)
-                      }
-                      onSelect={value =>
-                        changeEndTime(value, timeItem.day_of_week, index)
-                      }
-                      open={openStateEnd}
-                      onOpenChange={() => {
-                        setOpenStateEnd(true);
-                        handleOpenChange();
-                      }}
-                    />
-                  </div>
-                  {errorTimeState.status &&
-                    errorTimeState.id === timeItem.day_of_week && (
-                      <div className={styles.errorTime}>
-                        {formatMessage({
-                          id: 'i18n_time_frame_error',
-                        })}
-                      </div>
-                    )}
-                </div>
-              );
-            })}
-          </div>
-          {errorNoDataState && (
-            <div className="error">
-              {formatMessage({ id: 'i18n_required_time_default' })}
-            </div>
+          {isMobile ? null : (
+            <div className={styles.partTitle}>調整日時(勤務時間)</div>
           )}
+          <div className={styles.timeBlock}>
+            <div>
+              <div>
+                {times.map((timeItem, index) => {
+                  let openStateStart;
+                  let setOpenStateStart;
+                  let openStateEnd;
+                  let setOpenStateEnd;
+                  if (index === 0) {
+                    openStateStart = openStart1;
+                    setOpenStateStart = setOpenStart1;
+                    openStateEnd = openEnd1;
+                    setOpenStateEnd = setOpenEnd1;
+                  }
+                  if (index === 1) {
+                    openStateStart = openStart2;
+                    setOpenStateStart = setOpenStart2;
+                    openStateEnd = openEnd2;
+                    setOpenStateEnd = setOpenEnd2;
+                  }
+                  if (index === 2) {
+                    openStateStart = openStart3;
+                    setOpenStateStart = setOpenStart3;
+                    openStateEnd = openEnd3;
+                    setOpenStateEnd = setOpenEnd3;
+                  }
+                  if (index === 3) {
+                    openStateStart = openStart4;
+                    setOpenStateStart = setOpenStart4;
+                    openStateEnd = openEnd4;
+                    setOpenStateEnd = setOpenEnd4;
+                  }
+                  if (index === 4) {
+                    openStateStart = openStart5;
+                    setOpenStateStart = setOpenStart5;
+                    openStateEnd = openEnd5;
+                    setOpenStateEnd = setOpenEnd5;
+                  }
+                  if (index === 5) {
+                    openStateStart = openStart6;
+                    setOpenStateStart = setOpenStart6;
+                    openStateEnd = openEnd6;
+                    setOpenStateEnd = setOpenEnd6;
+                  }
+                  if (index === 6) {
+                    openStateStart = openStart7;
+                    setOpenStateStart = setOpenStart7;
+                    openStateEnd = openEnd7;
+                    setOpenStateEnd = setOpenEnd7;
+                  }
+                  return (
+                    <div className={styles.checkboxItem} key={index}>
+                      {(openStateStart || openStateEnd) && (
+                        <div
+                          onClick={() => {
+                            setOpenStateStart(false);
+                            setOpenStateEnd(false);
+                          }}
+                          className="bgTransparent"
+                        ></div>
+                      )}
+                      <Checkbox
+                        checked={timeItem.checked}
+                        className={styles.checkboxCustom}
+                        onChange={event => checkedDay(event, index)}
+                      >
+                        <div className={styles.checkboxContent}>
+                          <div className={styles.labelCheckbox}>
+                            {timeItem.name}
+                          </div>
+                        </div>
+                      </Checkbox>
+                      <div className={styles.checkboxSelect}>
+                        <TimePicker
+                          minuteStep={15}
+                          format={format}
+                          inputReadOnly={true}
+                          size="small"
+                          value={
+                            moment(timeItem.start_time, format)
+                              ? moment(timeItem.start_time, format)
+                              : null
+                          }
+                          suffixIcon={<DownOutlined />}
+                          placeholder={formatMessage({
+                            id: 'i18n_start_time_placeholder',
+                          })}
+                          allowClear={false}
+                          showNow={false}
+                          popupClassName={styles.timePicker}
+                          onChange={value =>
+                            changeStartTime(value, timeItem.day_of_week, index)
+                          }
+                          onSelect={value =>
+                            changeStartTime(value, timeItem.day_of_week, index)
+                          }
+                          open={openStateStart}
+                          onOpenChange={() => {
+                            setOpenStateStart(true);
+                            handleOpenChange();
+                          }}
+                        />
+                        <span className={styles.settingIcon}>～</span>
+                        <TimePicker
+                          minuteStep={15}
+                          format={format}
+                          inputReadOnly={true}
+                          value={moment(timeItem.end_time, format)}
+                          suffixIcon={<DownOutlined />}
+                          placeholder={formatMessage({
+                            id: 'i18n_end_time_placeholder',
+                          })}
+                          allowClear={false}
+                          showNow={false}
+                          popupClassName={styles.timePicker}
+                          onChange={value =>
+                            changeEndTime(value, timeItem.day_of_week, index)
+                          }
+                          onSelect={value =>
+                            changeEndTime(value, timeItem.day_of_week, index)
+                          }
+                          open={openStateEnd}
+                          onOpenChange={() => {
+                            setOpenStateEnd(true);
+                            handleOpenChange();
+                          }}
+                          disabledTime={current => {
+                            return {
+                              disabledHours: () => {
+                                return Array.from(
+                                  { length: 24 },
+                                  (_, i) => i,
+                                ).filter(
+                                  item =>
+                                    item <
+                                    moment(timeItem.start_time, format).hour(),
+                                );
+                              },
+                              disabledMinutes: () => {
+                                return Array.from(
+                                  { length: 60 },
+                                  (_, i) => i,
+                                ).filter(
+                                  item =>
+                                    item <=
+                                      moment(
+                                        timeItem.start_time,
+                                        format,
+                                      ).minute() &&
+                                    moment(
+                                      timeItem.start_time,
+                                      format,
+                                    ).hour() ===
+                                      moment(timeItem.end_time, format).hour(),
+                                );
+                              },
+                            };
+                          }}
+                        />
+                      </div>
+                      {errorTimeState.status &&
+                        errorTimeState.id === timeItem.day_of_week && (
+                          <div className={styles.errorTime}>
+                            {formatMessage({
+                              id: 'i18n_time_frame_error',
+                            })}
+                          </div>
+                        )}
+                    </div>
+                  );
+                })}
+              </div>
+              {errorNoDataState && (
+                <div className="error">
+                  {formatMessage({ id: 'i18n_required_time_default' })}
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+        <div
+          style={{
+            width: 300,
+          }}
+        >
+          {isMobile ? (
+            <div className={styles.partName}>
+              <div className={styles.partNameBorder}></div>
+              <div className={styles.partNameTitle}>抽出期間</div>
+            </div>
+          ) : (
+            <div className={styles.partTitle}>抽出期間</div>
+          )}
+
+          <Select
+            onChange={value => {
+              setPeriod(value);
+            }}
+            name="period"
+            value={period}
+            size="small"
+            style={{
+              fontSize: 16,
+            }}
+          >
+            <Select.Option value={1}>1週間</Select.Option>
+            <Select.Option value={2}>2週間</Select.Option>
+            <Select.Option value={3}>3週間</Select.Option>
+            <Select.Option value={4}>4週間</Select.Option>
+          </Select>
         </div>
       </div>
-      <div className={styles.partName}>
-        <div className={styles.partNameBorder}></div>
-        <div className={styles.partNameTitle}>提出期間</div>
-      </div>
-      <Select defaultValue={1} size="small">
-        <Select.Option value={1}>1週間</Select.Option>
-        <Select.Option value={2}>2週間</Select.Option>
-        <Select.Option value={3}>3週間</Select.Option>
-        <Select.Option value={4}>4週間</Select.Option>
-      </Select>
-      <div className={`${styles.settingBtnGroup} btnGroup`}>
-        <Button loading={loading} className="btn btnGreen" onClick={updateTime}>
-          登録
+      <div
+        style={
+          isMobile
+            ? { textAlign: 'center' }
+            : {
+                display: 'flex',
+                gap: 20,
+                justifyContent: 'center',
+              }
+        }
+      >
+        <Button
+          style={{
+            marginTop: 40,
+            width: '50%',
+            maxWidth: '50%',
+            background: '#06214d',
+            color: '#FFF',
+            borderRadius: 8,
+            fontWeight: '600',
+            fontSize: 16,
+          }}
+          loading={loading}
+          onClick={updateTime}
+        >
+          登録{' '}
         </Button>
+
+        {!isMobile && (
+          <Button
+            style={{
+              marginTop: 40,
+              width: '50%',
+              maxWidth: '50%',
+              background: '#999999',
+              color: '#FFF',
+              borderRadius: 8,
+              fontWeight: '600',
+              fontSize: 16,
+            }}
+            onClick={handleGoBack}
+          >
+            戻る{' '}
+          </Button>
+        )}
       </div>
     </div>
   );

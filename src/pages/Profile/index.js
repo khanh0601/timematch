@@ -1,13 +1,18 @@
 import useWindowDimensions from '@/commons/useWindowDimensions';
-import { ExclamationCircleOutlined, LeftOutlined } from '@ant-design/icons';
-import { Button, Form, Input, Modal, Spin, message, Tooltip } from 'antd';
+import { ExclamationCircleOutlined } from '@ant-design/icons';
+import { Button, Form, Input, Modal, Spin, message } from 'antd';
 import { connect } from 'dva';
 import React, { useEffect, useState } from 'react';
 import { useHistory, useIntl } from 'umi';
 import { profileFromStorage } from '../../commons/function';
 import styles from './styles.less';
-import TooltipFormat from '@/components/TooltipFormat';
-import helper from '@/assets/images/imgQuestion.png';
+import HeaderMobile from '@/components/Mobile/Header';
+import iconBack from '@/assets/images/i-back-white.png';
+import { ROUTER } from '@/constant';
+import PCHeader from '@/components/PC/Header';
+import useIsMobile from '@/hooks/useIsMobile';
+import FooterMobile from '../../components/Mobile/Footer';
+import { onRefreshProfile } from '@/util/eventBus';
 
 const { Item } = Form;
 const { confirm } = Modal;
@@ -30,6 +35,8 @@ function Profile(props) {
   const { width } = useWindowDimensions();
   const [disableCancelPlan, setDisableCancelPlan] = useState(true);
   const profile = profileFromStorage();
+  const isMobile = useIsMobile();
+
   useEffect(() => {
     dispatch({
       type: 'MASTER/checkSlotStatus',
@@ -41,16 +48,16 @@ function Profile(props) {
   }, []);
 
   useEffect(() => {
-    const { avatar, name, company, katakana_name, code, email } = profile;
-
     form.setFieldsValue({
-      fullName: name,
-      company: company,
-      code: code,
-      email: email,
+      fullName: profile?.name,
+      company: profile?.company == 'null' ? '' : profile?.company || '',
+      company_role:
+        profile?.company_role == 'null' ? '' : profile?.company_role || '',
+      email:
+        profile?.email || profile?.microsoft_email || profile?.google_email,
     });
     setDetailProfile(profile);
-    setAvatar(avatar);
+    setAvatar(profile?.avatar);
   }, []);
 
   const updateLocalStorage = values => {
@@ -58,8 +65,9 @@ function Profile(props) {
     profile.company = values.company;
     profile.name = values.fullName;
     profile.katakana_name = values.userName;
-    profile.code = values.code;
+    profile.company_role = values.company_role;
     localStorage.setItem('profile', JSON.stringify(profile));
+    onRefreshProfile();
   };
 
   const handleSubmitForm = values => {
@@ -68,9 +76,17 @@ function Profile(props) {
       formData.append('image', fileImage);
     }
     formData.append('name', values.fullName);
-    formData.append('company', values.company);
+    let company = values.company;
+    if (company.trim() == '') {
+      company = 'null';
+    }
+    formData.append('company', company);
     // formData.append('katakana_name', values.userName);
-    formData.append('code', values.code);
+    let company_role = values.company_role;
+    if (company_role.trim() == '') {
+      company_role = 'null';
+    }
+    formData.append('company_role', company_role);
     formData.append('_method', 'put');
     dispatch({
       type: 'MASTER/updateProfile',
@@ -100,7 +116,7 @@ function Profile(props) {
   };
 
   const handleResetAvatar = () => {
-    setAvatar(profile.avatar);
+    setAvatar(profile?.avatar);
     setFileImage(undefined);
     setUpdatingAvatar(false);
   };
@@ -118,16 +134,22 @@ function Profile(props) {
   const onConfirmBeforeNavigate = route => {
     const value = form.getFieldsValue();
 
+    const profileName = profile?.name === 'null' ? '' : profile?.name;
+    const profileCompany = profile?.company === 'null' ? '' : profile?.company;
+    const profileCompanyRole =
+      profile?.company_role === 'null' ? '' : profile?.company_role;
+
     if (
-      value.fullName !== profile.name ||
-      value.company !== profile.company ||
-      value.code !== profile.code
+      value.fullName !== profileName ||
+      value.company !== profileCompany ||
+      value.company_role !== profileCompanyRole
     ) {
       confirm({
         title: '変更内容が保存されていません。',
         icon: <ExclamationCircleOutlined />,
         content: '変更内容を保存しますか？',
         onOk() {
+          handleSubmitForm(form.getFieldsValue());
           history.push(route);
         },
         onCancel() {},
@@ -142,38 +164,23 @@ function Profile(props) {
         <Spin className="loading-page" size="large" />
       ) : (
         <div className={styles.profileContainer}>
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              borderBottom: '1px solid darkblue',
-              padding: 15,
-            }}
-          >
-            <div
-              style={{
-                width: 30,
-                height: 30,
-                background: 'dodgerblue',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                borderRadius: 5,
+          {isMobile ? (
+            <HeaderMobile
+              title={formatMessage({ id: 'i18n_profile_title' })}
+              isShowLeft={true}
+              itemLeft={{
+                event: 'back',
+                url: ROUTER.menu,
+                icon: iconBack,
+                bgColor: 'bgPrimaryBlue',
+                textColor: 'textLightGray',
               }}
-              onClick={() => history.goBack()}
-            >
-              <LeftOutlined style={{ color: '#FFF' }} />
-            </div>
-            <div className={styles.header}>プロフィール</div>
-            <div></div>
-          </div>
-          {/* <div className={styles.headTitle}>
-            <div className={styles.bolderIcon}></div>
-            <div className={styles.titleIcon}></div>
-            <span>{formatMessage({ id: 'i18n_profile' })}</span>
-          </div> */}
-          <div style={{ padding: 15 }}>
+            />
+          ) : (
+            <PCHeader />
+          )}
+
+          <div className={styles.containerForm}>
             <Form
               onFinish={handleSubmitForm}
               layout="vertical"
@@ -181,7 +188,11 @@ function Profile(props) {
               scrollToFirstError
               form={form}
             >
+              {isMobile ? null : (
+                <div className={styles.headerForm}>プロフィール</div>
+              )}
               <Item
+                style={{ marginBottom: 14 }}
                 name="fullName"
                 label="氏名"
                 rules={[
@@ -200,27 +211,38 @@ function Profile(props) {
                   }),
                 ]}
               >
-                <Input placeholder="氏名" />
+                <Input placeholder="氏名" className={styles.borderMediumGray} />
               </Item>
 
               <Item
+                style={{ marginBottom: 14 }}
                 name="company"
                 label={formatMessage({ id: 'i18n_company_name' })}
               >
                 <Input
                   placeholder={formatMessage({ id: 'i18n_company_name' })}
+                  className={styles.borderMediumGray}
                 />
               </Item>
 
-              <Item name="code" label="役職">
-                <Input placeholder="氏名" />
-              </Item>
               <Item
+                style={{ marginBottom: 14 }}
+                name="company_role"
+                label="役職"
+              >
+                <Input placeholder="役職" className={styles.borderMediumGray} />
+              </Item>
+
+              <Item
+                style={{ marginBottom: 14 }}
                 name="email"
                 className={styles.urlRow}
                 label={'メールアドレス'}
               >
-                <Input readOnly />
+                <Input
+                  readOnly
+                  className={`${styles.bgLightGray} ${styles.borderMediumGray}`}
+                />
               </Item>
 
               <div
@@ -231,11 +253,11 @@ function Profile(props) {
                   marginTop: 40,
                 }}
               >
-                {profile.microsoft_email || profile.google_email ? null : (
+                {isMobile ? (
                   <Button
                     style={{
-                      background: '#5b99bd',
-                      borderColor: '#5b99bd',
+                      background: '#3368c7',
+                      borderColor: '#3368c7',
                       width: '100%',
                       maxWidth: '100%',
                     }}
@@ -246,82 +268,127 @@ function Profile(props) {
                   >
                     自動日程調整オプション
                   </Button>
+                ) : null}
+
+                {isMobile ? (
+                  <Button
+                    // disabled={profile?.microsoft_email || profile?.google_email}
+                    onClick={() => {
+                      onConfirmBeforeNavigate('/profile/collaboration');
+                    }}
+                    style={{
+                      background:
+                        profile?.microsoft_email || profile?.google_email
+                          ? '#a2a2a2'
+                          : '#3368c7',
+                      borderColor:
+                        profile?.microsoft_email || profile?.google_email
+                          ? '#a2a2a2'
+                          : '#3368c7',
+                      width: '100%',
+                      maxWidth: '100%',
+                    }}
+                    className="btn btnGreen "
+                  >
+                    他社カレンダー連携
+                  </Button>
+                ) : null}
+
+                {!isMobile ||
+                profile?.microsoft_email ||
+                profile?.google_email ? null : (
+                  <Button
+                    // disabled={profile?.microsoft_email || profile?.google_email}
+                    onClick={() => {
+                      onConfirmBeforeNavigate('/change-password');
+                    }}
+                    style={{
+                      background:
+                        profile?.microsoft_email || profile?.google_email
+                          ? '#a2a2a2'
+                          : '#023768',
+                      borderColor:
+                        profile?.microsoft_email || profile?.google_email
+                          ? '#a2a2a2'
+                          : '#023768',
+                      width: '100%',
+                      maxWidth: '100%',
+                    }}
+                    className="btn btnGreen "
+                  >
+                    パスワード変更
+                  </Button>
                 )}
 
                 <Button
-                  disabled={profile.microsoft_email || profile.google_email}
-                  onClick={() => {
-                    onConfirmBeforeNavigate('/profile/collaboration');
-                  }}
+                  className={`btn btnGreen m-auto ${styles.btnSave} ${styles.paddingButton} btn-pc-primary`}
                   style={{
-                    background:
-                      profile.microsoft_email || profile.google_email
-                        ? '#e9e9e9'
-                        : '#5b99bd',
-                    borderColor:
-                      profile.microsoft_email || profile.google_email
-                        ? '#e9e9e9'
-                        : '#5b99bd',
-                    width: '100%',
-                    maxWidth: '100%',
-                  }}
-                  className="btn btnGreen "
-                >
-                  他社カレンダー連携
-                </Button>
-
-                <Button
-                  disabled={profile.microsoft_email || profile.google_email}
-                  onClick={() => {
-                    onConfirmBeforeNavigate('/change-password');
-                  }}
-                  style={{
-                    background:
-                      profile.microsoft_email || profile.google_email
-                        ? '#e9e9e9'
-                        : '#1f3c53',
-                    borderColor:
-                      profile.microsoft_email || profile.google_email
-                        ? '#e9e9e9'
-                        : '#1f3c53',
-                    width: '100%',
-                    maxWidth: '100%',
-                  }}
-                  className="btn btnGreen "
-                >
-                  パスワード変更
-                </Button>
-
-                <Button
-                  className="btn btnGreen m-auto "
-                  style={{
-                    background: '#1f3c53',
-                    width: '50%',
-                    borderColor: '#1f3c53',
+                    background: '#023768',
+                    borderColor: '#023768',
                   }}
                   loading={loadingBtnSave}
                   htmlType="submit"
                 >
-                  変更
+                  変更{' '}
                 </Button>
               </div>
             </Form>
-          </div>
 
-          {/* <Form>
-            <Item className={styles.backToHome}>
-              <Button
-                onClick={() => history.push('/')}
-                className="btn btnGreen "
+            {isMobile ? null : (
+              <div
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 12,
+                  marginTop: 69,
+                  width: 359,
+                }}
               >
-                {formatMessage({ id: 'i18n_return_home' })}
-              </Button>
-            </Item>
-          </Form> */}
+                <Button
+                  style={{
+                    background: '#3368c7',
+                    borderColor: '#3368c7',
+                    width: '100%',
+                    maxWidth: '100%',
+                  }}
+                  className={`btn btnGreen ${styles.paddingButton} btn-pc-secondary`}
+                  onClick={() => {
+                    onConfirmBeforeNavigate('/profile/schedule-setting');
+                  }}
+                >
+                  自動日程調整オプション
+                </Button>
+
+                {profile?.microsoft_email || profile?.google_email ? null : (
+                  <Button
+                    // disabled={profile?.microsoft_email || profile?.google_email}
+                    onClick={() => {
+                      onConfirmBeforeNavigate('/change-password');
+                    }}
+                    style={{
+                      background:
+                        profile?.microsoft_email || profile?.google_email
+                          ? '#a2a2a2'
+                          : '#023768',
+                      borderColor:
+                        profile?.microsoft_email || profile?.google_email
+                          ? '#a2a2a2'
+                          : '#023768',
+                      width: '100%',
+                      maxWidth: '100%',
+                    }}
+                    className={`btn btnGreen ${styles.paddingButton} btn-pc-primary`}
+                  >
+                    パスワード変更
+                  </Button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
       )}
 
-      {/* <Footer /> */}
+      <FooterMobile />
     </div>
   );
 }

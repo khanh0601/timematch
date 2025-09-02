@@ -1,16 +1,28 @@
-const BubbleChatIcon = props => (
-  <svg
-    width="22"
-    height="22"
-    viewBox="0 0 22 22"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    {...props}
-  >
-    <path
-      d="M4.99178 17.5833L0.166016 21.375V1.33333C0.166016 0.73503 0.651046 0.25 1.24935 0.25H20.7493C21.3477 0.25 21.8327 0.73503 21.8327 1.33333V16.5C21.8327 17.0983 21.3477 17.5833 20.7493 17.5833H4.99178ZM4.2424 15.4167H19.666V2.41667H2.33268V16.9172L4.2424 15.4167ZM9.91602 7.83333H12.0827V10H9.91602V7.83333ZM5.58268 7.83333H7.74935V10H5.58268V7.83333ZM14.2493 7.83333H16.416V10H14.2493V7.83333Z"
-      fill="#9db9fa"
+import useIsMobile from '../../../hooks/useIsMobile';
+
+const BubbleChatIcon = props => {
+  const isMobile = useIsMobile();
+
+  return isMobile ? (
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 22 22"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <path
+        d="M4.99178 17.5833L0.166016 21.375V1.33333C0.166016 0.73503 0.651046 0.25 1.24935 0.25H20.7493C21.3477 0.25 21.8327 0.73503 21.8327 1.33333V16.5C21.8327 17.0983 21.3477 17.5833 20.7493 17.5833H4.99178ZM4.2424 15.4167H19.666V2.41667H2.33268V16.9172L4.2424 15.4167ZM9.91602 7.83333H12.0827V10H9.91602V7.83333ZM5.58268 7.83333H7.74935V10H5.58268V7.83333ZM14.2493 7.83333H16.416V10H14.2493V7.83333Z"
+        fill="#9db9fa"
+      />
+    </svg>
+  ) : (
+    <img
+      src={require('@/assets/images/pc/comment.png')}
+      alt="comment"
+      {...props}
     />
-  </svg>
-);
+  );
+};
 export default BubbleChatIcon;

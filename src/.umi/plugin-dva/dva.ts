@@ -3,31 +3,31 @@ import { Component } from 'react';
 import { ApplyPluginsType } from 'umi';
 import dva from 'dva';
 // @ts-ignore
-import createLoading from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/node_modules/dva-loading/dist/index.esm.js';
+import createLoading from 'D:/Vision_Timematch/timematch-front/node_modules/dva-loading/dist/index.esm.js';
 import { plugin, history } from '../core/umiExports';
-import ModelAccount0 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Account.js';
-import ModelAccountTeam1 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/AccountTeam.js';
-import ModelAdmin2 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Admin.js';
-import ModelAvailableTime3 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/AvailableTime.js';
-import ModelBasicSetting4 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/BasicSetting.js';
-import ModelCalendar5 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Calendar.js';
-import ModelCalendarCreation6 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/CalendarCreation.js';
-import ModelDocument7 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Document.js';
-import ModelEvent8 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Event.js';
-import ModelFooter9 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Footer.js';
-import ModelIndex10 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/index.js';
-import ModelMaster11 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Master.js';
-import ModelMessageSetting12 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/MessageSetting.js';
-import ModelPayment13 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Payment.js';
-import ModelPreview14 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Preview.js';
-import ModelScheduleSetting15 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/ScheduleSetting.js';
-import ModelSettingTemplate16 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/SettingTemplate.js';
-import ModelTab17 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Tab.js';
-import ModelTeam18 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Team.js';
-import ModelTimeSetting19 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/TimeSetting.js';
-import ModelUser20 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/User.js';
-import ModelUserConnections21 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/UserConnections.js';
-import ModelVote22 from '/home/miichi/Desktop/PROJECTS/Smoothly/smoothly/src/models/Vote.js';
+import ModelAccount0 from 'D:/Vision_Timematch/timematch-front/src/models/Account.js';
+import ModelAccountTeam1 from 'D:/Vision_Timematch/timematch-front/src/models/AccountTeam.js';
+import ModelAdmin2 from 'D:/Vision_Timematch/timematch-front/src/models/Admin.js';
+import ModelAvailableTime3 from 'D:/Vision_Timematch/timematch-front/src/models/AvailableTime.js';
+import ModelBasicSetting4 from 'D:/Vision_Timematch/timematch-front/src/models/BasicSetting.js';
+import ModelCalendar5 from 'D:/Vision_Timematch/timematch-front/src/models/Calendar.js';
+import ModelCalendarCreation6 from 'D:/Vision_Timematch/timematch-front/src/models/CalendarCreation.js';
+import ModelDocument7 from 'D:/Vision_Timematch/timematch-front/src/models/Document.js';
+import ModelEvent8 from 'D:/Vision_Timematch/timematch-front/src/models/Event.js';
+import ModelFooter9 from 'D:/Vision_Timematch/timematch-front/src/models/Footer.js';
+import ModelIndex10 from 'D:/Vision_Timematch/timematch-front/src/models/index.js';
+import ModelMaster11 from 'D:/Vision_Timematch/timematch-front/src/models/Master.js';
+import ModelMessageSetting12 from 'D:/Vision_Timematch/timematch-front/src/models/MessageSetting.js';
+import ModelPayment13 from 'D:/Vision_Timematch/timematch-front/src/models/Payment.js';
+import ModelPreview14 from 'D:/Vision_Timematch/timematch-front/src/models/Preview.js';
+import ModelScheduleSetting15 from 'D:/Vision_Timematch/timematch-front/src/models/ScheduleSetting.js';
+import ModelSettingTemplate16 from 'D:/Vision_Timematch/timematch-front/src/models/SettingTemplate.js';
+import ModelTab17 from 'D:/Vision_Timematch/timematch-front/src/models/Tab.js';
+import ModelTeam18 from 'D:/Vision_Timematch/timematch-front/src/models/Team.js';
+import ModelTimeSetting19 from 'D:/Vision_Timematch/timematch-front/src/models/TimeSetting.js';
+import ModelUser20 from 'D:/Vision_Timematch/timematch-front/src/models/User.js';
+import ModelUserConnections21 from 'D:/Vision_Timematch/timematch-front/src/models/UserConnections.js';
+import ModelVote22 from 'D:/Vision_Timematch/timematch-front/src/models/Vote.js';
 
 let app:any = null;
 
@@ -80,23 +80,12 @@ export function getApp() {
   return app;
 }
 
-/**
- * whether browser env
- * 
- * @returns boolean
- */
-function isBrowser(): boolean {
-  return typeof window !== 'undefined' &&
-  typeof window.document !== 'undefined' &&
-  typeof window.document.createElement !== 'undefined'
-}
-
 export class _DvaContainer extends Component {
   constructor(props: any) {
     super(props);
     // run only in client, avoid override server _onCreate()
-    if (isBrowser()) {
-      _onCreate()
+    if (typeof window !== 'undefined') {
+      _onCreate();
     }
   }
 
@@ -116,7 +105,7 @@ export class _DvaContainer extends Component {
   }
 
   render() {
-    let app = getApp();
+    const app = getApp();
     app.router(() => this.props.children);
     return app.start()();
   }
