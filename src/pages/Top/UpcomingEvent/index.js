@@ -124,6 +124,7 @@ const UpComingEvent = props => {
   };
 
   const handleEventDetail = item => {
+    console.log('item: ', item);
     const fullUrl = item?.vote?.full_url?.split('=')[
       item?.vote?.full_url?.split('=')?.length - 1
     ];
@@ -206,45 +207,36 @@ ${text_ask_calendar_bottom}`;
 
   return (
     <Spin spinning={tabLoading}>
-      <AdjustmentList
-        height={calculateSwipeableListHeight(100)}
-        renderItem={(item, index) => (
-          <SwipableItem
-            blockSwipe={props.blockSwipe}
-            index={index}
-            item={item}
-            onDelete={handleDelete}
-          >
-            <div className="swipableItem">
-              <div onClick={() => handleEventDetail(item)}>
-                <div className="flexSpaceBetween">
-                  <div className="flex-0-5">イベント名</div>
-                  <div>:</div>
-                  <div
-                    style={{
-                      wordBreak: 'break-word',
-                    }}
-                    className="flex1 event-name"
-                  >
-                    {item && item?.name}
-                  </div>
-
-                  {isPc && (
-                    <img
-                      onClick={handleDeletePc(item.id)}
-                      width="24"
-                      src={require('@/assets/images/pc/trash.png')}
-                      alt={'del'}
-                      className="ic-trash"
-                    />
-                  )}
+      <div className="upcomming_wrap">
+        <div className="upcomming_head upcomming_grid">
+          <div className="upcomming_head_item">No</div>
+          <div className="upcomming_head_item">作成日</div>
+          <div className="upcomming_head_item">イベント名</div>
+          <div className="upcomming_head_item">招待者</div>
+          <div className="upcomming_head_item">回答人数</div>
+          <div className="upcomming_head_item"></div>
+        </div>
+        <AdjustmentList
+          height={calculateSwipeableListHeight(100)}
+          renderItem={(item, index) => (
+            <SwipableItem
+              blockSwipe={props.blockSwipe}
+              index={index}
+              item={item}
+              onDelete={handleDelete}
+            >
+              <div className="swipableItem upcomming_grid">
+                <div className="">
+                  {index < 9 ? `0${index + 1}` : index + 1}
                 </div>
-                <div className="flexSpaceBetween">
-                  <div className="flex-0-5">
-                    {formatMessage({ id: 'i18n_vote_owner' })}
-                  </div>
-                  <div>:</div>
-                  <div className="flex1">
+                <div className="">
+                  {moment(item?.vote?.created_at).format('YYYY-MM-DD')}
+                </div>
+                <div>
+                  <div className=" event-name">{item && item?.name}</div>
+                </div>
+                <div>
+                  <div>
                     {item && item.user_id === profile?.id
                       ? formatMessage({ id: 'i18n_label_event_created_by_me' })
                       : `${item?.user?.name} ${formatMessage({
@@ -252,69 +244,28 @@ ${text_ask_calendar_bottom}`;
                         })}`}
                   </div>
                 </div>
-                {item && item.user_id !== profile?.id && (
-                  <div className="flexSpaceBetween">
-                    <div className="flex-0-5">
-                      {formatMessage({ id: 'i18n_label_event_created' })}
-                    </div>
-                    <div>:</div>
-                    <div className="flex1">
-                      {item && item.isVoted
-                        ? formatMessage({ id: 'i18n_label_user_voted' })
-                        : formatMessage({ id: 'i18n_label_user_not_voted' })}
-                    </div>
-                  </div>
-                )}
-                <div className="flexSpaceBetween">
-                  <div className="flex-0-5">回答人数</div>
-                  <div>:</div>
-                  <div className="flex1">
+                <div>
+                  <div>
                     {item && item.vote?.voters
                       ? Object.keys(item.vote.voters).length
                       : 0}
                   </div>
                 </div>
-              </div>
-              {item && item.user_id === profile?.id && (
-                <div className="flexSpaceBetween">
-                  <button
-                    onClick={() => handleCopyURLToClipboard(item, index)}
-                    className="textLightGray bgPrimaryBlue borderPrimaryBlue rounded shadowPrimary mt-2 px-2 py-1"
-                  >
-                    {isURLCopy && isURLCopy.status && isURLCopy.index === index
-                      ? formatMessage({ id: 'i18n_copied' })
-                      : formatMessage({ id: 'i18n_copy_url_btn' })}
-                  </button>
-                  <button
-                    onClick={() => handleCopyTemplateToClipboard(item, index)}
-                    className="textLightGray bgPrimaryBlue borderPrimaryBlue rounded shadowPrimary mt-2 px-2 py-1"
-                  >
-                    {isTemplateCopy &&
-                    isTemplateCopy.status &&
-                    isTemplateCopy.index === index
-                      ? formatMessage({ id: 'i18n_copied' })
-                      : formatMessage({ id: 'i18n_share_fixed_text_title' })}
-                  </button>
-                  <button
-                    onClick={() =>
-                      history.push(
-                        `${ROUTER.inviteParticipant}?event_code=${item?.event_code}`,
-                      )
-                    }
-                    className="textLightGray bgPrimaryBlue borderPrimaryBlue rounded shadowPrimary mt-2 px-2 py-1"
-                  >
-                    {formatMessage({ id: 'i18n_share_via_email' })}
-                  </button>
+                <div
+                  className="viewmore"
+                  onClick={() => handleEventDetail(item)}
+                >
+                  詳細を見る
                 </div>
-              )}
-              {isPc && item?.user_id !== profile?.id && (
-                <div style={{ height: 16 }}></div>
-              )}
-            </div>
-          </SwipableItem>
-        )}
-        data={adjustingEvents?.data}
-      />
+                {isPc && item?.user_id !== profile?.id && (
+                  <div style={{ height: 16 }}></div>
+                )}
+              </div>
+            </SwipableItem>
+          )}
+          data={adjustingEvents?.data}
+        />
+      </div>
     </Spin>
   );
 };

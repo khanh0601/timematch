@@ -14,6 +14,7 @@ import iconGoogle from '@/assets/images/google.png';
 import iconOffice from '@/assets/images/microsoft.png';
 import useIsMobile from '@/hooks/useIsMobile';
 import FooterMobile from '@/components/Mobile/Footer';
+import { history } from 'umi';
 import './stylesPc.less';
 
 function Register(props) {
@@ -168,140 +169,157 @@ function Register(props) {
         }
         showLogo={!isMobile}
       />
-      <div className={`${styles.signUp} signUp-page`}>
-        <div className={styles.bodyContent}>
-          <Form form={form} className={styles.form}>
-            <h1 className={styles.leftFormTitle}>
-              {formatMessage({ id: 'i18n_left_signup_title' })}
-            </h1>
-            <div className={styles.inputField}>
-              <div className={`${styles.fieldLabel} ${styles.textDarkGray}`}>
-                {formatMessage({ id: 'i18n_fullname' })}
-                <span className={styles.inputRequired}>
-                  【{formatMessage({ id: 'i18n_required' })}】
-                </span>
-              </div>
-              <Form.Item
-                rules={[
-                  {
-                    required: true,
-                    message: formatMessage({ id: 'i18n_required_text' }),
-                  },
-                  {
-                    type: 'text',
-                    message: intl.formatMessage({
-                      id: 'i18n_email_error_notice',
-                    }),
-                  },
-                ]}
-                name={'name'}
-              >
-                <Input
-                  className={`${styles.inputField} ${styles.borderMediumGray}`}
-                  placeholder={''}
-                  autoComplete="on"
-                />
-              </Form.Item>
+      <div className={styles.signUpWrap}>
+        <div className={`${styles.signUp} signUp-page`}>
+          <div className={styles.loginPageTab}>
+            <div
+              className={`${styles.loginPageTabItem} `}
+              onClick={() => {
+                history.push('/login');
+              }}
+            >
+              ログイン
             </div>
-            <div className={styles.inputField}>
-              <div className={`${styles.fieldLabel} ${styles.textDarkGray}`}>
-                {formatMessage({ id: 'i18n_company_name' })}
-              </div>
-              <Form.Item name={'companyName'}>
-                <Input
-                  className={`${styles.inputField} ${styles.borderMediumGray}`}
-                  placeholder={''}
-                  autoComplete="on"
-                />
-              </Form.Item>
-            </div>
-            <div className={styles.inputField}>
-              <div className={`${styles.fieldLabel} ${styles.textDarkGray}`}>
-                {formatMessage({ id: 'i18n_role' })}
-              </div>
-              <Form.Item name={'role'}>
-                <Input
-                  className={`${styles.inputField} ${styles.borderMediumGray}`}
-                  placeholder={''}
-                  autoComplete="on"
-                />
-              </Form.Item>
-            </div>
-            <div className={styles.inputField}>
-              <div className={`${styles.fieldLabel} ${styles.textDarkGray}`}>
-                {formatMessage({ id: 'i18n_email_register' })}
-                <span className={styles.inputRequired}>
-                  【{formatMessage({ id: 'i18n_required' })}】
-                </span>
-              </div>
-              <Form.Item
-                rules={[
-                  {
-                    required: true,
-                    message: formatMessage({ id: 'i18n_required_text' }),
-                  },
-                  () => ({
-                    validator(rule, value) {
-                      if (value && !emailRegex3.test(value)) {
-                        return Promise.reject(
-                          formatMessage({ id: 'i18n_email_error_notice' }),
-                        );
-                      }
-                      return Promise.resolve();
-                    },
-                  }),
-                ]}
-                name={'email'}
-              >
-                <Input
-                  className={`${styles.inputField} ${styles.borderMediumGray}`}
-                  placeholder={''}
-                  autoComplete="on"
-                />
-              </Form.Item>
-            </div>
-            <Form.Item name={'privacyPolicy'}>
-              <div className={`${styles.checkTerm} ${styles.textDarkGray}`}>
-                <Checkbox checked={savePolicy} onChange={() => onCheck()}>
-                  {formatMessage({ id: 'i18n_privacy_policy_register' })}
-                </Checkbox>
-              </div>
-            </Form.Item>
-            <div className={styles.errorNoticeTerm}>
-              {!checkTerm && !savePolicy
-                ? formatMessage({ id: 'i18n_required_text' })
-                : ''}
-            </div>
-            <div className={styles.btnZone}>
-              <Button
-                className={`${styles.signUpBtn} ${styles.bgDarkBlue} btn-pc-primary`}
-                loading={loading}
-                htmlType="submit"
-                onClick={onSubmit}
-              >
-                {formatMessage({ id: 'i18n_btn_registration' })}
-              </Button>
-            </div>
-          </Form>
-          <div className={styles.card}>
-            <h1 className={styles.rightFormTitle}>
-              {formatMessage({ id: 'i18n_right_signup_title' })}
-            </h1>
-            <div className={styles.grid}>
-              <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_KEY}>
-                <GoogleLoginButton />
-              </GoogleOAuthProvider>
-              <Button
-                className={styles.loginButton}
-                onClick={() => microsoftLogin(ACCOUNT_TYPE_PERSON)}
-              >
-                <img src={iconOffice} alt={'Microsoft'} />
-                <span>{formatMessage({ id: 'i18n_signup_office' })}</span>
-              </Button>
+            <div
+              className={`${styles.loginPageTabItem} ${styles.active}`}
+              onClick={() => {
+                history.push('/register');
+              }}
+            >
+              アカウント新規作成
             </div>
           </div>
+          <div className={styles.bodyContent}>
+            <Form form={form} className={styles.form}>
+              <h1 className={styles.leftFormTitle}>
+                {formatMessage({ id: 'i18n_left_signup_title' })}
+              </h1>
+              <div className={styles.inputField}>
+                <div className={`${styles.fieldLabel} ${styles.textDarkGray}`}>
+                  {formatMessage({ id: 'i18n_fullname' })}
+                  <span className={styles.inputRequired}>
+                    {formatMessage({ id: 'i18n_required' })}
+                  </span>
+                </div>
+                <Form.Item
+                  rules={[
+                    {
+                      required: true,
+                      message: formatMessage({ id: 'i18n_required_text' }),
+                    },
+                    {
+                      type: 'text',
+                      message: intl.formatMessage({
+                        id: 'i18n_email_error_notice',
+                      }),
+                    },
+                  ]}
+                  name={'name'}
+                >
+                  <Input
+                    className={`${styles.inputField} ${styles.borderMediumGray}`}
+                    placeholder={''}
+                    autoComplete="on"
+                  />
+                </Form.Item>
+              </div>
+              <div className={styles.inputField}>
+                <div className={`${styles.fieldLabel} ${styles.textDarkGray}`}>
+                  {formatMessage({ id: 'i18n_company_name' })}
+                </div>
+                <Form.Item name={'companyName'}>
+                  <Input
+                    className={`${styles.inputField} ${styles.borderMediumGray}`}
+                    placeholder={''}
+                    autoComplete="on"
+                  />
+                </Form.Item>
+              </div>
+              <div className={styles.inputField}>
+                <div className={`${styles.fieldLabel} ${styles.textDarkGray}`}>
+                  {formatMessage({ id: 'i18n_role' })}
+                </div>
+                <Form.Item name={'role'}>
+                  <Input
+                    className={`${styles.inputField} ${styles.borderMediumGray}`}
+                    placeholder={''}
+                    autoComplete="on"
+                  />
+                </Form.Item>
+              </div>
+              <div className={styles.inputField}>
+                <div className={`${styles.fieldLabel} ${styles.textDarkGray}`}>
+                  {formatMessage({ id: 'i18n_email_register' })}
+                  <span className={styles.inputRequired}>
+                    {formatMessage({ id: 'i18n_required' })}
+                  </span>
+                </div>
+                <Form.Item
+                  rules={[
+                    {
+                      required: true,
+                      message: formatMessage({ id: 'i18n_required_text' }),
+                    },
+                    () => ({
+                      validator(rule, value) {
+                        if (value && !emailRegex3.test(value)) {
+                          return Promise.reject(
+                            formatMessage({ id: 'i18n_email_error_notice' }),
+                          );
+                        }
+                        return Promise.resolve();
+                      },
+                    }),
+                  ]}
+                  name={'email'}
+                >
+                  <Input
+                    className={`${styles.inputField} ${styles.borderMediumGray}`}
+                    placeholder={'例）evergreen1129@timematch.jp'}
+                    autoComplete="on"
+                  />
+                </Form.Item>
+              </div>
+              <Form.Item name={'privacyPolicy'}>
+                <div className={`${styles.checkTerm} ${styles.textDarkGray}`}>
+                  <Checkbox checked={savePolicy} onChange={() => onCheck()}>
+                    {formatMessage({ id: 'i18n_privacy_policy_register' })}
+                  </Checkbox>
+                </div>
+              </Form.Item>
+              <div className={styles.errorNoticeTerm}>
+                {!checkTerm && !savePolicy
+                  ? formatMessage({ id: 'i18n_required_text' })
+                  : ''}
+              </div>
+              <div className={styles.btnZone}>
+                <Button
+                  className={`${styles.signUpBtn}`}
+                  loading={loading}
+                  htmlType="submit"
+                  onClick={onSubmit}
+                >
+                  {formatMessage({ id: 'i18n_btn_registration' })}
+                </Button>
+              </div>
+            </Form>
+            <div className={styles.card}>
+              <div className={styles.grid}>
+                <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_KEY}>
+                  <GoogleLoginButton />
+                </GoogleOAuthProvider>
+                <Button
+                  className={styles.loginButton}
+                  onClick={() => microsoftLogin(ACCOUNT_TYPE_PERSON)}
+                >
+                  <img src={iconOffice} alt={'Microsoft'} />
+                  <span>{formatMessage({ id: 'i18n_signup_office' })}</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+          {!isMobile && <FooterMobile />}
         </div>
-        {!isMobile && <FooterMobile />}
       </div>
       <Modal
         title={formatMessage({

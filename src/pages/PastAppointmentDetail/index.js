@@ -12,7 +12,9 @@ import { profileFromStorage } from '@/commons/function';
 import { createTimeAsync, tz } from '@/commons/function';
 import { message, Modal } from 'antd';
 import useIsPc from '@/hooks/useIsPc';
-
+import iconUser from '@/assets/images/user2.svg';
+import iconCalendar from '@/assets/images/calendar-ic.svg';
+import iconCalendarDisable from '@/assets/images/calendar-disable.svg';
 const PastAppointmentDetail = props => {
   const { id } = useParams();
   const { dispatch, voteStore, location } = props;
@@ -22,7 +24,7 @@ const PastAppointmentDetail = props => {
 
   const { voteUser, event } = voteStore;
   const profile = profileFromStorage();
-
+  console.log(profile);
   const isPc = useIsPc();
 
   const eventId = props.eventId || location.query.id;
@@ -117,10 +119,10 @@ const PastAppointmentDetail = props => {
               <SwipableItem item={event} onDelete={handleDelete}>
                 <div className="swipableItem">
                   <div className="swipableItemInner">
-                    <div className="swipableItemInnerDiv"></div>
                     <div className="past-event-time">
+                      <span>{event && event?.name}</span>
                       {/* format date time by japanese */}
-                      <span>
+                      {/* <span>
                         {moment(
                           event?.calendars && event?.calendars[0]?.start_time,
                         ).format('MMMM Do (dd) HH:mm')}
@@ -132,28 +134,70 @@ const PastAppointmentDetail = props => {
                         )
                           .add(getStep(event), 'minutes')
                           .format('HH:mm')}
+                      </span> */}
+                    </div>
+                  </div>
+                  <div className="pastDetailInfo">
+                    <div className="pastDetailInfoIc">
+                      <img src={iconCalendarDisable} alt="icon Calendar" />
+                    </div>
+                    <div className="">作成日 : </div>
+                    <div className="pastDetailInfoItem">
+                      <span>
+                        {moment(
+                          event?.calendars && event?.calendars[0]?.create_at,
+                        ).format('YYYY/MM/DD')}
+                        {moment(
+                          event?.calendars && event?.calendars[0]?.create_at,
+                        ).format('(dd)')}{' '}
+                        {moment(
+                          event?.calendars && event?.calendars[0]?.create_at,
+                        ).format('HH:mm')}
+                      </span>
+                      <span>～</span>
+                      <span>
+                        {moment(
+                          event?.calendars && event?.calendars[0]?.create_at,
+                        )
+                          .add(getStep(event), 'minutes')
+                          .format('HH:mm')}
                       </span>
                     </div>
                   </div>
-                  <div className="flexSpaceBetween">
-                    <div className="flex-0-5">イベント名</div>
-                    <div className="">:</div>
-                    <div className="flex1">{event && event?.name}</div>
-                  </div>
-                  <div className="flexSpaceBetween">
-                    <div className="flex-0-5">参加者</div>
-                    <div className="">:</div>
-                    <div className="flex1">
-                      {voteUser?.map(item => item.name).join(', ')}
+                  <div className="pastDetailInfo">
+                    <div className="pastDetailInfoIc">
+                      <img src={iconUser} alt="icon User" />
+                    </div>
+                    <div className="">主催者：</div>
+                    <div className="pastDetailInfoItem">
+                      <span>{profile.name}</span>
                     </div>
                   </div>
-                  <div className="flexSpaceBetween">
-                    <div className="flex-0-5">
-                      {formatMessage({ id: 'i18n_memo' })}
+                  <div className="pastDetailInfo">
+                    <div className="pastDetailInfoIc">
+                      <img src={iconCalendar} alt="icon Calendar" />
                     </div>
-                    <div className="">:</div>
-                    <div className="flex1">
-                      {event && event?.calendars[0]?.calendar_create_comment}
+                    <div className="">開催日： </div>
+                    <div className="pastDetailInfoItem">
+                      <span>
+                        {moment(
+                          event?.calendars && event?.calendars[0]?.start_time,
+                        ).format('YYYY/MM/DD')}
+                        {moment(
+                          event?.calendars && event?.calendars[0]?.start_time,
+                        ).format('(dd)')}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="pastDetailInfo">
+                    <div className="pastDetailInfoIc">
+                      <img src={iconCalendar} alt="icon Calendar" />
+                    </div>
+                    <div className="">参加者： </div>
+                    <div className="pastDetailInfoItem pastDetailInfoInvite">
+                      {voteUser?.map((item, index) => (
+                        <span key={index}>{item.name}</span>
+                      ))}
                     </div>
                   </div>
                 </div>
@@ -161,12 +205,12 @@ const PastAppointmentDetail = props => {
             </SwipeableList>
           </div>
           {event && event?.user_id === profile?.id && (
-            <div className="buttons">
+            <div className="btnSubmitItemWrap">
               <div
                 onClick={() => {
                   history.push(`/calendar/${event?.id}`);
                 }}
-                className="button bgDarkBlue shadowPrimary"
+                className="btnSubmitItem btnSubmitItemBlue"
               >
                 <div style={{ marginLeft: 10 }}>編集</div>
               </div>
@@ -178,13 +222,13 @@ const PastAppointmentDetail = props => {
                     }&clone=1&relationship_type=${event?.relationship_type}`,
                   );
                 }}
-                className="button bgPrimaryBlue shadowPrimary"
+                className="btnSubmitItem btnSubmitItemOutline"
               >
                 <div style={{ marginLeft: 10 }}>この日程を流用して新規作成</div>
               </div>
               <div
                 onClick={() => handleClickDeleteEvent()}
-                className="button bgLightRed shadowPrimary"
+                className="btnSubmitItem btnSubmitItemRed"
               >
                 <div style={{ marginLeft: 10 }}>削除 </div>
               </div>
@@ -195,7 +239,6 @@ const PastAppointmentDetail = props => {
         <div className="content">
           <div onClick={() => handleDetailEvent()} className="swipableItem">
             <div className="swipableItemInner">
-              <div className="swipableItemInnerDiv"></div>
               <div className="past-event-time">
                 {/* format date time by japanese */}
                 <span>

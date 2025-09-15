@@ -15,7 +15,6 @@ import { ROUTER } from '@/constant';
 import useIsMobile from '../../hooks/useIsMobile';
 import PCHeader from '../../components/PC/Header';
 import FooterMobile from '../../components/Mobile/Footer';
-
 const { TextArea } = Input;
 const MailTemplatePage = props => {
   const intl = useIntl();
@@ -73,7 +72,7 @@ ${window.location.href}/schedule-adjustment/once?event_code=myJGBYo5&once=true
   }, [listTextAskCalendar]);
 
   return (
-    <div>
+    <div className={styles.pageTemplateEmail}>
       {isMobile ? (
         <HeaderMobile
           title={formatMessage({ id: 'i18n_mail_template_title' })}
@@ -93,35 +92,55 @@ ${window.location.href}/schedule-adjustment/once?event_code=myJGBYo5&once=true
       <div
         className={`${styles.widthMailTemplate}`}
         style={{
-          padding: 10,
+          paddingTop: 40,
           margin: 'auto',
         }}
       >
+        {isMobile ? null : (
+          <div className={styles.formTab}>
+            <div
+              className={styles.formTabButton}
+              onClick={() => {
+                history.push('/contact-management');
+              }}
+            >
+              メール送信先管理
+            </div>
+            <div
+              className={[styles.formTabButton, styles.active].join(' ')}
+              onClick={() => {
+                history.push('/mail-template');
+              }}
+            >
+              定例文の作成
+            </div>
+          </div>
+        )}
         {isMobile ? null : (
           <div
             style={{
               fontWeight: 700,
               fontSize: 24,
               lineHeight: '100%',
-              textAlign: 'center',
-              paddingTop: 30,
-              paddingBottom: 24,
+              padding: '8px 16px',
             }}
           >
             定型文の作成
           </div>
         )}
-
-        <TextArea
-          value={formAskCalendar}
-          rows={20}
-          onChange={e => setTextAskCalendar(e.target.value)}
-        />
-        <p style={{ marginTop: 10 }}>
-          ※上記内の「—（点線）と―（点線）の間のテキスト」(つまり、候補日時・ご予約方法・お打ち合わせ内容)は保存できません。
-        </p>
+        <div className={styles.textAreaTemplate}>
+          <TextArea
+            className={styles.textAreaTemplateInput}
+            value={formAskCalendar}
+            rows={20}
+            onChange={e => setTextAskCalendar(e.target.value)}
+          />
+          <p className={styles.textNoteTemplate}>
+            ※上記内の「—（点線）と―（点線）の間のテキスト」(つまり、候補日時・ご予約方法・お打ち合わせ内容)は保存できません。
+          </p>
+        </div>
       </div>
-      <div style={{ width: '100%', textAlign: 'center' }}>
+      <div className={styles.buttonTemplate}>
         <Button
           onClick={() => {
             onUpdateNotifyAskCalendar({
@@ -138,7 +157,7 @@ ${window.location.href}/schedule-adjustment/once?event_code=myJGBYo5&once=true
           style={{ border: 'none' }}
           className={`${styles.bgDarkBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary} ${styles.widthButtonTemplate} btn-pc-primary`}
         >
-          登録{' '}
+          保存{' '}
         </Button>
       </div>
 

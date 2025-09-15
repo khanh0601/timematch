@@ -1,6 +1,12 @@
 @import '../../base.less';
 
 .profileContainer {
+  height: 100svh;
+  overflow: scroll;
+  background-image: url('../../assets/images/bg.png');
+  background-size: 100%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
   margin: auto;
   width: 100%;
   .header {
@@ -77,9 +83,9 @@
       border: 0;
     }
     input {
-      height: 58px;
+      height: auto;
       border-radius: 16px !important;
-      font-size: 16px;
+      font-size: 22px !important;
     }
     label {
       font-size: 16px;
@@ -139,7 +145,7 @@
     }
   }
   .groupPart {
-    width: 720px;
+    width: 960px;
     padding: 40px 0 15px 0;
     margin: 0 auto;
     @media screen and (max-width: 767px) {

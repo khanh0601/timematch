@@ -11,6 +11,8 @@ const defaultEndTime = '18:00';
 const suffixIcon = <DownOutlined />;
 import { profileFromStorage } from '@/commons/function';
 import useIsMobile from '../../../hooks/useIsMobile';
+import iconArrow from '@/assets/images/chevron-right.svg';
+import { history } from 'umi';
 const baseTimes = [
   {
     day_of_week: 7,
@@ -351,10 +353,68 @@ function SettingBlocktime(props) {
 
   return (
     <div className={styles.setting}>
+      {isMobile ? null : (
+        <div className={styles.formTab}>
+          <div
+            className={styles.formTabButton}
+            onClick={() => {
+              history.push('/profile');
+            }}
+          >
+            プロフィール
+          </div>
+          <div
+            className={[styles.formTabButton, styles.active].join(' ')}
+            onClick={() => {
+              onConfirmBeforeNavigate('/profile/schedule-setting');
+            }}
+          >
+            自動日程調整オプション
+          </div>
+        </div>
+      )}
+      {isMobile ? null : (
+        <div className={styles.pageTitle}>自動日程調整オプション</div>
+      )}
       <div className={styles.mainSetting}>
+        {isMobile ? (
+          <div className={styles.partName}>
+            <div className={styles.partNameBorder}></div>
+            <div className={styles.partNameTitle}>抽出期間</div>
+          </div>
+        ) : (
+          <div>
+            <div className={styles.partTitle}>抽出期間</div>
+            <div className={styles.partSub}>指定した期限だけ表示されます</div>
+          </div>
+        )}
+
+        <Select
+          onChange={value => {
+            setPeriod(value);
+          }}
+          suffixIcon={
+            <img
+              src={iconArrow}
+              alt="arrow"
+              style={{ width: 22, height: 22 }}
+            />
+          }
+          name="period"
+          value={period}
+          size="small"
+          className={styles.selectCustom}
+        >
+          <Select.Option value={1}>1週間</Select.Option>
+          <Select.Option value={2}>2週間</Select.Option>
+          <Select.Option value={3}>3週間</Select.Option>
+          <Select.Option value={4}>4週間</Select.Option>
+        </Select>
         <div>
           {isMobile ? null : (
-            <div className={styles.partTitle}>調整日時(勤務時間)</div>
+            <div className={[styles.partTitle, styles.partTitle2].join(' ')}>
+              調整日時(勤務時間)
+            </div>
           )}
           <div className={styles.timeBlock}>
             <div>
@@ -439,7 +499,13 @@ function SettingBlocktime(props) {
                               ? moment(timeItem.start_time, format)
                               : null
                           }
-                          suffixIcon={<DownOutlined />}
+                          suffixIcon={
+                            <img
+                              src={iconArrow}
+                              alt="icon"
+                              style={{ width: 22, height: 22 }}
+                            />
+                          }
                           placeholder={formatMessage({
                             id: 'i18n_start_time_placeholder',
                           })}
@@ -464,7 +530,13 @@ function SettingBlocktime(props) {
                           format={format}
                           inputReadOnly={true}
                           value={moment(timeItem.end_time, format)}
-                          suffixIcon={<DownOutlined />}
+                          suffixIcon={
+                            <img
+                              src={iconArrow}
+                              alt="icon"
+                              style={{ width: 22, height: 22 }}
+                            />
+                          }
                           placeholder={formatMessage({
                             id: 'i18n_end_time_placeholder',
                           })}
@@ -537,82 +609,12 @@ function SettingBlocktime(props) {
           </div>
         </div>
         <div
-          style={{
-            width: 300,
-          }}
-        >
-          {isMobile ? (
-            <div className={styles.partName}>
-              <div className={styles.partNameBorder}></div>
-              <div className={styles.partNameTitle}>抽出期間</div>
-            </div>
-          ) : (
-            <div className={styles.partTitle}>抽出期間</div>
-          )}
-
-          <Select
-            onChange={value => {
-              setPeriod(value);
-            }}
-            name="period"
-            value={period}
-            size="small"
-            style={{
-              fontSize: 16,
-            }}
-          >
-            <Select.Option value={1}>1週間</Select.Option>
-            <Select.Option value={2}>2週間</Select.Option>
-            <Select.Option value={3}>3週間</Select.Option>
-            <Select.Option value={4}>4週間</Select.Option>
-          </Select>
-        </div>
-      </div>
-      <div
-        style={
-          isMobile
-            ? { textAlign: 'center' }
-            : {
-                display: 'flex',
-                gap: 20,
-                justifyContent: 'center',
-              }
-        }
-      >
-        <Button
-          style={{
-            marginTop: 40,
-            width: '50%',
-            maxWidth: '50%',
-            background: '#06214d',
-            color: '#FFF',
-            borderRadius: 8,
-            fontWeight: '600',
-            fontSize: 16,
-          }}
+          className={styles.btnUpdate}
           loading={loading}
           onClick={updateTime}
         >
-          登録{' '}
-        </Button>
-
-        {!isMobile && (
-          <Button
-            style={{
-              marginTop: 40,
-              width: '50%',
-              maxWidth: '50%',
-              background: '#999999',
-              color: '#FFF',
-              borderRadius: 8,
-              fontWeight: '600',
-              fontSize: 16,
-            }}
-            onClick={handleGoBack}
-          >
-            戻る{' '}
-          </Button>
-        )}
+          保存{' '}
+        </div>
       </div>
     </div>
   );

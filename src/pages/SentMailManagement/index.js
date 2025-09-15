@@ -1,4 +1,4 @@
-import { DeleteOutlined } from '@ant-design/icons';
+import { DeleteOutlined, NodeExpandOutlined } from '@ant-design/icons';
 import { connect } from 'dva';
 import React, { useEffect } from 'react';
 import { Spin } from 'antd';
@@ -14,7 +14,7 @@ import useIsMobile from '../../hooks/useIsMobile';
 import PCHeader from '../../components/PC/Header';
 import FooterMobile from '../../components/Mobile/Footer';
 import destroy from '@/assets/images/delete.svg';
-
+import { history } from 'umi';
 const SentEmailManagement = props => {
   const { masterStore } = props;
   const dispatch = useDispatch();
@@ -69,6 +69,7 @@ const SentEmailManagement = props => {
 
   useEffect(() => {
     if (historyInvitation?.data?.length > 0) {
+      console.log('historyInvitation', historyInvitation);
       form.setFieldsValue({
         names: historyInvitation.data,
       });
@@ -77,7 +78,7 @@ const SentEmailManagement = props => {
 
   return (
     <Spin spinning={loading}>
-      <div style={{ paddingBottom: 30 }}>
+      <div style={{ paddingBottom: 30 }} className={styles.pageSentEmail}>
         {isMobile ? (
           <HeaderMobile
             title={formatMessage({ id: 'i18n_contact_management_title' })}
@@ -95,20 +96,32 @@ const SentEmailManagement = props => {
         )}
         <div className={styles.container}>
           {isMobile ? null : (
-            <p
-              style={{
-                fontWeight: 700,
-                fontSize: 24,
-                lineHeight: '100%',
-                textAlign: 'center',
-                paddingTop: 20,
-                marginBottom: 40,
-              }}
-            >
+            <div className={styles.formTab}>
+              <div
+                className={[styles.formTabButton, styles.active].join(' ')}
+                onClick={() => {
+                  history.push('/contact-management');
+                }}
+              >
+                メール送信先管理
+              </div>
+              <div
+                className={styles.formTabButton}
+                onClick={() => {
+                  history.push('/mail-template');
+                }}
+              >
+                定例文の作成
+              </div>
+            </div>
+          )}
+          {isMobile ? null : (
+            <p className={styles.titlePage}>
               {formatMessage({ id: 'i18n_email_invite_pc' })}
             </p>
           )}
           <Form
+            className={styles.formSentEmail}
             layout="vertical"
             name="dynamic_form_item"
             onFinish={onFinish}
@@ -116,17 +129,30 @@ const SentEmailManagement = props => {
             form={form}
           >
             <div className={styles.FormBodyPartner}>
-              <div style={{ width: '60%', margin: 'auto' }}>
+              <div className={styles.FormBodyPartnerTitle}>
                 <p
                   style={{
-                    fontWeight: isMobile ? 700 : 400,
+                    fontWeight: isMobile ? 700 : 500,
                     lineHeight: '100%',
-                    paddingBottom: isMobile ? 14 : 0,
+                    paddingBottom: isMobile ? 14 : 24,
+                    marginBottom: 0,
                     textAlign: isMobile ? 'center' : 'left',
-                    fontSize: isMobile ? '14px' : '18px',
+                    fontSize: isMobile ? '14px' : '20px',
                   }}
                 >
                   {formatMessage({ id: 'i18n_email' })}
+                </p>
+                <p
+                  style={{
+                    fontWeight: isMobile ? 700 : 500,
+                    lineHeight: '100%',
+                    marginBottom: 0,
+                    paddingBottom: isMobile ? 14 : 24,
+                    textAlign: isMobile ? 'center' : 'left',
+                    fontSize: isMobile ? '14px' : '20px',
+                  }}
+                >
+                  名前
                 </p>
               </div>
               <Form.List name="names">
@@ -142,7 +168,7 @@ const SentEmailManagement = props => {
                         <div
                           style={{
                             display: 'flex',
-                            gap: isMobile ? 10 : 24,
+                            gap: isMobile ? 10 : 32,
                             width: '100%',
                           }}
                         >
@@ -185,16 +211,60 @@ const SentEmailManagement = props => {
                             noStyle
                           >
                             <Input
-                              placeholder={formatMessage({ id: 'i18n_email' })}
+                              placeholder="例）evergreen1129@timematch.jp"
+                              className={`${styles.inputField} ${styles.borderMediumGray}`}
+                            />
+                          </Form.Item>
+                          <Form.Item
+                            {...field}
+                            name={[field.name, 'email']}
+                            rules={[
+                              {
+                                required: true,
+                                whitespace: true,
+                                message: formatMessage({
+                                  id: 'i18n_email_address_is_required',
+                                }),
+                              },
+                              {
+                                type: 'email',
+                                message: formatMessage({
+                                  id: 'i18n_invalid_email',
+                                }),
+                              },
+                              ({ getFieldValue }) => ({
+                                validator(rule, value) {
+                                  console.log('value', value);
+                                  if (
+                                    !value ||
+                                    getFieldValue('names')
+                                      .map(item => item?.email)
+                                      .filter(v => v === value).length === 1
+                                  ) {
+                                    return Promise.resolve();
+                                  }
+                                  return Promise.reject(
+                                    formatMessage({
+                                      id: 'i18n_email_existed',
+                                    }),
+                                  );
+                                },
+                              }),
+                            ]}
+                            noStyle
+                          >
+                            <Input
+                              placeholder="例）時間 太郎"
                               className={`${styles.inputField} ${styles.borderMediumGray}`}
                             />
                           </Form.Item>
                           <div
-                            className={`${styles.bgPrimaryBlue} ${styles.borderPrimaryBlue} ${styles.rounded}`}
+                            className={`${styles.itemBtnDelete}  ${styles.rounded}`}
                             style={{
                               padding: 10,
                               width: 44,
                               height: 44,
+                              flex: 'none',
                               display: 'flex',
                               justifyContent: 'center',
                               alignItems: 'center',
@@ -223,6 +293,9 @@ const SentEmailManagement = props => {
                           width: '43px',
                           height: '44px',
                           float: 'right',
+                          padding: '0 0 3px 0',
+                          fontSize: 32,
+                          lineHeight: 1,
                           border: 'none',
                         }}
                         className={`${styles.addPartnerBtn} ${styles.bgDarkBlue} ${styles.rounded}`}
@@ -239,18 +312,13 @@ const SentEmailManagement = props => {
                 )}
               </Form.List>
             </div>
-            <div>
+            <div className={styles.FormFooterPartner}>
               <Form.Item style={{ textAlign: 'center' }}>
                 <Button
                   style={{
-                    width: isMobile ? '50%' : '359px',
-                    marginTop: 40,
-                    border: 'none',
-                    marginBottom: isMobile ? '0' : '40px',
+                    width: isMobile ? '50%' : '200px',
                   }}
-                  className={`${styles.bgDarkBlue} ${styles.rounded} ${styles.shadowPrimary} btn-pc-primary`}
-                  type="primary"
-                  size="large"
+                  className={`${styles.FormFooterPartnerBtn} `}
                   htmlType="submit"
                   loading={loading}
                 >

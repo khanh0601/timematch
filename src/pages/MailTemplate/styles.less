@@ -1,4 +1,92 @@
 @import '../../base.less';
+.pageTemplateEmail {
+  background-image: url('../../assets/images/bg.png');
+  background-size: 100%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+}
+.widthMailTemplate {
+  width: 80%;
+  max-width: 1280px;
+}
+
+.buttonTemplate {
+  padding-bottom: 100px;
+  display: flex;
+  justify-content: center;
+
+  button {
+    width: 100%;
+    max-width: 200px;
+    padding: 12px 32px;
+    height: 44px !important;
+    border-radius: 30px !important;
+    color: var(--primary-06-main, #0f63aa) !important;
+    box-shadow: none !important;
+
+    border: 1px solid var(--primary-06-main, #0f63aa) !important;
+    background-color: #fff !important;
+    span {
+      text-align: center;
+      font-size: 20px !important;
+      font-weight: 500 !important;
+      line-height: 1;
+      letter-spacing: -0.8px;
+    }
+  }
+}
+
+.textAreaTemplate {
+  padding: 48px;
+  width: 100%;
+  margin-bottom: 80px;
+  background-color: white;
+  border: 1px solid #d6dee6;
+
+  &Input {
+    border: none;
+    padding: 0;
+    font-size: 20px;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 24px;
+  }
+
+  .textNoteTemplate {
+    border-top: 1px solid #d6dee6;
+    font-size: 16px;
+    font-weight: 400;
+    color: #333;
+    margin-bottom: 24px;
+  }
+}
+
+.formTab {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+
+  &Button {
+    cursor: pointer;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.8px;
+    color: #626e79;
+    border: 1px solid #d6dee6;
+    transition: color 0.3s, background-color 0.3s, border 0.3s;
+    background-color: white;
+
+    &.active,
+    &:hover {
+      color: white;
+      background-color: #0f63aa;
+      border: 1px solid #0f63aa;
+    }
+  }
+}
 
 @media (min-width: 1080px) and (max-height: 720px) {
   .widthMailTemplate {

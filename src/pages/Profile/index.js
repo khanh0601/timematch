@@ -8,12 +8,13 @@ import { profileFromStorage } from '../../commons/function';
 import styles from './styles.less';
 import HeaderMobile from '@/components/Mobile/Header';
 import iconBack from '@/assets/images/i-back-white.png';
+import iconClose from '@/assets/images/icon_Close.svg';
 import { ROUTER } from '@/constant';
 import PCHeader from '@/components/PC/Header';
 import useIsMobile from '@/hooks/useIsMobile';
 import FooterMobile from '../../components/Mobile/Footer';
 import { onRefreshProfile } from '@/util/eventBus';
-
+import ChangePassword from '../ChangePassword';
 const { Item } = Form;
 const { confirm } = Modal;
 
@@ -158,6 +159,7 @@ function Profile(props) {
       history.push(route);
     }
   };
+  const [openPopupChangePass, setOpenPopupChangePass] = useState(false);
   return (
     <div>
       {loadingData ? (
@@ -179,21 +181,40 @@ function Profile(props) {
           ) : (
             <PCHeader />
           )}
-
           <div className={styles.containerForm}>
+            {isMobile ? null : (
+              <div className={styles.formTab}>
+                <div
+                  className={[styles.formTabButton, styles.active].join(' ')}
+                  onClick={() => {
+                    history.push('/profile');
+                  }}
+                >
+                  プロフィール
+                </div>
+                <div
+                  className={styles.formTabButton}
+                  onClick={() => {
+                    onConfirmBeforeNavigate('/profile/schedule-setting');
+                  }}
+                >
+                  自動日程調整オプション
+                </div>
+              </div>
+            )}
+            {isMobile ? null : (
+              <div className={styles.headerForm}>プロフィール</div>
+            )}
             <Form
               onFinish={handleSubmitForm}
-              layout="vertical"
+              layout="horizontal"
               className={styles.informationForm}
               scrollToFirstError
               form={form}
             >
-              {isMobile ? null : (
-                <div className={styles.headerForm}>プロフィール</div>
-              )}
               <Item
-                style={{ marginBottom: 14 }}
                 name="fullName"
+                className={styles.urlRow}
                 label="氏名"
                 rules={[
                   {
@@ -215,7 +236,7 @@ function Profile(props) {
               </Item>
 
               <Item
-                style={{ marginBottom: 14 }}
+                className={styles.urlRow}
                 name="company"
                 label={formatMessage({ id: 'i18n_company_name' })}
               >
@@ -225,16 +246,11 @@ function Profile(props) {
                 />
               </Item>
 
-              <Item
-                style={{ marginBottom: 14 }}
-                name="company_role"
-                label="役職"
-              >
+              <Item className={styles.urlRow} name="company_role" label="役職">
                 <Input placeholder="役職" className={styles.borderMediumGray} />
               </Item>
 
               <Item
-                style={{ marginBottom: 14 }}
                 name="email"
                 className={styles.urlRow}
                 label={'メールアドレス'}
@@ -320,70 +336,54 @@ function Profile(props) {
                   </Button>
                 )}
 
-                <Button
-                  className={`btn btnGreen m-auto ${styles.btnSave} ${styles.paddingButton} btn-pc-primary`}
-                  style={{
-                    background: '#023768',
-                    borderColor: '#023768',
-                  }}
-                  loading={loadingBtnSave}
-                  htmlType="submit"
-                >
-                  変更{' '}
-                </Button>
+                <div className={styles.groupButtonSubmit}>
+                  {isMobile ? null : (
+                    <div>
+                      {profile?.microsoft_email ||
+                      profile?.google_email ? null : (
+                        <Button
+                          // disabled={profile?.microsoft_email || profile?.google_email}
+                          onClick={() => setOpenPopupChangePass(true)}
+                          className={[
+                            styles.groupButtonSubmitItem,
+                            styles.groupButtonSubmitItemBg,
+                          ].join(' ')}
+                        >
+                          パスワード変更
+                        </Button>
+                      )}
+                    </div>
+                  )}
+                  <Button
+                    className={[
+                      styles.groupButtonSubmitItem,
+                      styles.groupButtonSubmitItemOutline,
+                    ].join(' ')}
+                    loading={loadingBtnSave}
+                    htmlType="submit"
+                  >
+                    保存
+                  </Button>
+                </div>
               </div>
             </Form>
-
-            {isMobile ? null : (
+          </div>
+          <div
+            className={
+              styles.popupPass +
+              ' ' +
+              (openPopupChangePass ? `${styles.active}` : '')
+            }
+          >
+            <div className={styles.popupPassInner}>
               <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 12,
-                  marginTop: 69,
-                  width: 359,
-                }}
+                className={styles.popupPassClose}
+                onClick={() => setOpenPopupChangePass(false)}
               >
-                <Button
-                  style={{
-                    background: '#3368c7',
-                    borderColor: '#3368c7',
-                    width: '100%',
-                    maxWidth: '100%',
-                  }}
-                  className={`btn btnGreen ${styles.paddingButton} btn-pc-secondary`}
-                  onClick={() => {
-                    onConfirmBeforeNavigate('/profile/schedule-setting');
-                  }}
-                >
-                  自動日程調整オプション
-                </Button>
-
-                {profile?.microsoft_email || profile?.google_email ? null : (
-                  <Button
-                    // disabled={profile?.microsoft_email || profile?.google_email}
-                    onClick={() => {
-                      onConfirmBeforeNavigate('/change-password');
-                    }}
-                    style={{
-                      background:
-                        profile?.microsoft_email || profile?.google_email
-                          ? '#a2a2a2'
-                          : '#023768',
-                      borderColor:
-                        profile?.microsoft_email || profile?.google_email
-                          ? '#a2a2a2'
-                          : '#023768',
-                      width: '100%',
-                      maxWidth: '100%',
-                    }}
-                    className={`btn btnGreen ${styles.paddingButton} btn-pc-primary`}
-                  >
-                    パスワード変更
-                  </Button>
-                )}
+                <img src={iconClose} />
               </div>
-            )}
+              <ChangePassword />
+            </div>
           </div>
         </div>
       )}

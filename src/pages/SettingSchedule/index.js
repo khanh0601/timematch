@@ -226,7 +226,7 @@ function SettingSchedule(props) {
                 </div>
               </div>
             ) : (
-              <div className={styles.PartTitle}>自動日程調整オプション</div>
+              ''
             )}
             <SettingBlocktime />
           </div>

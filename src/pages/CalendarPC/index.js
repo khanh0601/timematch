@@ -18,7 +18,19 @@ function CalendarPC() {
 
       <div className={styles.mainContainer}>
         {/* Left panel */}
-        <div className={styles.leftPanel}>
+        <div className={styles.btnGroup}>
+          <div
+            className={`${styles.btnGroupItem} `}
+            onClick={() => history.push('/')}
+          >
+            調整中
+          </div>
+          <div
+            className={`${styles.btnGroupItem} `}
+            onClick={() => history.push('/?tab=2')}
+          >
+            <span>調整済み</span>
+          </div>
           <div
             className={styles.btnEvent}
             onClick={() => history.push('/pc/create-calendar')}
@@ -38,6 +50,14 @@ function CalendarPC() {
             fromCalendar
           />
         </div>
+      </div>
+      <div
+        className={styles.CalendarPCBtn}
+        onClick={() => {
+          history.push('/');
+        }}
+      >
+        <span>調整一覧に戻る</span>
       </div>
 
       <FooterMobile />

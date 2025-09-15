@@ -1,39 +1,84 @@
 .mainContainer {
   display: flex;
   align-items: flex-start;
-  // padding-top: 10px;
-  max-height: calc(100vh - 75px - 74px);
+  padding-inline: 80px;
+  max-width: 1600px;
+  margin: auto;
+  flex-direction: column;
+  max-height: calc(100vh - 75px - 74px - 160px);
+  overflow: hidden;
+  padding: 32px;
+  background-color: white;
+  margin-top: 40px;
+  border: 1px solid #d6dee6;
 }
-
-.leftPanel {
-  background-color: #fff;
-  padding: 17px 16px 0px 16px;
-
+.btnGroup {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 21px;
   .btnEvent {
-    width: 232px;
-    height: 36px;
-    background-color: #3368c7;
+    border-radius: 23.5px;
+    border: 1px solid var(--primary-06-main, #0f63aa);
+    background: #fff;
+    padding: 6px 24px;
+    color: #0f63aa;
+    font-size: 20px;
+    font-weight: 500;
+    display: flex;
+    gap: 8px;
+    transition: 0.4s ease all;
+    cursor: pointer;
+    &:hover {
+      background-color: #0f63aa;
+      color: white;
+    }
+  }
+  .btnGroupItem {
+    border-radius: 8px;
+    background-color: #fff;
+    border: 1px solid #d6dee6;
+    font-size: 20px;
+    letter-spacing: -0.8px;
+    font-weight: 500;
     display: flex;
     align-items: center;
-    color: #fff;
-    border-radius: 6px;
-    padding-left: 10px;
+    justify-content: center;
+    color: #626e79;
+    width: 167px;
+    height: 48px;
     cursor: pointer;
+    margin-right: 16px;
 
-    .btnEventIcon {
+    &Active {
+      background-color: #3368c7;
+      border: 1px solid #3368c7;
       color: #fff;
-      font-size: 18px;
-    }
-
-    .btnEventText {
-      flex: 1;
-      text-align: center;
-      font-size: 16px;
-      font-weight: 500;
     }
   }
 }
 
 .rightPanel {
+  width: 100%;
+  overflow: auto;
   flex: 1;
+}
+.CalendarPCBtn {
+  width: max-content;
+  margin: 40px auto 0 auto;
+  padding: 12px 32px;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 32px;
+  background: var(--gray-07, #d6dee6);
+  color: var(--gray-03, #626e79);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 500;
+  line-height: 1;
+  letter-spacing: -0.72px;
+  cursor: pointer;
 }

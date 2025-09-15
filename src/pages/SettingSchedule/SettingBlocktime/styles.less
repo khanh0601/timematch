@@ -1,46 +1,120 @@
 @import '../../../base.less';
 
+.formTab {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+
+  &Button {
+    cursor: pointer;
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.8px;
+    color: #626e79;
+    border: 1px solid #d6dee6;
+    transition: color 0.3s, background-color 0.3s, border 0.3s;
+    background-color: white;
+
+    &.active,
+    &:hover {
+      color: white;
+      background-color: #0f63aa;
+      border: 1px solid #0f63aa;
+    }
+  }
+}
+
 .setting {
-  margin: 0 0 60px;
-  padding: 0px 0 40px;
-  // background-color: @grey-2;
   @media screen and (max-width: 767px) {
     padding: 0;
   }
+
   @media screen and (max-width: 1023px) and (min-width: 768px) {
     padding: 60px 15px 80px;
   }
+  .pageTitle {
+    color: #2c3236;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1.28px;
+    margin-bottom: 24px;
+  }
   .mainSetting {
     display: flex;
-    column-gap: 120px;
+    flex-direction: column;
+    padding: 48px;
+    margin-bottom: 80px;
+    border: 1px solid #d6dee6;
+    background-color: white;
+
     @media screen and (max-width: 767px) {
       display: block;
+      padding: 16px;
       column-gap: unset;
     }
   }
+
   .partTitle {
-    font-weight: 510;
-    font-size: 20px;
-    line-height: 100%;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 1;
+    font-weight: 500;
+    color: #2c3236;
     letter-spacing: 0;
-    padding-bottom: 24px;
+  }
+  .partTitle2 {
+    margin-top: 40px;
+    margin-bottom: 24px;
+  }
+
+  .partSub {
+    color: var(--black, #2c3236);
+    font-family: 'Noto Sans';
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1;
+    margin-top: 5px;
+    margin-bottom: 16px;
+  }
+  .btnUpdate {
+    padding: 12px 32px;
+    min-width: 200px;
+    width: max-content;
+    margin-inline: auto;
+    margin-top: 16px;
+    border-radius: 32px;
+    border: 1px solid #0f63aa;
+    color: #0f63aa;
+    text-align: center;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.8px;
   }
   .partName {
     display: flex;
     align-items: center;
     margin-bottom: 50px;
+
     @media screen and (max-width: 767px) {
       margin-bottom: 30px;
     }
   }
+
   .partNameTitle {
     font-size: 30px;
     color: @black-4;
     font-weight: 600;
+
     @media screen and (max-width: 767px) {
       font-size: 18px;
     }
   }
+
   .partNameBorder {
     display: inline-block;
     width: 9px;
@@ -48,18 +122,22 @@
     background: dodgerblue;
     margin-right: 10px;
   }
+
   .settingBtnGroup {
     margin-bottom: 50px;
     margin-top: 25px;
+
     button {
       border-radius: 20px;
       margin-left: 0;
       font-size: 20px;
       height: 49px;
     }
+
     .cancelBtn {
       color: #ffffff;
       background-color: #b6b6b6;
+
       &:hover {
         color: #ffffff;
         background-color: #b6b6b6;
@@ -67,35 +145,41 @@
       }
     }
   }
+
   .settingIcon {
-    font-size: 8px;
-    margin: 0 4px;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 16px;
+
     @media screen and (max-width: 767px) {
       margin: 0 5px;
       font-size: 23px;
     }
   }
+
   .labelCheckbox {
-    font-size: 16px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #2c3236;
+    display: flex;
+    align-items: center;
+    margin-left: 36px;
   }
 }
-.labelCheckbox {
-  margin-left: 26px;
-  font-size: 25px;
-  display: flex;
-  align-items: center;
-}
+
 .checkboxSelect {
   display: flex;
   margin-left: 5px;
   align-items: center;
   min-width: 50%;
-  width: 200px;
+  flex: 1;
+
   @media screen and (max-width: 767px) {
     margin-left: 0;
     width: unset;
   }
 }
+
 .selectTime {
   width: 100%;
   max-width: 170px;
@@ -105,24 +189,28 @@
   padding: 0 28px;
   font-size: 20px;
 }
+
 .checkboxCustom {
   display: flex;
   align-items: center;
   position: relative;
+  margin-right: 80px;
   @media screen and (max-width: 767px) {
     margin-bottom: 0;
   }
+
   .checkboxContent {
     display: flex;
     width: 100%;
   }
 }
+
 .checkboxItem {
   display: flex;
   justify-content: space-between;
   margin-bottom: 25px;
   flex-wrap: wrap;
-  max-width: 615px;
+  width: 100%;
   .errorTime {
     color: @red-required;
     display: block;
@@ -133,9 +221,7 @@
 
 .timeBlock {
   position: relative;
-  display: flex;
-  justify-content: center;
-  width: 300px;
+  width: 100%;
   @media screen and (max-width: 767px) {
     width: unset;
   }
@@ -143,27 +229,54 @@
 
 .setting {
   :global {
+    .ant-checkbox-wrapper-checked {
+      * {
+        color: #0f63aa !important;
+      }
+      & + div *:not(path) {
+        color: #0f63aa !important;
+      }
+      & + div path {
+        color: rgba(0, 0, 0, 0.25) !important;
+      }
+    }
+    .ant-select-selector {
+      padding: 16px 8px !important;
+      border-radius: 8px;
+      border: 1px solid var(--gray-06, #bfc7d0);
+      background: #fff;
+      min-width: 200px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
     .ant-checkbox-input,
     .ant-checkbox-inner {
       display: none;
     }
+
     .ant-picker .ant-picker-input .ant-picker-suffix {
       display: unset;
     }
+
     .ant-checkbox-checked::after {
       display: none;
     }
+
     .ant-checkbox {
       &::before {
         content: '';
-        width: 22px;
-        height: 22px;
+        width: 32px;
+        height: 32px;
         position: absolute;
         left: 0;
-        top: -15px;
+        top: -19px;
         border-radius: 4px;
-        box-shadow: inset 1px 1px 3px 1px rgba(0, 0, 0, 0.26);
+        border: 0.5px solid var(--gray-06, #bfc7d0);
+        background: #fff;
       }
+
       &.ant-checkbox-checked {
         &::before {
           background: url('../../../assets/images/icon-checked.svg') center
@@ -172,15 +285,23 @@
         }
       }
     }
+
     .ant-checkbox-group {
       width: 100%;
     }
+
     .ant-select {
       max-width: fit-content;
-      height: 30px;
+      height: auto;
       border-radius: 15px;
       font-size: 20px;
       display: flex;
+    }
+    .ant-select-selection-item {
+      font-size: 22px;
+      line-height: 1;
+      font-weight: 500;
+      justify-content: center;
     }
     .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
       border: 0;
@@ -189,11 +310,13 @@
       background: transparent;
       box-shadow: none;
     }
+
     .ant-select-focused:not(.ant-select-disabled).ant-select-single:not(.ant-select-customize-input)
       .ant-select-selector {
       border-color: transparent;
       box-shadow: none;
     }
+
     .ant-select-single.ant-select-sm:not(.ant-select-customize-input).ant-select-show-arrow
       .ant-select-selection-item,
     .ant-select-single.ant-select-sm:not(.ant-select-customize-input).ant-select-show-arrow
@@ -201,34 +324,39 @@
       display: flex;
       align-items: center;
     }
+
     .ant-picker {
-      height: 30px;
-      border: 2px solid #d4d4d4;
+      padding: 16px 28px 16px 8px;
+      border: 1px solid #bfc7d0;
       border-radius: 8px;
       font-size: 16px;
+      font-weight: 500;
       display: flex;
       align-items: center;
-      color: #333;
-      padding: 0 10px 0 12px;
+      color: #2c3236;
       @media screen and (max-width: 767px) {
         max-width: 95px;
         padding: 0 10px;
         height: 30px;
       }
     }
+
     .ant-picker-input > input {
       font-size: 16px;
     }
+
     .btn.btnWhite {
       &:hover {
         border: 2px solid @grey-7;
       }
     }
+
     .ant-select-selector .ant-select-selection-item {
       padding-right: 10px !important;
     }
   }
 }
+
 .timePicker {
   @media screen and (max-width: 767px) {
     :global {
@@ -236,31 +364,39 @@
         float: left;
         height: 110%;
         overflow-y: auto;
+
         &::-webkit-scrollbar-track {
           background-color: #f1f1f1;
         }
+
         &::-webkit-scrollbar {
           width: 12px;
           background-color: #f1f1f1;
         }
+
         &::-webkit-scrollbar-thumb {
           background-color: #a8a8a8;
         }
       }
     }
   }
+
   :global {
     .ant-picker-panel .ant-picker-footer {
       display: none;
     }
+
     .ant-picker-dropdown .ant-picker-panel > .ant-picker-time-panel {
       padding-top: 0;
     }
+
     .ant-picker-time-panel-column {
       width: 80px;
+
       &:first-child {
         .ant-picker-time-panel-cell {
           position: relative;
+
           &::after {
             content: '時';
             position: absolute;
@@ -271,9 +407,11 @@
           }
         }
       }
+
       &:last-child {
         .ant-picker-time-panel-cell {
           position: relative;
+
           &::after {
             content: '分';
             position: absolute;

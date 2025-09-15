@@ -1,5 +1,6 @@
 @import '../../base.less';
 .changePassword {
+  width: 100%;
   .inputField {
     width: 100%;
     height: 40px;
@@ -43,28 +44,36 @@
   }
   .bodyContent {
     position: relative;
-    padding-top: 40px;
+    width: 100%;
     .PartTitle {
       font-weight: 700;
-      font-size: 24px;
+      font-size: 32px;
       line-height: 100%;
-      text-align: center;
-      padding-bottom: 16px;
+      letter-spacing: -1.28px;
+      padding: 8px 16px;
+      margin-bottom: 40px;
+      color: #2c3236;
     }
     .bodyContainer {
-      max-width: 510px;
-      margin: auto;
-      width: 359px;
+      width: 100%;
       @media screen and (max-width: 767px) {
         width: unset;
       }
     }
+    .fieldGroup {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
     .fieldName {
-      font-size: 16px;
-      color: rgba(0, 0, 0, 0.85);
-      margin: 24px 0 8px 0;
+      font-size: 20px;
+      letter-spacing: -0.8px;
+      color: #2c3236;
       line-height: 1;
-      font-weight: 600;
+      font-weight: 500;
+      min-width: 232px;
+      flex: none;
       .required {
         color: #fe0000;
         font-size: 18px;
@@ -78,25 +87,37 @@
       font-size: 18px;
       line-height: 1;
     }
+    .inputItem {
+      flex: 1;
+    }
     .inputField {
-      width: 100%;
       height: 44px;
-      border-radius: 8px;
-      font-size: 16px;
+      border-radius: 4px;
+      font-size: 20px;
+      background-color: #f5f5f5;
+      border: 1px solid #d6dee6;
     }
     .btnZone {
       display: flex;
-      justify-content: center;
+      justify-content: end;
       align-items: center;
-      margin: 40px 0;
+      margin-top: 24px;
       .signUpBtn {
-        height: 50px;
-        background-color: rgb(31, 60, 83);
-        color: #ffffff;
-        font-size: 18px;
-        border-radius: 8px;
+        height: 44px;
+        color: #0f63aa;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.8px;
+        border: 1px solid #0f63aa;
+        border-radius: 32px;
         margin: auto;
-        width: 359px;
+        width: 200px;
+        background-color: transparent;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         @media screen and (max-width: 767px) {
           min-width: 265px;
           width: unset;

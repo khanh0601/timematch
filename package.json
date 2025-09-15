@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider PORT=8888 umi dev",
+    "start": "cross-env NODE_OPTIONS=--openssl-legacy-provider PORT=8888 WATCHPACK_POLLING=true umi dev",
     "build": "NODE_OPTIONS=--openssl-legacy-provider umi build",
     "postinstall": "umi generate tmp",
     "prettier": "prettier --write '**/*.{js,jsx,tsx,ts,less,md,json}'",

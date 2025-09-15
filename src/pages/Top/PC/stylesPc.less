@@ -3,15 +3,37 @@
     .flexSpaceBetween button {
       cursor: pointer;
     }
-
-    .swipeable-list {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 16px;
-      height: auto !important;
-      padding-bottom: 10px;
+    .upcomming_wrap {
+      padding: 24px;
+      margin-top: 24px;
       align-items: stretch;
-
+      background: #ffffff;
+      box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
+    }
+    .upcomming_grid {
+      display: grid;
+      grid-template-columns: 100px 200px 1fr 200px 200px 140px;
+      align-items: center;
+      text-align: center;
+      padding-block: 18px;
+      &.upcomming_head {
+        border-bottom: 0.5px solid #e1e8f0;
+        border-top: 0.5px solid #e1e8f0;
+      }
+      .upcomming_head_item {
+        padding: 8px;
+        font-size: 20px;
+        font-weight: 500;
+        letter-spacing: -0.8px;
+        color: #626e79;
+        line-height: 1em;
+      }
+    }
+    .swipeable-list {
+      display: flex;
+      grid-template-columns: repeat(2, 1fr);
+      flex-direction: column;
+      height: auto !important;
       &-item {
         margin-bottom: 0;
         position: relative;
@@ -21,7 +43,6 @@
         justify-content: flex-start;
         height: 100%;
         min-height: 100%;
-
         button {
           font-size: 12px;
         }
@@ -40,16 +61,7 @@
             align-items: flex-start;
           }
         }
-
-        .swipableItemPast {
-          min-height: 124px;
-          justify-content: unset;
-        }
       }
-    }
-
-    .swipableItemPast {
-      min-height: 124px;
     }
     .swipeable-item {
       margin-bottom: 0;
@@ -84,9 +96,9 @@
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 1;
       -webkit-box-orient: vertical;
-      padding-right: 21px;
+      font-family: 'Noto Sans';
     }
   }
 }

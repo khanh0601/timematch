@@ -2,7 +2,7 @@ import { deleteLocalInfo, getCookie } from '@/commons/function';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import { connect } from 'dva';
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { history, useIntl } from 'umi';
 import MenuItem from './MenuItem';
 import styles from './styles.less';
@@ -12,9 +12,19 @@ import EventBus, { EventBusNames } from '@/util/eventBus';
 const { confirm } = Modal;
 
 const PCHeader = props => {
+  const items = [
+    { name: '調整一覧', path: '/' },
+    { name: 'カレンダー', path: '/pc/calendar' },
+    { name: 'プロフィール', path: '/profile' },
+    { name: '定型文の作成', path: '/mail-template' },
+    { name: 'メールの送付先管理', path: '/contact-management' },
+    { name: 'ご利用のガイド', path: '/documentation' },
+  ];
+  const isActive = p =>
+    p === '/' ? location.pathname === '/' : location.pathname.startsWith(p);
   const [showMenu, setShowMenu] = React.useState(false);
   const [showModal, setShowModal] = React.useState(false);
-
+  const menuRef = useRef(null);
   const { masterStore, dispatch } = props;
   const intl = useIntl();
   const { profile } = masterStore;
@@ -47,7 +57,23 @@ const PCHeader = props => {
     }
     setShowMenu(!showMenu);
   };
+  useEffect(() => {
+    const handleClickOutside = event => {
+      if (menuRef.current && !menuRef.current.contains(event.target)) {
+        setShowMenu(false);
+      }
+    };
 
+    if (showMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showMenu]);
   const handleLogout = () => {
     confirm({
       title: intl.formatMessage({ id: 'i18n_confirm_logout' }),
@@ -64,124 +90,98 @@ const PCHeader = props => {
   };
 
   return (
-    <div className={styles.headerContainer}>
-      <div className={styles.headerLeft}>
-        {!showMenu && isLogin && (
-          <div className={styles.icBarView} onClick={handleToggleMenu}>
+    <header className={styles.header}>
+      <div className={styles.headerContainer}>
+        <div className={styles.headerLeft}>
+          <img
+            src={require('@/assets/images/logo.png')}
+            alt={'logo'}
+            className={styles.logo}
+            onClick={() => {
+              history.push('/');
+            }}
+          />
+        </div>
+
+        <div className={styles.headerRight}>
+          <div
+            className={styles.avatarWrap}
+            onClick={() => {
+              // history.push('/profile');
+              setShowModal(true);
+            }}
+          >
+            {isLogin && (
+              <img
+                src={
+                  profile?.avatar || require('@/assets/images/pc/avatar.png')
+                }
+                alt={'avatar'}
+                className={styles.avatar}
+              />
+            )}
+            <span>{profile?.name}</span>
+          </div>
+          {!showMenu && isLogin && (
+            <div className={styles.icBarView} onClick={handleToggleMenu}>
+              <img
+                src={require('@/assets/images/pc/menu.png')}
+                alt={'menu'}
+                className={styles.icBar}
+              />
+            </div>
+          )}
+          {showMenu && (
             <img
-              src={require('@/assets/images/pc/menu.png')}
-              alt={'menu'}
-              className={styles.icBar}
+              src={require('@/assets/images/pc/x.png')}
+              alt={'x'}
+              className={styles.icClose}
+              onClick={handleToggleMenu}
             />
-          </div>
-        )}
+          )}
 
-        <img
-          src={require('@/assets/images/logo.png')}
-          alt={'logo'}
-          className={styles.logo}
-          onClick={() => {
-            history.push('/');
-          }}
-        />
-        {showMenu && (
-          <img
-            src={require('@/assets/images/pc/x.png')}
-            alt={'x'}
-            className={styles.icClose}
-            onClick={handleToggleMenu}
-          />
-        )}
+          {showMenu && (
+            <div className={styles.menuView} ref={menuRef}>
+              {items.map(it => (
+                <div
+                  key={it.path}
+                  className={`${styles.menuItem} ${
+                    isActive(it.path) ? styles.active : ''
+                  }`}
+                  onClick={() => {
+                    history.push(it.path);
+                    setShowMenu(false);
+                  }}
+                >
+                  <span className={styles.menuText}>{it.name}</span>
+                </div>
+              ))}
 
-        {showMenu && (
-          <div className={styles.menuView}>
-            <MenuItem
-              icon={require('@/assets/images/pc/icMenu1.png')}
-              name="調整一覧"
-              path="/"
-            />
+              <div
+                className={`${styles.menuItem} ${styles.lastItem}`}
+                onClick={() => {
+                  window.open(
+                    'https://vision-net.co.jp/privacy.html',
+                    '_blank',
+                  );
+                  setShowMenu(false);
+                }}
+              >
+                <span className={styles.menuText}>プライバシーポリシー</span>
+              </div>
 
-            <MenuItem
-              icon={require('@/assets/images/pc/icMenu2.png')}
-              name="カレンダー"
-              path="/pc/calendar"
-            />
-            <MenuItem
-              onClick={() => {
-                history.push('/profile');
-              }}
-              icon={require('@/assets/images/pc/icMenu3.png')}
-              name="プロフィール"
-              path="/profile"
-            />
-            <MenuItem
-              onClick={() => {
-                history.push('/mail-template');
-              }}
-              icon={require('@/assets/images/pc/icMenu4.png')}
-              name="定型文の作成"
-              path="/mail-template"
-            />
-            <MenuItem
-              onClick={() => {
-                history.push('/contact-management');
-              }}
-              icon={require('@/assets/images/pc/icMenu5.png')}
-              name="メールの送付先管理"
-              path="/contact-management"
-            />
-            <MenuItem
-              icon={require('@/assets/images/pc/icMenu6.png')}
-              name="ご利用のガイド"
-              path="/documentation"
-            />
-
-            <div
-              className={`${styles.menuItem} ${styles.lastItem}`}
-              onClick={() => {
-                window.open('https://vision-net.co.jp/privacy.html', '_blank');
-                setShowMenu(false);
-              }}
-            >
-              <img
-                src={require('@/assets/images/pc/icMenu7.png')}
-                alt={'help'}
-                className={styles.icMenu}
-              />
-              <span className={styles.menuText}>プライバシーポリシー</span>
+              <div className={styles.logoutItem} onClick={handleLogout}>
+                <span className={styles.menuText}>ログアウト</span>
+              </div>
             </div>
+          )}
+        </div>
 
-            <div className={styles.logoutItem} onClick={handleLogout}>
-              <img
-                src={require('@/assets/images/pc/icLogout.png')}
-                alt={'help'}
-                className={styles.icMenu}
-              />
-              <span className={styles.menuText}>ログアウト</span>
-            </div>
-          </div>
+        {showModal && (
+          <CollaborationModal onClose={() => setShowModal(false)} />
         )}
       </div>
-
-      <div
-        className={styles.headerRight}
-        onClick={() => {
-          // history.push('/profile');
-          setShowModal(true);
-        }}
-      >
-        {isLogin && (
-          <img
-            src={profile?.avatar || require('@/assets/images/pc/avatar.png')}
-            alt={'avatar'}
-            className={styles.avatar}
-          />
-        )}
-        <span>{profile?.name}</span>
-      </div>
-
-      {showModal && <CollaborationModal onClose={() => setShowModal(false)} />}
-    </div>
+    </header>
   );
 };
 

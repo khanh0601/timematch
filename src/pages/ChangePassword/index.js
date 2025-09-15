@@ -126,7 +126,7 @@ function ChangePassword(props) {
       ) : (
         <div></div>
       )}
-      {isMobile ? (
+      {/* {isMobile ? (
         <HeaderMobile
           title={formatMessage({ id: 'i18n_change_password_title' })}
           isShowLeft={true}
@@ -139,7 +139,7 @@ function ChangePassword(props) {
         />
       ) : (
         <PCHeader />
-      )}
+      )} */}
 
       <div className={styles.bodyContent}>
         {isMobile ? null : (
@@ -148,140 +148,139 @@ function ChangePassword(props) {
 
         <div className={styles.bodyContainer}>
           <Form form={form}>
-            <div className={styles.fieldName}>ご登録のメールアドレス</div>
-            <Form.Item
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'i18n_required_text' }),
-                },
-              ]}
-              name="email"
-            >
-              <Input
-                className={styles.inputField}
-                placeholder={'例) evergreen1129@timematch.jp'}
-                autoComplete="on"
-                readOnly
-                ref={emailRef}
-              />
-            </Form.Item>
-            <div className={styles.fieldName}>旧パスワード</div>
-            <Form.Item
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'i18n_required_text' }),
-                },
-              ]}
-              name={'currentPassword'}
-            >
-              <Input
-                className={`${styles.inputField} ${
-                  focus1 ? styles.password : ''
-                }`}
-                placeholder={'例) 旧パスワード'}
-                // iconRender={visible => (visible ? visible : visible)}
-                onFocus={e => inputFocus(e, 1)}
-                type={typeInput1 ? 'text' : 'password'}
-                ref={inputRef1}
-              />
-            </Form.Item>
-            <div className={styles.fieldName}>新しいパスワードを設定</div>
-            <Form.Item
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'i18n_required_text' }),
-                },
-                ({ getFieldValue }) => ({
-                  validator(rule, value) {
-                    if (value && !passwordRegex.test(value)) {
-                      return Promise.reject(
-                        formatMessage({ id: 'i18n_wrong_password_length' }),
-                      );
-                    }
-                    if (value && value === getFieldValue('currentPassword')) {
-                      return Promise.reject(
-                        formatMessage({ id: 'i18n_password_must_different' }),
-                      );
-                    }
-
-                    return Promise.resolve();
+            <div className={styles.fieldGroup}>
+              <div className={styles.fieldName}>ご登録のメールアドレス</div>
+              <Form.Item
+                className={styles.inputItem}
+                rules={[
+                  {
+                    required: true,
+                    message: formatMessage({ id: 'i18n_required_text' }),
                   },
-                }),
-              ]}
-              name={'password'}
-            >
-              <Input
-                className={`${styles.inputField} ${
-                  focus2 ? styles.password : ''
-                }`}
-                placeholder={'例) 新しいパスワードを設定'}
-                // iconRender={visible => (visible ? visible : visible)}
-                onFocus={e => inputFocus(e, 2)}
-                type={typeInput2 ? 'text' : 'password'}
-                ref={inputRef2}
-              />
-            </Form.Item>
-            <div className={styles.fieldName}>
-              新しいパスワードを設定(確認用)
+                ]}
+                name="email"
+              >
+                <Input
+                  className={styles.inputField}
+                  placeholder={'例) evergreen1129@timematch.jp'}
+                  autoComplete="on"
+                  readOnly
+                  ref={emailRef}
+                />
+              </Form.Item>
+            </div>
+            <div className={styles.fieldGroup}>
+              <div className={styles.fieldName}>旧パスワード</div>
+              <Form.Item
+                className={styles.inputItem}
+                rules={[
+                  {
+                    required: true,
+                    message: formatMessage({ id: 'i18n_required_text' }),
+                  },
+                ]}
+                name={'currentPassword'}
+              >
+                <Input
+                  className={`${styles.inputField} ${
+                    focus1 ? styles.password : ''
+                  }`}
+                  placeholder={'例) 旧パスワード'}
+                  // iconRender={visible => (visible ? visible : visible)}
+                  onFocus={e => inputFocus(e, 1)}
+                  type={typeInput1 ? 'text' : 'password'}
+                  ref={inputRef1}
+                />
+              </Form.Item>
+            </div>
+            <div className={styles.fieldGroup}>
+              <div className={styles.fieldName}>新しいパスワード</div>
+              <Form.Item
+                className={styles.inputItem}
+                rules={[
+                  {
+                    required: true,
+                    message: formatMessage({ id: 'i18n_required_text' }),
+                  },
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      if (value && !passwordRegex.test(value)) {
+                        return Promise.reject(
+                          formatMessage({ id: 'i18n_wrong_password_length' }),
+                        );
+                      }
+                      if (value && value === getFieldValue('currentPassword')) {
+                        return Promise.reject(
+                          formatMessage({ id: 'i18n_password_must_different' }),
+                        );
+                      }
+
+                      return Promise.resolve();
+                    },
+                  }),
+                ]}
+                name={'password'}
+              >
+                <Input
+                  className={`${styles.inputField} ${
+                    focus2 ? styles.password : ''
+                  }`}
+                  placeholder={'例）新しいパスワード'}
+                  // iconRender={visible => (visible ? visible : visible)}
+                  onFocus={e => inputFocus(e, 2)}
+                  type={typeInput2 ? 'text' : 'password'}
+                  ref={inputRef2}
+                />
+              </Form.Item>
             </div>
 
-            <Form.Item
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'i18n_required_text' }),
-                },
-                ({ getFieldValue }) => ({
-                  validator(rule, value) {
-                    if (value && value !== getFieldValue('password')) {
-                      return Promise.reject(
-                        formatMessage({ id: 'i18n_confirm_password_wrong' }),
-                      );
-                    }
-                    return Promise.resolve();
+            <div className={styles.fieldGroup}>
+              <div className={styles.fieldName}>新しいパスワード（確認）</div>
+
+              <Form.Item
+                className={styles.inputItem}
+                rules={[
+                  {
+                    required: true,
+                    message: formatMessage({ id: 'i18n_required_text' }),
                   },
-                }),
-              ]}
-              name={'passwordAgain'}
-            >
-              <Input
-                className={`${styles.inputField} ${
-                  focus3 ? styles.password : ''
-                }`}
-                //placeholder repeat password in japanese
-                placeholder="例) パスワードを再入力してください。"
-                // iconRender={visible => (visible ? visible : visible)}
-                onFocus={e => inputFocus(e, 3)}
-                type={typeInput3 ? 'text' : 'password'}
-                ref={inputRef3}
-              />
-            </Form.Item>
+                  ({ getFieldValue }) => ({
+                    validator(rule, value) {
+                      if (value && value !== getFieldValue('password')) {
+                        return Promise.reject(
+                          formatMessage({ id: 'i18n_confirm_password_wrong' }),
+                        );
+                      }
+                      return Promise.resolve();
+                    },
+                  }),
+                ]}
+                name={'passwordAgain'}
+              >
+                <Input
+                  className={`${styles.inputField} ${
+                    focus3 ? styles.password : ''
+                  }`}
+                  //placeholder repeat password in japanese
+                  placeholder="例）新しいパスワード（確認）"
+                  // iconRender={visible => (visible ? visible : visible)}
+                  onFocus={e => inputFocus(e, 3)}
+                  type={typeInput3 ? 'text' : 'password'}
+                  ref={inputRef3}
+                />
+              </Form.Item>
+            </div>
             <div className={styles.btnZone}>
               <Form.Item>
                 <Button
                   loading={loading}
                   htmlType="submit"
                   onClick={onSubmit}
-                  className={`${styles.signUpBtn} btn-pc-primary`}
+                  className={`${styles.signUpBtn} `}
                 >
                   変更{' '}
                 </Button>
               </Form.Item>
-
-              {!isMobile && (
-                <Form.Item>
-                  <Button
-                    htmlType="button"
-                    onClick={handleGoBack}
-                    className={`${styles.cancelSignUpBtn} bgLightRed`}
-                  >
-                    キャンセル{' '}
-                  </Button>
-                </Form.Item>
-              )}
             </div>
           </Form>
         </div>

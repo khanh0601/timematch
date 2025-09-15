@@ -3,40 +3,169 @@
 .profileContainer {
   margin: auto;
   width: 100%;
+  min-height: 100svh;
+  background-image: url('../../assets/images/bg.png');
+  background-size: 100%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+
   .header {
     font-size: 24px;
     font-weight: bold;
   }
+
+  .popupPass {
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #3c3c3c73;
+    z-index: 10;
+    transition: opacity 0.4s;
+    &.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    &Inner {
+      max-width: 960px;
+      padding: 16px 32px 32px 32px;
+      margin: auto;
+      width: 90%;
+      border-radius: 24px;
+      background: #fff;
+      box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+      position: relative;
+    }
+
+    &Close {
+      position: absolute;
+      top: 24px;
+      right: 48px;
+      width: 44px;
+      height: 44px;
+      z-index: 100;
+      cursor: pointer;
+      img {
+        width: 100%;
+        height: 100%;
+      }
+    }
+  }
+
   .avtImage {
     border-radius: 50%;
     border: 3px solid @green-2;
     display: inline-table;
   }
+
   .containerForm {
     padding: 40px 0 0 0;
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    column-gap: 128px;
+    max-width: 1120px;
+    padding-inline: 80px;
+    margin: auto;
+
     @media screen and (max-width: 767px) {
       padding: 15px;
       display: block;
       column-gap: unset;
     }
   }
+
+  .formTab {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 40px;
+
+    &Button {
+      cursor: pointer;
+      padding: 16px 32px;
+      border-radius: 8px;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.8px;
+      color: #626e79;
+      border: 1px solid #d6dee6;
+      transition: color 0.3s, background-color 0.3s, border 0.3s;
+      background-color: white;
+
+      &.active,
+      &:hover {
+        color: white;
+        background-color: #0f63aa;
+        border: 1px solid #0f63aa;
+      }
+    }
+  }
+
   .informationForm {
-    width: 359px;
+    width: 100%;
+    background-color: white;
+    padding: 48px;
+    border: 1px solid #d6dee6;
+
     @media screen and (max-width: 767px) {
       width: unset;
     }
   }
+
+  .groupButtonSubmit {
+    display: flex;
+    justify-content: center;
+    column-gap: 16px;
+
+    &Item {
+      padding: 12px 32px !important;
+      min-width: 200px;
+      border-radius: 32px;
+      height: auto !important;
+
+      span {
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.8px;
+      }
+
+      &Bg {
+        background-color: #0f63aa;
+        color: white;
+        transition: opacity 0.3s;
+        border: 1px solid #0f63aa;
+
+        &:hover {
+          opacity: 0.8;
+        }
+      }
+
+      &Outline {
+        background-color: white;
+        color: #0f63aa;
+        transition: all 0.3s;
+        border: 1px solid #0f63aa;
+
+        &:hover {
+          background-color: #0f63aa;
+          color: white;
+        }
+      }
+    }
+  }
+
   .headerForm {
     font-family: 'Noto Sans JP', sans-serif;
     font-weight: 700;
-    font-size: 24px;
-    text-align: center;
+    font-size: 32px;
     line-height: 100%;
-    padding-bottom: 40px;
+    padding: 8px 16px 24px 16px;
   }
+
   button {
     border-radius: 8px;
     display: flex;
@@ -45,47 +174,59 @@
 
     span {
       font-size: 14px;
+
       @media screen and (max-width: 767px) {
         font-size: 20px;
       }
     }
+
     @media screen and (max-width: 767px) {
       padding: 4px 15px !important;
     }
   }
+
   .btnSave {
     max-width: unset !important;
     width: 100%;
     margin: 0;
+
     @media screen and (max-width: 767px) {
       width: 50%;
       margin: auto;
     }
   }
+
   .groupBtn {
     display: flex;
     justify-content: center;
+
     button {
       height: 49px;
       min-width: 130px;
+
       @media screen and (max-width: 767px) {
         min-width: auto;
       }
     }
+
     button:first-child {
       margin-right: 30px !important;
+
       @media screen and (max-width: 767px) {
         margin-right: 15px !important;
       }
     }
   }
+
   .headTitle {
     display: flex;
     align-items: center;
     margin-bottom: 50px;
+
     @media screen and (max-width: 767px) {
       margin-bottom: 20px;
     }
+
     .bolderIcon {
       width: 12px;
       height: 52px;
@@ -93,6 +234,7 @@
       margin-right: 8px;
       display: inline-block;
     }
+
     .titleIcon {
       width: 5px;
       height: 52px;
@@ -100,21 +242,30 @@
       margin-right: 8px;
       display: inline-block;
     }
+
     span {
       color: #3c3c3c;
       font-size: 30px;
+
       @media screen and (max-width: 767px) {
         font-size: 20px;
       }
     }
   }
+
+  .selectCustom {
+    height: auto !important;
+  }
+
   :global {
     .ant-avatar img {
       object-fit: fill;
     }
+
     .ant-avatar.ant-avatar-circle {
       border: 0;
     }
+
     input {
       width: 100%;
       height: 40px;
@@ -122,45 +273,97 @@
       padding: 5px;
       margin-bottom: 20px;
     }
+
     label {
       font-size: 16px;
       font-weight: 600;
     }
+
     button {
       border-radius: 8px;
     }
+
     .ant-form-item-control-input-content {
       display: flex;
       align-items: center;
     }
+
     .btn.btn-custom-height {
       font-size: 16px;
     }
   }
+
   .avatarRow {
     .avatarButton {
       margin-left: 50px;
+
       @media screen and (max-width: 767px) {
         margin-left: 25px;
       }
     }
   }
+
   .urlRow {
+    margin-bottom: 16px;
+
+    .borderMediumGray {
+      height: 44px;
+      border-radius: 4px !important;
+      border: 1px solid #d6dee6 !important;
+      font-size: 20px !important;
+      font-weight: 400;
+      line-height: 100% !important;
+      padding-left: 16px !important;
+      color: #919aa5 !important;
+
+      &[readonly] {
+        background: #f5f5f5;
+      }
+    }
+
     :global {
+      .ant-form-item-row {
+        display: flex;
+        gap: 8px !important;
+        flex-direction: row !important;
+      }
+
+      .ant-form-item-label {
+        align-self: center;
+
+        label {
+          min-width: 140px !important;
+          padding-bottom: 0 !important;
+          color: #2c3236 !important;
+          font-size: 20px !important;
+          font-weight: 500 !important;
+          line-height: 1 !important;
+          letter-spacing: -0.8px !important;
+          text-align: start;
+
+          &:after {
+            display: none !important;
+          }
+        }
+      }
+
       .ant-input-group-addon {
         background: none;
         border: none;
         padding-left: 0;
         font-size: 16px;
       }
+
       .ant-input {
         border-radius: 8px;
       }
     }
   }
+
   .wrapperAvatar {
     width: 136px;
     height: 136px;
+
     img {
       width: 100%;
       height: 100%;
@@ -168,8 +371,10 @@
       object-fit: cover;
     }
   }
+
   .btnUpdate {
     margin-bottom: 0;
+
     button {
       margin-top: 80px;
       margin-bottom: 50px;
@@ -177,34 +382,42 @@
       height: 49px;
       width: 209px;
       border-radius: 20px;
+
       @media screen and (max-width: 767px) {
         margin-top: 30px;
         margin-bottom: 50px;
       }
     }
   }
+
   .groupPart {
     margin-bottom: 50px;
+
     @media screen and (max-width: 767px) {
       margin-bottom: 50px;
     }
+
     .partName {
       display: flex;
       align-items: center;
       margin-bottom: 50px;
+
       @media screen and (max-width: 767px) {
         margin-bottom: 30px;
       }
     }
+
     .disconnectBtn:not(:disabled) {
       color: #ffffff;
       background-color: #b6b6b6;
+
       &:hover {
         color: #ffffff;
         background-color: #b6b6b6;
         opacity: 0.8;
       }
     }
+
     button {
       border-radius: 20px;
       margin-left: 90px;
@@ -212,18 +425,22 @@
       max-width: 340px;
       width: 340px;
       height: 49px;
+
       @media screen and (max-width: 767px) {
         margin-left: 0;
         font-size: 18px;
       }
     }
+
     .partNameTitle {
       font-size: 30px;
       color: @black-4;
+
       @media screen and (max-width: 767px) {
         font-size: 18px;
       }
     }
+
     .partNameBorder {
       display: inline-block;
       width: 9px;
@@ -232,6 +449,7 @@
       margin-right: 10px;
     }
   }
+
   .backToHome {
     // margin-bottom: 80px;
 
@@ -242,9 +460,11 @@
       width: 209px;
     }
   }
+
   @media screen and (max-width: 767px) {
     max-width: 1080px;
   }
+
   .paddingButton {
     padding: 9px 0 !important;
   }

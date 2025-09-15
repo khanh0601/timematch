@@ -3,7 +3,7 @@ import './styles.less';
 import { connect } from 'dva';
 import { useState, useLayoutEffect, useEffect } from 'react';
 import { withRouter } from 'umi';
-import { HOUR_FORMAT } from '@/constant';
+import { HOUR_FORMAT, ROUTER } from '@/constant';
 import moment from 'moment';
 import { personalExpiredModal } from '@/commons/function';
 import { TYPE_VOTE_RELATIONSHIP } from '@/constant';
@@ -28,7 +28,7 @@ import useIsPc from '@/hooks/useIsPc';
 import Tooltip from '@/components/PC/Tooltip';
 
 const AppointmentDetail = props => {
-  const { dispatch, voteStore, location } = props;
+  const { dispatch, voteStore, location, eventStore } = props;
   const confirm = Modal.confirm;
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [comment, setComment] = useState('');
@@ -301,17 +301,65 @@ const AppointmentDetail = props => {
   const handleMouseLeave = () => {
     setComment('');
   };
+  const { listTextAskCalendar } = eventStore;
+  const {
+    text_ask_calendar_bottom,
+    text_ask_calendar_top,
+  } = listTextAskCalendar;
+  const renderMailTemplate = item => {
+    const templateMail = `
+${text_ask_calendar_top}
+--------------------------
+■候補日時
+${item?.event_datetimes
+  .map(
+    time =>
+      `${moment(time.start_time).format('YYYY年MM月DD日(ddd) HH:mm')}~${moment(
+        time.end_time,
+      ).format('HH:mm')}`,
+  )
+  .join('\n')}
+■ イベント名： ${item?.name}
+■ご予約方法
+下記URLからご予約いただくか、ご都合の良い日時をご連絡ください。
+${Object.keys(item.vote).length > 0 ? item.vote.full_url : ''}
+
+※最新もしくはその他の日時も上記URLからご確認いただくことができ、ご予約も可能です。
+--------------------------
+${text_ask_calendar_bottom}`;
+    navigator.clipboard.writeText(templateMail);
+  };
+  const [isTemplateCopy, setIsTemplateCopy] = useState({
+    status: false,
+    index: 0,
+  });
+  const [isURLCopy, setIsURLCopy] = useState({ status: false, index: 0 });
+  const handleCopyTemplateToClipboard = async (item, index) => {
+    await renderMailTemplate(item);
+    setIsTemplateCopy({ status: true, index });
+  };
+
+  const handleCopyURLToClipboard = (item, index) => {
+    const baseUrl = window.location.origin;
+    const url =
+      Object.keys(item).length > 0 && Object.keys(item.vote).length > 0
+        ? baseUrl + '/' + item.vote.full_url
+        : '';
+
+    navigator.clipboard.writeText(url);
+    setIsURLCopy({ status: true, index });
+  };
 
   const columns = [
     {
-      title: '日程',
+      title: '日程確定選択',
       dataIndex: 'dateTime',
       key: 'dateTime',
       fixed: 'left',
       width: 110,
       render: (_, record) => (
         <>
-          {getJPMonthAndDay(record.start_time)}
+          {moment(record.start_time).format('YYYY/MM/DD')}
           {moment(record.start_time).format('(dd)')}
           <br />
           {moment(record.start_time).format(HOUR_FORMAT)}~
@@ -350,7 +398,7 @@ const AppointmentDetail = props => {
       width: 60,
       render: (_, record) => {
         const choice = record.choices.find(c => c.voter_id === voter.id);
-        return choice ? (choice.option === 1 ? '○' : '×') : '';
+        return choice ? (choice.option === 1 ? 'OK' : 'NG') : '';
       },
     })),
     {
@@ -364,7 +412,7 @@ const AppointmentDetail = props => {
         }
         return record.choices.every(choice => choice?.option === 2) ? (
           <Button
-            className={`my-2 px-1 py-0 h-full rounded shadowSecondary`}
+            className={`my-2 px-1 py-0 h-full rounded btnConfirm `}
             disabled={true}
           >
             確定{' '}
@@ -531,11 +579,11 @@ const AppointmentDetail = props => {
     <div className="appointment-detail">
       <div className="header">
         <div className="header-title">
-          <div className="header-line bgPrimaryBlue"></div>
           <span className="header-name">{informationVote?.name}</span>
+          {console.log('vote', informationVote)}
         </div>
         <div
-          className={`header-close bgDarkBlue shadowPrimary`}
+          className={`header-close `}
           style={{
             width: 30,
             height: 30,
@@ -546,7 +594,7 @@ const AppointmentDetail = props => {
           }}
           onClick={() => (props.onClose ? props.onClose() : history.go(-1))}
         >
-          <CloseOutlined style={{ color: '#FFF' }} />
+          <CloseOutlined style={{ color: '#0F63AA' }} />
         </div>
       </div>
       <div className="apd-content-wrapper">
@@ -574,29 +622,29 @@ const AppointmentDetail = props => {
               scroll={{ x: 'max-content', y: 400 }}
               loading={voteLoading}
               rowClassName={record => bgTypeChoiceClass(record)}
-              summary={() => (
-                <Table.Summary fixed>
-                  <Table.Summary.Row>
-                    <Table.Summary.Cell index={0} colSpan={3}>
-                      コメント
-                    </Table.Summary.Cell>
-                    {voteUser.map((item, index) => (
-                      <Table.Summary.Cell index={index + 3} key={item.id}>
-                        {item.comment && (
-                          <BubbleChatIcon
-                            onMouseEnter={e =>
-                              handleMouseEnter(item.comment, e)
-                            }
-                            onMouseLeave={handleMouseLeave}
-                            onClick={() => info(item.comment, item.name)}
-                          />
-                        )}
-                      </Table.Summary.Cell>
-                    ))}
-                    <Table.Summary.Cell index={voteUser.length + 3} />
-                  </Table.Summary.Row>
-                </Table.Summary>
-              )}
+              // summary={() => (
+              //   <Table.Summary fixed>
+              //     <Table.Summary.Row>
+              //       <Table.Summary.Cell index={0} colSpan={3}>
+              //         コメント
+              //       </Table.Summary.Cell>
+              //       {voteUser.map((item, index) => (
+              //         <Table.Summary.Cell index={index + 3} key={item.id}>
+              //           {item.comment && (
+              //             <BubbleChatIcon
+              //               onMouseEnter={e =>
+              //                 handleMouseEnter(item.comment, e)
+              //               }
+              //               onMouseLeave={handleMouseLeave}
+              //               onClick={() => info(item.comment, item.name)}
+              //             />
+              //           )}
+              //         </Table.Summary.Cell>
+              //       ))}
+              //       <Table.Summary.Cell index={voteUser.length + 3} />
+              //     </Table.Summary.Row>
+              //   </Table.Summary>
+              // )}
             />
           )}
           {!isShowButtons && isPc && (
@@ -607,44 +655,78 @@ const AppointmentDetail = props => {
             ></Spin>
           )}
           {isShowButtons && (
-            <div className="buttons">
-              <Button
-                loading={sendEmailLoading}
-                id="save-btn"
-                onClick={() => {
-                  if (idEventDateTime === '') {
-                    message.warning({
-                      key: 'warning',
-                      content: '日程を選択してください。',
-                    });
-                  } else {
-                    handleSubmitOK();
+            <div className="appointment-detail-footer">
+              <div className="btnControl">
+                <div
+                  className="btnControlText"
+                  onClick={() => handleCopyURLToClipboard(informationVote, 0)}
+                >
+                  {isURLCopy && isURLCopy.status && isURLCopy.index === 0
+                    ? formatMessage({ id: 'i18n_copied' })
+                    : formatMessage({ id: 'i18n_copy_url_btn' })}
+                </div>
+                <div
+                  className="btnControlText"
+                  onClick={() =>
+                    handleCopyTemplateToClipboard(informationVote, 0)
                   }
-                }}
-                size="large"
-                // disabled={idEventDateTime === ''}
-                className="button bgDarkBlue shadowPrimary"
-              >
-                <div style={{ marginLeft: 10 }}>決定 </div>
-              </Button>
-              <Button
-                onClick={() => {
-                  editEvent(informationVote);
-                }}
-                className="button bgPrimaryBlue shadowPrimary"
-                size="large"
-              >
-                <div style={{ marginLeft: 10 }}>再調整</div>
-              </Button>
-              <Button
-                onClick={() => {
-                  showModal();
-                }}
-                className="button bgLightRed shadowPrimary"
-                size="large"
-              >
-                <div style={{ marginLeft: 10 }}>削除 </div>
-              </Button>
+                >
+                  {isTemplateCopy &&
+                  isTemplateCopy.status &&
+                  isTemplateCopy.index === 0
+                    ? formatMessage({ id: 'i18n_copied' })
+                    : formatMessage({ id: 'i18n_share_fixed_text_title' })}
+                </div>
+                <div
+                  className="btnControlText"
+                  onClick={() =>
+                    history.push(
+                      `${ROUTER.inviteParticipant}?event_code=${informationVote?.event_code}`,
+                    )
+                  }
+                >
+                  メール招待
+                </div>
+              </div>
+              <div className="btnSubmitItemWrap">
+                <Button
+                  loading={sendEmailLoading}
+                  id="save-btn"
+                  onClick={() => {
+                    if (idEventDateTime === '') {
+                      message.warning({
+                        key: 'warning',
+                        content: '日程を選択してください。',
+                      });
+                    } else {
+                      handleSubmitOK();
+                    }
+                  }}
+                  size="large"
+                  // disabled={idEventDateTime === ''}
+                  className="btnSubmitItem btnSubmitItemBlue"
+                >
+                  <div style={{ marginLeft: 10 }}>決定 </div>
+                </Button>
+                <Button
+                  onClick={() => {
+                    editEvent(informationVote);
+                  }}
+                  className="btnSubmitItem btnSubmitItemOutline"
+                  size="large"
+                >
+                  <div style={{ marginLeft: 10 }}>再調整</div>
+                </Button>
+                <Button
+                  onClick={() => {
+                    showModal();
+                  }}
+                  className="btnSubmitItem btnSubmitItemRed"
+                  size="large"
+                >
+                  <div style={{ marginLeft: 10 }}>削除 </div>
+                </Button>
+              </div>
             </div>
           )}
         </div>

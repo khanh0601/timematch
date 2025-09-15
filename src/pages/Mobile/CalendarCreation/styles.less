@@ -1,33 +1,41 @@
 @import '../../../base.less';
+
 .calendarCreationContainer {
   padding: 20px;
+
   hr {
     margin: 20px 0;
   }
+
   .labelName {
     display: flex;
     align-items: center;
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 5px;
+
     .labelIcon {
       padding-right: 3px;
       width: 20px;
     }
   }
+
   .inputField {
     width: 100%;
     border-radius: 5px;
     padding: 5px;
     margin-bottom: 20px;
   }
+
   .selectField {
     width: 40%;
     height: 40px;
   }
+
   .candidateContainer {
     display: flex;
     align-items: center;
+
     .candidateButton {
       height: 40px;
       border-radius: 10px;
@@ -38,29 +46,35 @@
       box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
       margin-right: 10px;
     }
+
     .candidateBtnTooltip {
       padding: 0;
       margin: 0;
       border: none;
     }
+
     img {
       margin-left: 5px;
       width: 30px;
     }
   }
+
   .calendarTimeGroup {
     padding: 20px 30px 0 30px;
+
     .datePickerContainer {
       display: flex;
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
       width: 100%;
+
       .datePickerItem {
         font-weight: 500;
         font-size: 1.2rem;
       }
     }
+
     .calendarBtn {
       margin-top: 15px;
       width: 100%;
@@ -70,6 +84,7 @@
       font-weight: 600;
       box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
     }
+
     .calendarTime {
       display: flex;
       align-items: center;
@@ -83,25 +98,31 @@
       border: 1px solid #3368c7;
     }
   }
+
   .collapseContainer {
     margin-top: 15px;
     background-color: #ffffff;
+
     .collapseExtractCandidate {
       padding: 10px;
+
       .candidateHeader {
         padding: 0 10px !important;
       }
+
       .calendarTimeContainer {
         margin-top: 10px;
         background-color: #ffffff;
         border-radius: 7px;
         padding: 10px;
       }
+
       .candidateItem {
         display: flex;
         justify-content: space-between;
         align-items: center;
         padding: 5px 0;
+
         .candidateItemName {
           color: #3368c7;
           font-weight: 500;
@@ -109,6 +130,7 @@
       }
     }
   }
+
   .saveBtn {
     width: 50%;
     height: 40px;
@@ -121,56 +143,129 @@
     box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
   }
 }
-.modalContent {
-  .shareCalendarFrame {
-    border: 1px solid #7f7e7e;
-    border-radius: 10px;
-    padding: 10px;
-    .shareCalendarLink {
-      color: #0f87e4;
-    }
-    .shareCalendarItem {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      .bgBlue500 {
-        background-color: #4a6bc0;
-      }
-      .bgBlue700 {
-        background-color: #1f4f96;
-      }
-      .shareCalendarTitle {
-        font-weight: 500;
-      }
-      .shareCalendarBtn {
-        height: 25px;
-        padding: 0 10px;
-        border-radius: 5px;
-        color: #ffffff;
-        font-size: 0.7rem;
-        font-weight: 600;
-        letter-spacing: 1px;
-        border: none;
-        box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
-      }
+
+:global {
+  .ant-modal-header {
+    border-bottom: none !important;
+  }
+  .ant-modal-title {
+    padding: 8px;
+    color: var(--black, #2c3236);
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1.28px;
+  }
+  .ant-modal {
+    padding: 24px;
+    width: 90% !important;
+    max-width: 960px !important;
+  }
+  body
+    .ant-modal-root
+    .ant-modal-wrap
+    .ant-modal-content
+    .ant-modal-close
+    .ant-modal-close-icon {
+    background-color: transparent !important;
+    box-shadow: unset !important;
+    svg {
+      color: #0f63aa !important;
     }
   }
 }
+
+.modalContent {
+  .shareCalendarFrame {
+    border-radius: 16px;
+    border: 1px solid var(--gray-07, #d6dee6);
+    display: flex;
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    letter-spacing: -0.8px;
+    .shareCalendarLinkMain {
+      color: #3a7fbb;
+    }
+  }
+  .shareCalendarInfo {
+    display: flex;
+    gap: 8px;
+    &Ic {
+      display: flex;
+      align-items: start;
+    }
+    img {
+      width: 20px;
+      margin-top: 2px;
+    }
+  }
+  .shareCalendarLink {
+    color: #919aa5;
+    text-align: end;
+    text-decoration: underline;
+    cursor: pointer;
+    margin-block: 8px 24px;
+    font-size: 20px;
+    font-weight: 500;
+    text-underline-offset: 4px;
+    &Main {
+      color: #3a7fbb;
+      &Wrap {
+        padding: 8px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+  }
+
+  .shareCalendarItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    .shareCalendarBtn {
+      min-width: 200px;
+      height: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding-inline: 48px;
+      border-radius: 32px;
+      border: 1px solid var(--primary-06-main, #0f63aa);
+      background: #fff;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.8px;
+      color: #0f63aa;
+    }
+  }
+}
+
 .bookingCalendarParent {
   @media screen and (max-width: 767px) {
     position: relative;
     overflow: scroll;
     height: 75dvh;
+
     & > div {
       position: absolute;
     }
   }
 }
+
 .calendarLinkOtherDesc {
   background-color: rgba(24, 144, 255, 0.15);
   border-radius: 20px;
   padding: 15px;
   color: #0f87e4;
+
   .calendarLinkOtherTitle {
     display: flex;
     align-items: center;
@@ -178,17 +273,21 @@
     font-size: 1rem;
     font-weight: 500;
     margin-bottom: 0;
+
     > svg {
       fill: #0c3dc9;
       margin-right: 5px;
     }
   }
+
   .calendarLinkOtherContent {
     font-size: 0.9rem;
   }
 }
+
 .calendarLinkOtherBtn {
   padding-top: 20px;
+
   .calendarLinkOtherItem {
     margin: 20px auto 0 auto;
     display: flex;
@@ -199,23 +298,27 @@
     padding: 5px 10px;
     box-shadow: 0 2px 5px 0px rgba(0, 0, 0, 0.2);
     border-radius: 5px;
+
     > img {
       width: 25px;
       margin-right: 10px;
     }
   }
 }
+
 .calendarLinkOtherFooter {
   margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
+
   > a {
     padding: 0 10px;
     color: #0f87e4;
     text-decoration: underline;
   }
 }
+
 .deleteTimeSelected {
   width: 100%;
   border: 0;
@@ -224,18 +327,23 @@
   background-color: #eb3c03;
   color: #ffffff;
 }
+
 :global {
   .ant-form-item {
     margin-bottom: 0;
   }
+
   .ant-collapse {
     border-radius: 5px !important;
+
     .ant-collapse-item {
       border-radius: 10px;
+
       .ant-collapse-header {
         padding: 10px 20px;
       }
     }
+
     .ant-collapse-content {
       .ant-collapse-content-box {
         padding: 0;
@@ -244,20 +352,25 @@
         overflow-y: scroll;
       }
     }
+
     .ant-checkbox-group {
       width: 100%;
     }
   }
+
   .ant-picker {
     width: 100%;
     border-radius: 10px;
+
     .ant-picker-input {
       input {
         text-align: center;
       }
+
       .ant-picker-suffix {
         display: none;
       }
+
       .ant-picker-clear {
         display: none;
       }

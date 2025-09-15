@@ -91,6 +91,7 @@ export default {
       try {
         yield put({ type: 'setLoginLoading', payload: true });
         const res = yield UserRequest.googleLogin(action.payload);
+        console.log(res);
         if (res.status === 201) {
           const {
             token,
@@ -221,7 +222,6 @@ export default {
         const user = res.body.data;
         localStorage.setItem('profile', JSON.stringify(user));
         setCookie('accountType', user.account_type);
-
         yield put({
           type: 'getProfileSuccess',
           payload: user,

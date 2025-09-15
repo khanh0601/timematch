@@ -17,12 +17,7 @@ import {
   setDataEventMobile,
   setViewEventCalendar,
 } from '@/components/Mobile/AvailableTime/actions';
-import {
-  DownOutlined,
-  LeftOutlined,
-  RightOutlined,
-  UpOutlined,
-} from '@ant-design/icons';
+import { DownOutlined, UpOutlined } from '@ant-design/icons';
 // import interactionPlugin from './@fullcalendar/interaction';
 import interactionPlugin from '@fullcalendar/interaction';
 import FullCalendar from '@fullcalendar/react';
@@ -36,6 +31,9 @@ import CalendarPreviewContent from './CalendarPreviewContent';
 import CalendarPreviewHeader from './CalendarPreviewHeader';
 import { history } from 'umi';
 import { eventDragStopBlockTime, eventDropBlockTime } from '@/util/eventBus';
+import iconNext from '@/assets/images/icon-arrow-next.svg';
+import iconPrev from '@/assets/images/icon-arrow-prev.svg';
+import iconDown from '@/assets/images/icon-arrow-down.svg';
 
 function CalendarPreview(props) {
   const { state, ...hooks } = useCalendarPreview(props);
@@ -49,41 +47,29 @@ function CalendarPreview(props) {
       {/* Header */}
       <div className={styles.headerView}>
         <div className={styles.headerLeft}>
-          <button className={styles.btnToday} onClick={hooks.handleGoToToday}>
-            今日
-          </button>
           <div className={styles.btnPrev} onClick={hooks.handlePrev}>
-            <LeftOutlined color="#3368C7" />
+            <img src={iconPrev} alt="icon prev" />
+          </div>
+          <div className={styles.dateWrap}>
+            <Select
+              className={styles.selectDate}
+              value={hooks.selectedYear}
+              onChange={hooks.handleChangeYear}
+              dropdownMatchSelectWidth={false}
+              options={hooks.renderYearNavigation()}
+              suffixIcon={<img src={iconDown} alt="arrow-down" />}
+            />
+            <Select
+              className={styles.selectDate}
+              value={hooks.selectedMonth}
+              onChange={hooks.handleChangeMonth}
+              options={hooks.renderMonthNavigation()}
+              suffixIcon={<img src={iconDown} alt="arrow-down" />}
+            />
           </div>
           <div className={styles.btnNext} onClick={hooks.handleNext}>
-            <RightOutlined color="#3368C7" />
+            <img src={iconNext} alt="icon next" />
           </div>
-          {/* <span className={styles.dateStr}>{state.monthFormat}</span> */}
-          <Select
-            value={hooks.selectedYear}
-            onChange={hooks.handleChangeYear}
-            dropdownMatchSelectWidth={false}
-            options={hooks.renderYearNavigation()}
-          />
-          <Select
-            value={hooks.selectedMonth}
-            onChange={hooks.handleChangeMonth}
-            options={hooks.renderMonthNavigation()}
-          />
-        </div>
-
-        <div
-          className={styles.btnCalendar}
-          onClick={() => {
-            history.push('/');
-          }}
-        >
-          <img
-            src={require('@/assets/images/pc/calendar-sync.png')}
-            alt={'calendar'}
-            className={styles.btnCalendarIcon}
-          />
-          <span>調整一覧</span>
         </div>
       </div>
 
@@ -93,14 +79,15 @@ function CalendarPreview(props) {
           <FullCalendar
             // key={state.calendarKey}
             ref={hooks.calendarRef}
-            eventOverlap={true}
             headerToolbar={false}
+            slotEventOverlap={false}
+            eventOverlap={false}
             expandRows={true}
             timeZone={'local'}
             plugins={[timeGridPlugin, interactionPlugin]}
             initialView="timeGrid"
             // initialDate={gotoDate}
-            height="calc(100vh - 65px - 68px - 84px)"
+            height="calc(100svh - 65px - 68px - 414px)"
             duration={{ days: dateIncrement }}
             events={hooks.displayEvents}
             dayMaxEventRows={hooks.expanded ? false : 2}

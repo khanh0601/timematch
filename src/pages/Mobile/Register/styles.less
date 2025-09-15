@@ -1,5 +1,29 @@
 @import '../../../base.less';
 
+.loginPageTab {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 40px;
+
+  &Item {
+    cursor: pointer;
+    padding: 16px 32px;
+    border-radius: 8px;
+    border: 1px solid var(--gray-07, #d6dee6);
+    background: #fff;
+    color: var(--gray-03, #626e79);
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -0.8px;
+
+    &.active {
+      background: var(--primary-06-main, #0f63aa);
+      color: white;
+    }
+  }
+}
+
 .signUp {
   position: relative;
   height: fit-content;
@@ -70,23 +94,29 @@
       }
 
       .fieldLabel {
-        font-size: 1rem;
-        font-weight: 700;
-        margin-bottom: 5px;
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 16px;
 
         .inputRequired {
           color: #ff4d4f;
-          font-size: 14px;
-          margin-top: 10px;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 1;
+          margin-left: 8px;
+          padding: 4px 10px;
+          border-radius: 13.5px;
+          background: #f1c0c0;
         }
       }
 
       input {
         width: 100%;
-        height: 40px;
-        border-radius: 5px;
-        padding: 5px;
-        margin-bottom: 5px;
+        height: 44px;
+        border-radius: 4px;
+        padding: 0 16px;
+        border-color: #d6dee6 !important;
+        margin-bottom: 4px;
       }
 
       .errorNotice {
@@ -102,20 +132,30 @@
     }
 
     .btnZone {
-      margin-top: 20px;
-      margin-bottom: 25px;
+      display: flex;
+      justify-content: center;
+      margin-inline: auto;
+      margin-block: 24px 16px;
 
       .signUpBtn {
-        width: 100%;
-        height: 40px;
-        background-color: #023768;
-        color: #ffffff;
-        border-radius: 5px;
-        font-size: 1rem;
-        font-weight: 700;
-        cursor: pointer;
+        width: max-content;
+        height: 60px;
+        min-width: 200px;
+        border-radius: 32px;
+        border: 1px solid var(--primary-06-main, #0f63aa);
+        background: #fff;
+        color: #0f63aa;
+        transition: 0.4s ease all;
+        margin-inline: auto;
+
+        span {
+          font-size: 20px;
+          line-height: 1;
+          font-weight: 500;
+        }
 
         &:hover {
+          color: white;
           background-color: #1f4f96;
         }
       }
@@ -129,24 +169,19 @@
 
       .loginButton {
         width: 100%;
-        height: 40px;
+        height: 56px;
         background-color: #ffffff;
-        color: #555555;
-        border-radius: 5px;
+        border-radius: 8px;
+        border: 1px solid var(--gray-07, #d6dee6);
+        background: #fff;
         font-size: 1rem;
         font-weight: 500;
         cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px;
-        border: 1px solid #999999;
-        box-shadow: 0 4px 5px -2px rgba(0, 0, 0, 0.2);
+        margin-top: 24px;
+        margin-inline: auto;
 
         img {
-          width: 20px;
-          height: 20px;
-          margin-right: 10px;
+          display: none;
         }
       }
     }
@@ -154,12 +189,28 @@
 
   .checkTerm {
     margin: 0;
-    text-align: center;
-    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+
+    span {
+      color: var(--black, #333);
+      font-size: 20px;
+      font-style: normal;
+      font-weight: 500;
+      line-height: 1;
+    }
 
     a {
       color: #40a9ff;
       text-decoration: underline;
+    }
+
+    :global {
+      .ant-checkbox {
+        width: 24px;
+        height: 24px;
+      }
     }
   }
 
@@ -215,31 +266,39 @@
 
 @media (min-width: 834px) {
   .signUp {
-    background-color: #ebf0f9;
-    max-width: 850px;
-    margin: auto;
-    border-radius: 24px;
     padding-bottom: 0 !important;
+    max-width: 1120px;
+    padding-inline: 80px;
+    margin-inline: auto;
+    margin-top: 40px;
+
+    &Wrap {
+      height: calc(100svh - 120px);
+      overflow: auto;
+      background-image: url('../../../assets/images/bg.png');
+      background-size: 100%;
+      background-position: bottom center;
+      background-repeat: no-repeat;
+    }
   }
 
   .bodyContent {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
-    padding: 16px !important;
+    padding: 48px !important;
+    background-color: white;
+    border: 1px solid var(--gray-07, #d6dee6);
+    margin-bottom: 100px;
   }
 
   .form {
-    background-color: #fff;
-    border-radius: 16px;
-    margin-right: 40px;
-    width: 483px !important;
-    padding: 25px 15px !important;
-    margin: inherit !important;
+    width: 100%;
+    padding: 0 !important;
   }
 
   .card {
-    padding-top: 27px;
-    flex: 1;
+    width: 100%;
   }
 
   .btnZone {
@@ -247,7 +306,7 @@
   }
 
   .loginButton {
-    width: 250px;
+    width: 400px;
   }
 
   .leftFormTitle,

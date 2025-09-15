@@ -1,57 +1,97 @@
 @import '../../../base.less';
-
-.headerContainer {
-  height: 75px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 1px solid #234ab6;
-
-  .headerLeft {
+.header {
+  box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
+  background-color: white;
+  .headerContainer {
     display: flex;
     align-items: center;
-    position: relative;
+    justify-content: space-between;
+    padding-block: 16px;
+    padding-inline: 80px;
+    max-width: 1600px;
+    margin: auto;
 
+    .headerLeft {
+      display: flex;
+      align-items: center;
+      position: relative;
+      .icBarView {
+        padding: 16px;
+        cursor: pointer;
+        color: #234ab6;
+        padding-right: 0;
+        // margin-right: 50px;
+      }
+      .logo {
+        width: 200px;
+        height: 43px;
+        object-fit: contain;
+        cursor: pointer;
+      }
+    }
+
+    .headerRight {
+      display: flex;
+      align-items: center;
+      position: relative;
+      .avatarWrap {
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        column-gap: 4px;
+        .avatar {
+          width: 35px;
+          height: 35px;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+        span {
+          font-size: 20px;
+          font-weight: 500;
+          color: #626e79;
+          letter-spacing: -0.8px;
+          margin-right: 16px;
+        }
+      }
+      .icBar,
+      .icClose {
+        width: 64px;
+        height: 64px;
+        cursor: pointer;
+      }
+    }
     .menuView {
       width: 300px;
       position: absolute;
       z-index: 10000000;
-      top: 59px;
-      left: 16px;
-      box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-      border-bottom-left-radius: 16px;
-      border-bottom-right-radius: 16px;
+      top: calc(100% + 7px);
+      right: 16px;
+      border: 1px solid var(--gray-07, #d6dee6);
+      box-shadow: 4px 4px 4px 0 rgba(51, 104, 199, 0.16);
       background-color: #fff;
     }
-
-    .icClose {
-      width: 34px;
-      height: 28px;
-      margin-left: 87px;
-      cursor: pointer;
-    }
-
     .menuItem,
     .logoutItem {
       display: flex;
       align-items: center;
-      border-bottom: 1px solid #234ab6;
-      padding: 16px 40px;
+      padding: 16px 24px;
       cursor: pointer;
-
-      img {
-        width: 24px;
-        height: 24px;
-        margin-right: 8px;
-        display: block;
-        object-fit: contain;
-        background: transparent;
+      transition: 0.4s ease background-color;
+      &:hover,
+      &.active {
+        background-color: #0f63aa;
+        span {
+          color: white;
+        }
       }
-
       span {
-        font-size: 16px;
-        color: #234ab6;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1.2em;
+        letter-spacing: -2px;
+        color: #0f63aa;
         font-weight: bold;
+        transition: color 0.4s ease;
       }
     }
 
@@ -65,59 +105,27 @@
     }
 
     .logoutItem {
-      background-color: #919191;
-      border-bottom-left-radius: 16px;
-      border-bottom-right-radius: 16px;
+      background-color: #f2f8fb;
+      border-radius: 20px;
+      margin: 16px 24px;
+      padding: 8px 4px;
+      justify-content: center;
       span {
-        color: #fff !important;
+        color: #626e79 !important;
+      }
+      &:hover {
+        span {
+          color: white !important;
+        }
       }
 
       // &:hover {
       //   background-color: #a09d9d;
       // }
     }
-
-    .icBarView {
-      padding: 16px;
-      cursor: pointer;
-      color: #234ab6;
-      padding-right: 0;
-      // margin-right: 50px;
-    }
-
-    .icBar {
-      width: 34px;
-      height: 28px;
-    }
-
-    .logo {
-      width: 200px;
-      height: 43px;
-      object-fit: contain;
-      cursor: pointer;
-    }
   }
 
-  .headerRight {
-    display: flex;
-    align-items: center;
-    padding-right: 16px;
-    cursor: pointer;
-    img {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      object-fit: cover;
-      margin-right: 10px;
-    }
-
-    span {
-      font-size: 16px;
-      color: #000;
-    }
+  .logoutConfirm {
+    border-radius: 20px !important;
   }
-}
-
-.logoutConfirm {
-  border-radius: 20px !important;
 }

@@ -29,7 +29,7 @@ export default function HeaderCalendar({ value }) {
       <div>{currentDate()}</div>
 
       <div className={`${compareDateAndCurrentDate ? styles.currentDay : ''}`}>
-        {getDayInWeekWithShortName(date.day())}
+        ({getDayInWeekWithShortName(date.day())})
       </div>
 
       {/* {renderHoliday()} */}

@@ -108,20 +108,22 @@ function TopPagePC(props) {
 
       <div className={styles.mainContainer}>
         {/* Left panel */}
-        <div className={styles.leftPanel}>
-          <div
-            className={styles.btnEvent}
-            onClick={() => history.push('/pc/create-calendar')}
-          >
-            <PlusOutlined className={styles.btnEventIcon} />
-            <span className={styles.btnEventText}>
-              {formatMessage({ id: 'i18n_top_pc_create_event' })}
-            </span>
-          </div>
-        </div>
 
         {/* right panel */}
         <div className={styles.rightPanel}>
+          <div className={styles.rightPanelTop}>
+            <div className={styles.rightPanelTopTitle}>
+              <span>調整一覧</span>
+            </div>
+            <div
+              className={styles.btnCalendar}
+              onClick={() => {
+                history.push('/pc/calendar');
+              }}
+            >
+              <span>カレンダーを見る</span>
+            </div>
+          </div>
           <div className={styles.headerPanel}>
             <div className={styles.btnGroup}>
               <div
@@ -136,26 +138,18 @@ function TopPagePC(props) {
                   styles.btnGroupItemActive}`}
                 onClick={props.getAdjustedEvents}
               >
-                <span>調整済</span>
+                <span>調整済み</span>
+              </div>
+              <div
+                className={styles.btnEvent}
+                onClick={() => history.push('/pc/create-calendar')}
+              >
+                <PlusOutlined className={styles.btnEventIcon} />
+                <span className={styles.btnEventText}>
+                  {formatMessage({ id: 'i18n_top_pc_create_event' })}
+                </span>
               </div>
             </div>
-
-            <div
-              className={styles.btnCalendar}
-              onClick={() => {
-                history.push('/pc/calendar');
-              }}
-            >
-              <img
-                src={require('@/assets/images/pc/calendar-sync.png')}
-                alt={'calendar'}
-                className={styles.btnCalendarIcon}
-              />
-              <span>カレンダー</span>
-            </div>
-          </div>
-
-          <div className={`${styles.contentPanel} top-pc`}>
             <div className={styles.searchPanel}>
               <div className={styles.searchInputPanel}>
                 <input
@@ -178,7 +172,9 @@ function TopPagePC(props) {
                 </button>
               )}
             </div>
+          </div>
 
+          <div className={`${styles.contentPanel} top-pc`}>
             <div className={styles.eventList}>
               {isTab2 ? (
                 <PastEvent

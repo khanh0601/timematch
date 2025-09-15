@@ -55,6 +55,8 @@ import iconMemo from '@/assets/images/i-memo.png';
 import iconQuestion from '@/assets/images/i-question.png';
 import iconGoogle from '@/assets/images/google.png';
 import iconOffice from '@/assets/images/microsoft.png';
+import iconDoc from '@/assets/images/document.svg';
+import iconUser from '@/assets/images/user2.svg';
 import iconCalendarClose from '@/assets/images/i-close-white.png';
 
 import { notify, profileFromStorage } from '../../../commons/function';
@@ -1489,6 +1491,7 @@ ${text_ask_calendar_bottom}`;
         </div>
       </Modal>
       <Modal
+        className={styles.modalTeam}
         title={formatMessage({ id: 'i18n_add_member_send_email_title' })}
         open={isInviteEmailTeamPopup}
         onCancel={closeModalTeam}
@@ -1509,91 +1512,68 @@ ${text_ask_calendar_bottom}`;
         footer={null}
       >
         <div className={styles.modalContent}>
-          <p>
-            {formatMessage({
-              id: 'i18n_create_calendar_success_content',
-            })}
-          </p>
           <div className={styles.shareCalendarFrame}>
-            {/* <Link
-              to={`/calendar/${dataCalendarSuccess?.id}`}
-              className={styles.shareCalendarLink}
-            >
-              {Object.keys(isDetailCalendar).length > 0 &&
-              Object.keys(isDetailCalendar.vote).length > 0
-                ? isDetailCalendar.vote.full_url
-                : ''}
-            </Link> */}
-            <p className={styles.shareCalendarLink}>
-              {Object.keys(isDetailCalendar).length > 0 &&
-              Object.keys(isDetailCalendar.vote).length > 0
-                ? isDetailCalendar.vote.full_url
-                : ''}
-            </p>
-            <div
-              className={styles.shareCalendarItem}
-              style={{ marginTop: '10px' }}
-            >
-              <div className={styles.shareCalendarTitle}>
-                {formatMessage({ id: 'i18n_adjust_url_title' })}
+            <div className={styles.shareCalendarInfo}>
+              <div className={styles.shareCalendarInfoIc}>
+                <img src={iconDoc} alt="icon document" />
               </div>
-              <div className={styles.shareCalendarLink}>
-                <Button
-                  className={`${styles.shareCalendarBtn} ${styles.bgBlue700}`}
-                  onClick={handleCopyURLToClipboard}
-                >
-                  {isURLCopy
-                    ? formatMessage({ id: 'i18n_copied' })
-                    : formatMessage({ id: 'i18n_copy_adjust_url' })}
-                </Button>
+              <div className={styles.shareCalendarInfoText}>
+                イベント名： {isCalendarTitle}
               </div>
             </div>
-            <div
-              className={styles.shareCalendarItem}
-              style={{ marginTop: '10px' }}
-            >
-              <div className={styles.shareCalendarTitle}>
-                {formatMessage({ id: 'i18n_share_fixed_text_title' })}
+            <div className={styles.shareCalendarInfo}>
+              <div className={styles.shareCalendarInfoIc}>
+                <img src={iconUser} alt="icon user" />
               </div>
-              <div className={styles.shareCalendarLink}>
-                <Button
-                  onClick={handleTemplateMailPreview}
-                  className={`${styles.shareCalendarBtn} ${styles.bgBlue500}`}
-                >
-                  {formatMessage({ id: 'i18n_share_fixed_btn' })}
-                </Button>
+              <div className={styles.shareCalendarInfoText}>
+                主催者： {profile?.name}
               </div>
-              <div className={styles.shareCalendarLink}>
-                <Button
-                  onClick={handleCopyTemplateToClipboard}
-                  className={`${styles.shareCalendarBtn} ${styles.bgBlue700}`}
-                >
-                  {isTemplateCopy
-                    ? formatMessage({ id: 'i18n_copied' })
-                    : formatMessage({ id: 'i18n_copy_standard_text' })}
-                </Button>
+            </div>
+            <div className={styles.shareCalendarLinkMainWrap}>
+              <div>
+                調整したい相手に
+                <br /> 候補を送って予定を合わせましょう。
               </div>
+              <p className={styles.shareCalendarLinkMain}>
+                {Object.keys(isDetailCalendar).length > 0 &&
+                Object.keys(isDetailCalendar.vote).length > 0
+                  ? isDetailCalendar.vote.full_url
+                  : ''}
+              </p>
             </div>
           </div>
           <div
-            className={styles.shareCalendarFrame}
-            style={{ marginTop: '10px' }}
+            onClick={handleTemplateMailPreview}
+            className={`${styles.shareCalendarLink}`}
           >
-            <div className={styles.shareCalendarItem}>
-              <div className={styles.shareCalendarTitle}>
-                {formatMessage({ id: 'i18n_share_via_email' })}
-              </div>
-              <div className={styles.shareCalendarLink}>
-                <Button
-                  className={`${styles.shareCalendarBtn} ${styles.bgBlue700}`}
-                  onClick={handleRedirectToURL(
-                    `/invite-participant?event_code=${dataCalendarSuccess.event_code}`,
-                  )}
-                >
-                  {formatMessage({ id: 'i18n_copy_via_email' })}
-                </Button>
-              </div>
-            </div>
+            {formatMessage({ id: 'i18n_share_fixed_btn' })}
+          </div>
+          <div className={styles.shareCalendarItem}>
+            <Button
+              className={`${styles.shareCalendarBtn} `}
+              onClick={handleCopyURLToClipboard}
+            >
+              {isURLCopy
+                ? formatMessage({ id: 'i18n_copied' })
+                : formatMessage({ id: 'i18n_copy_adjust_url' })}
+            </Button>
+
+            <Button
+              onClick={handleCopyTemplateToClipboard}
+              className={`${styles.shareCalendarBtn}`}
+            >
+              {isTemplateCopy
+                ? formatMessage({ id: 'i18n_copied' })
+                : formatMessage({ id: 'i18n_copy_standard_text' })}
+            </Button>
+            <Button
+              className={`${styles.shareCalendarBtn} `}
+              onClick={handleRedirectToURL(
+                `/invite-participant?event_code=${dataCalendarSuccess.event_code}`,
+              )}
+            >
+              {formatMessage({ id: 'i18n_copy_via_email' })}
+            </Button>
           </div>
         </div>
       </Modal>

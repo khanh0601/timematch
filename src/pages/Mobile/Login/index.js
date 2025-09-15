@@ -13,7 +13,7 @@ import iconGoogle from '@/assets/images/google.png';
 import iconOffice from '@/assets/images/microsoft.png';
 import iconLogoTimeMatch from '@/assets/images/logo.png';
 import useIsMobile from '@/hooks/useIsMobile';
-
+import { history } from 'umi';
 function LoginMobile(props) {
   const { dispatch, masterStore } = props;
   const { loginLoading } = masterStore;
@@ -138,121 +138,128 @@ function LoginMobile(props) {
         }
         showLogo={!isMobile}
       />
-      <div className={`${styles.signIn} login-page`}>
-        <Form form={form} className={styles.formSignIn}>
-          <div className={styles.leftForm}>
-            <h1 className={styles.leftFormTitle}>
-              {formatMessage({ id: 'i18n_left_signin_title' })}
-            </h1>
-
-            <p className={`${styles.fieldName} ${styles.textDarkGray}`}>
-              {formatMessage({ id: 'i18n_email' })}
-            </p>
-            <Form.Item
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'i18n_required_text' }),
-                },
-                {
-                  type: 'email',
-                  message: intl.formatMessage({
-                    id: 'i18n_email_error_notice',
-                  }),
-                },
-              ]}
-              name={'email'}
-            >
-              <Input
-                className={`${styles.inputField} ${styles.borderMediumGray}`}
-                placeholder={'例) evergreen1129@timematch.jp'}
-                autoComplete="off"
-              />
-            </Form.Item>
-
-            <p
-              className={`${styles.fieldName} ${styles.textDarkGray}`}
-              style={{ paddingTop: '20px' }}
-            >
-              {formatMessage({ id: 'i18n_password' })}
-            </p>
-            <Form.Item
-              rules={[
-                {
-                  required: true,
-                  message: formatMessage({ id: 'i18n_required_text' }),
-                },
-              ]}
-              name={'password'}
-            >
-              <Input
-                className={`${styles.inputField} ${
-                  focus1 ? styles.password : ''
-                } ${styles.borderMediumGray}`}
-                placeholder={'例) Password12'}
-                iconRender={visible => (visible ? visible : visible)}
-                onFocus={e => inputFocus(e)}
-                type={'password'}
-                ref={inputRef1}
-                autoComplete="off"
-              />
-            </Form.Item>
-            <div className={styles.btnZone}>
-              <Button
-                className={`${styles.signInBtn} btn-pc-primary`}
-                loading={loading}
-                htmlType="submit"
-                onClick={onSubmit}
-              >
-                {formatMessage({ id: 'i18n_login_btn' })}
-              </Button>
-            </div>
-            <Link
-              to={'/forgot-password'}
-              className={`${styles.forgotPassword} ${styles.textDarkBlue}`}
-            >
-              {formatMessage({ id: 'i18n_forgot_password_link' })}
-            </Link>
-
-            <Link to={'/register'} className={styles.registerLink}>
-              {formatMessage({ id: 'i18n_click_register_link' })}
-            </Link>
-
+      <div className={styles.loginPageWrap}>
+        <div className={styles.container}>
+          <div className={styles.loginPageTab}>
             <div
-              className={`${styles.divider} ${styles.line} ${styles.oneLine}`}
+              className={`${styles.loginPageTabItem} ${styles.active}`}
+              onClick={() => {
+                history.push('/login');
+              }}
             >
-              <span>{formatMessage({ id: 'i18n_status_or' })}</span>
+              ログイン
+            </div>
+            <div
+              className={`${styles.loginPageTabItem}`}
+              onClick={() => {
+                history.push('/register');
+              }}
+            >
+              アカウント新規作成
             </div>
           </div>
+          <div className={`${styles.signIn} login-page`}>
+            <h1 className={styles.leftFormTitle}>ログイン</h1>
+            <Form form={form} className={styles.formSignIn}>
+              <div className={styles.leftForm}>
+                <p className={`${styles.fieldName} ${styles.textDarkGray}`}>
+                  {formatMessage({ id: 'i18n_email' })}
+                </p>
+                <Form.Item
+                  rules={[
+                    {
+                      required: true,
+                      message: formatMessage({ id: 'i18n_required_text' }),
+                    },
+                    {
+                      type: 'email',
+                      message: intl.formatMessage({
+                        id: 'i18n_email_error_notice',
+                      }),
+                    },
+                  ]}
+                  name={'email'}
+                >
+                  <Input
+                    className={`${styles.inputField} ${styles.borderMediumGray}`}
+                    placeholder={'例) evergreen1129@timematch.jp'}
+                    autoComplete="off"
+                  />
+                </Form.Item>
 
-          <div className={styles.rightForm}>
-            <h1 className={styles.rightFormTitle}>
-              {formatMessage({ id: 'i18n_right_signin_title' })}
-            </h1>
-            <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_KEY}>
-              <GoogleLoginButton />
-            </GoogleOAuthProvider>
-            <Button
-              onClick={() => microsoftLogin(0)}
-              className={`${styles.btnSocial} ${styles.borderMediumGray}`}
-            >
-              <img src={iconOffice} alt={'Microsoft'} />
-              {formatMessage({ id: 'i18n_microsoft_login' })}
-            </Button>
-            <div className={styles.registerHere}>
-              {formatMessage({ id: 'i18n_register_link' })}
-              <Link to={'/register'} className={styles.textDarkBlue}>
-                {formatMessage({ id: 'i18n_here' })}
-              </Link>
+                <p
+                  className={`${styles.fieldName} ${styles.textDarkGray}`}
+                  style={{ paddingTop: '20px' }}
+                >
+                  {formatMessage({ id: 'i18n_password' })}
+                </p>
+                <Form.Item
+                  rules={[
+                    {
+                      required: true,
+                      message: formatMessage({ id: 'i18n_required_text' }),
+                    },
+                  ]}
+                  name={'password'}
+                >
+                  <Input
+                    className={`${styles.inputField} ${
+                      focus1 ? styles.password : ''
+                    } ${styles.borderMediumGray}`}
+                    placeholder={'例) Password12'}
+                    iconRender={visible => (visible ? visible : visible)}
+                    onFocus={e => inputFocus(e)}
+                    type={'password'}
+                    ref={inputRef1}
+                    autoComplete="off"
+                  />
+                </Form.Item>
+                <Link
+                  to={'/forgot-password'}
+                  className={`${styles.forgotPassword} ${styles.textDarkBlue}`}
+                >
+                  {formatMessage({ id: 'i18n_forgot_password_link' })}
+                </Link>
+                <div className={styles.btnZone}>
+                  <Button
+                    className={`${styles.signInBtn} `}
+                    loading={loading}
+                    htmlType="submit"
+                    onClick={onSubmit}
+                  >
+                    {formatMessage({ id: 'i18n_login_btn' })}
+                  </Button>
+                </div>
+                <div
+                  className={`${styles.divider} ${styles.line} ${styles.oneLine}`}
+                >
+                  <span>{formatMessage({ id: 'i18n_status_or' })}</span>
+                </div>
+              </div>
+
+              <div className={styles.rightForm}>
+                <GoogleOAuthProvider clientId={config.GOOGLE_CLIENT_KEY}>
+                  <GoogleLoginButton />
+                </GoogleOAuthProvider>
+                <Button
+                  onClick={() => microsoftLogin(0)}
+                  className={`${styles.btnSocial} ${styles.borderMediumGray}`}
+                >
+                  <img src={iconOffice} alt={'Microsoft'} />
+                  {formatMessage({ id: 'i18n_microsoft_login' })}
+                </Button>
+                <div className={styles.registerHere}>
+                  {formatMessage({ id: 'i18n_register_link' })}
+                  <Link to={'/register'} className={styles.textDarkBlue}>
+                    {formatMessage({ id: 'i18n_here' })}
+                  </Link>
+                </div>
+              </div>
+            </Form>
+            <div className={styles.logo}>
+              <img src={iconLogoTimeMatch} alt={'Logo Time Match'} />
             </div>
-
-            <Link to={'/register'} className={styles.registerAdv}>
-              {formatMessage({ id: 'i18n_register_adv' })}
-            </Link>
           </div>
-        </Form>
-        <div className={styles.logo}>
-          <img src={iconLogoTimeMatch} alt={'Logo Time Match'} />
         </div>
       </div>
       <FooterMobile />
