@@ -3,68 +3,71 @@
 .appointmentSelectionConfirmContainer {
   max-width: 1080px;
   margin: auto;
+  margin-top: 40px;
   width: 100%;
   .header {
     font-size: 24px;
     font-weight: bold;
   }
+  :global {
+    .ant-form-item {
+      width: 100% !important;
+    }
+  }
   .inputField {
-    max-width: 508px;
-    margin: 0 auto 20px auto;
+    max-width: 1000px;
+    margin: 0 auto 16px auto;
+    display: flex;
+    gap: 8px;
     .fieldFlex {
       display: flex;
       justify-content: space-between;
     }
     .fieldLabel {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 5px;
+      font-size: 20px;
+      font-weight: 500;
+      min-width: 140px;
       .inputRequired {
         color: #ff4d4f;
-        font-size: 14px;
-        margin-top: 10px;
+        padding: 4px 10px;
+        font-size: 16px;
+        font-weight: 500;
+        background-color: #f1c0c0;
+        border-radius: 16px;
       }
     }
     input {
       width: 100%;
-      height: 40px;
-      border: 1px solid #999999 !important;
-      border-radius: 5px;
-      padding: 5px;
-      margin-bottom: 5px;
+      height: 44px;
+      border: 1px solid #d6dee6 !important;
+      border-radius: 4px;
+      font-size: 20px;
+      font-weight: 500;
+      color: #3f3f3f;
+      padding-left: 16px;
+      background: var(--gray-08, #fff);
     }
     .errorNotice {
       color: #ff4d4f;
-      font-size: 14px;
+      font-size: 16px;
     }
   }
   .btnZone {
-    margin-top: 20px;
-    margin-bottom: 25px;
+    margin-top: 40px;
+    margin-bottom: 32px;
     display: flex;
-    gap: 10px;
+    justify-content: center;
     .confirmBtn {
       width: 100%;
+      max-width: 400px;
+      border-radius: 32px;
+      height: 61px !important;
       height: 40px;
-      font-size: 1rem;
-      font-weight: 700;
+      font-size: 20px;
+      font-weight: 500;
       cursor: pointer;
-      &:hover {
-        background-color: #1f4f96;
-      }
-    }
-    .backBtn {
-      width: 100%;
-      height: 40px;
-      background-color: rgb(157, 185, 250);
-      color: #ffffff;
-      border-radius: 5px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      &:hover {
-        background-color: rgb(157, 185, 250);
-      }
+      background-color: #1f4f96;
+      color: white;
     }
   }
 }

@@ -110,21 +110,13 @@ const AppointmentSelectionForm = props => {
 
   return (
     <div className={styles.appointmentSelectionConfirmContainer}>
-      <div
-        style={{
-          padding: 10,
-        }}
-      >
-        {' '}
-        <div style={{ marginBottom: 20, textAlign: 'center' }}>
-          ご自身のお名前、メールアドレスをご登録ください。
-        </div>
+      <div>
         <Form onFinish={onSubmit} form={form}>
           <div className={styles.inputField}>
             <div className={styles.fieldLabel}>
-              {formatMessage({ id: 'i18n_full_name' })}
+              氏名
               <span className={styles.inputRequired}>
-                【{formatMessage({ id: 'i18n_required' })}】
+                {formatMessage({ id: 'i18n_required' })}
               </span>
             </div>
             <Form.Item
@@ -144,36 +136,32 @@ const AppointmentSelectionForm = props => {
             >
               <Input
                 className={styles.inputField}
-                placeholder={formatMessage({ id: 'i18n_full_name' })}
+                placeholder="例）時間 大浪"
                 autoComplete="on"
               />
             </Form.Item>
           </div>
           <div className={styles.inputField}>
-            <div className={styles.fieldLabel}>
-              {formatMessage({ id: 'i18n_company_name' })}
-            </div>
+            <div className={styles.fieldLabel}>会社名</div>
             <Form.Item name={'companyName'}>
               <Input
                 className={styles.inputField}
-                placeholder={formatMessage({ id: 'i18n_company_name' })}
+                placeholder="例）タイムマッチ"
                 autoComplete="on"
               />
             </Form.Item>
           </div>
           <div className={styles.inputField}>
-            <div className={styles.fieldLabel}>
-              {formatMessage({ id: 'i18n_role' })}
-            </div>
+            <div className={styles.fieldLabel}>メモ</div>
             <Form.Item name={'role'}>
               <Input
                 className={styles.inputField}
-                placeholder={formatMessage({ id: 'i18n_role' })}
+                placeholder="例）00時の「あ」MTG終わり次第参席予定"
                 autoComplete="on"
               />
             </Form.Item>
           </div>
-          <div className={styles.inputField}>
+          {/* <div className={styles.inputField}>
             <div className={styles.fieldLabel}>
               {formatMessage({ id: 'i18n_appointment_send_to_email' })}
             </div>
@@ -198,73 +186,17 @@ const AppointmentSelectionForm = props => {
                 autoComplete="on"
               />
             </Form.Item>
-          </div>
+          </div> */}
           <div className={styles.btnZone}>
             <Button
-              className={`${styles.confirmBtn} ${styles.bgDarkBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
+              className={`${styles.confirmBtn} `}
               loading={loading}
               htmlType="submit"
             >
               返信
             </Button>
-            <Button
-              className={`${styles.backBtn} ${styles.bgPrimaryBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
-              onClick={() => {
-                history.go(-1);
-              }}
-            >
-              日程選択へ戻る
-            </Button>
           </div>
         </Form>
-        <div
-          style={{
-            padding: 20,
-            border: '1px solid #3a3a3a',
-            borderRadius: 8,
-          }}
-        >
-          <div style={{ textAlign: 'center' }}>
-            新規会員登録・ログインいただくと、
-            <br />
-            あなたの予定が入っている箇所が表示され便利です。
-          </div>
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              gap: 20,
-              marginTop: 20,
-            }}
-          >
-            <div
-              style={{
-                width: '50%',
-                textAlign: 'center',
-                padding: 3,
-              }}
-              onClick={() => {
-                history.push('/register');
-              }}
-              className={`${styles.bgPrimaryBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
-            >
-              新規会員登録(無料)
-            </div>
-            <div
-              style={{
-                width: '50%',
-                textAlign: 'center',
-                padding: 3,
-              }}
-              onClick={() => {
-                history.push('/login');
-              }}
-              className={`${styles.bgDarkBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
-            >
-              ログイン
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );

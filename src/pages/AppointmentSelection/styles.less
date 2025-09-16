@@ -7,11 +7,8 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    position: sticky;
-    top: 0;
-    padding: 10px;
-    background: #fff;
-    z-index: 9;
+    margin-top: 40px;
+    margin-bottom: 32px;
 
     .header-left {
       display: flex;
@@ -34,11 +31,18 @@
     }
 
     .header-title {
-      font-size: 20px;
-      font-weight: 600;
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -1.28px;
+      color: #3f3f3f;
+      line-height: 1.2;
     }
   }
-
+  .ant-table-thead > tr > th {
+    background-color: #0c4f88 !important;
+    font-size: 16px;
+    font-weight: 700;
+  }
   .content {
     font-size: 12px;
     width: 100%;
@@ -199,6 +203,47 @@
       }
     }
   }
+  .footerBtnSubmit {
+    display: flex;
+    min-width: 200px;
+    height: 61px;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    align-self: stretch;
+    text-align: center;
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.72px;
+    width: max-content;
+    border-radius: 32px;
+    &Bg {
+      background-color: #0f63aa;
+      color: white;
+    }
+    &Outline {
+      background-color: white;
+      color: #0f63aa;
+      border: 1px solid #0f63aa;
+    }
+  }
+  .footer-wrap {
+    width: 100%;
+    margin-top: 40px;
+    background-color: white;
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 40px;
+    .footer-head {
+      color: var(--black, #3f3f3f);
+      text-align: center;
+      font-size: 20px;
+      font-weight: 500;
+      line-height: 1.4;
+      text-align: center;
+    }
+  }
 }
 
 @media (min-width: 834px) {
@@ -207,7 +252,8 @@
   }
 
   .appointment-selection {
-    max-width: 1080px;
+    max-width: 1600px;
+    padding-inline: 80px;
     margin: auto;
 
     .pointer {
@@ -223,16 +269,9 @@
   }
 
   .aps-content-wrapper {
-    background-color: #ebf0f9;
-    border-radius: 16px;
-    padding: 10px;
-    // height: calc(100vh - 75px - 74px - 52px);
-
-    // .buttons {
-    //   margin-top: 16px !important;
-    //   margin-bottom: 16px !important;
-    // }
-
+    background-color: white;
+    padding: 32px;
+    border: 1px solid var(--gray-07, #d6dee6);
     .ant-input:focus {
       border: #33c3c7 1px solid !important;
     }
@@ -276,14 +315,12 @@
     }
 
     .header-pc {
-      background-color: #ebf0f9;
-      padding-top: 16px;
+      padding-top: 40px;
 
       h2 {
-        font-weight: 500;
-        font-size: 20px;
-        margin-bottom: 32px;
-        padding-left: 16px;
+        font-weight: 700;
+        font-size: 32px;
+        margin-bottom: 40px;
       }
 
       .header-event {

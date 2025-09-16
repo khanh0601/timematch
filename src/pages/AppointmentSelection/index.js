@@ -4,6 +4,7 @@ import { connect } from 'dva';
 import { useEffect, useMemo, useRef } from 'react';
 import { withRouter } from 'umi';
 import { HOUR_FORMAT } from '@/constant';
+import AppointmentSelectionForm from '../AppointmentSelectionForm';
 import {
   profileFromStorage,
   createTimeAsync,
@@ -544,14 +545,6 @@ const AppointmentSelection = props => {
         );
       },
     })),
-    {
-      title: 'コメント',
-      key: 'comment',
-      render: (_, record) =>
-        record.comment && (
-          <BubbleChatIcon onClick={() => info(record.comment, record.name)} />
-        ),
-    },
   ];
 
   const dataLandScape = [
@@ -650,7 +643,6 @@ const AppointmentSelection = props => {
           ) : (
             <div className="header">
               <div className="header-left">
-                <div className="header-line"></div>
                 <div className="header-title">{events?.name}</div>
               </div>
               {profile?.id && (
@@ -704,9 +696,6 @@ const AppointmentSelection = props => {
                     summary={() => (
                       <Table.Summary fixed>
                         <Table.Summary.Row>
-                          <Table.Summary.Cell index={0} colSpan={3}>
-                            コメント
-                          </Table.Summary.Cell>
                           {voteGuest.map((item, index) => (
                             <Table.Summary.Cell index={index + 3} key={item.id}>
                               {item.comment && (
@@ -728,100 +717,45 @@ const AppointmentSelection = props => {
                 )}
               </div>
             </Spin>
-            <div
-              style={{
-                marginLeft: 10,
-                marginTop: 10,
-                fontSize: 20,
-                fontWeight: '600',
-              }}
-            >
-              依頼者へのメッセージ
+            <div className={styles.AppointmentSelectionFormWrap}>
+              <AppointmentSelectionForm />
             </div>
-            <div style={{ margin: 10 }}>
-              <Input
-                onChange={onChangeComment}
-                size="large"
-                disabled={profile?.id && events?.is_voted}
-              />
-            </div>
-            <div
-              style={{ marginTop: 50, marginBottom: 50 }}
-              className="buttons"
-            >
-              {profile?.id && events?.is_voted && (
-                <Button
-                  onClick={() => {
-                    history.push('/');
-                  }}
-                  className="button bgMediumGray shadowPrimary btnBackPrev"
-                >
-                  {formatMessage({ id: 'i18n_back' })}
-                </Button>
-              )}
-              {!events?.is_voted && (
-                <Button
-                  loading={voteLoading}
-                  onClick={() => handleCheckEventClick()}
-                  className="button blue shadowPrimary"
-                  disabled={profile?.id && events?.is_voted}
-                >
-                  <div style={{ marginLeft: 10 }}>決定</div>
-                </Button>
-              )}
-            </div>
-            {!profile?.id && (
-              <div
-                style={{
-                  padding: 20,
-                  border: '1px solid #3a3a3a',
-                  margin: 10,
-                  borderRadius: 8,
-                }}
-              >
-                <div style={{ textAlign: 'center' }}>
-                  新規会員登録・ログインいただくと、
-                  <br />
-                  あなたの予定が入っている箇所が表示され便利です。
-                </div>
-                <div
-                  style={{
-                    display: 'flex',
-                    justifyContent: 'center',
-                    gap: 20,
-                    marginTop: 20,
-                  }}
-                >
-                  <div
-                    style={{
-                      width: '50%',
-                      textAlign: 'center',
-                      padding: 3,
-                    }}
-                    onClick={() => history.push('/register')}
-                    className={`pointer ${styles.bgPrimaryBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
-                  >
-                    新規会員登録(無料)
-                  </div>
-                  <div
-                    style={{
-                      width: '50%',
-                      textAlign: 'center',
-                      padding: 3,
-                    }}
-                    onClick={() => history.push('/login')}
-                    className={`pointer ${styles.bgDarkBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary}`}
-                  >
-                    ログイン
-                  </div>
-                </div>
-              </div>
-            )}
+
             <AvailableTimeModal
               open={openAvailableTimeModal}
               onClose={onCloseAvailableTimeModal}
             />
           </div>
+          {!profile?.id && (
+            <div className="footer-wrap">
+              <div className="footer-head">
+                新規会員登録・ログインいただくと、
+                <br />
+                あなたの予定が入っている箇所が表示され便利です。
+              </div>
+              <div
+                style={{
+                  display: 'flex',
+                  justifyContent: 'center',
+                  gap: 20,
+                  marginTop: 20,
+                }}
+              >
+                <div
+                  onClick={() => history.push('/register')}
+                  className={`pointer footerBtnSubmit footerBtnSubmitBg`}
+                >
+                  新規登録
+                </div>
+                <div
+                  onClick={() => history.push('/login')}
+                  className={`pointer footerBtnSubmit footerBtnSubmitOutline`}
+                >
+                  ログイン
+                </div>
+              </div>
+            </div>
+          )}
         </div>
         {isPc && profile?.id && (
           <div className="appointment-calendar">
