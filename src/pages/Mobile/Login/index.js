@@ -10,9 +10,11 @@ import FooterMobile from '@/components/Mobile/Footer';
 import { Link } from 'umi';
 import HeaderMobile from '@/components/Mobile/Header';
 import iconGoogle from '@/assets/images/google.png';
+import iconClose from '@/assets/images/icon_Menu.svg';
 import iconOffice from '@/assets/images/microsoft.png';
 import iconLogoTimeMatch from '@/assets/images/logo.png';
 import useIsMobile from '@/hooks/useIsMobile';
+import ForgotPassword from '../ForgotPassword';
 import { history } from 'umi';
 function LoginMobile(props) {
   const { dispatch, masterStore } = props;
@@ -28,7 +30,10 @@ function LoginMobile(props) {
   const inputRef1 = useRef(null);
 
   const isMobile = useIsMobile();
+  const [isShowModal, setIsShowModal] = useState(false);
 
+  const openModal = () => setIsShowModal(true);
+  const closeModal = () => setIsShowModal(false);
   const GoogleLoginButton = () => {
     const handleGoogleAuth = useGoogleLogin({
       onSuccess: codeResponse => {
@@ -215,7 +220,10 @@ function LoginMobile(props) {
                   />
                 </Form.Item>
                 <Link
-                  to={'/forgot-password'}
+                  onClick={e => {
+                    e.preventDefault();
+                    openModal();
+                  }}
                   className={`${styles.forgotPassword} ${styles.textDarkBlue}`}
                 >
                   {formatMessage({ id: 'i18n_forgot_password_link' })}
@@ -263,6 +271,22 @@ function LoginMobile(props) {
         </div>
       </div>
       <FooterMobile />
+      <div
+        className={`${styles.modalPassword} ${
+          isShowModal ? styles.active : ''
+        } `}
+      >
+        <div className={styles.modalPasswordInner}>
+          <div
+            className={styles.modalPasswordClose}
+            onClick={() => closeModal()}
+            aria-label="Close"
+          >
+            <img src={iconClose} alt="icon Close" aria-hidden="true" />
+          </div>
+          <ForgotPassword />
+        </div>
+      </div>
     </Spin>
   );
 }

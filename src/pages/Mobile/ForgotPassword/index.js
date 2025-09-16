@@ -83,7 +83,7 @@ function ForgotPassword(props) {
 
   return (
     <div className={styles.forgotPassword}>
-      <HeaderMobile
+      {/* <HeaderMobile
         title={formatMessage({ id: 'i18n_reset_password' })}
         isShowLeft={true}
         primary={
@@ -102,7 +102,7 @@ function ForgotPassword(props) {
             : undefined
         }
         showLogo={!isMobile}
-      />
+      /> */}
       {mailCheck ? (
         <div>
           <h2>{formatMessage({ id: 'i18n_please_check_your_email' })}</h2>
@@ -147,25 +147,12 @@ function ForgotPassword(props) {
                     loading={loading}
                     htmlType="submit"
                     onClick={onSubmit}
-                    className={`${styles.signUpBtn} ${styles.bgDarkBlue} btn-pc-primary`}
+                    className={`${styles.signUpBtn}`}
                   >
                     {formatMessage({ id: 'i18n_reset' })}
                   </Button>
                 </Form.Item>
               </div>
-              {!isMobile && (
-                <div className={`${styles.btnZone} ${styles.btnBack}`}>
-                  <Form.Item>
-                    <Button
-                      htmlType="button"
-                      onClick={goBack}
-                      className={`${styles.signUpBtn} ${styles.bgDarkGray} btn-pc-gray`}
-                    >
-                      {formatMessage({ id: 'i18n_back' })}
-                    </Button>
-                  </Form.Item>
-                </div>
-              )}
             </Form>
           </div>
         </Spin>

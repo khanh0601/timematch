@@ -25,6 +25,6 @@
 .umirc.prod.ts
 mock
 .idea
-# .env
+ .env
 dist
 src/.umi
