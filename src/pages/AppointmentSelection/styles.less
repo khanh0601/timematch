@@ -234,7 +234,29 @@
     background-color: white;
     padding: 16px;
     border-radius: 16px;
-    margin-bottom: 40px;
+    margin-bottom: 80px;
+    .footer-top {
+      max-width: 474px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-inline: auto;
+      margin-bottom: 24px;
+      &-line {
+        background-color: #3f3f3f;
+        height: 1px;
+        flex: 1;
+      }
+      &-txt {
+        color: var(--black, #3f3f3f);
+        text-align: center;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 1;
+        letter-spacing: -0.8px;
+      }
+    }
     .footer-head {
       color: var(--black, #3f3f3f);
       text-align: center;

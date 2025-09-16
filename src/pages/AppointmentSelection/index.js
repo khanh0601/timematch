@@ -718,7 +718,13 @@ const AppointmentSelection = props => {
               </div>
             </Spin>
             <div className={styles.AppointmentSelectionFormWrap}>
-              <AppointmentSelectionForm />
+              <AppointmentSelectionForm
+                eventId={eventId}
+                eventName={eventName}
+                invitee={location?.query?.invitee}
+                code={location?.query?.code}
+                selectedChoices={toggleOkEvent}
+              />
             </div>
 
             <AvailableTimeModal
@@ -728,6 +734,11 @@ const AppointmentSelection = props => {
           </div>
           {!profile?.id && (
             <div className="footer-wrap">
+              <div className="footer-top">
+                <div className="footer-top-line"></div>
+                <div className="footer-top-txt">または</div>
+                <div className="footer-top-line"></div>
+              </div>
               <div className="footer-head">
                 新規会員登録・ログインいただくと、
                 <br />
@@ -772,7 +783,7 @@ const AppointmentSelection = props => {
           </div>
         )}
       </div>
-      {isPc && profile?.id && <FooterMobile />}
+      {isPc && <FooterMobile />}
 
       {!!commentTooltip && (
         <BaseTooltip

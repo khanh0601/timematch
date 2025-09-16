@@ -40,135 +40,137 @@ function CalendarPreview(props) {
   const { scheduleSetting } = props.calendarStore;
   // const fromCalendar = props.fromCalendar;
 
-  const dateIncrement = props.dateIncrement || 7;
+  const dateIncrement = props.dateIncrement || 5;
 
   return (
     <div className={`${styles.rightPanel} calendar-pc`}>
       {/* Header */}
-      <div className={styles.headerView}>
-        <div className={styles.headerLeft}>
-          <div className={styles.btnPrev} onClick={hooks.handlePrev}>
-            <img src={iconPrev} alt="icon prev" />
-          </div>
-          <div className={styles.dateWrap}>
-            <Select
-              className={styles.selectDate}
-              value={hooks.selectedYear}
-              onChange={hooks.handleChangeYear}
-              dropdownMatchSelectWidth={false}
-              options={hooks.renderYearNavigation()}
-              suffixIcon={<img src={iconDown} alt="arrow-down" />}
-            />
-            <Select
-              className={styles.selectDate}
-              value={hooks.selectedMonth}
-              onChange={hooks.handleChangeMonth}
-              options={hooks.renderMonthNavigation()}
-              suffixIcon={<img src={iconDown} alt="arrow-down" />}
-            />
-          </div>
-          <div className={styles.btnNext} onClick={hooks.handleNext}>
-            <img src={iconNext} alt="icon next" />
+      <div className={styles.rightPanelInner}>
+        <div className={styles.headerView}>
+          <div className={styles.headerLeft}>
+            <div className={styles.btnPrev} onClick={hooks.handlePrev}>
+              <img src={iconPrev} alt="icon prev" />
+            </div>
+            <div className={styles.dateWrap}>
+              <Select
+                className={styles.selectDate}
+                value={hooks.selectedYear}
+                onChange={hooks.handleChangeYear}
+                dropdownMatchSelectWidth={false}
+                options={hooks.renderYearNavigation()}
+                suffixIcon={<img src={iconDown} alt="arrow-down" />}
+              />
+              <Select
+                className={styles.selectDate}
+                value={hooks.selectedMonth}
+                onChange={hooks.handleChangeMonth}
+                options={hooks.renderMonthNavigation()}
+                suffixIcon={<img src={iconDown} alt="arrow-down" />}
+              />
+            </div>
+            <div className={styles.btnNext} onClick={hooks.handleNext}>
+              <img src={iconNext} alt="icon next" />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Calendar */}
-      <div className={`${styles.calendarView} calendar-view`}>
-        <Spin spinning={state.loadingEvent}>
-          <FullCalendar
-            // key={state.calendarKey}
-            ref={hooks.calendarRef}
-            headerToolbar={false}
-            slotEventOverlap={false}
-            eventOverlap={false}
-            expandRows={true}
-            timeZone={'local'}
-            plugins={[timeGridPlugin, interactionPlugin]}
-            initialView="timeGrid"
-            // initialDate={gotoDate}
-            height="calc(100svh - 65px - 68px - 414px)"
-            duration={{ days: dateIncrement }}
-            events={hooks.displayEvents}
-            dayMaxEventRows={hooks.expanded ? false : 2}
-            moreLinkClick={arg => {
-              // hooks.handleToggleExpand();
-              return 'expand';
-            }}
-            moreLinkText={num => `他${num}件`}
-            eventOrder="start,title"
-            slotMinTime={'00:00:00'}
-            slotMaxTime={'24:00:00'}
-            slotDuration={'00:15:00'}
-            slotLabelInterval={{ hours: 1 }}
-            eventMinHeight={15}
-            editable={true}
-            allDaySlot={true}
-            allDayContent={
-              hooks.showExpandRow ? (
-                <div
-                  className={styles.expandRows}
-                  onClick={hooks.handleToggleExpand}
-                >
-                  {hooks.expanded ? <UpOutlined /> : <DownOutlined />}
-                </div>
-              ) : (
-                ''
-              )
-            }
-            slotLabelFormat={slotLabelFormat}
-            eventClassNames={event => hooks.renderClassName(event)}
-            dateIncrement={{
-              days: dateIncrement,
-            }}
-            eventTimeFormat={{
-              hour: '2-digit',
-              minute: '2-digit',
-              meridiem: false,
-              hourCycle: 'h23',
-            }}
-            dateClick={info => hooks.addTimeBlock(info)}
-            // eventResize={onResizeEvent}
-            eventDrop={e => {
-              // console.log('eventDrop e: ', e);
-              props.dropBlockCalendar?.(e);
-              eventDropBlockTime(e);
-            }}
-            // eventDragStop={e => {
-            //   // console.log('eventDrop e: ', e);
-            //   props.dropBlockCalendar?.(e);
-            //   eventDragStopBlockTime(e);
-            // }}
-            firstDay={state.firstDay}
-            scrollTimeReset={false}
-            // scrollTime={currentTime}
-            scrollTime={scheduleSetting?.default_start_time || '09:00:00'}
-            dayHeaderContent={value => (
-              // <Header
-              //   value={value}
-              //   calendarHeaders={calendarHeaders}
-              //   displayEvents={displayEvents}
-              // />
-              <CalendarPreviewHeader value={value} />
-            )}
-            eventContent={info => (
-              <CalendarPreviewContent
-                info={info}
-                selected={hooks.selected}
-                onSelect={hooks.setSelect}
-                deleteEvent={payload => {
-                  hooks.onDeleteEvent(payload);
-                  props.onDeleteEvent(payload);
-                }}
-                voters={state.voters}
-              />
-            )}
-            windowResize={true}
-            datesSet={arg => {
-              hooks.handleDatesSet(arg);
-            }}
-          />
-        </Spin>
+        {/* Calendar */}
+        <div className={`${styles.calendarView} calendar-view`}>
+          <Spin spinning={state.loadingEvent}>
+            <FullCalendar
+              // key={state.calendarKey}
+              ref={hooks.calendarRef}
+              headerToolbar={false}
+              slotEventOverlap={false}
+              eventOverlap={false}
+              expandRows={true}
+              timeZone={'local'}
+              plugins={[timeGridPlugin, interactionPlugin]}
+              initialView="timeGrid"
+              // initialDate={gotoDate}
+              height="calc(100svh - 65px - 68px - 414px)"
+              duration={{ days: dateIncrement }}
+              events={hooks.displayEvents}
+              dayMaxEventRows={hooks.expanded ? false : 2}
+              moreLinkClick={arg => {
+                // hooks.handleToggleExpand();
+                return 'expand';
+              }}
+              moreLinkText={num => `他${num}件`}
+              eventOrder="start,title"
+              slotMinTime={'00:00:00'}
+              slotMaxTime={'24:00:00'}
+              slotDuration={'00:15:00'}
+              slotLabelInterval={{ hours: 1 }}
+              eventMinHeight={15}
+              editable={true}
+              allDaySlot={true}
+              allDayContent={
+                hooks.showExpandRow ? (
+                  <div
+                    className={styles.expandRows}
+                    onClick={hooks.handleToggleExpand}
+                  >
+                    {hooks.expanded ? <UpOutlined /> : <DownOutlined />}
+                  </div>
+                ) : (
+                  ''
+                )
+              }
+              slotLabelFormat={slotLabelFormat}
+              eventClassNames={event => hooks.renderClassName(event)}
+              dateIncrement={{
+                days: dateIncrement,
+              }}
+              eventTimeFormat={{
+                hour: '2-digit',
+                minute: '2-digit',
+                meridiem: false,
+                hourCycle: 'h23',
+              }}
+              dateClick={info => hooks.addTimeBlock(info)}
+              // eventResize={onResizeEvent}
+              eventDrop={e => {
+                // console.log('eventDrop e: ', e);
+                props.dropBlockCalendar?.(e);
+                eventDropBlockTime(e);
+              }}
+              // eventDragStop={e => {
+              //   // console.log('eventDrop e: ', e);
+              //   props.dropBlockCalendar?.(e);
+              //   eventDragStopBlockTime(e);
+              // }}
+              firstDay={state.firstDay}
+              scrollTimeReset={false}
+              // scrollTime={currentTime}
+              scrollTime={scheduleSetting?.default_start_time || '09:00:00'}
+              dayHeaderContent={value => (
+                // <Header
+                //   value={value}
+                //   calendarHeaders={calendarHeaders}
+                //   displayEvents={displayEvents}
+                // />
+                <CalendarPreviewHeader value={value} />
+              )}
+              eventContent={info => (
+                <CalendarPreviewContent
+                  info={info}
+                  selected={hooks.selected}
+                  onSelect={hooks.setSelect}
+                  deleteEvent={payload => {
+                    hooks.onDeleteEvent(payload);
+                    props.onDeleteEvent(payload);
+                  }}
+                  voters={state.voters}
+                />
+              )}
+              windowResize={true}
+              datesSet={arg => {
+                hooks.handleDatesSet(arg);
+              }}
+            />
+          </Spin>
+        </div>
       </div>
     </div>
   );

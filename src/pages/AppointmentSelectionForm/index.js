@@ -1,56 +1,47 @@
-import React from 'react';
-import { CloseOutlined } from '@ant-design/icons';
-import { history } from 'umi';
-import { Form, Input, Button, Checkbox } from 'antd';
-import { formatMessage, useIntl } from 'umi';
-import { Link } from 'umi';
-import { useState, useEffect } from 'react';
-import styles from './styles.less';
+import React, { useState, useEffect } from 'react';
+import { withRouter, history, useIntl } from 'umi';
+import { Form, Input, Button } from 'antd';
 import { connect } from 'dva';
-import { withRouter } from 'umi';
-import {
-  meetingMethod,
-  getJPFullDate,
-  getStep,
-  createTimeAsync,
-  profileFromStorage,
-  tz,
-} from '@/commons/function.js';
+import styles from './styles.less';
+import { createTimeAsync, profileFromStorage, tz } from '@/commons/function.js';
 import { notify } from '../../commons/function';
+
 const AppointmentSelectionForm = props => {
   const intl = useIntl();
-  const { eventStore, masterStore, dispatch } = props;
+  const { masterStore, dispatch } = props;
   const [form] = Form.useForm();
-  const [savePolicy, setSavePolicy] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { profile } = masterStore;
-  const onCheck = event => {
-    setSavePolicy(event.target.checked);
-  };
 
+  // ✅ LẤY DỮ LIỆU TỪ PARENT (KHÔNG DÙNG history.location.state/query NỮA)
+  const {
+    eventId,
+    eventName,
+    invitee,
+    code,
+    selectedChoices = [], // mảng [{ id, isOk, ... }]
+    commentDraft = '', // optional
+  } = props;
+
+  const { profile } = masterStore;
+
+  // ====== DATA FETCH (show vote info & summary) =================================
   const getData = async () => {
-    const profile = profileFromStorage();
-    const payload = {
-      vote: history.location.query.id,
-      user_code: profile ? profile.code : '',
-      type: 2, // screen B
-    };
-    const payloadShow = {
-      id: history.location.query.id,
-    };
-    if (history.location.query.name) {
-      payloadShow.name = history.location.query.name;
-    } else if (history.location.query.invitee) {
-      payloadShow.invitee = history.location.query.invitee;
-    } else if (history.location.query.code) {
-      payloadShow.code = history.location.query.code;
-    }
+    const profileLocal = profileFromStorage();
+
+    const payloadShow = { id: eventId };
+    if (eventName) payloadShow.name = eventName;
+    else if (invitee) payloadShow.invitee = invitee;
+    else if (code) payloadShow.code = code;
+
     await dispatch({ type: 'VOTE/getVoteShow', payload: payloadShow });
+
     const { startTime, endTime } = createTimeAsync();
     await dispatch({
       type: 'VOTE/getVoteGuestSummary',
       payload: {
-        ...payload,
+        vote: eventId,
+        user_code: profileLocal ? profileLocal.code : '',
+        type: 2, // screen B
         start: startTime,
         end: endTime,
         timeZone: tz(),
@@ -59,28 +50,38 @@ const AppointmentSelectionForm = props => {
   };
 
   useEffect(() => {
-    getData();
-  }, []);
+    if (eventId) getData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [eventId, eventName, invitee, code]);
 
-  const onSubmit = async value => {
+  // ====== SUBMIT ================================================================
+  const onSubmit = async () => {
     setLoading(true);
-    let finalListInvitee = [];
+
+    // Guard: bắt buộc có ít nhất 1 lựa chọn
+    if (!Array.isArray(selectedChoices) || selectedChoices.length === 0) {
+      notify?.(
+        'error',
+        'Vui lòng chọn ít nhất một khung thời gian trước khi gửi.',
+      );
+      setLoading(false);
+      return;
+    }
 
     const info = {
       name: form.getFieldValue('name'),
       confirm_email: form.getFieldValue('email') ?? null,
       company: form.getFieldValue('companyName') ?? null,
       role: form.getFieldValue('role') ?? null,
-      comment: history.location.state.comment ?? null,
-      guests: finalListInvitee,
+      guests: [],
     };
 
     const payload = {
-      id: history.location.query.id,
-      name: history.location.query.name || null,
-      invitee: history.location.query.invitee || null,
-      code: history.location.query.code || null,
-      choices: history.location.state.choices.map(item => ({
+      id: eventId,
+      name: eventName || null,
+      invitee: invitee || null,
+      code: code || null,
+      choices: selectedChoices.map(item => ({
         event_datetime_id: item.id,
         option: item.isOk === true ? 1 : 2,
       })),
@@ -88,23 +89,31 @@ const AppointmentSelectionForm = props => {
       time_zone: tz(),
       user_code: profile ? profile.code : null,
     };
+
     const res = await dispatch({
       type: 'VOTE/postVoteGuestConfirm',
       payload,
     });
-    if (!res?.result?.result) return;
-    console.log('>>> history form: ', history);
+
+    if (!res?.result?.result) {
+      setLoading(false);
+      notify?.('error', 'Gửi phản hồi không thành công. Vui lòng thử lại.');
+      return;
+    }
+
+    // Điều hướng sau submit (nếu vẫn dùng completed page)
     history.push(
-      `/appointment-selection-completed?id=${history.location.query.id}&name=${history.location.query.name}`,
+      `/appointment-selection-completed?id=${eventId}&name=${eventName || ''}`,
       {
         information: info,
-        choices: history.location.state.choices.map(item => ({
+        choices: selectedChoices.map(item => ({
           event_datetime_id: item.id,
           option: item.isOk === true ? 1 : 2,
         })),
-        comment: history.location.state?.comment,
+        comment: commentDraft,
       },
     );
+
     setLoading(false);
   };
 
@@ -116,15 +125,17 @@ const AppointmentSelectionForm = props => {
             <div className={styles.fieldLabel}>
               氏名
               <span className={styles.inputRequired}>
-                {formatMessage({ id: 'i18n_required' })}
+                {intl.formatMessage({ id: 'i18n_required' })}
               </span>
             </div>
             <Form.Item
+              name="name"
               rules={[
                 {
                   required: true,
-                  message: formatMessage({ id: 'i18n_required_text' }),
+                  message: intl.formatMessage({ id: 'i18n_required_text' }),
                 },
+                // giữ rule type text cho đồng nhất UI (có thể bỏ)
                 {
                   type: 'text',
                   message: intl.formatMessage({
@@ -132,7 +143,6 @@ const AppointmentSelectionForm = props => {
                   }),
                 },
               ]}
-              name={'name'}
             >
               <Input
                 className={styles.inputField}
@@ -141,9 +151,10 @@ const AppointmentSelectionForm = props => {
               />
             </Form.Item>
           </div>
+
           <div className={styles.inputField}>
             <div className={styles.fieldLabel}>会社名</div>
-            <Form.Item name={'companyName'}>
+            <Form.Item name="companyName">
               <Input
                 className={styles.inputField}
                 placeholder="例）タイムマッチ"
@@ -151,9 +162,10 @@ const AppointmentSelectionForm = props => {
               />
             </Form.Item>
           </div>
+
           <div className={styles.inputField}>
             <div className={styles.fieldLabel}>メモ</div>
-            <Form.Item name={'role'}>
+            <Form.Item name="role">
               <Input
                 className={styles.inputField}
                 placeholder="例）00時の「あ」MTG終わり次第参席予定"
@@ -161,35 +173,31 @@ const AppointmentSelectionForm = props => {
               />
             </Form.Item>
           </div>
-          {/* <div className={styles.inputField}>
+
+          {/* Nếu muốn nhập email để nhận xác nhận:
+          <div className={styles.inputField}>
             <div className={styles.fieldLabel}>
-              {formatMessage({ id: 'i18n_appointment_send_to_email' })}
+              {intl.formatMessage({ id: 'i18n_appointment_send_to_email' })}
             </div>
             <Form.Item
+              name="email"
               rules={[
-                {
-                  required: false,
-                  message: formatMessage({ id: 'i18n_required_text' }),
-                },
-                {
-                  type: 'email',
-                  message: intl.formatMessage({
-                    id: 'i18n_email_error_notice',
-                  }),
-                },
+                { required: false, message: intl.formatMessage({ id: 'i18n_required_text' }) },
+                { type: 'email', message: intl.formatMessage({ id: 'i18n_email_error_notice' }) },
               ]}
-              name={'email'}
             >
               <Input
                 className={styles.inputField}
-                placeholder={formatMessage({ id: 'i18n_email' })}
+                placeholder={intl.formatMessage({ id: 'i18n_email' })}
                 autoComplete="on"
               />
             </Form.Item>
-          </div> */}
+          </div>
+          */}
+
           <div className={styles.btnZone}>
             <Button
-              className={`${styles.confirmBtn} `}
+              className={`${styles.confirmBtn}`}
               loading={loading}
               htmlType="submit"
             >
@@ -201,6 +209,7 @@ const AppointmentSelectionForm = props => {
     </div>
   );
 };
+
 export default connect(({ EVENT, MASTER }) => ({
   eventStore: EVENT,
   masterStore: MASTER,
