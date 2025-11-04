@@ -189,11 +189,11 @@ function Register(props) {
               アカウント新規作成
             </div>
           </div>
+          <h1 className={styles.leftFormTitle}>
+            {formatMessage({ id: 'i18n_left_signup_title' })}
+          </h1>
           <div className={styles.bodyContent}>
             <Form form={form} className={styles.form}>
-              <h1 className={styles.leftFormTitle}>
-                {formatMessage({ id: 'i18n_left_signup_title' })}
-              </h1>
               <div className={styles.inputField}>
                 <div className={`${styles.fieldLabel} ${styles.textDarkGray}`}>
                   {formatMessage({ id: 'i18n_fullname' })}
@@ -318,7 +318,7 @@ function Register(props) {
               </div>
             </div>
           </div>
-          {!isMobile && <FooterMobile />}
+          <FooterMobile />
         </div>
       </div>
       <Modal

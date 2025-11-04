@@ -25,13 +25,11 @@ function CreateCalendar(props) {
   return (
     <div className={`${styles.leftPanel} create-calendar-pc`}>
       <div
-        className={styles.btnEvent}
+        className={styles.titleEvent}
         onClick={showCreateEvent ? undefined : toggleCreateEvent}
       >
         {!showCreateEvent && <PlusOutlined className={styles.btnEventIcon} />}
-        <span className={styles.btnEventText}>
-          {formatMessage({ id: 'i18n_top_pc_create_event' })}
-        </span>
+        <span>{formatMessage({ id: 'i18n_top_pc_create_event' })}</span>
       </div>
       {showCreateEvent && (
         <CalendarCreation

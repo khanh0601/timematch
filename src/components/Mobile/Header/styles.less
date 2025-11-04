@@ -1,15 +1,13 @@
 @import '../../../base.less';
 .mainHeader {
   background: #fff;
-  box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
   .flexHeader {
     max-width: 1600px;
     margin-inline: auto;
-    padding: 16px 80px;
+    padding: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #3368c7;
 
     .headerMenuLeft {
       width: 20%;
@@ -49,9 +47,9 @@
       }
     }
     .headerTitle {
-      width: 60%;
+      width: max-content;
       font-weight: 700;
-      font-size: 1.2rem;
+      font-size: 28px;
       text-align: center;
     }
     .headerMenuRight {
@@ -116,5 +114,21 @@
 
   .flexHeaderLogo {
     border-bottom: none;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .mainHeader {
+    box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
+    padding-block: 16px;
+    .flexHeader {
+      justify-content: center;
+    }
+    .headerLogo {
+      img {
+        width: 120px;
+        height: 26px;
+        object-fit: contain;
+      }
+    }
   }
 }

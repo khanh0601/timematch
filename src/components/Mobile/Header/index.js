@@ -91,30 +91,26 @@ function HeaderMobile(props) {
     return (
       <div className={`${styles.mainHeader} main-header`}>
         <div
-          className={`${styles.flexHeader} ${primary?.bgColor} ${
-            primary?.textColor
-          } ${showLogo ? styles.flexHeaderLogo : ''}`}
+          className={`${styles.flexHeader}  ${
+            showLogo ? styles.flexHeaderLogo : ''
+          }`}
           style={{
             backgroundColor: primary?.bgColor,
             color: primary?.textColor,
           }}
         >
-          <div className={`${styles.headerMenuLeft}`}>{headerLeft()}</div>
-          {showLogo ? (
-            <div className={`${styles.headerLogo}`}>
-              <img
-                src={require('@/assets/images/logo.png')}
-                alt={'logo'}
-                className={styles.logo}
-              />
-            </div>
-          ) : (
-            <div className={`${styles.headerTitle}`}>{title}</div>
-          )}
-
-          <div className={`${styles.headerMenuRight} header-menu-right`}>
-            {headerRight()}
+          <div className={`${styles.headerLogo}`}>
+            <img
+              src={require('@/assets/images/logo.png')}
+              alt={'logo'}
+              className={styles.logo}
+            />
           </div>
+          {headerRight() && (
+            <div className={`${styles.headerMenuRight} header-menu-right`}>
+              {headerRight()}
+            </div>
+          )}
         </div>
       </div>
     );

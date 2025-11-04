@@ -139,65 +139,82 @@ const PastEvent = props => {
   return (
     <Spin spinning={tabLoading}>
       <div className="upcomming_wrap">
-        <div className="upcomming_head upcomming_grid">
-          <div className="upcomming_head_item">No</div>
-          <div className="upcomming_head_item">作成日</div>
-          <div className="upcomming_head_item">イベント名</div>
-          <div className="upcomming_head_item">招待者</div>
-          <div className="upcomming_head_item">回答人数</div>
-          <div className="upcomming_head_item"></div>
-        </div>
-        <AdjustmentList
-          height={calculateSwipeableListHeight(150)}
-          renderItem={(item, index) => (
-            <SwipableItem
-              blockSwipe={props.blockSwipe}
-              index={index}
-              item={item}
-              onDelete={handleDelete}
-            >
-              <div
-                onClick={() => handleEventDetail(item)}
-                className="swipableItem upcomming_grid swipableItemPast"
-                data-current-time={moment(
-                  item?.calendars[0]?.start_time,
-                ).format('YYYY-MM-DD HH:mm:ss')}
-              >
-                <div>{index < 9 ? `0${index + 1}` : index + 1}</div>
-
-                <div>
-                  <span>
-                    {moment(item?.calendars[0]?.start_time).format(
-                      'YYYY-MM-DD',
-                    )}
-                  </span>
-                </div>
-                <div className=" event-name">{item && item?.name}</div>
-                <div>
-                  {item && item.user_id === profile?.id
-                    ? formatMessage({ id: 'i18n_label_event_created_by_me' })
-                    : `${item?.user?.name} ${formatMessage({
-                        id: 'i18n_label_event_created_by_other',
-                      })}`}
-                </div>
-                <div>
-                  <div>
-                    {item && item.vote?.voters
-                      ? Object.keys(item.vote.voters).length
-                      : 0}
-                  </div>
-                </div>
-                <div
-                  className="viewmore"
-                  onClick={() => handleEventDetail(item)}
+        {listEvents && listEvents.length > 0 ? (
+          <>
+            <div className="upcomming_head upcomming_grid">
+              <div className="upcomming_head_item">No</div>
+              <div className="upcomming_head_item">作成日</div>
+              <div className="upcomming_head_item">イベント名</div>
+              <div className="upcomming_head_item">招待者</div>
+              <div className="upcomming_head_item">回答人数</div>
+              <div className="upcomming_head_item"></div>
+            </div>
+            <AdjustmentList
+              height={calculateSwipeableListHeight(150)}
+              renderItem={(item, index) => (
+                <SwipableItem
+                  blockSwipe={props.blockSwipe}
+                  index={index}
+                  item={item}
+                  onDelete={handleDelete}
                 >
-                  詳細を見る
-                </div>
-              </div>
-            </SwipableItem>
-          )}
-          data={listEvents}
-        />
+                  <div
+                    onClick={() => handleEventDetail(item)}
+                    className="swipableItem upcomming_grid swipableItemPast"
+                    data-current-time={moment(
+                      item?.calendars[0]?.start_time,
+                    ).format('YYYY-MM-DD HH:mm:ss')}
+                  >
+                    <div>{index < 9 ? `0${index + 1}` : index + 1}</div>
+
+                    <div>
+                      <span>
+                        {moment(item?.calendars[0]?.start_time).format(
+                          'YYYY-MM-DD',
+                        )}
+                      </span>
+                    </div>
+                    <div className=" event-name">{item && item?.name}</div>
+                    <div>
+                      {item && item.user_id === profile?.id
+                        ? formatMessage({
+                            id: 'i18n_label_event_created_by_me',
+                          })
+                        : `${item?.user?.name} ${formatMessage({
+                            id: 'i18n_label_event_created_by_other',
+                          })}`}
+                    </div>
+                    <div>
+                      <div>
+                        {item && item.vote?.voters
+                          ? Object.keys(item.vote.voters).length
+                          : 0}
+                      </div>
+                    </div>
+                    <div
+                      className="viewmore"
+                      onClick={() => handleEventDetail(item)}
+                    >
+                      詳細を見る
+                    </div>
+                  </div>
+                </SwipableItem>
+              )}
+              data={listEvents}
+            />
+          </>
+        ) : (
+          <div className="empty-state">
+            <p
+              className="empty-state-text"
+              style={{ fontSize: '20px', marginBottom: '0' }}
+            >
+              まだスケジュールが作成されていません。
+              <br />
+              「+予定を作成」ボタンから、新しいスケジュールを作成してみましょう。
+            </p>
+          </div>
+        )}
       </div>
     </Spin>
   );

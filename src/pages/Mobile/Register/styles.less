@@ -29,7 +29,6 @@
   height: fit-content;
   padding-bottom: 80px;
 
-  .leftFormTitle,
   .rightFormTitle {
     display: none;
   }
@@ -181,7 +180,11 @@
         margin-inline: auto;
 
         img {
-          display: none;
+          width: 24px;
+          margin-right: 16px;
+          @media screen and(max-width:832px) {
+            margin-right: 8px;
+          }
         }
       }
     }
@@ -210,6 +213,7 @@
       .ant-checkbox {
         width: 24px;
         height: 24px;
+        display: flex;
       }
     }
   }
@@ -263,12 +267,24 @@
     margin-bottom: 10px;
   }
 }
-
+.signUp {
+  padding-inline: 200px;
+}
+@media only screen and (max-width: 1024px) {
+  .signUp {
+    padding-inline: 120px;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .signUp {
+    padding-inline: 20px;
+  }
+}
 @media (min-width: 834px) {
   .signUp {
     padding-bottom: 0 !important;
     max-width: 1120px;
-    padding-inline: 80px;
+
     margin-inline: auto;
     margin-top: 40px;
 
@@ -314,7 +330,7 @@
     display: block !important;
     font-size: 24px;
     font-weight: bold;
-    margin-bottom: 32px;
+    margin-bottom: 16px;
     color: #333;
   }
 }
@@ -323,5 +339,102 @@
   .signUp {
     height: calc(100vh - 63px - 74px);
     overflow: auto;
+  }
+}
+@media only screen and (max-width: 767px) {
+  .signUpWrap {
+    background-image: unset;
+    .loginPageTab {
+      margin-top: 16px;
+    }
+    .signUp {
+      padding-bottom: 12px !important;
+    }
+    .container {
+      padding-inline: 16px;
+      margin-top: 16px;
+      padding-bottom: 0;
+    }
+    .loginPageTabItem {
+      font-size: 16px;
+      &:nth-child(2) {
+        flex: 1;
+        text-align: center;
+      }
+    }
+    .leftFormTitle {
+      font-size: 24px;
+      padding-inline: 16px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    .fieldName {
+      font-size: 16px;
+      margin-bottom: 16px;
+    }
+    .forgotPassword {
+      padding-top: 16px;
+      margin-bottom: 24px;
+      justify-content: end;
+      color: #919aa5;
+      font-size: 16px;
+    }
+    .signInBtn {
+      font-size: 18px;
+      width: 100%;
+    }
+    .divider {
+      display: none;
+    }
+    .btnSocial {
+      margin-top: 8px;
+      height: 56px;
+      &:first-child {
+        margin-top: 16px;
+      }
+      img {
+        display: none;
+      }
+    }
+    .bodyContent {
+      background-color: white;
+      border: 1px solid #d6dee6;
+      padding-block: 38px 16px;
+      margin-bottom: 100px;
+    }
+    .fieldLabel {
+      font-size: 16px !important;
+      .inputRequired {
+        font-size: 12px !important;
+      }
+    }
+    .inputField {
+      margin-bottom: 24px;
+    }
+    .checkTerm {
+      :global {
+        .ant-checkbox {
+          margin-bottom: 8px !important;
+          height: auto;
+        }
+        span {
+          font-size: 16px !important;
+        }
+      }
+    }
+    .signUpBtn {
+      width: 100% !important;
+      height: 44px !important;
+      font-size: 18px !important;
+    }
+    .card {
+      padding-inline: 16px !important;
+      img {
+        display: none;
+      }
+    }
+    .loginButton:nth-child(2) {
+      margin-top: 8px !important;
+    }
   }
 }

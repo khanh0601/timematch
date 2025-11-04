@@ -4,8 +4,8 @@ import '@@/core/devScripts';
 import { plugin } from './core/plugin';
 import './core/pluginRegister';
 import { createHistory } from './core/history';
-import { ApplyPluginsType } from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime';
-import { renderClient } from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/renderer-react/dist/index.js';
+import { ApplyPluginsType } from 'D:/timematch/timematch/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime';
+import { renderClient } from 'D:/timematch/timematch/node_modules/@umijs/renderer-react/dist/index.js';
 import { getRoutes } from './core/routes';
 
 

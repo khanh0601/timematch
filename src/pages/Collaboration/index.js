@@ -174,9 +174,9 @@ const CollaborationPage = props => {
         }
         handleEventRight={props.onClose}
       />
-      <div style={{ padding: isPc ? '10px' : '30px 10px' }}>
+      <div>
         <div className={styles.groupPart}>
-          <div style={{ marginBottom: 20 }}>
+          <div style={{ marginBottom: 20, textAlign: 'center' }}>
             <img
               className={styles.groupPartIcon}
               src={isPc ? googleClendarIconPc : googleClendarIcon}
@@ -209,7 +209,7 @@ const CollaborationPage = props => {
           </div>
         </div>
         <div className={styles.groupPart}>
-          <div>
+          <div style={{ textAlign: 'center' }}>
             <img
               className={styles.groupPartIcon}
               src={isPc ? outlookIconPc : outlookIcon}

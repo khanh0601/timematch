@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { useState, useEffect, useContext, useRef } from 'react';
 // @ts-ignore
-import isEqual from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/plugin-model/node_modules/fast-deep-equal/index.js';
+import isEqual from 'D:/timematch/timematch/node_modules/@umijs/plugin-model/node_modules/fast-deep-equal/index.js';
 // @ts-ignore
-import { UmiContext } from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/plugin-model/lib/helpers/constant';
+import { UmiContext } from 'D:/timematch/timematch/node_modules/@umijs/plugin-model/lib/helpers/constant';
 import { Model, models } from './Provider';
 
 export type Models<T extends keyof typeof models> = Model<T>[T]

@@ -1,6 +1,6 @@
 // @ts-nocheck
 import React from 'react';
-import { ApplyPluginsType } from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime';
+import { ApplyPluginsType } from 'D:/timematch/timematch/node_modules/@umijs/preset-built-in/node_modules/@umijs/runtime';
 import * as umiExports from './umiExports';
 import { plugin } from './plugin';
 

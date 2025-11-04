@@ -145,22 +145,11 @@ const PastAppointmentDetail = props => {
                     <div className="pastDetailInfoItem">
                       <span>
                         {moment(
-                          event?.calendars && event?.calendars[0]?.create_at,
+                          event?.calendars && event?.calendars[0]?.start_time,
                         ).format('YYYY/MM/DD')}
                         {moment(
-                          event?.calendars && event?.calendars[0]?.create_at,
-                        ).format('(dd)')}{' '}
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.create_at,
-                        ).format('HH:mm')}
-                      </span>
-                      <span>～</span>
-                      <span>
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.create_at,
-                        )
-                          .add(getStep(event), 'minutes')
-                          .format('HH:mm')}
+                          event?.calendars && event?.calendars[0]?.start_time,
+                        ).format('(dd)')}
                       </span>
                     </div>
                   </div>
@@ -181,11 +170,22 @@ const PastAppointmentDetail = props => {
                     <div className="pastDetailInfoItem">
                       <span>
                         {moment(
-                          event?.calendars && event?.calendars[0]?.start_time,
+                          event?.calendars && event?.calendars[0]?.create_at,
                         ).format('YYYY/MM/DD')}
                         {moment(
-                          event?.calendars && event?.calendars[0]?.start_time,
-                        ).format('(dd)')}
+                          event?.calendars && event?.calendars[0]?.create_at,
+                        ).format('(dd)')}{' '}
+                        {moment(
+                          event?.calendars && event?.calendars[0]?.create_at,
+                        ).format('HH:mm')}
+                      </span>
+                      <span>～</span>
+                      <span>
+                        {moment(
+                          event?.calendars && event?.calendars[0]?.create_at,
+                        )
+                          .add(getStep(event), 'minutes')
+                          .format('HH:mm')}
                       </span>
                     </div>
                   </div>

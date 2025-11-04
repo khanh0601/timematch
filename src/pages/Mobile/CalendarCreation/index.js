@@ -708,12 +708,10 @@ function CalendarCreation(props) {
   };
 
   const handleCopyURLToClipboard = () => {
-    navigator.clipboard.writeText(
-      Object.keys(isDetailCalendar).length > 0 &&
-        Object.keys(isDetailCalendar.vote).length > 0
-        ? isDetailCalendar.vote.full_url
-        : '',
-    );
+    // thêm domain hiện tại vào url
+    const domain = window.location.origin;
+    const url = `${domain}/${isDetailCalendar.vote.full_url}`;
+    navigator.clipboard.writeText(url);
     setIsURLCopy(true);
   };
 

@@ -3,11 +3,11 @@ import {
   createIntl,
   IntlShape,
   MessageDescriptor,
-} from 'D:/Vision_Timematch/timematch-front/node_modules/react-intl';
+} from 'D:/timematch/timematch/node_modules/react-intl';
 import { ApplyPluginsType } from 'umi';
 import { event, LANG_CHANGE_EVENT } from './locale';
 // @ts-ignore
-import warning from 'D:/Vision_Timematch/timematch-front/node_modules/@umijs/plugin-locale/node_modules/warning/warning.js';
+import warning from 'D:/timematch/timematch/node_modules/@umijs/plugin-locale/node_modules/warning/warning.js';
 
 import { plugin } from '../core/plugin';
 
@@ -34,7 +34,7 @@ export {
   defineMessages,
   injectIntl,
   useIntl,
-} from 'D:/Vision_Timematch/timematch-front/node_modules/react-intl';
+} from 'D:/timematch/timematch/node_modules/react-intl';
 
 let g_intl: IntlShape;
 
@@ -43,7 +43,7 @@ const useLocalStorage = true;
 export const localeInfo: {[key: string]: any} = {
   'ja-JP': {
     messages: {
-      ...((locale) => locale.__esModule ? locale.default : locale)(require('D:/Vision_Timematch/timematch-front/src/locales/ja-JP.js')),
+      ...((locale) => locale.__esModule ? locale.default : locale)(require('D:/timematch/timematch/src/locales/ja-JP.js')),
     },
     locale: 'ja-JP',
     antd: {

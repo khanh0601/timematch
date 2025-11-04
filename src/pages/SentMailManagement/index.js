@@ -1,12 +1,11 @@
 import { DeleteOutlined, NodeExpandOutlined } from '@ant-design/icons';
 import { connect } from 'dva';
 import React, { useEffect } from 'react';
-import { Spin } from 'antd';
+import { Spin, Modal, Button, Form, Input } from 'antd';
 import styles from './styles.less';
 import { useIntl } from 'umi';
 import { useState } from 'react';
 import { useDispatch } from 'umi';
-import { Button, Form, Input } from 'antd';
 import HeaderMobile from '@/components/Mobile/Header';
 import iconBack from '@/assets/images/i-back-white.png';
 import { ROUTER } from '@/constant';
@@ -36,6 +35,7 @@ const SentEmailManagement = props => {
           return {
             id: item?.id || null,
             email: item.email,
+            name: item.name,
           };
         }),
       },
@@ -103,7 +103,7 @@ const SentEmailManagement = props => {
                   history.push('/contact-management');
                 }}
               >
-                メール送信先管理
+                メール招待
               </div>
               <div
                 className={styles.formTabButton}
@@ -217,39 +217,13 @@ const SentEmailManagement = props => {
                           </Form.Item>
                           <Form.Item
                             {...field}
-                            name={[field.name, 'email']}
+                            name={[field.name, 'name']}
                             rules={[
                               {
                                 required: true,
                                 whitespace: true,
-                                message: formatMessage({
-                                  id: 'i18n_email_address_is_required',
-                                }),
+                                message: '名前は必須です。',
                               },
-                              {
-                                type: 'email',
-                                message: formatMessage({
-                                  id: 'i18n_invalid_email',
-                                }),
-                              },
-                              ({ getFieldValue }) => ({
-                                validator(rule, value) {
-                                  console.log('value', value);
-                                  if (
-                                    !value ||
-                                    getFieldValue('names')
-                                      .map(item => item?.email)
-                                      .filter(v => v === value).length === 1
-                                  ) {
-                                    return Promise.resolve();
-                                  }
-                                  return Promise.reject(
-                                    formatMessage({
-                                      id: 'i18n_email_existed',
-                                    }),
-                                  );
-                                },
-                              }),
                             ]}
                             noStyle
                           >
@@ -299,7 +273,30 @@ const SentEmailManagement = props => {
                           border: 'none',
                         }}
                         className={`${styles.addPartnerBtn} ${styles.bgDarkBlue} ${styles.rounded}`}
-                        onClick={() => add()}
+                        onClick={() => {
+                          if (fields.length < 10) {
+                            add();
+                          } else {
+                            Modal.warning({
+                              title: 'メール送信制限',
+                              content:
+                                '一度に送信可能なメールの送付先は10件までです。',
+                              okText: '確認',
+                              centered: true,
+                              className: styles.customModal,
+                              okButtonProps: {
+                                style: {
+                                  backgroundColor: '#cf2d2d',
+                                  borderColor: '#E74C3C',
+                                  borderRadius: '20px',
+                                  width: '200px',
+                                  height: '60px',
+                                  fontSize: '20px',
+                                },
+                              },
+                            });
+                          }
+                        }}
                         type="primary"
                         size="large"
                       >
