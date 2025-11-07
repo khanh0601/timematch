@@ -129,3 +129,55 @@
     border-radius: 20px !important;
   }
 }
+@media only screen and (max-width: 768px) {
+  .header {
+    .headerContainer {
+      padding-inline: 16px;
+      padding-block: 8px;
+
+      .menuView {
+        width: 100vw;
+        right: -16px;
+      }
+      .headerLeft {
+        .logo {
+          width: 120px;
+          height: 26px;
+        }
+      }
+      .headerRight {
+        .icBar,
+        .icClose {
+          width: 44px !important;
+          height: 44px !important;
+        }
+      }
+      .menuItem {
+        span {
+          font-size: 16px !important;
+          font-weight: 500;
+        }
+      }
+      .logoutWrap {
+        display: flex;
+        padding: 16px 24px;
+        gap: 16px;
+        .logoutItem {
+          margin: 0;
+          flex: 1;
+          max-width: calc(50% - 8px);
+          span {
+            font-size: 16px;
+          }
+        }
+        .avatarWrap {
+          flex: none;
+          min-width: calc(50% - 8px);
+          span {
+            font-size: 16px !important;
+          }
+        }
+      }
+    }
+  }
+}

@@ -5,6 +5,8 @@ import { connect } from 'dva';
 import React, { useEffect, useRef } from 'react';
 import { history, useIntl } from 'umi';
 import MenuItem from './MenuItem';
+import useIsPc from '@/hooks/useIsPc';
+import useIsMobile from '@/hooks/useIsMobile';
 import styles from './styles.less';
 import CollaborationModal from './CollaborationModal';
 import EventBus, { EventBusNames } from '@/util/eventBus';
@@ -12,6 +14,8 @@ import EventBus, { EventBusNames } from '@/util/eventBus';
 const { confirm } = Modal;
 
 const PCHeader = props => {
+  const isPc = useIsPc();
+  const isMobile = useIsMobile();
   const items = [
     { name: '調整一覧', path: '/' },
     { name: 'カレンダー', path: '/pc/calendar' },
@@ -104,24 +108,27 @@ const PCHeader = props => {
         </div>
 
         <div className={styles.headerRight}>
-          <div
-            className={styles.avatarWrap}
-            onClick={() => {
-              // history.push('/profile');
-              setShowModal(true);
-            }}
-          >
-            {isLogin && (
-              <img
-                src={
-                  profile?.avatar || require('@/assets/images/pc/avatar.png')
-                }
-                alt={'avatar'}
-                className={styles.avatar}
-              />
-            )}
-            <span>{profile?.name}</span>
-          </div>
+          {isPc && (
+            <div
+              className={styles.avatarWrap}
+              onClick={() => {
+                // history.push('/profile');
+
+                setShowModal(true);
+              }}
+            >
+              {isLogin && (
+                <img
+                  src={
+                    profile?.avatar || require('@/assets/images/pc/avatar.png')
+                  }
+                  alt={'avatar'}
+                  className={styles.avatar}
+                />
+              )}
+              <span>{profile?.name}</span>
+            </div>
+          )}
           {!showMenu && isLogin && (
             <div className={styles.icBarView} onClick={handleToggleMenu}>
               <img
@@ -169,9 +176,32 @@ const PCHeader = props => {
               >
                 <span className={styles.menuText}>プライバシーポリシー</span>
               </div>
-
-              <div className={styles.logoutItem} onClick={handleLogout}>
-                <span className={styles.menuText}>ログアウト</span>
+              <div className={styles.logoutWrap}>
+                {isMobile && (
+                  <div
+                    className={styles.avatarWrap}
+                    onClick={() => {
+                      // history.push('/profile');
+                      setShowMenu(false);
+                      setShowModal(true);
+                    }}
+                  >
+                    {isLogin && (
+                      <img
+                        src={
+                          profile?.avatar ||
+                          require('@/assets/images/pc/avatar.png')
+                        }
+                        alt={'avatar'}
+                        className={styles.avatar}
+                      />
+                    )}
+                    <span>{profile?.name}</span>
+                  </div>
+                )}
+                <div className={styles.logoutItem} onClick={handleLogout}>
+                  <span className={styles.menuText}>ログアウト</span>
+                </div>
               </div>
             </div>
           )}

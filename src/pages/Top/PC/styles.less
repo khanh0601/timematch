@@ -146,23 +146,22 @@
       outline: none;
     }
   }
-
-  .btnToday {
-    width: 134px;
-    height: 49px;
-    color: #3368c7;
-    font-size: 18px;
-    font-weight: bold;
-    border: 3px solid #3368c7;
-    border-radius: 32px;
-    text-align: center;
-    background: #fff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    font-family: 'Noto Sans';
-  }
+}
+.btnToday {
+  width: 134px;
+  height: 49px;
+  color: #3368c7;
+  font-size: 18px;
+  font-weight: bold;
+  border: 3px solid #3368c7;
+  border-radius: 32px;
+  text-align: center;
+  background: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: 'Noto Sans';
 }
 
 .eventList {
@@ -170,4 +169,42 @@
   overflow-y: auto;
   padding: 10px;
   margin: -10px;
+}
+@media only screen and (max-width: 768px) {
+  .mainContainer {
+    padding-inline: 16px;
+    padding-top: 32px;
+    .btnEvent {
+      display: none;
+    }
+    .searchPanel {
+      flex: none;
+      .searchInputPanel {
+        min-width: 0;
+        .searchInput {
+          padding: 0;
+          width: 44px;
+          height: 44px;
+        }
+      }
+    }
+    .rightPanelTopTitle {
+      font-size: 24px;
+    }
+    .btnGroupItem {
+      width: auto;
+      flex: 1;
+    }
+    .btnGroup {
+      flex: 1;
+    }
+  }
+  .btnToday {
+    width: 102px;
+    padding: 8px 16px;
+    font-size: 16px;
+    height: 38px;
+    border: 2px solid #0f63aa;
+    color: #0f63aa;
+  }
 }

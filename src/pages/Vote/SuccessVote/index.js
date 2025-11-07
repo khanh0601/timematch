@@ -249,9 +249,7 @@ function SuccessVote({
                     <span className={styles.textPc}>
                       Googleカレンダーに登録
                     </span>
-                    <span className={styles.textSM}>
-                      Googleアカウントでログイン
-                    </span>
+                    <span className={styles.textSM}>Googleでログイン</span>
                     <span className={styles.linkSm}>※法人</span>
                   </a>
                 </div>
@@ -261,9 +259,7 @@ function SuccessVote({
                   <a href={urlOffice} target="_blank">
                     <img src={iconOffice} />
                     <span className={styles.textPc}>Microsoftに登録</span>
-                    <span className={styles.textSM}>
-                      Microsoftアカウントでログイン
-                    </span>
+                    <span className={styles.textSM}>Microsoftでログイン</span>
                     <span className={styles.linkSm}>※法人</span>
                   </a>
                   {/*</Button>*/}

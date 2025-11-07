@@ -244,6 +244,10 @@
   .collaboration-modal {
     .ant-modal {
       max-width: 480px !important;
+      border-radius: 16px !important;
+    }
+    .main-header {
+      margin-bottom: 20px;
     }
   }
   .detail-calendar-modal {
@@ -295,5 +299,15 @@
 
   .ant-picker-dropdown {
     z-index: 100000000000000;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .collaboration-modal {
+    .ant-modal {
+      width: 100% !important;
+      .ant-modal-body {
+        padding: 16px;
+      }
+    }
   }
 }

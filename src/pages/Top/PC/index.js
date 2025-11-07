@@ -14,6 +14,8 @@ import { useDispatch } from 'dva';
 import EventDetailModal from './components/EventDetailModal';
 import PastEventDetailModal from './components/PastEventDetailModal';
 import { eventDeleteEvent } from '@/util/eventBus';
+import useIsPc from '@/hooks/useIsPc';
+import useIsMobile from '@/hooks/useIsMobile';
 
 const initEventDetail = {
   eventId: null,
@@ -27,6 +29,8 @@ const initPastEventDetail = {
 };
 
 function TopPagePC(props) {
+  const isPc = useIsPc();
+  const isMobile = useIsMobile();
   const [searchValue, setSearchValue] = useState('');
   const [eventDetail, setEventDetail] = useState(initEventDetail);
   const [pastEventDetail, setPastEventDetail] = useState(initPastEventDetail);
@@ -115,14 +119,21 @@ function TopPagePC(props) {
             <div className={styles.rightPanelTopTitle}>
               <span>調整一覧</span>
             </div>
-            <div
-              className={styles.btnCalendar}
-              onClick={() => {
-                history.push('/pc/calendar');
-              }}
-            >
-              <span>カレンダーを見る</span>
-            </div>
+            {isPc && (
+              <div
+                className={styles.btnCalendar}
+                onClick={() => {
+                  history.push('/pc/calendar');
+                }}
+              >
+                <span>カレンダーを見る</span>
+              </div>
+            )}
+            {isMobile && (
+              <button className={styles.btnToday} onClick={props.onScrollTop}>
+                今日
+              </button>
+            )}
           </div>
           <div className={styles.headerPanel}>
             <div className={styles.btnGroup}>
