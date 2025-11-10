@@ -7,6 +7,7 @@ import { HOUR_FORMAT, ROUTER } from '@/constant';
 import moment from 'moment';
 import { personalExpiredModal } from '@/commons/function';
 import { TYPE_VOTE_RELATIONSHIP } from '@/constant';
+import iconReturn from '@/assets/images/return.png';
 import {
   Button,
   Modal,
@@ -25,6 +26,7 @@ import {
 } from '@/commons/function';
 import { useCallback } from 'react';
 import useIsPc from '@/hooks/useIsPc';
+import useIsMobile from '@/hooks/useIsMobile';
 import Tooltip from '@/components/PC/Tooltip';
 
 const AppointmentDetail = props => {
@@ -32,7 +34,7 @@ const AppointmentDetail = props => {
   const confirm = Modal.confirm;
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
   const [comment, setComment] = useState('');
-
+  const isMobile = useIsMobile();
   const profile = profileFromStorage();
   const formatMessage = useIntl().formatMessage;
   const {
@@ -578,24 +580,34 @@ ${text_ask_calendar_bottom}`;
   return (
     <div className="appointment-detail">
       <div className="header">
+        {isMobile && (
+          <div
+            className="header-back"
+            onClick={() => (props.onClose ? props.onClose() : history.go(-1))}
+          >
+            <img src={iconReturn} alt="return" />
+          </div>
+        )}
         <div className="header-title">
           <span className="header-name">{informationVote?.name}</span>
           {console.log('vote', informationVote)}
         </div>
-        <div
-          className={`header-close `}
-          style={{
-            width: 30,
-            height: 30,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            borderRadius: 5,
-          }}
-          onClick={() => (props.onClose ? props.onClose() : history.go(-1))}
-        >
-          <CloseOutlined style={{ color: '#0F63AA' }} />
-        </div>
+        {!isMobile && (
+          <div
+            className={`header-close `}
+            style={{
+              width: 30,
+              height: 30,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              borderRadius: 5,
+            }}
+            onClick={() => (props.onClose ? props.onClose() : history.go(-1))}
+          >
+            <CloseOutlined style={{ color: '#0F63AA' }} />
+          </div>
+        )}
       </div>
       <div className="apd-content-wrapper">
         <div style={{ padding: 10 }}>

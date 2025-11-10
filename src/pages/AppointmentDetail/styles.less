@@ -12,10 +12,20 @@
 }
 
 .appointment-detail {
+  .header-back {
+    width: 44px;
+    flex: none;
+    img {
+      width: 100%;
+    }
+  }
   .appointment-detail-footer {
     position: absolute;
     width: 100%;
     bottom: 0;
+    @media only screen and (max-width: 767px) {
+      width: calc(100% - 32px);
+    }
   }
 
   .btnControl {
@@ -48,6 +58,9 @@
     font-size: 18px;
     font-weight: 500;
     line-height: 100%;
+    @media only screen and (max-width: 767px) {
+      width: 100%;
+    }
     /* 18px */
     letter-spacing: -0.72px;
 
@@ -72,6 +85,10 @@
       align-items: center;
       justify-content: center;
       margin-top: 30px;
+      @media only screen and (max-width: 767px) {
+        margin-top: 16px;
+        flex-direction: column;
+      }
     }
   }
 
@@ -103,7 +120,10 @@
     justify-content: space-between;
     background: #fff;
     z-index: 9;
-
+    @media only screen and (max-width: 767px) {
+      background-color: #0f63aa;
+      margin-bottom: 0;
+    }
     .header-line {
       width: 4px;
       height: 25px;
@@ -117,6 +137,13 @@
       font-weight: 700;
       line-height: 1;
       letter-spacing: -1.28px;
+      @media only screen and (max-width: 767px) {
+        font-size: 14px;
+        color: white;
+        flex: 1;
+        font-family: 'Noto Sans';
+        line-height: 1.1;
+      }
 
       .header-name {
         width: 100%;
@@ -124,6 +151,9 @@
         -webkit-box-orient: vertical;
         overflow: hidden;
         -webkit-line-clamp: 1;
+        @media only screen and (max-width: 767px) {
+          -webkit-line-clamp: unset;
+        }
       }
     }
 

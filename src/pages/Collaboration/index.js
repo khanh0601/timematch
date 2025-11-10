@@ -5,7 +5,7 @@ import iconBack from '@/assets/images/i-back-white.png';
 import iconOffice from '@/assets/images/microsoft.png';
 import outlookIcon from '@/assets/images/outlook-icon.png';
 import outlookIconPc from '@/assets/images/pc/outlook.png';
-import iconClose from '@/assets/images/pc/close.png';
+import iconClose from '@/assets/images/pc/icon_Menu.png';
 import { profileFromStorage } from '@/commons/function';
 import useWindowDimensions from '@/commons/useWindowDimensions';
 import HeaderMobile from '@/components/Mobile/Header';
@@ -151,32 +151,22 @@ const CollaborationPage = props => {
 
   return (
     <div className={styles.collaborationContainer}>
-      <HeaderMobile
-        title={formatMessage({ id: 'i18n_link_company_other' })}
-        isShowLeft={!isPc}
-        itemLeft={
-          isPc
-            ? undefined
-            : {
-                event: 'history',
-                icon: iconBack,
-                bgColor: 'bgPrimaryBlue',
-              }
-        }
-        isShowRight={isPc}
-        itemRight={
-          !isPc
-            ? undefined
-            : {
-                event: 'right',
-                icon: iconClose,
-              }
-        }
-        handleEventRight={props.onClose}
-      />
+      <div className={styles.collaborationTitleWrap}>
+        <div className={styles.collaborationTitle}>他社カレンダー連動</div>
+        {isMobile ? null : (
+          <div className={styles.collaborationClose} onClick={props.onClose}>
+            <img src={iconClose} alt="close" />
+          </div>
+        )}
+      </div>
       <div>
         <div className={styles.groupPart}>
-          <div style={{ marginBottom: 20, textAlign: 'center' }}>
+          <div
+            style={{
+              marginBottom: 16,
+              textAlign: isMobile ? 'left' : 'center',
+            }}
+          >
             <img
               className={styles.groupPartIcon}
               src={isPc ? googleClendarIconPc : googleClendarIcon}
@@ -209,7 +199,7 @@ const CollaborationPage = props => {
           </div>
         </div>
         <div className={styles.groupPart}>
-          <div style={{ textAlign: 'center' }}>
+          <div style={{ textAlign: isMobile ? 'left' : 'center' }}>
             <img
               className={styles.groupPartIcon}
               src={isPc ? outlookIconPc : outlookIcon}
@@ -241,6 +231,11 @@ const CollaborationPage = props => {
             )}
           </div>
         </div>
+        {isMobile ? (
+          <div className={styles.btnReturn} onClick={props.onClose}>
+            戻る
+          </div>
+        ) : null}
       </div>
     </div>
   );

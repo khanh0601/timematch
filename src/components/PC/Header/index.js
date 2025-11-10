@@ -79,6 +79,9 @@ const PCHeader = props => {
     };
   }, [showMenu]);
   const handleLogout = () => {
+    if (isMobile) {
+      setShowMenu(false);
+    }
     confirm({
       title: intl.formatMessage({ id: 'i18n_confirm_logout' }),
       icon: <ExclamationCircleOutlined />,

@@ -3,10 +3,13 @@ import AppointmentDetail from '../../../../AppointmentDetail';
 import './stylesPc.less';
 import { connect } from 'dva';
 import { withRouter } from 'umi';
+import useIsMobile from '@/hooks/useIsMobile';
 
 function EventDetailModal(props) {
+  const isMobile = useIsMobile();
   return (
     <Modal
+      mask={useIsMobile() ? false : true}
       forceRender={true}
       destroyOnClose={false}
       closable={false}

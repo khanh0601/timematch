@@ -1,11 +1,20 @@
 body .event-detail-modal {
   .ant-modal {
     width: 90% !important;
-    max-width: 1280px;
+    max-width: unset !important;
     padding: 32px;
     border-radius: 24px;
     background: #fff;
     box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
+    @media only screen and (max-width: 767px) {
+      padding-inline: 0 !important;
+      width: 100% !important;
+      border-radius: 0;
+      padding-top: 0;
+      top: 52px;
+      box-shadow: none !important;
+      border: unset;
+    }
     .ant-modal-content {
       border: none !important;
       box-shadow: none !important;
@@ -16,6 +25,9 @@ body .event-detail-modal {
     }
     .header {
       padding: 0 !important;
+      @media only screen and (max-width: 767px) {
+        padding: 8px 8px 8px 0 !important;
+      }
     }
 
     .appointment-detail .content {
@@ -41,12 +53,31 @@ body .event-detail-modal {
   }
 }
 
-.event-detail-modal {
-  .appointment-detail {
+body .event-detail-modal {
+  .ant-modal-mask {
+    display: none !important;
+  }
+  .apd-content-wrapper {
+    @media only screen and (max-width: 767px) {
+      overflow-x: auto;
+    }
+  }
+  .ant-modal .appointment-detail {
     height: calc(100vh - 250px);
     display: flex;
     flex-direction: column;
-
+    @media only screen and (max-width: 767px) {
+      height: calc(100vh - 100px);
+      overflow: auto;
+      .content {
+        height: 100% !important;
+        min-width: 600px !important;
+      }
+      .apd-content-wrapper {
+        padding-left: 16px;
+        width: calc(100% - 16px);
+      }
+    }
     // .apd-content-wrapper {
     //   flex: 1;
     //   overflow-y: scroll;
@@ -78,6 +109,9 @@ body .event-detail-modal {
       .ant-table-body {
         // overflow: unset !important;
         max-height: 52vh !important;
+        @media only screen and (max-width: 767px) {
+          max-height: calc(100dvh - 420px) !important;
+        }
       }
     }
   }
