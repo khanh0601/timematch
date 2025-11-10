@@ -177,11 +177,9 @@ function TopPagePC(props) {
                 <SearchIcon fill={'#3368c7'} width={24} height={24} />
               </div>
 
-              {isTab2 && (
-                <button className={styles.btnToday} onClick={props.onScrollTop}>
-                  今日
-                </button>
-              )}
+              <button className={styles.btnToday} onClick={props.onScrollTop}>
+                今日
+              </button>
             </div>
           </div>
 

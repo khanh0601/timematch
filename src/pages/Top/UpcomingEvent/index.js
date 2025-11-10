@@ -207,82 +207,88 @@ ${text_ask_calendar_bottom}`;
 
   return (
     <Spin spinning={tabLoading}>
-      {adjustingEvents?.data ? (
-        <div className="upcomming_wrap">
-          <div className="upcomming_head upcomming_grid">
-            {isPc && <div className="upcomming_head_item">No</div>}
-            <div className="upcomming_head_item">作成日</div>
-            <div className="upcomming_head_item">イベント名</div>
-            {isPc && <div className="upcomming_head_item">招待者</div>}
-            {isPc && <div className="upcomming_head_item">回答人数</div>}
-            <div className="upcomming_head_item"></div>
-          </div>
-          <AdjustmentList
-            height={calculateSwipeableListHeight(100)}
-            renderItem={(item, index) => (
-              <SwipableItem
-                blockSwipe={props.blockSwipe}
-                index={index}
-                item={item}
-                onDelete={handleDelete}
-              >
-                <div className="swipableItem upcomming_grid">
-                  {isPc && (
+      <div className="upcomming_wrap">
+        {adjustingEvents?.data.length > 0 ? (
+          <div>
+            <div className="upcomming_head upcomming_grid">
+              {isPc && <div className="upcomming_head_item">No</div>}
+              <div className="upcomming_head_item">作成日</div>
+              <div className="upcomming_head_item">イベント名</div>
+              {isPc && <div className="upcomming_head_item">招待者</div>}
+              {isPc && <div className="upcomming_head_item">回答人数</div>}
+              <div className="upcomming_head_item"></div>
+            </div>
+            <AdjustmentList
+              height={calculateSwipeableListHeight(100)}
+              renderItem={(item, index) => (
+                <SwipableItem
+                  blockSwipe={props.blockSwipe}
+                  index={index}
+                  item={item}
+                  onDelete={handleDelete}
+                >
+                  <div className="swipableItem upcomming_grid">
+                    {isPc && (
+                      <div className="">
+                        {index < 9 ? `0${index + 1}` : index + 1}
+                      </div>
+                    )}
                     <div className="">
-                      {index < 9 ? `0${index + 1}` : index + 1}
+                      {moment(item?.vote?.created_at).format('YYYY-MM-DD')}
                     </div>
-                  )}
-                  <div className="">
-                    {moment(item?.vote?.created_at).format('YYYY-MM-DD')}
-                  </div>
-                  <div>
-                    <div className=" event-name">{item && item?.name}</div>
-                  </div>
-                  {isPc && (
                     <div>
-                      <div>
-                        {item && item.user_id === profile?.id
-                          ? formatMessage({
-                              id: 'i18n_label_event_created_by_me',
-                            })
-                          : `${item?.user?.name} ${formatMessage({
-                              id: 'i18n_label_event_created_by_other',
-                            })}`}
-                      </div>
+                      <div className=" event-name">{item && item?.name}</div>
                     </div>
-                  )}
-                  {isPc && (
-                    <div>
+                    {isPc && (
                       <div>
-                        {item && item.vote?.voters
-                          ? Object.keys(item.vote.voters).length
-                          : 0}
+                        <div>
+                          {item && item.user_id === profile?.id
+                            ? formatMessage({
+                                id: 'i18n_label_event_created_by_me',
+                              })
+                            : `${item?.user?.name} ${formatMessage({
+                                id: 'i18n_label_event_created_by_other',
+                              })}`}
+                        </div>
                       </div>
+                    )}
+                    {isPc && (
+                      <div>
+                        <div>
+                          {item && item.vote?.voters
+                            ? Object.keys(item.vote.voters).length
+                            : 0}
+                        </div>
+                      </div>
+                    )}
+                    <div
+                      className="viewmore"
+                      onClick={() => handleEventDetail(item)}
+                    >
+                      詳細を見る
                     </div>
-                  )}
-                  <div
-                    className="viewmore"
-                    onClick={() => handleEventDetail(item)}
-                  >
-                    詳細を見る
+                    {isPc && item?.user_id !== profile?.id && (
+                      <div style={{ height: 16 }}></div>
+                    )}
                   </div>
-                  {isPc && item?.user_id !== profile?.id && (
-                    <div style={{ height: 16 }}></div>
-                  )}
-                </div>
-              </SwipableItem>
-            )}
-            data={adjustingEvents?.data}
-          />
-        </div>
-      ) : (
-        <div style={{ textAlign: 'center', marginTop: 20 }}>
-          <span>
-            まだスケジュールが作成されていません。 
-            「+予定を作成」ボタンから、新しいスケジュールを作成してみましょう。
-          </span>
-        </div>
-      )}
+                </SwipableItem>
+              )}
+              data={adjustingEvents?.data}
+            />
+          </div>
+        ) : (
+          <div className="empty-state">
+            <p
+              className="empty-state-text"
+              style={{ fontSize: '20px', marginBottom: '0' }}
+            >
+              まだスケジュールが作成されていません。
+              <br />
+              「+予定を作成」ボタンから、新しいスケジュールを作成してみましょう。
+            </p>
+          </div>
+        )}
+      </div>
     </Spin>
   );
 };

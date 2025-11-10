@@ -13,6 +13,9 @@ import useIsMobile from '../../hooks/useIsMobile';
 import PCHeader from '../../components/PC/Header';
 import FooterMobile from '../../components/Mobile/Footer';
 import destroy from '@/assets/images/delete.svg';
+import deleteIcon from '@/assets/images/exclamation.png';
+
+import iconClose from '@/assets/images/pc/icon_Menu.png';
 import { history } from 'umi';
 const SentEmailManagement = props => {
   const { masterStore } = props;
@@ -246,13 +249,41 @@ const SentEmailManagement = props => {
                               cursor: 'pointer',
                             }}
                             onClick={() => {
-                              if (historyInvitation.data[index]) {
-                                deleteInvitationHistory(
-                                  historyInvitation.data[index]?.id,
-                                );
-                              } else {
-                                remove(field.name);
-                              }
+                              Modal.confirm({
+                                title: '削除確認',
+                                content:
+                                  'この連絡先を削除してもよろしいですか？',
+                                icon: (
+                                  <img
+                                    src={deleteIcon}
+                                    className={styles.customModalImg}
+                                  />
+                                ),
+                                okText: '確認',
+                                cancelText: '',
+                                centered: true,
+                                className: styles.customModal,
+                                closable: true,
+                                closeIcon: (
+                                  <span style={{ fontSize: '20px' }}>
+                                    <img src={iconClose} />
+                                  </span>
+                                ),
+                                cancelButtonProps: {
+                                  style: {
+                                    display: 'none',
+                                  },
+                                },
+                                onOk: () => {
+                                  if (historyInvitation.data[index]) {
+                                    deleteInvitationHistory(
+                                      historyInvitation.data[index]?.id,
+                                    );
+                                  } else {
+                                    remove(field.name);
+                                  }
+                                },
+                              });
                             }}
                           >
                             {/*<DeleteOutlined />*/}
