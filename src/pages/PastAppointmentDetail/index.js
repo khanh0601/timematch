@@ -15,7 +15,10 @@ import useIsPc from '@/hooks/useIsPc';
 import iconUser from '@/assets/images/user2.svg';
 import iconCalendar from '@/assets/images/calendar-ic.svg';
 import iconCalendarDisable from '@/assets/images/calendar-disable.svg';
+import iconReturn from '@/assets/images/return.png';
+import useIsMobile from '@/hooks/useIsMobile';
 const PastAppointmentDetail = props => {
+  const isMobile = useIsMobile();
   const { id } = useParams();
   const { dispatch, voteStore, location } = props;
   const intl = useIntl();
@@ -87,30 +90,32 @@ const PastAppointmentDetail = props => {
 
   return (
     <div className="container">
-      <div className="header">
-        <div className=""></div>
-        <div className="header-title">詳細</div>
-        <div
-          onClick={() => {
-            if (props.onClose) {
-              props.onClose();
-              return;
-            }
-            history.go(-1);
-          }}
-          className="close-btn bgDarkBlue"
-        >
+      {isPc ? (
+        <div className="header">
+          <div className=""></div>
+          <div className="header-title">詳細</div>
           <div
-            style={{
-              rotate: '45deg',
-              display: 'flex',
-              justifyContent: 'center',
+            onClick={() => {
+              if (props.onClose) {
+                props.onClose();
+                return;
+              }
+              history.go(-1);
             }}
+            className="close-btn bgDarkBlue"
           >
-            <PlusIcon />
+            <div
+              style={{
+                rotate: '45deg',
+                display: 'flex',
+                justifyContent: 'center',
+              }}
+            >
+              <PlusIcon />
+            </div>
           </div>
         </div>
-      </div>
+      ) : null}
 
       {profile?.id === event?.user_id ? (
         <>
@@ -120,6 +125,16 @@ const PastAppointmentDetail = props => {
                 <div className="swipableItem">
                   <div className="swipableItemInner">
                     <div className="past-event-time">
+                      {isMobile && (
+                        <div
+                          className="header-back"
+                          onClick={() =>
+                            props.onClose ? props.onClose() : history.go(-1)
+                          }
+                        >
+                          <img src={iconReturn} alt="return" />
+                        </div>
+                      )}
                       <span>{event && event?.name}</span>
                       {/* format date time by japanese */}
                       {/* <span>
@@ -137,67 +152,69 @@ const PastAppointmentDetail = props => {
                       </span> */}
                     </div>
                   </div>
-                  <div className="pastDetailInfo">
-                    <div className="pastDetailInfoIc">
-                      <img src={iconCalendarDisable} alt="icon Calendar" />
+                  <div className="pastDetailInfoWrap">
+                    <div className="pastDetailInfo">
+                      <div className="pastDetailInfoIc">
+                        <img src={iconCalendarDisable} alt="icon Calendar" />
+                      </div>
+                      <div className="">作成日 : </div>
+                      <div className="pastDetailInfoItem">
+                        <span>
+                          {moment(
+                            event?.calendars && event?.calendars[0]?.start_time,
+                          ).format('YYYY/MM/DD')}
+                          {moment(
+                            event?.calendars && event?.calendars[0]?.start_time,
+                          ).format('(dd)')}
+                        </span>
+                      </div>
                     </div>
-                    <div className="">作成日 : </div>
-                    <div className="pastDetailInfoItem">
-                      <span>
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.start_time,
-                        ).format('YYYY/MM/DD')}
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.start_time,
-                        ).format('(dd)')}
-                      </span>
+                    <div className="pastDetailInfo">
+                      <div className="pastDetailInfoIc">
+                        <img src={iconUser} alt="icon User" />
+                      </div>
+                      <div className="">主催者：</div>
+                      <div className="pastDetailInfoItem">
+                        <span>{profile.name}</span>
+                      </div>
                     </div>
-                  </div>
-                  <div className="pastDetailInfo">
-                    <div className="pastDetailInfoIc">
-                      <img src={iconUser} alt="icon User" />
+                    <div className="pastDetailInfo">
+                      <div className="pastDetailInfoIc">
+                        <img src={iconCalendar} alt="icon Calendar" />
+                      </div>
+                      <div className="">開催日： </div>
+                      <div className="pastDetailInfoItem">
+                        <span>
+                          {moment(
+                            event?.calendars && event?.calendars[0]?.create_at,
+                          ).format('YYYY/MM/DD')}
+                          {moment(
+                            event?.calendars && event?.calendars[0]?.create_at,
+                          ).format('(dd)')}{' '}
+                          {moment(
+                            event?.calendars && event?.calendars[0]?.create_at,
+                          ).format('HH:mm')}
+                        </span>
+                        <span>～</span>
+                        <span>
+                          {moment(
+                            event?.calendars && event?.calendars[0]?.create_at,
+                          )
+                            .add(getStep(event), 'minutes')
+                            .format('HH:mm')}
+                        </span>
+                      </div>
                     </div>
-                    <div className="">主催者：</div>
-                    <div className="pastDetailInfoItem">
-                      <span>{profile.name}</span>
-                    </div>
-                  </div>
-                  <div className="pastDetailInfo">
-                    <div className="pastDetailInfoIc">
-                      <img src={iconCalendar} alt="icon Calendar" />
-                    </div>
-                    <div className="">開催日： </div>
-                    <div className="pastDetailInfoItem">
-                      <span>
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.create_at,
-                        ).format('YYYY/MM/DD')}
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.create_at,
-                        ).format('(dd)')}{' '}
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.create_at,
-                        ).format('HH:mm')}
-                      </span>
-                      <span>～</span>
-                      <span>
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.create_at,
-                        )
-                          .add(getStep(event), 'minutes')
-                          .format('HH:mm')}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="pastDetailInfo">
-                    <div className="pastDetailInfoIc">
-                      <img src={iconCalendar} alt="icon Calendar" />
-                    </div>
-                    <div className="">参加者： </div>
-                    <div className="pastDetailInfoItem pastDetailInfoInvite">
-                      {voteUser?.map((item, index) => (
-                        <span key={index}>{item.name}</span>
-                      ))}
+                    <div className="pastDetailInfo">
+                      <div className="pastDetailInfoIc">
+                        <img src={iconUser} alt="icon Calendar" />
+                      </div>
+                      <div className="">参加者： </div>
+                      <div className="pastDetailInfoItem pastDetailInfoInvite">
+                        {voteUser?.map((item, index) => (
+                          <span key={index}>{item.name}</span>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>

@@ -273,20 +273,20 @@ const AppointmentSelection = props => {
       toggleOkEvent &&
       toggleOkEvent.find(toggle => item.id === toggle.id)?.isOk;
 
-    if (isExpired) {
-      return 'bgLightGray';
-    }
+    // if (isExpired) {
+    //   return 'bgLightGray';
+    // }
     if (
       isOke ||
       (item.choices.length > 0 &&
         item.choices.every(choice => choice?.option === 1))
     ) {
-      return 'bgLightBlue';
+      // return 'bgLightBlue';
     } else if (
       item.choices.length > 0 &&
       item.choices.every(choice => choice.option === 2 || choice.option === 3)
     ) {
-      return 'bgLightGray';
+      // return 'bgLightGray';
     }
     return 'bgWhite';
   };
@@ -372,11 +372,13 @@ const AppointmentSelection = props => {
       width: 110,
       render: (_, record) => (
         <>
-          {getJPMonthAndDay(record.start_time)}
-          {moment(record.start_time).format('(dd)')}
-          <br />
-          {moment(record.start_time).format(HOUR_FORMAT)}~
-          {moment(record.end_time).format(HOUR_FORMAT)}
+          <span className={handlePastTime(record.start_time) ? 'is_past' : ''}>
+            {getJPMonthAndDay(record.start_time)}
+            {moment(record.start_time).format('(dd)')}
+            <br />
+            {moment(record.start_time).format(HOUR_FORMAT)}~
+            {moment(record.end_time).format(HOUR_FORMAT)}
+          </span>
         </>
       ),
     },
@@ -410,8 +412,17 @@ const AppointmentSelection = props => {
       key: voter.id,
       width: 100,
       render: (_, record) => {
+        // check choice oke will add class is_oke
+        // check choice ng will add class is_ng
         const choice = record.choices.find(c => c.voter_id === voter.id);
-        return choice ? (choice.option === 1 ? '○' : '×') : '';
+        if (choice) {
+          if (choice.option === 1) {
+            return <div className="choice_oke">OK</div>;
+          }
+          if (choice.option === 2 || choice.option === 3) {
+            return <div className="choice_ng">NG</div>;
+          }
+        }
       },
     })),
     {
@@ -454,13 +465,9 @@ const AppointmentSelection = props => {
               );
               setToggleOkEvent(newToggleOkEvent);
             }}
-            style={{
-              background: events?.is_voted ? '' : isOke ? '#3368c7' : '#a2a2a2',
-              border: '1px solid #fff',
-            }}
             className={`px-1 py-0 h-full ${
               events?.is_voted ? '' : 'textLightGray'
-            } rounded shadowSecondary ${!isOke ? 'is_ng' : ''}`}
+            } rounded shadowSecondary ${!isOke ? 'is_ng' : 'is_oke'}`}
             disabled={isExpired || events?.is_voted}
           >
             {isOke ? 'OK' : 'NG'}
@@ -625,7 +632,7 @@ const AppointmentSelection = props => {
 
   return (
     <div className="appointment-selection-container">
-      {isPc && <PCHeader />}
+      <PCHeader />
       <div
         className={`appointment-selection-wrapper ${
           profile?.id ? 'logged-in' : ''
@@ -634,9 +641,9 @@ const AppointmentSelection = props => {
         <div className="appointment-selection">
           {isPc && profile?.id ? (
             <div className="header-pc">
-              <h2>日程調整</h2>
+              {/* <h2>日程調整</h2> */}
               <div className="header-event">
-                <span>イベント名</span>
+                {/* <span>イベント名</span> */}
                 <div>{events?.name}</div>
               </div>
             </div>
@@ -645,7 +652,7 @@ const AppointmentSelection = props => {
               <div className="header-left">
                 <div className="header-title">{events?.name}</div>
               </div>
-              {profile?.id && (
+              {/* {profile?.id && (
                 <div
                   className={`header-close bgDarkBlue shadowPrimary`}
                   style={{
@@ -662,7 +669,7 @@ const AppointmentSelection = props => {
                 >
                   <CloseOutlined style={{ color: '#FFF' }} />
                 </div>
-              )}
+              )} */}
             </div>
           )}
           <div className="aps-content-wrapper">

@@ -9,9 +9,30 @@
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.72px;
+  @media only screen and (max-width: 767px) {
+    min-width: 56px !important;
+    font-size: 16px;
+  }
 }
 
 .appointment-detail {
+  .is_past {
+    color: #a8b1bb !important;
+  }
+  tr:not([aria-hidden='true']) td {
+    background-color: white !important;
+    height: 74px !important;
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    @media only screen and (max-width: 767px) {
+      font-size: 14px !important;
+      height: 54px !important;
+      width: 80px !important;
+      &:first-child {
+        width: 100px !important;
+      }
+    }
+  }
   .header-back {
     width: 44px;
     flex: none;
@@ -91,7 +112,11 @@
       }
     }
   }
-
+  .ant-table-thead {
+    @media only screen and (max-width: 767px) {
+      margin-bottom: 8px;
+    }
+  }
   .ant-table-thead > tr > th {
     background-color: #0c4f88 !important;
     font-size: 16px;
@@ -99,6 +124,19 @@
     font-weight: 500;
     border-bottom: none !important;
     border-right: 2px solid #fff !important;
+    @media only screen and (max-width: 767px) {
+      font-size: 14px;
+      border-right-width: 1px !important;
+      width: 80px !important;
+      &:first-child {
+        width: 100px !important;
+      }
+    }
+  }
+  colgroup {
+    @media only screen and (max-width: 767px) {
+      display: none !important;
+    }
   }
 
   .table-portrait .ant-table-tbody > tr.ant-table-row > td,

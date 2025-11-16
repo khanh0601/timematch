@@ -4,6 +4,9 @@
   background-size: 100%;
   background-position: bottom center;
   background-repeat: no-repeat;
+  @media only screen and (max-width: 767px) {
+    background-image: none;
+  }
 }
 
 .container {
@@ -14,12 +17,19 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
-
+  @media only screen and (max-width: 767px) {
+    padding-block: 24px;
+    height: calc(100vh - 135px);
+  }
   .formTab {
     display: flex;
     gap: 16px;
     margin-bottom: 48px;
-
+    @media only screen and (max-width: 767px) {
+      gap: 8px;
+      margin-bottom: 0;
+      margin-top: 8px;
+    }
     &Button {
       cursor: pointer;
       padding: 16px 32px;
@@ -32,7 +42,17 @@
       border: 1px solid #d6dee6;
       transition: color 0.3s, background-color 0.3s, border 0.3s;
       background-color: white;
-
+      @media only screen and (max-width: 767px) {
+        padding: 8px 16px;
+        height: 44px;
+        text-align: center;
+        justify-content: center;
+        align-items: center;
+        display: flex;
+        flex: 1;
+        border-radius: 30px;
+        font-size: 16px;
+      }
       &.active,
       &:hover {
         color: white;
@@ -76,6 +96,12 @@
     &:nth-child(2) {
       width: 35%;
     }
+    @media only screen and (max-width: 767px) {
+      width: 100% !important;
+      background-color: #f5f5f5;
+      border-color: #d6dee6;
+      font-size: 16px;
+    }
   }
   .addPartner {
     display: flex;
@@ -94,6 +120,10 @@
   .FormFooterPartner {
     position: sticky;
     bottom: 0;
+    @media only screen and (max-width: 767px) {
+      background: white;
+      padding: 16px;
+    }
   }
   .FormFooterPartnerBtn {
     border-radius: 30px;
@@ -110,6 +140,12 @@
   }
   .itemBtnDelete {
     background-color: #cf2d2d;
+    @media only screen and (max-width: 767px) {
+      position: absolute;
+      height: 100% !important;
+      top: 0;
+      right: 0;
+    }
   }
   .FormBodyPartner {
     width: 100%;
@@ -119,6 +155,10 @@
     margin-bottom: 40px;
     padding: 24px 48px 48px 48px;
     flex: 1;
+    @media only screen and (max-width: 767px) {
+      padding: 16px;
+      border: none;
+    }
     &Title {
       display: flex;
       justify-content: space-between;
@@ -141,6 +181,17 @@
       @media screen and (max-width: 767px) {
         width: unset;
         margin: unset;
+      }
+
+      &Inner {
+        display: flex;
+        gap: 32px;
+        width: 100%;
+        @media only screen and (max-width: 767px) {
+          gap: 4px;
+          padding-right: 48px;
+          flex-direction: column;
+        }
       }
     }
 
@@ -188,6 +239,10 @@
 
 body .customModal {
   max-width: 503px !important;
+  @media only screen and (max-width: 767px) {
+    padding: 0 !important;
+    margin-block: 0 !important;
+  }
   .customModalImg {
     width: 40px;
     height: 40px;
@@ -201,9 +256,16 @@ body .customModal {
   :global {
     .ant-modal-body {
       padding: 24px !important;
+      @media only screen and (max-width: 767px) {
+        padding: 16px !important;
+      }
     }
     .ant-modal-content {
       border-radius: 8px;
+      @media only screen and (max-width: 767px) {
+        box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.16);
+        border-radius: 16px;
+      }
     }
     .ant-modal-confirm-title {
       font-size: 24px;
@@ -211,22 +273,39 @@ body .customModal {
       color: #2c3236;
       line-height: 1;
       display: inline;
+      @media only screen and (max-width: 767px) {
+        font-size: 18px;
+      }
     }
     .ant-modal-close-x {
       width: 44px;
       height: 44px;
       line-height: 1;
       display: flex;
+      @media only screen and (max-width: 767px) {
+        width: 36px;
+        height: 36px;
+      }
+      img {
+        width: 100%;
+      }
     }
     .ant-modal-close {
       top: 14px;
       right: 14px;
+      @media only screen and (max-width: 767px) {
+        top: 6px;
+        right: 6px;
+      }
     }
     .ant-modal-confirm-content {
       font-size: 20px;
       color: #626e79;
       margin-top: 8px;
       margin-left: 0 !important;
+      @media only screen and (max-width: 767px) {
+        font-size: 14px;
+      }
     }
     .ant-modal-confirm .ant-modal-body {
       padding: 24px !important;
@@ -245,7 +324,10 @@ body .customModal {
         height: 60px;
         font-size: 20px;
         line-height: 1;
-
+        @media only screen and (max-width: 767px) {
+          font-size: 18px;
+          height: 45px;
+        }
         &:hover {
           background-color: #d63d2f !important;
           border-color: #d63d2f !important;

@@ -142,11 +142,13 @@ const PastEvent = props => {
         {listEvents && listEvents.length > 0 ? (
           <>
             <div className="upcomming_head upcomming_grid">
-              <div className="upcomming_head_item">No</div>
+              {isPc ? <div className="upcomming_head_item">No</div> : null}
               <div className="upcomming_head_item">作成日</div>
               <div className="upcomming_head_item">イベント名</div>
-              <div className="upcomming_head_item">招待者</div>
-              <div className="upcomming_head_item">回答人数</div>
+              {isPc ? <div className="upcomming_head_item">招待者</div> : null}
+              {isPc ? (
+                <div className="upcomming_head_item">回答人数</div>
+              ) : null}
               <div className="upcomming_head_item"></div>
             </div>
             <AdjustmentList
@@ -161,36 +163,40 @@ const PastEvent = props => {
                   <div
                     onClick={() => handleEventDetail(item)}
                     className="swipableItem upcomming_grid swipableItemPast"
-                    data-current-time={moment(
-                      item?.calendars[0]?.start_time,
-                    ).format('YYYY-MM-DD HH:mm:ss')}
+                    data-current-time={moment(item?.vote?.created_at).format(
+                      'YYYY-MM-DD HH:mm:ss',
+                    )}
                   >
-                    <div>{index < 9 ? `0${index + 1}` : index + 1}</div>
+                    {isPc ? (
+                      <div>{index < 9 ? `0${index + 1}` : index + 1}</div>
+                    ) : null}
 
                     <div>
                       <span>
-                        {moment(item?.calendars[0]?.start_time).format(
-                          'YYYY-MM-DD',
-                        )}
+                        {moment(item?.vote?.created_at).format('YYYY-MM-DD')}
                       </span>
                     </div>
                     <div className=" event-name">{item && item?.name}</div>
-                    <div>
-                      {item && item.user_id === profile?.id
-                        ? formatMessage({
-                            id: 'i18n_label_event_created_by_me',
-                          })
-                        : `${item?.user?.name} ${formatMessage({
-                            id: 'i18n_label_event_created_by_other',
-                          })}`}
-                    </div>
-                    <div>
+                    {isPc ? (
                       <div>
-                        {item && item.vote?.voters
-                          ? Object.keys(item.vote.voters).length
-                          : 0}
+                        {item && item.user_id === profile?.id
+                          ? formatMessage({
+                              id: 'i18n_label_event_created_by_me',
+                            })
+                          : `${item?.user?.name} ${formatMessage({
+                              id: 'i18n_label_event_created_by_other',
+                            })}`}
                       </div>
-                    </div>
+                    ) : null}
+                    {isPc ? (
+                      <div>
+                        <div>
+                          {item && item.vote?.voters
+                            ? Object.keys(item.vote.voters).length
+                            : 0}
+                        </div>
+                      </div>
+                    ) : null}
                     <div
                       className="viewmore"
                       onClick={() => handleEventDetail(item)}
@@ -205,10 +211,7 @@ const PastEvent = props => {
           </>
         ) : (
           <div className="empty-state">
-            <p
-              className="empty-state-text"
-              style={{ fontSize: '20px', marginBottom: '0' }}
-            >
+            <p className="empty-state-text">
               まだスケジュールが作成されていません。
               <br />
               「+予定を作成」ボタンから、新しいスケジュールを作成してみましょう。

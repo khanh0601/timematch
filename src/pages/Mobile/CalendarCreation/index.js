@@ -1155,7 +1155,7 @@ ${text_ask_calendar_bottom}`;
         <>
           <Spin spinning={loadingPage}>
             <ConfigProvider locale={locale}>
-              <HeaderMobile
+              {/* <HeaderMobile
                 title={formatMessage({ id: 'i18n_calendar_creation_title' })}
                 isShowLeft={true}
                 isShowRight={true}
@@ -1173,17 +1173,12 @@ ${text_ask_calendar_bottom}`;
                 }}
                 customStyleRight={{ width: '100%' }}
                 handleEventRight={handleChangeCalendarType}
-              />
+              /> */}
               <div
                 className={`${styles.calendarCreationContainer} calendar-create-content`}
               >
                 <Form form={form}>
                   <p className={styles.labelName}>
-                    <img
-                      src={iconTitle}
-                      alt={'icon'}
-                      className={`${styles.labelIcon} pc-hide`}
-                    />
                     {formatMessage({ id: 'i18n_label_title' })}
                   </p>
                   <Form.Item
@@ -1208,13 +1203,6 @@ ${text_ask_calendar_bottom}`;
                     className={styles.labelName}
                     style={{ marginTop: isPc ? 12 : '10px' }}
                   >
-                    {!isPc && (
-                      <img
-                        src={iconTime}
-                        alt={'icon'}
-                        className={styles.labelIcon}
-                      />
-                    )}
                     {formatMessage({
                       id: isPc
                         ? 'i18n_label_meet_time_pc'
@@ -1235,14 +1223,6 @@ ${text_ask_calendar_bottom}`;
                       <Select.Option value={120}>120分</Select.Option>
                     </Select>
                   </Form.Item>
-                  {!isPc && (
-                    <>
-                      <hr />
-                      <p className={styles.labelName}>
-                        {formatMessage({ id: 'i18n_candidate' })}
-                      </p>
-                    </>
-                  )}
                   <div className={styles.candidateContainer}>
                     {isPc ? (
                       <Tooltip
@@ -1256,24 +1236,6 @@ ${text_ask_calendar_bottom}`;
                       </Tooltip>
                     ) : (
                       renderBtnGenerateBlock()
-                    )}
-
-                    {!isPc && (
-                      <Tooltip
-                        title={formatMessage({
-                          id: 'i18n_auto_extract_candidate_tooltip',
-                        })}
-                        color={'blue'}
-                        trigger={'click'}
-                      >
-                        <Button className={styles.candidateBtnTooltip}>
-                          <img
-                            src={iconQuestion}
-                            alt={'icon'}
-                            className={styles.labelIcon}
-                          />
-                        </Button>
-                      </Tooltip>
                     )}
                   </div>
                   <div
@@ -1331,14 +1293,14 @@ ${text_ask_calendar_bottom}`;
                         />
                       </div>
                     </div>
-                    {!isPc && (
+                    {/* {!isPc && (
                       <Button
                         className={`${styles.calendarBtn} ${styles.borderPrimaryBlue} ${styles.textPrimaryBlue}`}
                         onClick={handleChangeCalendarType}
                       >
                         {formatMessage({ id: 'i18n_choose_calendar' })}
                       </Button>
-                    )}
+                    )} */}
                     {!isAutoExtractCandidate && (
                       <div className={`${styles.calendarTime} calendar-time`}>
                         {formatMessage({ id: 'i18n_no_candidate' })}
@@ -1358,23 +1320,8 @@ ${text_ask_calendar_bottom}`;
                       </Collapse>
                     </Spin>
                   )}
-                  {!isPc && <hr />}
                   <div className={styles.otherInfo}>
-                    {!isPc && (
-                      <p className={styles.labelName}>
-                        {formatMessage({ id: 'i18n_label_other_info' })}
-                      </p>
-                    )}
-
                     <p className={styles.labelName}>
-                      {!isPc && (
-                        <img
-                          src={iconMemo}
-                          alt={'icon'}
-                          className={styles.labelIcon}
-                        />
-                      )}
-
                       {formatMessage({ id: 'i18n_memo' })}
                     </p>
                     <Form.Item
@@ -1408,17 +1355,15 @@ ${text_ask_calendar_bottom}`;
                     >
                       {formatMessage({ id: 'i18n_btn_save' })}
                     </Button>
-                    {isPc && (
-                      <Button
-                        className={`button bgLightRed shadowPrimary ${styles.cancelBtn}`}
-                        htmlType="button"
-                        onClick={() => {
-                          history.push('/');
-                        }}
-                      >
-                        キャンセル
-                      </Button>
-                    )}
+                    <Button
+                      className={`button bgLightRed shadowPrimary ${styles.cancelBtn}`}
+                      htmlType="button"
+                      onClick={() => {
+                        history.push('/');
+                      }}
+                    >
+                      キャンセル
+                    </Button>
                   </div>
                 </Form>
               </div>

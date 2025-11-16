@@ -2,8 +2,16 @@
   background-color: #fff;
   flex: 1;
   padding: 24px;
+  @media only screen and (max-width: 767px) {
+    padding: 0;
+    width: 100%;
+    overflow: auto;
+  }
   &Inner {
     background-color: #f5f5f5;
+    @media only screen and (max-width: 767px) {
+      min-width: 600px;
+    }
   }
   .time {
     margin-top: 4px;
@@ -73,6 +81,9 @@
           line-height: normal;
           letter-spacing: -1.28px;
           padding-right: 32px;
+          @media only screen and (max-width: 767px) {
+            font-size: 24px;
+          }
         }
       }
     }
@@ -123,10 +134,12 @@
     box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
     align-items: center;
     justify-content: center;
-
     cursor: pointer;
     padding: 4px;
-
+    @media only screen and (max-width: 767px) {
+      width: 40px;
+      height: 40px;
+    }
     img {
       width: 20px;
     }
@@ -181,6 +194,9 @@
   font-size: 20px;
   font-weight: 500;
   line-height: 1;
+  @media only screen and (max-width: 767px) {
+    font-size: 16px;
+  }
 }
 
 .eventContent {

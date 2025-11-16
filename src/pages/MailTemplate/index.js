@@ -73,22 +73,7 @@ ${window.location.href}/schedule-adjustment/once?event_code=myJGBYo5&once=true
 
   return (
     <div className={styles.pageTemplateEmail}>
-      {isMobile ? (
-        <HeaderMobile
-          title={formatMessage({ id: 'i18n_mail_template_title' })}
-          isShowLeft={true}
-          itemLeft={{
-            event: 'back',
-            url: ROUTER.menu,
-            icon: iconBack,
-            bgColor: 'bgPrimaryBlue',
-            textColor: 'textLightGray',
-          }}
-        />
-      ) : (
-        <PCHeader />
-      )}
-
+      <PCHeader />
       <div
         className={`${styles.widthMailTemplate}`}
         style={{
@@ -159,9 +144,28 @@ ${window.location.href}/schedule-adjustment/once?event_code=myJGBYo5&once=true
         >
           保存{' '}
         </Button>
+        {isMobile ? (
+          <div className={styles.formTab}>
+            <div
+              className={styles.formTabButton}
+              onClick={() => {
+                history.push('/contact-management');
+              }}
+            >
+              メール送信先管理
+            </div>
+            <div
+              className={[styles.formTabButton, styles.active].join(' ')}
+              onClick={() => {
+                history.push('/mail-template');
+              }}
+            >
+              定例文の作成
+            </div>
+          </div>
+        ) : null}
       </div>
-
-      {isMobile ? null : <FooterMobile />}
+      <FooterMobile />
     </div>
   );
 };

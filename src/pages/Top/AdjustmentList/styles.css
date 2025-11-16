@@ -3,6 +3,9 @@
 }
 .swipeable-item {
   margin-bottom: 10px;
+  @media screen and (max-width: 767px) {
+    margin-bottom: 0;
+  }
 }
 .swipeableList {
   color: #333333;
@@ -30,15 +33,15 @@
       flex: none;
     }
     div:nth-child(2) {
-      padding-inline: 12px;
-      padding-block: 8px;
+      padding-inline: 8px;
+      margin-block: 8px;
       flex: 1;
-      .event-name {
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 2;
-        overflow: hidden;
-      }
+    }
+    .event-name {
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
     }
   }
   &.upcomming_grid {
@@ -111,4 +114,17 @@
 
 .swipeable-list-item__content--remove {
   transform: translateX(-600px) !important;
+}
+.empty-state-text {
+  font-size: 20px;
+  margin-bottom: 0;
+   @media screen and (max-width: 767px) {
+    font-size: 16px;
+    background: #ffffff;
+    box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
+    padding: 10px;
+    br {
+      display: none;
+    }
+   }
 }

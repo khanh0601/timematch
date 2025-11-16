@@ -10,6 +10,7 @@ import HeaderMobile from '@/components/Mobile/Header';
 import iconBack from '@/assets/images/i-back-white.png';
 import { ROUTER } from '@/constant';
 import useIsMobile from '../../hooks/useIsMobile';
+import useIsPc from '../../hooks/useIsPc';
 import PCHeader from '../../components/PC/Header';
 import FooterMobile from '../../components/Mobile/Footer';
 import destroy from '@/assets/images/delete.svg';
@@ -26,7 +27,7 @@ const SentEmailManagement = props => {
   const [form] = Form.useForm();
   const [loading, setLoading] = useState(true);
   const isMobile = useIsMobile();
-
+  const isPc = useIsPc();
   const [selectFields, setSelectFields] = useState([{ key: 0, value: '' }]);
 
   const onFinish = values => {
@@ -82,21 +83,7 @@ const SentEmailManagement = props => {
   return (
     <Spin spinning={loading}>
       <div style={{ paddingBottom: 30 }} className={styles.pageSentEmail}>
-        {isMobile ? (
-          <HeaderMobile
-            title={formatMessage({ id: 'i18n_contact_management_title' })}
-            isShowLeft={true}
-            itemLeft={{
-              event: 'back',
-              url: ROUTER.menu,
-              icon: iconBack,
-              bgColor: 'bgPrimaryBlue',
-              textColor: 'textLightGray',
-            }}
-          />
-        ) : (
-          <PCHeader />
-        )}
+        <PCHeader />
         <div className={styles.container}>
           {isMobile ? null : (
             <div className={styles.formTab}>
@@ -106,7 +93,7 @@ const SentEmailManagement = props => {
                   history.push('/contact-management');
                 }}
               >
-                メール招待
+                メール送信先管理
               </div>
               <div
                 className={styles.formTabButton}
@@ -132,49 +119,44 @@ const SentEmailManagement = props => {
             form={form}
           >
             <div className={styles.FormBodyPartner}>
-              <div className={styles.FormBodyPartnerTitle}>
-                <p
-                  style={{
-                    fontWeight: isMobile ? 700 : 500,
-                    lineHeight: '100%',
-                    paddingBottom: isMobile ? 14 : 24,
-                    marginBottom: 0,
-                    textAlign: isMobile ? 'center' : 'left',
-                    fontSize: isMobile ? '14px' : '20px',
-                  }}
-                >
-                  {formatMessage({ id: 'i18n_email' })}
-                </p>
-                <p
-                  style={{
-                    fontWeight: isMobile ? 700 : 500,
-                    lineHeight: '100%',
-                    marginBottom: 0,
-                    paddingBottom: isMobile ? 14 : 24,
-                    textAlign: isMobile ? 'center' : 'left',
-                    fontSize: isMobile ? '14px' : '20px',
-                  }}
-                >
-                  名前
-                </p>
-              </div>
+              {isMobile ? null : (
+                <div className={styles.FormBodyPartnerTitle}>
+                  <p
+                    style={{
+                      fontWeight: isMobile ? 700 : 500,
+                      lineHeight: '100%',
+                      paddingBottom: isMobile ? 14 : 24,
+                      marginBottom: 0,
+                      textAlign: isMobile ? 'center' : 'left',
+                      fontSize: isMobile ? '14px' : '20px',
+                    }}
+                  >
+                    {formatMessage({ id: 'i18n_email' })}
+                  </p>
+                  <p
+                    style={{
+                      fontWeight: isMobile ? 700 : 500,
+                      lineHeight: '100%',
+                      marginBottom: 0,
+                      paddingBottom: isMobile ? 14 : 24,
+                      textAlign: isMobile ? 'center' : 'left',
+                      fontSize: isMobile ? '14px' : '20px',
+                    }}
+                  >
+                    名前
+                  </p>
+                </div>
+              )}
               <Form.List name="names">
                 {(fields, { add, remove }, { errors }) => (
                   <>
-                    {console.log('errors', errors)}
                     {fields.map((field, index) => (
                       <Form.Item
                         className={styles.FormItemPartner}
                         required={false}
                         style={{ marginBottom: 16 }}
                       >
-                        <div
-                          style={{
-                            display: 'flex',
-                            gap: isMobile ? 10 : 32,
-                            width: '100%',
-                          }}
-                        >
+                        <div className={styles.FormItemPartnerInner}>
                           <Form.Item
                             {...field}
                             name={[field.name, 'email']}
@@ -353,11 +335,30 @@ const SentEmailManagement = props => {
                   保存{' '}
                 </Button>
               </Form.Item>
+              {isPc ? null : (
+                <div className={styles.formTab}>
+                  <div
+                    className={[styles.formTabButton, styles.active].join(' ')}
+                    onClick={() => {
+                      history.push('/contact-management');
+                    }}
+                  >
+                    調整メールを送信
+                  </div>
+                  <div
+                    className={styles.formTabButton}
+                    onClick={() => {
+                      history.push('/mail-template');
+                    }}
+                  >
+                    調整一覧に戻る
+                  </div>
+                </div>
+              )}
             </div>
           </Form>
         </div>
-
-        {isMobile ? null : <FooterMobile />}
+        <FooterMobile />
       </div>
     </Spin>
   );

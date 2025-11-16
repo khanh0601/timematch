@@ -76,11 +76,17 @@
   src: url(../src/assets/fonts/NotoSans-Bold.woff2) format('truetype');
   font-weight: 700;
 }
+html {
+  overscroll-behavior: none;
+}
 body {
   font-family: 'Noto Sans JP', sans-serif;
   color: #333333;
   height: 100dvh;
   background-color: #fdfcf9;
+  @media only screen and (max-width: 767px) {
+    background-color: #ffffff;
+  }
 }
 
 pre {

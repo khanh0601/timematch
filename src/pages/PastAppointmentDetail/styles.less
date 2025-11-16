@@ -17,7 +17,9 @@
     line-height: 100%;
     /* 18px */
     letter-spacing: -0.72px;
-
+    @media screen and (max-width: 767px) {
+      width: 100%;
+    }
     &Blue {
       background: var(--primary-06-main, #0f63aa);
       color: #fff;
@@ -40,6 +42,11 @@
       justify-content: center;
       margin-top: 16px;
       margin-bottom: 24px;
+      @media screen and (max-width: 767px) {
+        margin-top: 32px;
+        flex-direction: column;
+        padding: 0 16px;
+      }
     }
   }
   .pastDetailInfo {
@@ -52,6 +59,33 @@
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.8px;
+    @media only screen and (max-width: 767px) {
+      margin-block: 0 16px !important;
+      text-align: start;
+      padding-inline: 0 !important;
+      font-size: 16px;
+      &:last-child {
+        margin-bottom: 0 !important;
+      }
+    }
+    &Wrap {
+      @media only screen and (max-width: 767px) {
+        border-radius: 8px;
+        border: 1px solid #d9d9d9;
+        width: calc(100% - 32px);
+        padding: 16px !important;
+        margin-top: 16px !important;
+        margin-bottom: 0 !important;
+        text-align: start;
+      }
+    }
+    div:nth-child(2) {
+      @media only screen and (max-width: 767px) {
+        flex: none !important;
+        padding-inline: 0 !important;
+        margin-block: 0 !important;
+      }
+    }
     &.disable {
       color: #626e79;
     }
@@ -136,6 +170,9 @@
     border: none !important;
     width: 100%;
     cursor: inherit !important;
+    @media only screen and (max-width: 767px) {
+      padding: 0 !important;
+    }
   }
 
   .swipableItemInner {
@@ -170,7 +207,34 @@
     transform: translateX(-600px) !important;
   }
 }
-
+@media screen and (max-width: 767px) {
+  .past-event-detail-modal {
+    .content {
+      padding: 0;
+      background-color: transparent;
+    }
+    .swipeable-list-item swipeable-item {
+      margin-bottom: 0;
+    }
+  }
+  .past-event-time {
+    font-size: 14px;
+    display: flex;
+    width: 100%;
+    flex: unset;
+    background-color: #0f63aa;
+    color: white;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 8px 8px 0;
+  }
+  .header-back {
+    width: 44px;
+    img {
+      width: 100%;
+    }
+  }
+}
 @media (min-width: 834px) {
   .past-event-detail-modal {
     .container {
@@ -197,6 +261,7 @@
       color: #2c3236 !important;
       font-weight: 700;
       margin-bottom: 24px;
+      text-align: start;
     }
 
     .ant-modal-content {

@@ -39,24 +39,7 @@ function Documentation(props) {
 
   return (
     <Spin spinning={loading}>
-      {isMobile ? (
-        <HeaderMobile
-          title={formatMessage({ id: 'i18n_document_title' })}
-          isShowLeft={true}
-          itemLeft={{
-            event: 'back',
-            url: ROUTER.menu,
-            icon: iconBack,
-            bgColor: 'bgPrimaryBlue',
-            textColor: 'textLightGray',
-          }}
-          handleEventLeft={() => {
-            history.push('/');
-          }}
-        />
-      ) : (
-        <PCHeader />
-      )}
+      <PCHeader />
 
       {isMobile ? null : (
         <div

@@ -202,38 +202,15 @@ function SettingSchedule(props) {
         <Spin className="loading-page" size="large" />
       ) : (
         <div className={styles.profileContainer}>
-          {isMobile ? (
-            <HeaderMobile
-              title={formatMessage({ id: 'i18n_schedule_setting_title' })}
-              isShowLeft={true}
-              itemLeft={{
-                event: 'back',
-                url: ROUTER.profile,
-                icon: iconBack,
-                bgColor: 'bgPrimaryBlue',
-              }}
-            />
-          ) : (
-            <PCHeader />
-          )}
+          <PCHeader />
 
           <div ref={scrollToScheduleSetting} className={styles.groupPart}>
-            {isMobile ? (
-              <div className={styles.partName}>
-                <div className={styles.partNameBorder}></div>
-                <div className={styles.partNameTitle}>
-                  {formatMessage({ id: 'i18n_update_default_settings' })}
-                </div>
-              </div>
-            ) : (
-              ''
-            )}
             <SettingBlocktime />
           </div>
         </div>
       )}
 
-      {isMobile ? null : <FooterMobile />}
+      <FooterMobile />
     </div>
   );
 }

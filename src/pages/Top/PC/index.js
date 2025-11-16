@@ -177,9 +177,11 @@ function TopPagePC(props) {
                 <SearchIcon fill={'#3368c7'} width={24} height={24} />
               </div>
 
-              <button className={styles.btnToday} onClick={props.onScrollTop}>
-                今日
-              </button>
+              {isPc && (
+                <button className={styles.btnToday} onClick={props.onScrollTop}>
+                  今日
+                </button>
+              )}
             </div>
           </div>
 
@@ -203,7 +205,14 @@ function TopPagePC(props) {
           </div>
         </div>
       </div>
-
+      {isMobile && (
+        <div
+          className={styles.createCalendarMob}
+          onClick={() => history.push('/pc/create-calendar')}
+        >
+          <PlusOutlined className={styles.createCalendarMobIcon} />
+        </div>
+      )}
       <FooterMobile />
 
       {eventDetail.eventId && (

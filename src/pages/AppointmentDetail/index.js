@@ -342,10 +342,9 @@ ${text_ask_calendar_bottom}`;
   };
 
   const handleCopyURLToClipboard = (item, index) => {
-    const baseUrl = window.location.origin;
     const url =
       Object.keys(item).length > 0 && Object.keys(item.vote).length > 0
-        ? baseUrl + '/' + item.vote.full_url
+        ? item.vote.full_url
         : '';
 
     navigator.clipboard.writeText(url);
@@ -361,11 +360,13 @@ ${text_ask_calendar_bottom}`;
       width: 110,
       render: (_, record) => (
         <>
-          {moment(record.start_time).format('YYYY/MM/DD')}
-          {moment(record.start_time).format('(dd)')}
-          <br />
-          {moment(record.start_time).format(HOUR_FORMAT)}~
-          {moment(record.end_time).format(HOUR_FORMAT)}
+          <span className={handlePastEvent(record.start_time) ? 'is_past' : ''}>
+            {moment(record.start_time).format('YYYY/MM/DD')}
+            {moment(record.start_time).format('(dd)')}
+            <br />
+            {moment(record.start_time).format(HOUR_FORMAT)}~
+            {moment(record.end_time).format(HOUR_FORMAT)}
+          </span>
         </>
       ),
     },
@@ -399,8 +400,18 @@ ${text_ask_calendar_bottom}`;
       key: voter.id,
       width: 60,
       render: (_, record) => {
+        // check choice oke will add class is_oke
+        // check choice ng will add class is_ng
         const choice = record.choices.find(c => c.voter_id === voter.id);
-        return choice ? (choice.option === 1 ? 'OK' : 'NG') : '';
+        if (choice) {
+          if (choice.option === 1) {
+            return <div className="choice_oke">OK</div>;
+          }
+          if (choice.option === 2 || choice.option === 3) {
+            return <div className="choice_ng">NG</div>;
+          }
+        }
+        return '';
       },
     })),
     {
@@ -410,7 +421,7 @@ ${text_ask_calendar_bottom}`;
       width: 70,
       render: (_, record) => {
         if (moment().isAfter(moment(record.start_time))) {
-          return null;
+          return 'NG';
         }
         return record.choices.every(choice => choice?.option === 2) ? (
           <Button
@@ -425,7 +436,7 @@ ${text_ask_calendar_bottom}`;
               setIdEventDateTime(record.id);
               scrollToSave();
             }}
-            className={`px-1 py-0 h-full bgWhite textPrimaryBlue rounded shadowSecondary borderPrimaryBlue ${
+            className={`px-1 btnConfirm py-0 h-full bgWhite textPrimaryBlue rounded shadowSecondary borderPrimaryBlue ${
               record.id === idEventDateTime
                 ? 'bgPrimaryBlue textLightGray borderPrimaryLight'
                 : ''

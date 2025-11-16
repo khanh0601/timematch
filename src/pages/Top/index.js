@@ -44,24 +44,59 @@ function TopPage(props) {
     const currentTimeArray = Array.from(currentTime).map(item =>
       item.getAttribute('data-current-time'),
     );
-    const currentTimeArrayFiltered = currentTimeArray.filter(
-      item => new Date(item) > new Date(),
-    );
-    const currentTimeArrayFilteredSorted = currentTimeArrayFiltered.sort(
-      (a, b) => new Date(a) - new Date(b),
-    );
-    const firstItem = currentTimeArrayFilteredSorted[0];
-    const index =
-      window.location.search !== '?tab=2'
-        ? 0
-        : currentTimeArray.indexOf(firstItem);
-    const element = document.querySelectorAll('.swipableItem')[index];
+
+    const now = new Date();
+    const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+
+    // Tìm item có ngày gần với ngày hiện tại nhất
+    let closestItem = null;
+    let minDiff = Infinity;
+    let closestIndex = -1;
+
+    currentTimeArray.forEach((dateStr, index) => {
+      if (!dateStr) return;
+
+      const itemDate = new Date(dateStr);
+      const itemDay = new Date(
+        itemDate.getFullYear(),
+        itemDate.getMonth(),
+        itemDate.getDate(),
+      );
+      const diff = Math.abs(itemDay - today);
+
+      if (diff < minDiff) {
+        minDiff = diff;
+        closestItem = dateStr;
+        closestIndex = index;
+      }
+    });
+    console.log('closestIndex:', closestIndex);
+    const element = document.querySelectorAll('.swipableItem')[closestIndex];
+    console.log('element:', element);
     if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-        inline: 'nearest',
-      });
+      // Tìm scroll container - có thể là eventList (CSS Modules) hoặc simplebar
+      const scrollContainer =
+        document.querySelector('[class*="eventList"]') ||
+        document.querySelector('.simplebar-content-wrapper');
+
+      const headerElement = document.querySelector('.upcomming_head');
+      const headerHeight = headerElement ? headerElement.offsetHeight : 0;
+      const offsetPosition = element.offsetTop - headerHeight;
+
+      console.log('scrollContainer:', scrollContainer);
+      console.log('offsetPosition:', offsetPosition);
+
+      if (scrollContainer) {
+        scrollContainer.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      } else {
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth',
+        });
+      }
     }
   }, []);
 

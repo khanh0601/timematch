@@ -353,41 +353,30 @@ function SettingBlocktime(props) {
 
   return (
     <div className={styles.setting}>
-      {isMobile ? null : (
-        <div className={styles.formTab}>
-          <div
-            className={styles.formTabButton}
-            onClick={() => {
-              history.push('/profile');
-            }}
-          >
-            プロフィール
-          </div>
-          <div
-            className={[styles.formTabButton, styles.active].join(' ')}
-            onClick={() => {
-              onConfirmBeforeNavigate('/profile/schedule-setting');
-            }}
-          >
-            自動日程調整オプション
-          </div>
+      <div className={styles.formTab}>
+        <div
+          className={styles.formTabButton}
+          onClick={() => {
+            history.push('/profile');
+          }}
+        >
+          プロフィール
         </div>
-      )}
-      {isMobile ? null : (
-        <div className={styles.pageTitle}>自動日程調整オプション</div>
-      )}
+        <div
+          className={[styles.formTabButton, styles.active].join(' ')}
+          onClick={() => {
+            onConfirmBeforeNavigate('/profile/schedule-setting');
+          }}
+        >
+          自動日程調整オプション
+        </div>
+      </div>
+      <div className={styles.pageTitle}>自動日程調整オプション</div>
       <div className={styles.mainSetting}>
-        {isMobile ? (
-          <div className={styles.partName}>
-            <div className={styles.partNameBorder}></div>
-            <div className={styles.partNameTitle}>抽出期間</div>
-          </div>
-        ) : (
-          <div>
-            <div className={styles.partTitle}>抽出期間</div>
-            <div className={styles.partSub}>指定した期限だけ表示されます</div>
-          </div>
-        )}
+        <div>
+          <div className={styles.partTitle}>抽出期間</div>
+          <div className={styles.partSub}>指定した期限だけ表示されます。</div>
+        </div>
 
         <Select
           onChange={value => {
@@ -411,11 +400,9 @@ function SettingBlocktime(props) {
           <Select.Option value={4}>4週間</Select.Option>
         </Select>
         <div>
-          {isMobile ? null : (
-            <div className={[styles.partTitle, styles.partTitle2].join(' ')}>
-              調整日時(勤務時間)
-            </div>
-          )}
+          <div className={[styles.partTitle, styles.partTitle2].join(' ')}>
+            調整日時(勤務時間)
+          </div>
           <div className={styles.timeBlock}>
             <div>
               <div>

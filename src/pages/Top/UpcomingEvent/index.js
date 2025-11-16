@@ -219,7 +219,6 @@ ${text_ask_calendar_bottom}`;
               <div className="upcomming_head_item"></div>
             </div>
             <AdjustmentList
-              height={calculateSwipeableListHeight(100)}
               renderItem={(item, index) => (
                 <SwipableItem
                   blockSwipe={props.blockSwipe}
@@ -227,7 +226,12 @@ ${text_ask_calendar_bottom}`;
                   item={item}
                   onDelete={handleDelete}
                 >
-                  <div className="swipableItem upcomming_grid">
+                  <div
+                    className="swipableItem upcomming_grid"
+                    data-current-time={moment(item?.vote?.created_at).format(
+                      'YYYY-MM-DD HH:mm:ss',
+                    )}
+                  >
                     {isPc && (
                       <div className="">
                         {index < 9 ? `0${index + 1}` : index + 1}
@@ -278,10 +282,7 @@ ${text_ask_calendar_bottom}`;
           </div>
         ) : (
           <div className="empty-state">
-            <p
-              className="empty-state-text"
-              style={{ fontSize: '20px', marginBottom: '0' }}
-            >
+            <p className="empty-state-text">
               まだスケジュールが作成されていません。
               <br />
               「+予定を作成」ボタンから、新しいスケジュールを作成してみましょう。

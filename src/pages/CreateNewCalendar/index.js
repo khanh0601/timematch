@@ -205,7 +205,6 @@ function CreateNewCalendar() {
   return (
     <div>
       <PCHeader />
-
       <div className={styles.mainContainer}>
         {/* Left panel */}
         <FormCreateCalendar

@@ -8,7 +8,9 @@
   background-size: 100%;
   background-position: bottom center;
   background-repeat: no-repeat;
-
+  @media only screen and (max-width: 767px) {
+    background-image: none;
+  }
   .header {
     font-size: 24px;
     font-weight: bold;
@@ -76,12 +78,26 @@
       column-gap: unset;
     }
   }
-
+  .pageTitle {
+    color: #2c3236;
+    font-size: 32px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1.28px;
+    margin-bottom: 16px;
+    padding: 8px 16px;
+    font-family: 'Noto Sans';
+    @media only screen and (max-width: 767px) {
+      font-size: 24px;
+    }
+  }
   .formTab {
     display: flex;
     gap: 16px;
     margin-bottom: 40px;
-
+    @media only screen and (max-width: 767px) {
+      margin-bottom: 32px;
+    }
     &Button {
       cursor: pointer;
       padding: 16px 32px;
@@ -94,7 +110,19 @@
       border: 1px solid #d6dee6;
       transition: color 0.3s, background-color 0.3s, border 0.3s;
       background-color: white;
-
+      @media only screen and (max-width: 767px) {
+        padding: 16px 0;
+        font-size: 18px;
+        font-size: 16px;
+        text-align: center;
+        &:nth-child(1) {
+          flex: none;
+          padding-inline: 32px;
+        }
+        &:nth-child(2) {
+          flex: 1;
+        }
+      }
       &.active,
       &:hover {
         color: white;
@@ -112,6 +140,7 @@
 
     @media screen and (max-width: 767px) {
       width: unset;
+      padding: 16px;
     }
   }
 
@@ -119,18 +148,29 @@
     display: flex;
     justify-content: center;
     column-gap: 16px;
-
+    margin-top: 40px;
+    @media only screen and (max-width: 767px) {
+      flex-direction: column;
+      row-gap: 10px;
+      margin-top: 32px;
+    }
     &Item {
       padding: 12px 32px !important;
       min-width: 200px;
       border-radius: 32px;
       height: auto !important;
-
+      @media only screen and (max-width: 767px) {
+        min-width: unset;
+        width: 100%;
+      }
       span {
         font-size: 20px;
         font-weight: 500;
         line-height: 1;
         letter-spacing: -0.8px;
+        @media only screen and (max-width: 767px) {
+          font-size: 18px;
+        }
       }
 
       &Bg {
@@ -315,7 +355,9 @@
       line-height: 100% !important;
       padding-left: 16px !important;
       color: #919aa5 !important;
-
+      @media only screen and (max-width: 767px) {
+        font-size: 16px !important;
+      }
       &[readonly] {
         background: #f5f5f5;
       }
@@ -330,7 +372,11 @@
 
       .ant-form-item-label {
         align-self: center;
-
+        @media only screen and (max-width: 767px) {
+          padding-bottom: 0 !important;
+          display: flex;
+          align-items: center;
+        }
         label {
           min-width: 140px !important;
           padding-bottom: 0 !important;
@@ -340,7 +386,9 @@
           line-height: 1 !important;
           letter-spacing: -0.8px !important;
           text-align: start;
-
+          @media only screen and (max-width: 767px) {
+            font-size: 16px !important;
+          }
           &:after {
             display: none !important;
           }

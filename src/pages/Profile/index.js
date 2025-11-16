@@ -166,45 +166,27 @@ function Profile(props) {
         <Spin className="loading-page" size="large" />
       ) : (
         <div className={styles.profileContainer}>
-          {isMobile ? (
-            <HeaderMobile
-              title={formatMessage({ id: 'i18n_profile_title' })}
-              isShowLeft={true}
-              itemLeft={{
-                event: 'back',
-                url: ROUTER.menu,
-                icon: iconBack,
-                bgColor: 'bgPrimaryBlue',
-                textColor: 'textLightGray',
-              }}
-            />
-          ) : (
-            <PCHeader />
-          )}
+          <PCHeader />
           <div className={styles.containerForm}>
-            {isMobile ? null : (
-              <div className={styles.formTab}>
-                <div
-                  className={[styles.formTabButton, styles.active].join(' ')}
-                  onClick={() => {
-                    history.push('/profile');
-                  }}
-                >
-                  プロフィール
-                </div>
-                <div
-                  className={styles.formTabButton}
-                  onClick={() => {
-                    onConfirmBeforeNavigate('/profile/schedule-setting');
-                  }}
-                >
-                  自動日程調整オプション
-                </div>
+            <div className={styles.formTab}>
+              <div
+                className={[styles.formTabButton, styles.active].join(' ')}
+                onClick={() => {
+                  history.push('/profile');
+                }}
+              >
+                プロフィール
               </div>
-            )}
-            {isMobile ? null : (
-              <div className={styles.headerForm}>プロフィール</div>
-            )}
+              <div
+                className={styles.formTabButton}
+                onClick={() => {
+                  onConfirmBeforeNavigate('/profile/schedule-setting');
+                }}
+              >
+                自動日程調整オプション
+              </div>
+            </div>
+            <div className={styles.pageTitle}>プロフィール</div>
             <Form
               onFinish={handleSubmitForm}
               layout="horizontal"
@@ -261,99 +243,23 @@ function Profile(props) {
                 />
               </Item>
 
-              <div
-                style={{
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: 12,
-                  marginTop: 40,
-                }}
-              >
-                {isMobile ? (
-                  <Button
-                    style={{
-                      background: '#3368c7',
-                      borderColor: '#3368c7',
-                      width: '100%',
-                      maxWidth: '100%',
-                    }}
-                    className="btn btnGreen "
-                    onClick={() => {
-                      onConfirmBeforeNavigate('/profile/schedule-setting');
-                    }}
-                  >
-                    自動日程調整オプション
-                  </Button>
-                ) : null}
-
-                {isMobile ? (
-                  <Button
-                    // disabled={profile?.microsoft_email || profile?.google_email}
-                    onClick={() => {
-                      onConfirmBeforeNavigate('/profile/collaboration');
-                    }}
-                    style={{
-                      background:
-                        profile?.microsoft_email || profile?.google_email
-                          ? '#a2a2a2'
-                          : '#3368c7',
-                      borderColor:
-                        profile?.microsoft_email || profile?.google_email
-                          ? '#a2a2a2'
-                          : '#3368c7',
-                      width: '100%',
-                      maxWidth: '100%',
-                    }}
-                    className="btn btnGreen "
-                  >
-                    他社カレンダー連携
-                  </Button>
-                ) : null}
-
-                {!isMobile ||
-                profile?.microsoft_email ||
-                profile?.google_email ? null : (
-                  <Button
-                    // disabled={profile?.microsoft_email || profile?.google_email}
-                    onClick={() => {
-                      onConfirmBeforeNavigate('/change-password');
-                    }}
-                    style={{
-                      background:
-                        profile?.microsoft_email || profile?.google_email
-                          ? '#a2a2a2'
-                          : '#023768',
-                      borderColor:
-                        profile?.microsoft_email || profile?.google_email
-                          ? '#a2a2a2'
-                          : '#023768',
-                      width: '100%',
-                      maxWidth: '100%',
-                    }}
-                    className="btn btnGreen "
-                  >
-                    パスワード変更
-                  </Button>
-                )}
-
+              <div>
                 <div className={styles.groupButtonSubmit}>
-                  {isMobile ? null : (
-                    <div>
-                      {profile?.microsoft_email ||
-                      profile?.google_email ? null : (
-                        <Button
-                          // disabled={profile?.microsoft_email || profile?.google_email}
-                          onClick={() => setOpenPopupChangePass(true)}
-                          className={[
-                            styles.groupButtonSubmitItem,
-                            styles.groupButtonSubmitItemBg,
-                          ].join(' ')}
-                        >
-                          パスワード変更
-                        </Button>
-                      )}
-                    </div>
-                  )}
+                  <div>
+                    {profile?.microsoft_email ||
+                    profile?.google_email ? null : (
+                      <Button
+                        // disabled={profile?.microsoft_email || profile?.google_email}
+                        onClick={() => setOpenPopupChangePass(true)}
+                        className={[
+                          styles.groupButtonSubmitItem,
+                          styles.groupButtonSubmitItemBg,
+                        ].join(' ')}
+                      >
+                        パスワード変更
+                      </Button>
+                    )}
+                  </div>
                   <Button
                     className={[
                       styles.groupButtonSubmitItem,

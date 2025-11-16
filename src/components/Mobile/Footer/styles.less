@@ -33,7 +33,19 @@
     width: 100%;
   }
 }
-
+.wrapperFooter {
+  position: fixed;
+  z-index: 100;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding-bottom: 8px;
+  background-color: #fdfcf9;
+  @media only screen and (max-width: 767px) {
+    background-color: #ffffff;
+    padding-top: 8px;
+  }
+}
 @media (min-width: 834px) {
   .footerCopyright {
     display: block !important;
@@ -41,16 +53,6 @@
     margin-top: 4px;
     font-size: 12px;
     color: #333333;
-  }
-
-  .wrapperFooter {
-    position: fixed;
-    z-index: 100;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding-bottom: 8px;
-    background-color: #fdfcf9;
   }
 
   .link {
