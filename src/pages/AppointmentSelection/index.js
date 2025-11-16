@@ -751,14 +751,7 @@ const AppointmentSelection = props => {
                 <br />
                 あなたの予定が入っている箇所が表示され便利です。
               </div>
-              <div
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  gap: 20,
-                  marginTop: 20,
-                }}
-              >
+              <div className="footer-btn-wrap">
                 <div
                   onClick={() => history.push('/register')}
                   className={`pointer footerBtnSubmit footerBtnSubmitBg`}

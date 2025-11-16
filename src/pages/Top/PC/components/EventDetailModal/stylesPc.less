@@ -71,7 +71,10 @@ body .event-detail-modal {
       overflow: auto;
       .content {
         height: 100% !important;
-        min-width: 600px !important;
+        overflow: hidden;
+        .ant-table-header {
+          overflow: auto !important;
+        }
       }
       .apd-content-wrapper {
         padding-left: 16px;

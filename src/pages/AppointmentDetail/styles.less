@@ -19,6 +19,12 @@
   .is_past {
     color: #a8b1bb !important;
   }
+  table {
+    @media only screen and (max-width: 767px) {
+      table-layout: auto !important;
+      width: max-content !important;
+    }
+  }
   tr:not([aria-hidden='true']) td {
     background-color: white !important;
     height: 74px !important;
@@ -30,6 +36,19 @@
       width: 80px !important;
       &:first-child {
         width: 100px !important;
+      }
+    }
+  }
+  .ant-table-cell-fix-left {
+    @media only screen and (max-width: 767px) {
+      position: static !important;
+    }
+  }
+  .ant-table-cell-fix-right {
+    @media only screen and (max-width: 767px) {
+      position: sticky !important;
+      &::after {
+        display: none;
       }
     }
   }

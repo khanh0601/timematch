@@ -5,8 +5,10 @@ import { connect } from 'dva';
 import styles from './styles.less';
 import { createTimeAsync, profileFromStorage, tz } from '@/commons/function.js';
 import { notify } from '../../commons/function';
+import useIsMobile from '@/hooks/useIsMobile';
 
 const AppointmentSelectionForm = props => {
+  const isMobile = useIsMobile();
   const intl = useIntl();
   const { masterStore, dispatch } = props;
   const [form] = Form.useForm();
@@ -203,6 +205,15 @@ const AppointmentSelectionForm = props => {
             >
               返信
             </Button>
+            {!profile?.id && isMobile ? (
+              <Button
+                className={`${styles.backBtn}`}
+                loading={loading}
+                onClick={() => history.goBack()}
+              >
+                戻る
+              </Button>
+            ) : null}
           </div>
         </Form>
       </div>
