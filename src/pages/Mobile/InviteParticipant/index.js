@@ -1,4 +1,4 @@
-import { Button, Spin, Form, Select, Input } from 'antd';
+import { Modal, Button, Spin, Form, Select, Input } from 'antd';
 import { useIntl, history, useDispatch } from 'umi';
 import HeaderMobile from '@/components/Mobile/Header';
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
@@ -11,7 +11,8 @@ import { ROUTER } from '@/constant';
 import PCHeader from '@/components/PC/Header';
 import FooterMobile from '@/components/Mobile/Footer';
 import useIsPc from '@/hooks/useIsPc';
-
+import deleteIcon from '@/assets/images/exclamation.png';
+import iconClose from '@/assets/images/pc/icon_Menu.png';
 function InviteParticipant(props) {
   const { masterStore, eventStore } = props;
   const dispatch = useDispatch();
@@ -268,92 +269,191 @@ function InviteParticipant(props) {
           <p>{formatMessage({ id: 'i18n_email' })}</p>
         )}
 
-        <div className={styles.addPartner}>
-          {isPc && <p className={styles.emailLabel}>メールアドレス</p>}
-          <Button className={styles.addPartnerBtn} onClick={handleAddEmailForm}>
-            +
-          </Button>
-        </div>
         <Form form={form} onFinish={handleSubmit} className={styles.formItem}>
-          {selectFields.map((field, index) => (
-            <div className={styles.selectField} key={field.key}>
-              <Form.Item
-                name={`email_${field.key}`}
-                className={styles.formField}
-                // rules={[{ validator: validateUnique }]}
-                validateStatus={duplicateErrors[index] ? 'error' : ''}
-                help={
-                  duplicateErrors[index] ? 'アカウントが存在しています。' : ''
-                }
-              >
-                {editingKeys[field.key] && field.value[0] ? (
-                  <Input
-                    value={field.value[0]}
-                    onChange={e => handleEmailInputChange(e, field.key)}
-                    onBlur={() => handleEmailInputBlur(field.key)}
-                    onKeyDown={e => handleEmailInputKeyDown(e, field.key)}
-                    autoFocus
-                  />
-                ) : (
-                  <Select
-                    mode="tags"
-                    style={{ width: '100%' }}
-                    placeholder="メールアドレスを入力してください。"
-                    options={historyInvitationData.filter(
-                      item => !item.disabled,
-                    )}
-                    maxTagCount={1}
-                    onChange={(value, options) =>
-                      handleSelectChange(value, field.key, options)
-                    }
-                    onSelect={value => handleEditEmail(field.key, value)}
-                    onClick={() => handleEditEmail(field.key, field.value[0])}
-                    value={field.value}
-                    tagRender={props => {
-                      const { label, value, onClose } = props;
-                      return (
-                        <span className="ant-select-selection-item">
-                          {label}
-                          <span style={{ paddingLeft: 5 }}>
-                            <CloseOutlined
-                              onClick={() => {
-                                onClose();
-                                handleRemoveTag(value, field.key);
-                              }}
-                            />
+          <div className={styles.addPartnerWrap}>
+            <div
+              className={styles.addPartnerHead}
+              style={{ paddingRight: selectFields.length > 1 ? '76px' : '0' }}
+            >
+              <div className={styles.addPartner}>
+                {isPc && (
+                  <p className={styles.emailLabel}>
+                    メールアドレス<span className={styles.requier}>必須</span>
+                  </p>
+                )}
+              </div>
+              <div className={styles.addPartner}>
+                {isPc && <p className={styles.emailLabel}>名前</p>}
+              </div>
+            </div>
+            {selectFields.map((field, index) => (
+              <div className={styles.selectField} key={field.key}>
+                <Form.Item
+                  name={`email_${field.key}`}
+                  className={styles.formField}
+                  validateStatus={duplicateErrors[index] ? 'error' : ''}
+                  help={
+                    duplicateErrors[index] ? 'アカウントが存在しています。' : ''
+                  }
+                >
+                  {editingKeys[field.key] && field.value[0] ? (
+                    <Input
+                      value={field.value[0]}
+                      onChange={e => handleEmailInputChange(e, field.key)}
+                      onBlur={() => handleEmailInputBlur(field.key)}
+                      onKeyDown={e => handleEmailInputKeyDown(e, field.key)}
+                      autoFocus
+                    />
+                  ) : (
+                    <Select
+                      mode="tags"
+                      style={{ width: '100%' }}
+                      placeholder="メールアドレスを入力してください。"
+                      options={historyInvitationData.filter(
+                        item => !item.disabled,
+                      )}
+                      maxTagCount={1}
+                      onChange={(value, options) =>
+                        handleSelectChange(value, field.key, options)
+                      }
+                      onSelect={value => handleEditEmail(field.key, value)}
+                      onClick={() => handleEditEmail(field.key, field.value[0])}
+                      value={field.value}
+                      tagRender={props => {
+                        const { label, value, onClose } = props;
+                        return (
+                          <span className="ant-select-selection-item">
+                            {label}
+                            <span style={{ paddingLeft: 5 }}>
+                              <CloseOutlined
+                                onClick={() => {
+                                  onClose();
+                                  handleRemoveTag(value, field.key);
+                                }}
+                              />
+                            </span>
                           </span>
-                        </span>
-                      );
+                        );
+                      }}
+                    />
+                  )}
+                </Form.Item>
+                <Form.Item
+                  name={`email_${field.key}`}
+                  className={styles.formField}
+                  validateStatus={duplicateErrors[index] ? 'error' : ''}
+                  help={
+                    duplicateErrors[index] ? 'アカウントが存在しています。' : ''
+                  }
+                >
+                  {editingKeys[field.key] && field.value[0] ? (
+                    <Input
+                      value={field.value[0]}
+                      onChange={e => handleEmailInputChange(e, field.key)}
+                      onBlur={() => handleEmailInputBlur(field.key)}
+                      onKeyDown={e => handleEmailInputKeyDown(e, field.key)}
+                      autoFocus
+                    />
+                  ) : (
+                    <Select
+                      mode="tags"
+                      style={{ width: '100%' }}
+                      placeholder="例）時間　太郎"
+                      options={historyInvitationData.filter(
+                        item => !item.disabled,
+                      )}
+                      maxTagCount={1}
+                      onChange={(value, options) =>
+                        handleSelectChange(value, field.key, options)
+                      }
+                      onSelect={value => handleEditEmail(field.key, value)}
+                      onClick={() => handleEditEmail(field.key, field.value[0])}
+                      value={field.value}
+                      tagRender={props => {
+                        const { label, value, onClose } = props;
+                        return (
+                          <span className="ant-select-selection-item">
+                            {label}
+                            <span style={{ paddingLeft: 5 }}>
+                              <CloseOutlined
+                                onClick={() => {
+                                  onClose();
+                                  handleRemoveTag(value, field.key);
+                                }}
+                              />
+                            </span>
+                          </span>
+                        );
+                      }}
+                    />
+                  )}
+                </Form.Item>
+
+                {selectFields.length > 1 && (
+                  <img
+                    className={styles.removeSelectBtn}
+                    src={require('@/assets/images/delete.svg')}
+                    onClick={() => {
+                      Modal.confirm({
+                        title: '削除確認',
+                        content: 'この連絡先を削除してもよろしいですか？',
+                        icon: (
+                          <img
+                            src={deleteIcon}
+                            className={styles.customModalImg}
+                          />
+                        ),
+                        okText: '確認',
+                        cancelText: '',
+                        centered: true,
+                        className: styles.customModal,
+                        closable: true,
+                        closeIcon: (
+                          <span style={{ fontSize: '20px' }}>
+                            <img src={iconClose} />
+                          </span>
+                        ),
+                        cancelButtonProps: {
+                          style: {
+                            display: 'none',
+                          },
+                        },
+                        onOk: () => {
+                          handleRemoveSelect(field.key);
+                        },
+                      });
                     }}
                   />
                 )}
-              </Form.Item>
-              {selectFields.length > 1 &&
-                (isPc ? (
-                  <img
-                    className={styles.removeSelectBtn}
-                    onClick={() => handleRemoveSelect(field.key)}
-                    src={require('@/assets/images/pc/trashBlue.png')}
-                  />
-                ) : (
-                  <Button
-                    className={styles.removeSelectBtn}
-                    onClick={() => handleRemoveSelect(field.key)}
-                  >
-                    <CloseOutlined />
-                  </Button>
-                ))}
+              </div>
+            ))}
+            <div className={styles.addPartnerBtnWrap}>
+              <Button
+                className={styles.addPartnerBtn}
+                onClick={handleAddEmailForm}
+              >
+                +
+              </Button>
             </div>
-          ))}
-          <Button
-            loading={isLoading}
-            type="primary"
-            htmlType="submit"
-            className={styles.savePartnerBtn}
-            disabled={isSubmitDisabled}
-          >
-            {formatMessage({ id: 'i18n_add_partner' })}
-          </Button>
+          </div>
+          <div className={styles.savePartnerBtnWrap}>
+            <Button
+              loading={isLoading}
+              type="primary"
+              htmlType="submit"
+              className={styles.savePartnerBtn}
+              disabled={isSubmitDisabled}
+            >
+              {formatMessage({ id: 'i18n_add_partner' })}
+            </Button>
+            <Button
+              loading={isLoading}
+              className={styles.savePartnerBtnReturn}
+              disabled={isSubmitDisabled}
+            >
+              調整一覧に戻る
+            </Button>
+          </div>
         </Form>
       </div>
       {isPc && <FooterMobile />}

@@ -88,7 +88,7 @@ function CalendarPreview(props) {
               plugins={[timeGridPlugin, interactionPlugin]}
               initialView="timeGrid"
               // initialDate={gotoDate}
-              height="calc(100svh - 65px - 68px - 414px)"
+              height="calc(100svh - 474px)"
               duration={{ days: dateIncrement }}
               events={hooks.displayEvents}
               dayMaxEventRows={hooks.expanded ? false : 2}
@@ -102,7 +102,8 @@ function CalendarPreview(props) {
               slotMaxTime={'24:00:00'}
               slotDuration={'00:15:00'}
               slotLabelInterval={{ hours: 1 }}
-              eventMinHeight={15}
+              eventMinHeight={10}
+              slotMinHeight={20}
               editable={true}
               allDaySlot={true}
               allDayContent={

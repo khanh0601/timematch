@@ -5,44 +5,76 @@
     display: flex;
     justify-content: right;
     margin-bottom: 10px;
-
-    .addPartnerBtn {
-      border: none;
-      height: 40px;
-      border-radius: 10px;
-      background-color: #3368c7;
-      color: #ffffff;
-      font-weight: 600;
-      letter-spacing: 1px;
-      box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+  }
+  .addPartnerBtn {
+    border: none;
+    height: 44px;
+    width: 44px;
+    padding-bottom: 4px;
+    border-radius: 4px;
+    background-color: #093b66;
+    color: #ffffff;
+    font-size: 32px;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+    letter-spacing: 1;
+    &Wrap {
+      display: flex;
+      width: 100%;
+      justify-content: end;
+      margin-top: 10px;
     }
   }
 
   .savePartnerBtn {
-    margin-top: 10px;
-    width: 100%;
-    height: 40px;
+    height: 53px;
     border: none;
-    border-radius: 10px;
+    border-radius: 32px;
     background-color: #3368c7;
     color: #ffffff;
-    font-weight: 600;
-    letter-spacing: 1px;
-    box-shadow: 0 2px 3px rgba(50, 100, 200, 0.3);
+    font-weight: 500;
+    font-size: 18px;
+    width: 200px;
+    letter-spacing: -0.04em;
+    &Wrap {
+      margin-top: 32px;
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+    }
+  }
+  .savePartnerBtnReturn {
+    width: 200px;
+    height: 53px;
+    border: none;
+    border-radius: 32px;
+    background-color: #d6dee6;
+    color: #626e79;
+    font-weight: 500;
+    font-size: 18px;
+    letter-spacing: -0.04em;
   }
 
   .selectField {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
+    gap: 32px;
+    margin-bottom: 10px;
     .formField {
       width: 100%;
-      margin-top: 10px;
-
+      &:first-child {
+        flex: 2;
+      }
+      &:nth-child(2) {
+        flex: 1;
+      }
       .inputField {
         width: 100%;
-        height: 40px;
+        height: 44px;
         border: 1px solid #999999 !important;
         border-radius: 5px;
         padding: 5px;
@@ -52,52 +84,191 @@
   }
 
   .removeSelectBtn {
-    border: none;
+    padding: 10px;
+    width: 44px;
+    height: 44px;
+    flex: 0 0 auto;
+    border-radius: 4px;
     display: flex;
-    align-items: center;
     justify-content: center;
-    padding: 10px 0 0 10px;
-    height: auto;
+    align-items: center;
+    color: white;
+    cursor: pointer;
+    background-color: #cf2d2d;
   }
 }
 
 @media (min-width: 834px) {
   .container {
-    //min-width: 500px;
+    max-width: 1160px;
+    padding-inline: 100px;
     //max-width: 500px;
-    max-height: 80vh;
+    height: calc(100vh - 160px);
     overflow-y: auto;
     margin: auto;
-
+    background-image: url('../../../assets/images/bg.png');
+    background-size: 100%;
+    background-position: bottom center;
+    background-repeat: no-repeat;
     .emailTitle {
-      color: #333333;
-      text-align: center;
+      color: #3f3f3f;
       font-weight: bold;
-      font-size: 21px;
-      margin-bottom: 40px;
+      font-size: 24px;
+      padding: 8px 16px;
+      margin-bottom: 0;
     }
 
     .formItem {
-      width: 450px;
+      width: 100%;
       margin: auto;
     }
     .addPartner {
       display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      width: 450px;
-      margin: 0 auto 10px auto;
-
+      justify-content: start;
+      margin-bottom: 0;
+      &:first-child {
+        flex: 2;
+      }
+      &:nth-child(2) {
+        flex: 1;
+      }
       .emailLabel {
         margin-bottom: 0px !important;
         color: #333333;
         font-size: 18px;
         font-weight: bold;
+        .requier {
+          padding: 4px 10px;
+          background-color: #f1c0c0;
+          border-radius: 14px;
+          color: #cf2d2d;
+          font-size: 16px;
+          font-weight: 500;
+          line-height: 1;
+          margin-left: 8px;
+        }
+      }
+      &Head {
+        display: flex;
+        gap: 32px;
+        position: sticky;
+        top: 0;
+        background-color: white;
+        padding-block: 32px 16px;
+        z-index: 100;
+      }
+      &Wrap {
+        width: 100%;
+        padding: 0 48px 24px 48px;
+        border: 1px solid #d6dee6;
+        background-color: white;
+        max-height: calc(100vh - 350px);
+        overflow: auto;
+        position: relative;
       }
     }
 
     .removeSelectBtn {
       cursor: pointer;
+    }
+  }
+}
+body .customModal {
+  max-width: 503px !important;
+  @media only screen and (max-width: 767px) {
+    padding: 0 !important;
+    margin-block: 0 !important;
+  }
+  .customModalImg {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+    border-radius: 50%;
+    margin-top: -10px;
+    background-color: #fde9e7;
+    margin-right: 16px;
+  }
+
+  :global {
+    .ant-modal-body {
+      padding: 24px !important;
+      @media only screen and (max-width: 767px) {
+        padding: 16px !important;
+      }
+    }
+    .ant-modal-content {
+      border-radius: 8px;
+      @media only screen and (max-width: 767px) {
+        box-shadow: 4px 4px 4px 0 rgba(0, 0, 0, 0.16);
+        border-radius: 16px;
+      }
+    }
+    .ant-modal-confirm-title {
+      font-size: 24px;
+      font-weight: 400;
+      color: #2c3236;
+      line-height: 1;
+      display: inline;
+      @media only screen and (max-width: 767px) {
+        font-size: 18px;
+      }
+    }
+    .ant-modal-close-x {
+      width: 44px;
+      height: 44px;
+      line-height: 1;
+      display: flex;
+      @media only screen and (max-width: 767px) {
+        width: 36px;
+        height: 36px;
+      }
+      img {
+        width: 100%;
+      }
+    }
+    .ant-modal-close {
+      top: 14px;
+      right: 14px;
+      @media only screen and (max-width: 767px) {
+        top: 6px;
+        right: 6px;
+      }
+    }
+    .ant-modal-confirm-content {
+      font-size: 20px;
+      color: #626e79;
+      margin-top: 8px;
+      margin-left: 0 !important;
+      @media only screen and (max-width: 767px) {
+        font-size: 14px;
+      }
+    }
+    .ant-modal-confirm .ant-modal-body {
+      padding: 24px !important;
+    }
+    .ant-modal-confirm-btns {
+      display: flex;
+      justify-content: center !important;
+      text-align: center !important;
+      margin-top: 32px;
+      .ant-btn {
+        font-weight: 500;
+        background-color: #cf2d2d;
+        border-color: #e74c3c;
+        border-radius: 32px;
+        width: 200px;
+        height: 60px;
+        font-size: 20px;
+        line-height: 1;
+        @media only screen and (max-width: 767px) {
+          font-size: 18px;
+          height: 45px;
+        }
+        &:hover {
+          background-color: #d63d2f !important;
+          border-color: #d63d2f !important;
+        }
+      }
     }
   }
 }

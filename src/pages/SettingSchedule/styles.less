@@ -143,10 +143,15 @@
     }
   }
   .groupPart {
-    width: 960px;
+    max-width: 1200px;
+    width: 100%;
     overflow: auto;
-    padding: 40px 0 15px 0;
+    padding: 40px 120px 15px 120px;
     margin: 0 auto;
+    @media screen and (max-width: 991px) {
+      width: unset;
+      padding-inline: 60px;
+    }
     @media screen and (max-width: 767px) {
       width: unset;
       padding: 15px;

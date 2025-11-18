@@ -1,7 +1,8 @@
 .rightPanel {
   background-color: #fff;
   flex: 1;
-  padding: 24px;
+  height: 100%;
+  // padding: 24px;
   @media only screen and (max-width: 767px) {
     padding: 0;
     width: 100%;
@@ -9,6 +10,7 @@
   }
   &Inner {
     background-color: #f5f5f5;
+    height: 100%;
     @media only screen and (max-width: 767px) {
       min-width: 600px;
     }
@@ -65,7 +67,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px;
+  padding: 8px;
 
   :global {
     .ant-select {
@@ -75,7 +77,7 @@
         background-color: transparent !important;
         .ant-select-selection-item {
           color: var(--black, #2c3236);
-          font-size: 32px;
+          font-size: 24px;
           font-style: normal;
           font-weight: 700;
           line-height: normal;
@@ -126,8 +128,8 @@
 
   .btnPrev,
   .btnNext {
-    width: 52px;
-    height: 52px;
+    width: 40px;
+    height: 40px;
     display: flex;
     border-radius: 4px;
     background: #fff;
@@ -183,6 +185,7 @@
   // background-color: white;
   // height: calc(100vh - 75px - 68px - 74px);
   padding-inline: 24px;
+  height: 100%;
 }
 
 .headerTableCalendar {

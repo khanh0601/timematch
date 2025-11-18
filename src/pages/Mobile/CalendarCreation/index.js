@@ -1199,10 +1199,7 @@ ${text_ask_calendar_bottom}`;
                       })}
                     />
                   </Form.Item>
-                  <p
-                    className={styles.labelName}
-                    style={{ marginTop: isPc ? 12 : '10px' }}
-                  >
+                  <p className={styles.labelName}>
                     {formatMessage({
                       id: isPc
                         ? 'i18n_label_meet_time_pc'

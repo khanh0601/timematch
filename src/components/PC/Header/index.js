@@ -20,6 +20,7 @@ const PCHeader = props => {
     { name: '調整一覧', path: '/' },
     { name: 'カレンダー', path: '/pc/calendar' },
     { name: 'プロフィール', path: '/profile' },
+    { name: '自動日程調整オプション', path: '/profile/schedule-setting' },
     { name: '定型文の作成', path: '/mail-template' },
     { name: 'メールの送付先管理', path: '/contact-management' },
     { name: 'ご利用のガイド', path: '/documentation' },
