@@ -1,6 +1,4 @@
 .container {
-  padding: 20px;
-
   .addPartner {
     display: flex;
     justify-content: right;
@@ -39,11 +37,19 @@
     font-size: 18px;
     width: 200px;
     letter-spacing: -0.04em;
+    @media only screen and (max-width: 767px) {
+      height: 50px;
+      width: auto;
+      flex: 1;
+    }
     &Wrap {
       margin-top: 32px;
       display: flex;
       gap: 0.8rem;
       justify-content: center;
+      @media only screen and (max-width: 767px) {
+        padding-inline: 16px;
+      }
     }
   }
   .savePartnerBtnReturn {
@@ -56,6 +62,11 @@
     font-weight: 500;
     font-size: 18px;
     letter-spacing: -0.04em;
+    @media only screen and (max-width: 767px) {
+      height: 50px;
+      width: auto;
+      flex: 1;
+    }
   }
 
   .selectField {
@@ -64,10 +75,36 @@
     align-items: center;
     gap: 32px;
     margin-bottom: 10px;
+    @media only screen and (max-width: 767px) {
+      gap: 4px;
+      margin-bottom: 16px;
+      flex-direction: column;
+      position: relative;
+      .removeSelectBtn {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 44px;
+        height: 100%;
+      }
+      :global {
+        .ant-select-selector {
+          height: 47px !important;
+        }
+      }
+    }
     .formField {
       width: 100%;
       &:first-child {
         flex: 2;
+        :global {
+          .ant-select-selector input {
+            &:focus {
+              border: none !important;
+              box-shadow: none !important;
+            }
+          }
+        }
       }
       &:nth-child(2) {
         flex: 1;
@@ -79,6 +116,24 @@
         border-radius: 5px;
         padding: 5px;
         margin-bottom: 10px;
+        @media only screen and (max-width: 767px) {
+          margin-bottom: 0;
+        }
+      }
+      :global {
+        input {
+          height: 48px !important;
+          border-radius: 4px !important;
+          &:focus {
+            border-width: 1px !important;
+            border-color: rgb(64, 169, 255) !important;
+            box-shadow: 0 0 0 2px rgba(0, 182, 211, 0.2) !important;
+          }
+          &:hover {
+            border-width: 1px !important;
+            border-color: rgb(64, 169, 255) !important;
+          }
+        }
       }
     }
   }
@@ -97,80 +152,94 @@
     background-color: #cf2d2d;
   }
 }
-
-@media (min-width: 834px) {
-  .container {
-    max-width: 1160px;
-    padding-inline: 100px;
-    //max-width: 500px;
-    height: calc(100vh - 160px);
-    overflow-y: auto;
-    margin: auto;
-    background-image: url('../../../assets/images/bg.png');
-    background-size: 100%;
-    background-position: bottom center;
-    background-repeat: no-repeat;
-    .emailTitle {
-      color: #3f3f3f;
-      font-weight: bold;
+.container {
+  max-width: 1160px;
+  padding-inline: 100px;
+  //max-width: 500px;
+  height: calc(100vh - 160px);
+  overflow-y: auto;
+  margin: auto;
+  background-image: url('../../../assets/images/bg.png');
+  background-size: 100%;
+  background-position: bottom center;
+  background-repeat: no-repeat;
+  @media only screen and (max-width: 767px) {
+    padding-inline: 0;
+    background-image: unset;
+    background-color: #fdfcf9;
+  }
+  .emailTitle {
+    color: #3f3f3f;
+    font-weight: bold;
+    font-size: 32px;
+    padding: 8px 16px;
+    margin-top: 32px;
+    margin-bottom: 0;
+    @media only screen and (max-width: 767px) {
+      margin-top: 24px;
       font-size: 24px;
-      padding: 8px 16px;
-      margin-bottom: 0;
     }
+  }
 
-    .formItem {
-      width: 100%;
-      margin: auto;
+  .formItem {
+    width: 100%;
+    margin: auto;
+  }
+  .addPartner {
+    display: flex;
+    justify-content: start;
+    margin-bottom: 0;
+    &:first-child {
+      flex: 2;
     }
-    .addPartner {
+    &:nth-child(2) {
+      flex: 1;
+    }
+    .emailLabel {
+      margin-bottom: 0px !important;
+      color: #333333;
+      font-size: 18px;
+      font-weight: bold;
+      .requier {
+        padding: 4px 10px;
+        background-color: #f1c0c0;
+        border-radius: 14px;
+        color: #cf2d2d;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1;
+        margin-left: 8px;
+      }
+    }
+    &Head {
       display: flex;
-      justify-content: start;
-      margin-bottom: 0;
-      &:first-child {
-        flex: 2;
-      }
-      &:nth-child(2) {
-        flex: 1;
-      }
-      .emailLabel {
-        margin-bottom: 0px !important;
-        color: #333333;
-        font-size: 18px;
-        font-weight: bold;
-        .requier {
-          padding: 4px 10px;
-          background-color: #f1c0c0;
-          border-radius: 14px;
-          color: #cf2d2d;
-          font-size: 16px;
-          font-weight: 500;
-          line-height: 1;
-          margin-left: 8px;
-        }
-      }
-      &Head {
-        display: flex;
-        gap: 32px;
-        position: sticky;
-        top: 0;
-        background-color: white;
-        padding-block: 32px 16px;
-        z-index: 100;
-      }
-      &Wrap {
-        width: 100%;
-        padding: 0 48px 24px 48px;
-        border: 1px solid #d6dee6;
-        background-color: white;
-        max-height: calc(100vh - 350px);
-        overflow: auto;
-        position: relative;
+      gap: 32px;
+      position: sticky;
+      top: 0;
+      background-color: white;
+      padding-block: 32px 16px;
+      z-index: 100;
+      @media only screen and (max-width: 767px) {
+        display: none;
       }
     }
+    &Wrap {
+      width: 100%;
+      padding: 0 48px 24px 48px;
+      border: 1px solid #d6dee6;
+      background-color: white;
+      max-height: calc(100vh - 350px);
+      overflow: auto;
+      position: relative;
+      @media only screen and (max-width: 767px) {
+        padding: 16px;
+        border: none;
+      }
+    }
+  }
 
-    .removeSelectBtn {
-      cursor: pointer;
-    }
+  .removeSelectBtn {
+    cursor: pointer;
   }
 }
 body .customModal {

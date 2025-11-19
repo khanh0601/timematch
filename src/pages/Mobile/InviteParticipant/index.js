@@ -246,28 +246,11 @@ function InviteParticipant(props) {
 
   return (
     <Spin spinning={loading}>
-      {isPc ? (
-        <PCHeader />
-      ) : (
-        <HeaderMobile
-          title={formatMessage({ id: 'i18n_share_via_email' })}
-          isShowLeft={true}
-          itemLeft={{
-            event: 'back',
-            url: ROUTER.calendar,
-            icon: iconBack,
-            bgColor: 'bgPrimaryBlue',
-          }}
-        />
-      )}
+      <PCHeader />
       <div className={`${styles.container} invite-participant-page`}>
-        {isPc ? (
-          <h1 className={styles.emailTitle}>
-            {formatMessage({ id: 'i18n_email_invite_pc' })}
-          </h1>
-        ) : (
-          <p>{formatMessage({ id: 'i18n_email' })}</p>
-        )}
+        <h1 className={styles.emailTitle}>
+          {formatMessage({ id: 'i18n_email_invite_pc' })}
+        </h1>
 
         <Form form={form} onFinish={handleSubmit} className={styles.formItem}>
           <div className={styles.addPartnerWrap}>
@@ -287,7 +270,13 @@ function InviteParticipant(props) {
               </div>
             </div>
             {selectFields.map((field, index) => (
-              <div className={styles.selectField} key={field.key}>
+              <div
+                className={styles.selectField}
+                key={field.key}
+                style={{
+                  paddingRight: !isPc && selectFields.length > 1 ? '48px' : '0',
+                }}
+              >
                 <Form.Item
                   name={`email_${field.key}`}
                   className={styles.formField}
@@ -339,26 +328,20 @@ function InviteParticipant(props) {
                   )}
                 </Form.Item>
                 <Form.Item
-                  name={`email_${field.key}`}
+                  name={`name_${field.key}`}
                   className={styles.formField}
                   validateStatus={duplicateErrors[index] ? 'error' : ''}
                   help={
                     duplicateErrors[index] ? 'アカウントが存在しています。' : ''
                   }
                 >
-                  {editingKeys[field.key] && field.value[0] ? (
-                    <Input
-                      value={field.value[0]}
-                      onChange={e => handleEmailInputChange(e, field.key)}
-                      onBlur={() => handleEmailInputBlur(field.key)}
-                      onKeyDown={e => handleEmailInputKeyDown(e, field.key)}
-                      autoFocus
-                    />
+                  <Input placeholder="例）時間 太郎" />
+                  {/* {editingKeys[field.key] && field.value[0] ? (
                   ) : (
                     <Select
                       mode="tags"
                       style={{ width: '100%' }}
-                      placeholder="例）時間　太郎"
+                      placeholder="例）時間 太郎"
                       options={historyInvitationData.filter(
                         item => !item.disabled,
                       )}
@@ -386,7 +369,7 @@ function InviteParticipant(props) {
                         );
                       }}
                     />
-                  )}
+                  )} */}
                 </Form.Item>
 
                 {selectFields.length > 1 && (
@@ -450,13 +433,16 @@ function InviteParticipant(props) {
               loading={isLoading}
               className={styles.savePartnerBtnReturn}
               disabled={isSubmitDisabled}
+              onClick={() => {
+                history.push('/mail-template');
+              }}
             >
               調整一覧に戻る
             </Button>
           </div>
         </Form>
       </div>
-      {isPc && <FooterMobile />}
+      <FooterMobile />
     </Spin>
   );
 }

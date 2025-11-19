@@ -20,11 +20,12 @@
   @media only screen and (max-width: 767px) {
     padding-block: 24px;
     height: calc(100vh - 135px);
+    background-color: #fdfcf9;
   }
   .formTab {
     display: flex;
     gap: 16px;
-    margin-bottom: 48px;
+    margin-bottom: 32px;
     @media only screen and (max-width: 767px) {
       gap: 8px;
       margin-bottom: 0;
@@ -67,9 +68,12 @@
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
-    line-height: 1;
+    padding: 8px 16px;
     letter-spacing: -1.28px;
-    margin-bottom: 8px;
+    margin-bottom: 0;
+    @media only screen and (max-width: 767px) {
+      font-size: 24px;
+    }
   }
   .formSentEmail {
     width: 100%;
@@ -159,6 +163,7 @@
     @media only screen and (max-width: 767px) {
       padding: 16px;
       border: none;
+      background-color: white;
     }
     &Title {
       display: flex;
@@ -169,6 +174,16 @@
       z-index: 100;
       background: white;
       padding-top: 24px;
+      .requier {
+        padding: 4px 10px;
+        background-color: #f1c0c0;
+        border-radius: 14px;
+        color: #cf2d2d;
+        font-size: 16px;
+        font-weight: 500;
+        line-height: 1;
+        margin-left: 8px;
+      }
       p:nth-child(1) {
         flex: 1;
       }

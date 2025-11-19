@@ -105,11 +105,9 @@ const SentEmailManagement = props => {
               </div>
             </div>
           )}
-          {isMobile ? null : (
-            <p className={styles.titlePage}>
-              {formatMessage({ id: 'i18n_email_invite_pc' })}
-            </p>
-          )}
+          <p className={styles.titlePage}>
+            {formatMessage({ id: 'i18n_email_invite_pc' })}
+          </p>
           <Form
             className={styles.formSentEmail}
             layout="vertical"
@@ -132,6 +130,7 @@ const SentEmailManagement = props => {
                     }}
                   >
                     {formatMessage({ id: 'i18n_email' })}
+                    <span className={styles.requier}>必須</span>
                   </p>
                   <p
                     style={{
@@ -205,9 +204,7 @@ const SentEmailManagement = props => {
                             name={[field.name, 'name']}
                             rules={[
                               {
-                                required: true,
                                 whitespace: true,
-                                message: '名前は必須です。',
                               },
                             ]}
                             noStyle
@@ -335,7 +332,7 @@ const SentEmailManagement = props => {
                   保存{' '}
                 </Button>
               </Form.Item>
-              {isPc ? null : (
+              {/* {isPc ? null : (
                 <div className={styles.formTab}>
                   <div
                     className={[styles.formTabButton, styles.active].join(' ')}
@@ -354,7 +351,7 @@ const SentEmailManagement = props => {
                     調整一覧に戻る
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           </Form>
         </div>
