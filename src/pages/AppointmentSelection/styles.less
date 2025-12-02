@@ -2,7 +2,7 @@
 
 .appointment-selection {
   padding-bottom: 20px;
-  width: 100%;
+  width: 50%;
   @media only screen and (max-width: 767px) {
     background-color: #fdfcf9;
     overflow: hidden;
@@ -379,15 +379,19 @@
     }
   }
 }
-.appointment-calendar {
-  display: none;
+.appointment-selection-content {
+  display: flex;
+  gap: 16px;
 }
 .appointment-selection {
-  max-width: 1600px;
-  padding-inline: 80px;
-  margin: auto;
-  @media only screen and (max-width: 767px) {
-    padding-inline: 16px;
+  &-wrapper {
+    max-width: 1600px;
+    padding-inline: 80px;
+    margin: auto;
+    flex-direction: column;
+    @media only screen and (max-width: 767px) {
+      padding-inline: 16px;
+    }
   }
   .pointer {
     cursor: pointer;
@@ -435,10 +439,40 @@
     // justify-content: space-between;
 
     .appointment-calendar {
-      width: 480px;
+      width: 50%;
     }
   }
+  .header-pc {
+    padding-top: 24px;
 
+    h2 {
+      font-weight: 700;
+      font-size: 32px;
+      margin-bottom: 40px;
+    }
+
+    .header-event {
+      display: flex;
+      align-items: center;
+
+      span {
+        font-weight: 500;
+        font-size: 18px;
+        margin-right: 10px;
+      }
+
+      div {
+        color: #3f3f3f;
+        width: 100%;
+        font-family: 'Noto Sans';
+        font-size: 18px;
+        font-weight: 700;
+        line-height: 1;
+        letter-spacing: -1.28px;
+        margin-bottom: 24px;
+      }
+    }
+  }
   .logged-in {
     height: calc(100vh - 74px - 75px);
 
@@ -468,38 +502,6 @@
       overflow: auto;
     }
 
-    .header-pc {
-      padding-top: 40px;
-
-      h2 {
-        font-weight: 700;
-        font-size: 32px;
-        margin-bottom: 40px;
-      }
-
-      .header-event {
-        display: flex;
-        align-items: center;
-
-        span {
-          font-weight: 500;
-          font-size: 18px;
-          margin-right: 10px;
-        }
-
-        div {
-          color: #3f3f3f;
-          width: 100%;
-          font-family: 'Noto Sans';
-          font-size: 32px;
-          font-weight: 700;
-          line-height: 1;
-          letter-spacing: -1.28px;
-          margin-bottom: 40px;
-        }
-      }
-    }
-
     .appointment-calendar {
       height: calc(100vh - 74px - 75px);
       position: relative;
@@ -514,16 +516,6 @@
         cursor: pointer;
         z-index: 100;
       }
-    }
-  }
-
-  .expanded {
-    .appointment-calendar {
-      width: 45%;
-    }
-
-    .appointment-selection {
-      max-width: calc(100vw - 45vw);
     }
   }
 }

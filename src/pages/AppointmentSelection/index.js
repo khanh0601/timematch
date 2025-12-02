@@ -633,155 +633,145 @@ const AppointmentSelection = props => {
   return (
     <div className="appointment-selection-container">
       <PCHeader />
+
       <div
         className={`appointment-selection-wrapper ${
           profile?.id ? 'logged-in' : ''
         } ${expanded ? 'expanded' : ''}`}
       >
-        <div className="appointment-selection">
-          {isPc && profile?.id ? (
-            <div className="header-pc">
-              {/* <h2>日程調整</h2> */}
-              <div className="header-event">
-                {/* <span>イベント名</span> */}
-                <div>{events?.name}</div>
-              </div>
+        {isPc && profile?.id ? (
+          <div className="header-pc">
+            {/* <h2>日程調整</h2> */}
+            <div className="header-event">
+              {/* <span>イベント名</span> */}
+              <div>{events?.name}</div>
             </div>
-          ) : (
-            <div className="header">
-              <div className="header-left">
-                <div className="header-title">{events?.name}</div>
-              </div>
-              {/* {profile?.id && (
-                <div
-                  className={`header-close bgDarkBlue shadowPrimary`}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    borderRadius: 5,
-                  }}
-                  onClick={() =>
-                    props.onClose ? props.onClose() : history.go(-1)
-                  }
-                >
-                  <CloseOutlined style={{ color: '#FFF' }} />
+          </div>
+        ) : (
+          <div className="header">
+            <div className="header-left">
+              <div className="header-title">{events?.name}</div>
+            </div>
+          </div>
+        )}
+        <div className="appointment-selection-content">
+          <div className="appointment-selection">
+            <div className="aps-content-wrapper">
+              {!!events?.calendar_create_comment && (
+                <div style={{ padding: 10 }}>
+                  {events?.calendar_create_comment ?? ''}
                 </div>
-              )} */}
-            </div>
-          )}
-          <div className="aps-content-wrapper">
-            {!!events?.calendar_create_comment && (
-              <div style={{ padding: 10 }}>
-                {events?.calendar_create_comment ?? ''}
+              )}
+              <Spin spinning={voteLoading}>
+                <div className="content">
+                  {isLandScape ? (
+                    <Table
+                      className={'table-landscape'}
+                      columns={columnLandScape}
+                      dataSource={dataLandScape}
+                      pagination={false}
+                      scroll={{ x: 'max-content' }}
+                      loading={voteLoading}
+                      size="small"
+                      bordered
+                    />
+                  ) : (
+                    <Table
+                      className={'table-portrait'}
+                      columns={columns}
+                      dataSource={eventDateTimeGuest}
+                      pagination={false}
+                      scroll={{ x: 'max-content', y: 400 }}
+                      loading={voteLoading}
+                      rowClassName={record => bgTypeChoiceClass(record)}
+                      summary={() => (
+                        <Table.Summary fixed>
+                          <Table.Summary.Row>
+                            {voteGuest.map((item, index) => (
+                              <Table.Summary.Cell
+                                index={index + 3}
+                                key={item.id}
+                              >
+                                {item.comment && (
+                                  <BubbleChatIcon
+                                    onMouseEnter={e =>
+                                      handleMouseEnter(item.comment, e)
+                                    }
+                                    onMouseLeave={handleMouseLeave}
+                                    onClick={() =>
+                                      info(item.comment, item.name)
+                                    }
+                                  />
+                                )}
+                              </Table.Summary.Cell>
+                            ))}
+                            <Table.Summary.Cell index={voteGuest.length + 3} />
+                          </Table.Summary.Row>
+                        </Table.Summary>
+                      )}
+                    />
+                  )}
+                </div>
+              </Spin>
+              <div className={styles.AppointmentSelectionFormWrap}>
+                <AppointmentSelectionForm
+                  eventId={eventId}
+                  eventName={eventName}
+                  invitee={location?.query?.invitee}
+                  code={location?.query?.code}
+                  selectedChoices={toggleOkEvent}
+                />
               </div>
-            )}
-            <Spin spinning={voteLoading}>
-              <div className="content">
-                {isLandScape ? (
-                  <Table
-                    className={'table-landscape'}
-                    columns={columnLandScape}
-                    dataSource={dataLandScape}
-                    pagination={false}
-                    scroll={{ x: 'max-content' }}
-                    loading={voteLoading}
-                    size="small"
-                    bordered
-                  />
-                ) : (
-                  <Table
-                    className={'table-portrait'}
-                    columns={columns}
-                    dataSource={eventDateTimeGuest}
-                    pagination={false}
-                    scroll={{ x: 'max-content', y: 400 }}
-                    loading={voteLoading}
-                    rowClassName={record => bgTypeChoiceClass(record)}
-                    summary={() => (
-                      <Table.Summary fixed>
-                        <Table.Summary.Row>
-                          {voteGuest.map((item, index) => (
-                            <Table.Summary.Cell index={index + 3} key={item.id}>
-                              {item.comment && (
-                                <BubbleChatIcon
-                                  onMouseEnter={e =>
-                                    handleMouseEnter(item.comment, e)
-                                  }
-                                  onMouseLeave={handleMouseLeave}
-                                  onClick={() => info(item.comment, item.name)}
-                                />
-                              )}
-                            </Table.Summary.Cell>
-                          ))}
-                          <Table.Summary.Cell index={voteGuest.length + 3} />
-                        </Table.Summary.Row>
-                      </Table.Summary>
-                    )}
-                  />
-                )}
-              </div>
-            </Spin>
-            <div className={styles.AppointmentSelectionFormWrap}>
-              <AppointmentSelectionForm
-                eventId={eventId}
-                eventName={eventName}
-                invitee={location?.query?.invitee}
-                code={location?.query?.code}
-                selectedChoices={toggleOkEvent}
+
+              <AvailableTimeModal
+                open={openAvailableTimeModal}
+                onClose={onCloseAvailableTimeModal}
               />
             </div>
-
-            <AvailableTimeModal
-              open={openAvailableTimeModal}
-              onClose={onCloseAvailableTimeModal}
-            />
+            {!profile?.id && (
+              <div className="footer-wrap">
+                <div className="footer-top">
+                  <div className="footer-top-line"></div>
+                  <div className="footer-top-txt">または</div>
+                  <div className="footer-top-line"></div>
+                </div>
+                <div className="footer-head">
+                  新規会員登録・ログインいただくと、
+                  <br />
+                  あなたの予定が入っている箇所が表示され便利です。
+                </div>
+                <div className="footer-btn-wrap">
+                  <div
+                    onClick={() => history.push('/register')}
+                    className={`pointer footerBtnSubmit footerBtnSubmitBg`}
+                  >
+                    新規登録
+                  </div>
+                  <div
+                    onClick={() => history.push('/login')}
+                    className={`pointer footerBtnSubmit footerBtnSubmitOutline`}
+                  >
+                    ログイン
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-          {!profile?.id && (
-            <div className="footer-wrap">
-              <div className="footer-top">
-                <div className="footer-top-line"></div>
-                <div className="footer-top-txt">または</div>
-                <div className="footer-top-line"></div>
-              </div>
-              <div className="footer-head">
-                新規会員登録・ログインいただくと、
-                <br />
-                あなたの予定が入っている箇所が表示され便利です。
-              </div>
-              <div className="footer-btn-wrap">
-                <div
-                  onClick={() => history.push('/register')}
-                  className={`pointer footerBtnSubmit footerBtnSubmitBg`}
-                >
-                  新規登録
-                </div>
-                <div
-                  onClick={() => history.push('/login')}
-                  className={`pointer footerBtnSubmit footerBtnSubmitOutline`}
-                >
-                  ログイン
-                </div>
-              </div>
+          {isPc && profile?.id && (
+            <div className="appointment-calendar">
+              {/* <Arrow onClick={handleToggleExpand} className="ic-arrow" /> */}
+              <CalendarPreview
+                calendarRef={calendarRef}
+                dateIncrement={expanded ? 7 : 3}
+                viewOnly
+                fromVote
+                eventDateTimeGuest={eventDateTimeGuest}
+                votedEvents={votedEvents}
+                votingEvents={votingEvents}
+              />
             </div>
           )}
         </div>
-        {isPc && profile?.id && (
-          <div className="appointment-calendar">
-            <Arrow onClick={handleToggleExpand} className="ic-arrow" />
-            <CalendarPreview
-              calendarRef={calendarRef}
-              dateIncrement={expanded ? 7 : 3}
-              viewOnly
-              fromVote
-              eventDateTimeGuest={eventDateTimeGuest}
-              votedEvents={votedEvents}
-              votingEvents={votingEvents}
-            />
-          </div>
-        )}
       </div>
       {isPc && <FooterMobile />}
 

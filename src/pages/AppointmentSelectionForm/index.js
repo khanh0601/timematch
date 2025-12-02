@@ -205,7 +205,7 @@ const AppointmentSelectionForm = props => {
             >
               返信
             </Button>
-            {!profile?.id && isMobile ? (
+            {profile?.id ? (
               <Button
                 className={`${styles.backBtn}`}
                 loading={loading}
