@@ -116,177 +116,121 @@ const PastAppointmentDetail = props => {
           </div>
         </div>
       ) : null}
-
-      {profile?.id === event?.user_id ? (
-        <>
-          <div className="content">
-            <SwipeableList style={{ overflow: 'unset' }} fullSwipe={true}>
-              <SwipableItem item={event} onDelete={handleDelete}>
-                <div className="swipableItem">
-                  <div className="swipableItemInner">
-                    <div className="past-event-time">
-                      {isMobile && (
-                        <div
-                          className="header-back"
-                          onClick={() =>
-                            props.onClose ? props.onClose() : history.go(-1)
-                          }
-                        >
-                          <img src={iconReturn} alt="return" />
-                        </div>
-                      )}
-                      <span>{event && event?.name}</span>
-                      {/* format date time by japanese */}
-                      {/* <span>
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.start_time,
-                        ).format('MMMM Do (dd) HH:mm')}
-                      </span>
-                      <span>～</span>
-                      <span>
-                        {moment(
-                          event?.calendars && event?.calendars[0]?.start_time,
-                        )
-                          .add(getStep(event), 'minutes')
-                          .format('HH:mm')}
-                      </span> */}
+      <div className="content">
+        <SwipeableList style={{ overflow: 'unset' }} fullSwipe={true}>
+          <SwipableItem item={event} onDelete={handleDelete}>
+            <div className="swipableItem">
+              <div className="swipableItemInner">
+                <div className="past-event-time">
+                  {isMobile && (
+                    <div
+                      className="header-back"
+                      onClick={() =>
+                        props.onClose ? props.onClose() : history.go(-1)
+                      }
+                    >
+                      <img src={iconReturn} alt="return" />
                     </div>
+                  )}
+                  <span>{event && event?.name}</span>
+                </div>
+              </div>
+              <div className="pastDetailInfoWrap">
+                <div className="pastDetailInfo">
+                  <div className="pastDetailInfoIc">
+                    <img src={iconCalendarDisable} alt="icon Calendar" />
                   </div>
-                  <div className="pastDetailInfoWrap">
-                    <div className="pastDetailInfo">
-                      <div className="pastDetailInfoIc">
-                        <img src={iconCalendarDisable} alt="icon Calendar" />
-                      </div>
-                      <div className="">作成日 : </div>
-                      <div className="pastDetailInfoItem">
-                        <span>
-                          {moment(
-                            event?.calendars && event?.calendars[0]?.start_time,
-                          ).format('YYYY/MM/DD')}
-                          {moment(
-                            event?.calendars && event?.calendars[0]?.start_time,
-                          ).format('(dd)')}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="pastDetailInfo">
-                      <div className="pastDetailInfoIc">
-                        <img src={iconUser} alt="icon User" />
-                      </div>
-                      <div className="">主催者：</div>
-                      <div className="pastDetailInfoItem">
-                        <span>{profile.name}</span>
-                      </div>
-                    </div>
-                    <div className="pastDetailInfo">
-                      <div className="pastDetailInfoIc">
-                        <img src={iconCalendar} alt="icon Calendar" />
-                      </div>
-                      <div className="">開催日： </div>
-                      <div className="pastDetailInfoItem">
-                        <span>
-                          {moment(
-                            event?.calendars && event?.calendars[0]?.create_at,
-                          ).format('YYYY/MM/DD')}
-                          {moment(
-                            event?.calendars && event?.calendars[0]?.create_at,
-                          ).format('(dd)')}{' '}
-                          {moment(
-                            event?.calendars && event?.calendars[0]?.create_at,
-                          ).format('HH:mm')}
-                        </span>
-                        <span>～</span>
-                        <span>
-                          {moment(
-                            event?.calendars && event?.calendars[0]?.create_at,
-                          )
-                            .add(getStep(event), 'minutes')
-                            .format('HH:mm')}
-                        </span>
-                      </div>
-                    </div>
-                    <div className="pastDetailInfo">
-                      <div className="pastDetailInfoIc">
-                        <img src={iconUser} alt="icon Calendar" />
-                      </div>
-                      <div className="">参加者： </div>
-                      <div className="pastDetailInfoItem pastDetailInfoInvite">
-                        {voteUser?.map((item, index) => (
-                          <span key={index}>{item.name}</span>
-                        ))}
-                      </div>
-                    </div>
+                  <div className="">作成日 : </div>
+                  <div className="pastDetailInfoItem">
+                    <span>
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.start_time,
+                      ).format('YYYY/MM/DD')}
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.start_time,
+                      ).format('(dd)')}
+                    </span>
                   </div>
                 </div>
-              </SwipableItem>
-            </SwipeableList>
+                <div className="pastDetailInfo">
+                  <div className="pastDetailInfoIc">
+                    <img src={iconUser} alt="icon User" />
+                  </div>
+                  <div className="">主催者：</div>
+                  <div className="pastDetailInfoItem">
+                    <span>{profile.name}</span>
+                  </div>
+                </div>
+                <div className="pastDetailInfo">
+                  <div className="pastDetailInfoIc">
+                    <img src={iconCalendar} alt="icon Calendar" />
+                  </div>
+                  <div className="">開催日： </div>
+                  <div className="pastDetailInfoItem">
+                    <span>
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.create_at,
+                      ).format('YYYY/MM/DD')}
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.create_at,
+                      ).format('(dd)')}{' '}
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.create_at,
+                      ).format('HH:mm')}
+                    </span>
+                    <span>～</span>
+                    <span>
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.create_at,
+                      )
+                        .add(getStep(event), 'minutes')
+                        .format('HH:mm')}
+                    </span>
+                  </div>
+                </div>
+                <div className="pastDetailInfo">
+                  <div className="pastDetailInfoIc">
+                    <img src={iconUser} alt="icon Calendar" />
+                  </div>
+                  <div className="">参加者： </div>
+                  <div className="pastDetailInfoItem pastDetailInfoInvite">
+                    {voteUser?.map((item, index) => (
+                      <span key={index}>{item.name}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </SwipableItem>
+        </SwipeableList>
+      </div>
+      {event && event?.user_id === profile?.id && (
+        <div className="btnSubmitItemWrap">
+          <div
+            onClick={() => {
+              history.push(`/calendar/${event?.id}`);
+            }}
+            className="btnSubmitItem btnSubmitItemBlue"
+          >
+            <div style={{ marginLeft: 10 }}>編集</div>
           </div>
-          {event && event?.user_id === profile?.id && (
-            <div className="btnSubmitItemWrap">
-              <div
-                onClick={() => {
-                  history.push(`/calendar/${event?.id}`);
-                }}
-                className="btnSubmitItem btnSubmitItemBlue"
-              >
-                <div style={{ marginLeft: 10 }}>編集</div>
-              </div>
-              <div
-                onClick={() => {
-                  history.push(
-                    `/${isPc ? 'pc/' : ''}create-calendar?idEvent=${
-                      event?.id
-                    }&clone=1&relationship_type=${event?.relationship_type}`,
-                  );
-                }}
-                className="btnSubmitItem btnSubmitItemOutline"
-              >
-                <div style={{ marginLeft: 10 }}>この日程を流用して新規作成</div>
-              </div>
-              <div
-                onClick={() => handleClickDeleteEvent()}
-                className="btnSubmitItem btnSubmitItemRed"
-              >
-                <div style={{ marginLeft: 10 }}>削除 </div>
-              </div>
-            </div>
-          )}
-        </>
-      ) : (
-        <div className="content">
-          <div onClick={() => handleDetailEvent()} className="swipableItem">
-            <div className="swipableItemInner">
-              <div className="past-event-time">
-                {/* format date time by japanese */}
-                <span>
-                  {moment(
-                    event?.calendars && event?.calendars[0]?.start_time,
-                  ).format('MMMM Do (dd) HH:mm')}
-                </span>
-                <span>～</span>
-                <span>
-                  {moment(event?.calendars && event?.calendars[0]?.start_time)
-                    .add(getStep(event), 'minutes')
-                    .format('HH:mm')}
-                </span>
-              </div>
-            </div>
-            <div className="flexSpaceBetween">
-              <div className="flex1">イベント名</div>
-              <div className="flex1">: {event && event?.name}</div>
-            </div>
-            <div className="flexSpaceBetween">
-              <div className="flex1">参加者</div>
-              <div className="flex1">
-                : {voteUser?.map(item => item.name).join(', ')}
-              </div>
-            </div>
-            <div className="flexSpaceBetween">
-              <div className="flex1">{formatMessage({ id: 'i18n_memo' })}</div>
-              <div className="flex1">
-                : {event && event?.calendar_create_comment}
-              </div>
-            </div>
+          <div
+            onClick={() => {
+              history.push(
+                `/${isPc ? 'pc/' : ''}create-calendar?idEvent=${
+                  event?.id
+                }&clone=1&relationship_type=${event?.relationship_type}`,
+              );
+            }}
+            className="btnSubmitItem btnSubmitItemOutline"
+          >
+            <div style={{ marginLeft: 10 }}>この日程を流用して新規作成</div>
+          </div>
+          <div
+            onClick={() => handleClickDeleteEvent()}
+            className="btnSubmitItem btnSubmitItemRed"
+          >
+            <div style={{ marginLeft: 10 }}>削除 </div>
           </div>
         </div>
       )}

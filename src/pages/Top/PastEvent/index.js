@@ -145,7 +145,7 @@ const PastEvent = props => {
               {isPc ? <div className="upcomming_head_item">No</div> : null}
               <div className="upcomming_head_item">作成日</div>
               <div className="upcomming_head_item">イベント名</div>
-              {isPc ? <div className="upcomming_head_item">招待者</div> : null}
+              {isPc ? <div className="upcomming_head_item">主崔者</div> : null}
               {isPc ? (
                 <div className="upcomming_head_item">回答人数</div>
               ) : null}

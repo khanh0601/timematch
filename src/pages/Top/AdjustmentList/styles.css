@@ -60,6 +60,10 @@
     font-size: 14px;
     font-weight: 500;
     color: #626E79;
+    position: sticky;
+    top: -0;
+    z-index: 100;
+    background-color: white;
     div {
       flex: none;
       min-width: 80px;

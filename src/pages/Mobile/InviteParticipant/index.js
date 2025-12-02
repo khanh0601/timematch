@@ -248,9 +248,7 @@ function InviteParticipant(props) {
     <Spin spinning={loading}>
       <PCHeader />
       <div className={`${styles.container} invite-participant-page`}>
-        <h1 className={styles.emailTitle}>
-          {formatMessage({ id: 'i18n_email_invite_pc' })}
-        </h1>
+        <h1 className={styles.emailTitle}>メール招待</h1>
 
         <Form form={form} onFinish={handleSubmit} className={styles.formItem}>
           <div className={styles.addPartnerWrap}>
@@ -413,7 +411,29 @@ function InviteParticipant(props) {
             <div className={styles.addPartnerBtnWrap}>
               <Button
                 className={styles.addPartnerBtn}
-                onClick={handleAddEmailForm}
+                onClick={() => {
+                  if (selectFields.length < 10) {
+                    handleAddEmailForm();
+                  } else {
+                    Modal.warning({
+                      title: 'メール送信制限',
+                      content: '一度に送信可能なメールの送付先は10件までです。',
+                      okText: '確認',
+                      centered: true,
+                      className: styles.customModal,
+                      okButtonProps: {
+                        style: {
+                          backgroundColor: '#cf2d2d',
+                          borderColor: '#E74C3C',
+                          borderRadius: '20px',
+                          width: '200px',
+                          height: '60px',
+                          fontSize: '20px',
+                        },
+                      },
+                    });
+                  }
+                }}
               >
                 +
               </Button>

@@ -16,6 +16,7 @@ import PastEventDetailModal from './components/PastEventDetailModal';
 import { eventDeleteEvent } from '@/util/eventBus';
 import useIsPc from '@/hooks/useIsPc';
 import useIsMobile from '@/hooks/useIsMobile';
+import CloseIcon from '../icon/CloseIcon';
 
 const initEventDetail = {
   eventId: null,
@@ -106,6 +107,15 @@ function TopPagePC(props) {
     });
   };
 
+  const [isSearch, setIsSearch] = useState(false);
+
+  const handleSearch = () => {
+    if (isMobile) {
+      console.log('isMobile');
+      setIsSearch(!isSearch);
+    }
+  };
+
   return (
     <div>
       <PCHeader />
@@ -135,7 +145,11 @@ function TopPagePC(props) {
               </button>
             )}
           </div>
-          <div className={styles.headerPanel}>
+          <div
+            className={`${styles.headerPanel} ${
+              isSearch ? styles.expandSearch : ''
+            }`}
+          >
             <div className={styles.btnGroup}>
               <div
                 className={`${styles.btnGroupItem} ${!isTab2 &&
@@ -174,7 +188,17 @@ function TopPagePC(props) {
                   //   }
                   // }}
                 />
-                <SearchIcon fill={'#3368c7'} width={24} height={24} />
+                <div
+                  className={styles.searchIcon}
+                  onClick={() => handleSearch()}
+                >
+                  {!isSearch && (
+                    <SearchIcon fill={'#3368c7'} width={24} height={24} />
+                  )}
+                  {isSearch && (
+                    <CloseIcon fill={'#3368c7'} width={24} height={24} />
+                  )}
+                </div>
               </div>
 
               {isPc && (

@@ -119,31 +119,11 @@ const SentEmailManagement = props => {
             <div className={styles.FormBodyPartner}>
               {isMobile ? null : (
                 <div className={styles.FormBodyPartnerTitle}>
-                  <p
-                    style={{
-                      fontWeight: isMobile ? 700 : 500,
-                      lineHeight: '100%',
-                      paddingBottom: isMobile ? 14 : 24,
-                      marginBottom: 0,
-                      textAlign: isMobile ? 'center' : 'left',
-                      fontSize: isMobile ? '14px' : '20px',
-                    }}
-                  >
+                  <p>
                     {formatMessage({ id: 'i18n_email' })}
                     <span className={styles.requier}>必須</span>
                   </p>
-                  <p
-                    style={{
-                      fontWeight: isMobile ? 700 : 500,
-                      lineHeight: '100%',
-                      marginBottom: 0,
-                      paddingBottom: isMobile ? 14 : 24,
-                      textAlign: isMobile ? 'center' : 'left',
-                      fontSize: isMobile ? '14px' : '20px',
-                    }}
-                  >
-                    名前
-                  </p>
+                  <p>名前</p>
                 </div>
               )}
               <Form.List name="names">
@@ -153,7 +133,7 @@ const SentEmailManagement = props => {
                       <Form.Item
                         className={styles.FormItemPartner}
                         required={false}
-                        style={{ marginBottom: 16 }}
+                        style={{ marginBottom: 12 }}
                       >
                         <div className={styles.FormItemPartnerInner}>
                           <Form.Item
@@ -284,28 +264,7 @@ const SentEmailManagement = props => {
                         }}
                         className={`${styles.addPartnerBtn} ${styles.bgDarkBlue} ${styles.rounded}`}
                         onClick={() => {
-                          if (fields.length < 10) {
-                            add();
-                          } else {
-                            Modal.warning({
-                              title: 'メール送信制限',
-                              content:
-                                '一度に送信可能なメールの送付先は10件までです。',
-                              okText: '確認',
-                              centered: true,
-                              className: styles.customModal,
-                              okButtonProps: {
-                                style: {
-                                  backgroundColor: '#cf2d2d',
-                                  borderColor: '#E74C3C',
-                                  borderRadius: '20px',
-                                  width: '200px',
-                                  height: '60px',
-                                  fontSize: '20px',
-                                },
-                              },
-                            });
-                          }
+                          add();
                         }}
                         type="primary"
                         size="large"

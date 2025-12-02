@@ -10,8 +10,8 @@
 }
 
 .container {
-  padding-block: 40px 20px;
-  max-width: 960px;
+  padding-block: 24px;
+  max-width: 600px;
   margin: auto;
   height: calc(100vh - 160px);
   overflow: auto;
@@ -25,7 +25,7 @@
   .formTab {
     display: flex;
     gap: 16px;
-    margin-bottom: 32px;
+    margin-bottom: 24px;
     @media only screen and (max-width: 767px) {
       gap: 8px;
       margin-bottom: 0;
@@ -33,9 +33,13 @@
     }
     &Button {
       cursor: pointer;
-      padding: 16px 32px;
+      height: 44px;
+      width: 163px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       border-radius: 8px;
-      font-size: 20px;
+      font-size: 14px;
       font-weight: 500;
       line-height: 1;
       letter-spacing: -0.8px;
@@ -44,15 +48,14 @@
       transition: color 0.3s, background-color 0.3s, border 0.3s;
       background-color: white;
       @media only screen and (max-width: 767px) {
-        padding: 8px 16px;
         height: 44px;
+        padding-inline: 16px;
         text-align: center;
         justify-content: center;
         align-items: center;
         display: flex;
         flex: 1;
         border-radius: 30px;
-        font-size: 16px;
       }
       &.active,
       &:hover {
@@ -65,14 +68,14 @@
 
   .titlePage {
     color: var(--black, #2c3236);
-    font-size: 32px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 700;
-    padding: 8px 16px;
     letter-spacing: -1.28px;
-    margin-bottom: 0;
+    line-height: 1;
+    margin-bottom: 24px;
     @media only screen and (max-width: 767px) {
-      font-size: 24px;
+      font-size: 16px;
     }
   }
   .formSentEmail {
@@ -157,8 +160,8 @@
     margin: auto;
     border: 1px solid var(--gray-07, #d6dee6);
     background: #fff;
-    margin-bottom: 40px;
-    padding: 24px 48px 48px 48px;
+    padding: 0 16px 16px 16px;
+    overflow: scroll;
     flex: 1;
     @media only screen and (max-width: 767px) {
       padding: 16px;
@@ -170,25 +173,36 @@
       justify-content: space-between;
       align-items: center;
       position: sticky;
+      gap: 8px;
+      padding-block: 16px;
       top: 0;
       z-index: 100;
       background: white;
-      padding-top: 24px;
       .requier {
-        padding: 4px 10px;
+        padding: 5px 10px;
         background-color: #f1c0c0;
         border-radius: 14px;
         color: #cf2d2d;
-        font-size: 16px;
+        font-size: 10px;
         font-weight: 500;
         line-height: 1;
         margin-left: 8px;
+      }
+      p {
+        font-weight: 500;
+        line-height: 100%;
+        margin-bottom: 0px;
+        text-align: left;
+        font-size: 20px;
+        min-height: 20px;
+        display: flex;
+        align-items: center;
       }
       p:nth-child(1) {
         flex: 1;
       }
       p:nth-child(2) {
-        width: calc(35% + 44px + 32px);
+        width: calc(35% + 44px + 8px);
       }
     }
     .FormItemPartner {
@@ -201,7 +215,7 @@
 
       &Inner {
         display: flex;
-        gap: 32px;
+        gap: 8px;
         width: 100%;
         @media only screen and (max-width: 767px) {
           gap: 4px;
