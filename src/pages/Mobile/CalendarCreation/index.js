@@ -1180,6 +1180,7 @@ ${text_ask_calendar_bottom}`;
                 <Form form={form}>
                   <p className={styles.labelName}>
                     {formatMessage({ id: 'i18n_label_title' })}
+                    <span className={styles.inputRequired}>必須</span>
                   </p>
                   <Form.Item
                     name={'calendar_title'}
@@ -1220,21 +1221,7 @@ ${text_ask_calendar_bottom}`;
                       <Select.Option value={120}>120分</Select.Option>
                     </Select>
                   </Form.Item>
-                  <div className={styles.candidateContainer}>
-                    {isPc ? (
-                      <Tooltip
-                        title={formatMessage({
-                          id: 'i18n_auto_extract_candidate_tooltip',
-                        })}
-                        color={'blue'}
-                        trigger={'hover'}
-                      >
-                        {renderBtnGenerateBlock()}
-                      </Tooltip>
-                    ) : (
-                      renderBtnGenerateBlock()
-                    )}
-                  </div>
+
                   <div
                     className={`${styles.calendarTimeGroup} calendar-time-group`}
                   >
@@ -1289,6 +1276,22 @@ ${text_ask_calendar_bottom}`;
                           }}
                         />
                       </div>
+                      <div className={styles.candidateContainer}>
+                        {/* {isPc ? (
+                      <Tooltip
+                        title={formatMessage({
+                          id: 'i18n_auto_extract_candidate_tooltip',
+                        })}
+                        color={'blue'}
+                        trigger={'hover'}
+                      >
+                        {renderBtnGenerateBlock()}
+                      </Tooltip>
+                    ) : (
+                      renderBtnGenerateBlock()
+                    )} */
+                        renderBtnGenerateBlock()}
+                      </div>
                     </div>
                     {/* {!isPc && (
                       <Button
@@ -1342,6 +1345,15 @@ ${text_ask_calendar_bottom}`;
                     style={{ textAlign: 'center' }}
                   >
                     <Button
+                      className={`button bgLightRed shadowPrimary ${styles.cancelBtn}`}
+                      htmlType="button"
+                      onClick={() => {
+                        history.push('/');
+                      }}
+                    >
+                      キャンセル
+                    </Button>
+                    <Button
                       disabled={isPc ? isCalendarTitle?.trim() == '' : false}
                       className={`${styles.saveBtn} ${styles.bgDarkBlue} ${
                         styles.shadowPrimary
@@ -1351,15 +1363,6 @@ ${text_ask_calendar_bottom}`;
                       onClick={handleCalendarCreation}
                     >
                       {formatMessage({ id: 'i18n_btn_save' })}
-                    </Button>
-                    <Button
-                      className={`button bgLightRed shadowPrimary ${styles.cancelBtn}`}
-                      htmlType="button"
-                      onClick={() => {
-                        history.push('/');
-                      }}
-                    >
-                      キャンセル
                     </Button>
                   </div>
                 </Form>

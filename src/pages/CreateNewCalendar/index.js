@@ -7,11 +7,11 @@ import CalendarPreview from '@/components/PC/Calendar/CalendarPreview';
 import EventBus, { EventBusNames } from '@/util/eventBus';
 import moment from 'moment';
 import { ADMIN_FULL_DATE_HOUR, YYYYMMDD, YYYYMMDDTHHmm } from '@/constant';
-
+import useIsPc from '@/hooks/useIsPc';
 function CreateNewCalendar() {
   const [blockNumber, setBlockNumber] = useState(60);
   const [listNewEvents, setListNewEvents] = useState({});
-
+  const isPc = useIsPc();
   useEffect(() => {
     EventBus.addEventListener(EventBusNames.DROP_BLOCK_TIME, e => {
       const { detail: payload } = e;
@@ -201,7 +201,7 @@ function CreateNewCalendar() {
     //   return newList;
     // });
   };
-
+  let heightCalendar = isPc ? 'calc(100svh - 295px)' : 'calc(100svh - 360px)';
   return (
     <div>
       <PCHeader />
@@ -219,6 +219,7 @@ function CreateNewCalendar() {
           blockNumber={blockNumber}
           listNewEvents={listNewEvents}
           setListNewEvents={setListNewEvents}
+          heightCalendar={heightCalendar}
         />
       </div>
 

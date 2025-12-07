@@ -71,10 +71,10 @@ const AppointmentSelectionForm = props => {
     }
 
     const info = {
-      name: form.getFieldValue('name'),
-      confirm_email: form.getFieldValue('email') ?? null,
-      company: form.getFieldValue('companyName') ?? null,
-      role: form.getFieldValue('role') ?? null,
+      name: profile?.name ?? form.getFieldValue('name'),
+      confirm_email: profile?.email ?? form.getFieldValue('email') ?? null,
+      company: profile?.company ?? form.getFieldValue('companyName') ?? null,
+      role: form.getFieldValue('role'),
       guests: [],
     };
 
@@ -123,47 +123,51 @@ const AppointmentSelectionForm = props => {
     <div className={styles.appointmentSelectionConfirmContainer}>
       <div>
         <Form onFinish={onSubmit} form={form}>
-          <div className={styles.inputField}>
-            <div className={styles.fieldLabel}>
-              氏名
-              <span className={styles.inputRequired}>
-                {intl.formatMessage({ id: 'i18n_required' })}
-              </span>
+          {!profile?.id && (
+            <div className={styles.inputField}>
+              <div className={styles.fieldLabel}>
+                氏名
+                <span className={styles.inputRequired}>
+                  {intl.formatMessage({ id: 'i18n_required' })}
+                </span>
+              </div>
+              <Form.Item
+                name="name"
+                rules={[
+                  {
+                    required: true,
+                    message: intl.formatMessage({ id: 'i18n_required_text' }),
+                  },
+                  // giữ rule type text cho đồng nhất UI (có thể bỏ)
+                  {
+                    type: 'text',
+                    message: intl.formatMessage({
+                      id: 'i18n_email_error_notice',
+                    }),
+                  },
+                ]}
+              >
+                <Input
+                  className={styles.inputField}
+                  placeholder="例）時間 大浪"
+                  autoComplete="on"
+                />
+              </Form.Item>
             </div>
-            <Form.Item
-              name="name"
-              rules={[
-                {
-                  required: true,
-                  message: intl.formatMessage({ id: 'i18n_required_text' }),
-                },
-                // giữ rule type text cho đồng nhất UI (có thể bỏ)
-                {
-                  type: 'text',
-                  message: intl.formatMessage({
-                    id: 'i18n_email_error_notice',
-                  }),
-                },
-              ]}
-            >
-              <Input
-                className={styles.inputField}
-                placeholder="例）時間 大浪"
-                autoComplete="on"
-              />
-            </Form.Item>
-          </div>
+          )}
 
-          <div className={styles.inputField}>
-            <div className={styles.fieldLabel}>会社名</div>
-            <Form.Item name="companyName">
-              <Input
-                className={styles.inputField}
-                placeholder="例）タイムマッチ"
-                autoComplete="on"
-              />
-            </Form.Item>
-          </div>
+          {!profile?.id && (
+            <div className={styles.inputField}>
+              <div className={styles.fieldLabel}>会社名</div>
+              <Form.Item name="companyName">
+                <Input
+                  className={styles.inputField}
+                  placeholder="例）タイムマッチ"
+                  autoComplete="on"
+                />
+              </Form.Item>
+            </div>
+          )}
 
           <div className={styles.inputField}>
             <div className={styles.fieldLabel}>メモ</div>
@@ -198,13 +202,6 @@ const AppointmentSelectionForm = props => {
           */}
 
           <div className={styles.btnZone}>
-            <Button
-              className={`${styles.confirmBtn}`}
-              loading={loading}
-              htmlType="submit"
-            >
-              返信
-            </Button>
             {profile?.id ? (
               <Button
                 className={`${styles.backBtn}`}
@@ -214,6 +211,15 @@ const AppointmentSelectionForm = props => {
                 戻る
               </Button>
             ) : null}
+            <Button
+              className={`${styles.confirmBtn} ${
+                !profile?.id ? styles.confirmBtnAlone : ''
+              }`}
+              loading={loading}
+              htmlType="submit"
+            >
+              返信
+            </Button>
           </div>
         </Form>
       </div>

@@ -34,36 +34,40 @@
   }
 }
 .loginPageWrap {
-  height: calc(100svh - 95px);
+  height: calc(100svh - 75px);
   overflow: auto;
   background-image: url('../../../assets/images/bg.png');
-  background-size: 100%;
+  background-size: 56%;
   background-position: bottom center;
   background-repeat: no-repeat;
   .container {
-    max-width: 1160px;
+    max-width: 760px;
     margin-top: 40px;
     margin-inline: auto;
-    padding-inline: 200px;
+    padding-inline: 80px;
   }
 }
 
 .loginPageTab {
   display: flex;
   gap: 16px;
-  margin-bottom: 30px;
+  margin-bottom: 16px;
 
   &Item {
     cursor: pointer;
-    padding: 16px 32px;
     border-radius: 8px;
     border: 1px solid var(--gray-07, #d6dee6);
     background: #fff;
     color: var(--gray-03, #626e79);
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -0.8px;
+    min-width: 164px;
+    height: 44px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
     &.active {
       background: var(--primary-06-main, #0f63aa);
@@ -75,12 +79,12 @@
 .signIn {
   .fieldName {
     color: var(--black, #2c3236);
-    font-size: 20px;
+    font-size: 14px;
     font-style: normal;
     font-weight: 500;
     line-height: 1;
-    letter-spacing: -0.8px;
-    margin-bottom: 16px;
+    letter-spacing: -0.04em;
+    margin-bottom: 8px;
   }
 
   .inputField {
@@ -89,7 +93,7 @@
     border-radius: 4px;
     padding: 0 16px;
     margin-bottom: 24px;
-    border-color: #d6dee6 !important;
+    border-color: #e7ecf3 !important;
     caret-color: black;
   }
 
@@ -99,8 +103,8 @@
     margin-inline: auto;
     .signInBtn {
       width: max-content;
-      height: 44px;
-      min-width: 200px;
+      height: 54px;
+      min-width: 160px;
       border-radius: 32px;
       border: 1px solid var(--primary-06-main, #0f63aa);
       background: #fff;
@@ -112,7 +116,7 @@
         background-color: #1f4f96;
       }
       span {
-        font-size: 18px;
+        font-size: 14px;
         line-height: 1;
         font-weight: 500;
       }
@@ -122,8 +126,10 @@
   .forgotPassword {
     display: flex;
     justify-content: center;
-    padding-top: 20px;
-    color: #1f4f96;
+    font-size: 12px;
+    margin-block: 24px;
+    letter-spacing: -0.04em;
+    color: #919aa5;
     font-weight: 500;
     text-decoration: underline;
   }
@@ -171,17 +177,14 @@
   }
 
   .btnSocial {
-    width: 100%;
-    height: 56px;
+    flex: 1;
+    height: 40px;
     background-color: #ffffff;
     border-radius: 8px;
-    border: 1px solid var(--gray-07, #d6dee6);
-    background: #fff;
-    font-size: 1rem;
+    border: 1px solid #e7ecf3;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
-    margin-top: 16px;
-    margin-inline: auto;
 
     img {
       width: 24px;
@@ -223,10 +226,10 @@
       display: flex;
       align-items: flex-start;
       flex-direction: column;
-      border: 1px solid var(--gray-07, #d6dee6);
+      border: 1px solid var(--gray-07, #e7ecf3);
       background: #fff;
-      padding: 32px;
-      height: calc(100dvh - 360px);
+      padding: 16px;
+      max-height: calc(100dvh - 360px);
       overflow: auto;
       .leftForm {
         width: 100%;
@@ -234,10 +237,10 @@
 
       .rightForm {
         width: 100%;
-        padding-top: 16px;
+        padding-top: 40px;
         display: flex;
-        flex-direction: column;
         justify-content: center;
+        gap: 16px;
       }
     }
 
@@ -268,22 +271,11 @@
     .leftFormTitle,
     .rightFormTitle {
       display: block;
-      font-size: 24px;
+      font-size: 18px;
       font-weight: bold;
-      margin-bottom: 8px;
-      padding: 0 16px;
+      margin-bottom: 16px;
       color: #2c3236;
     }
-
-    .forgotPassword {
-      color: #919aa5 !important;
-      font-weight: 500;
-      font-size: 20px !important;
-      line-height: 1;
-      margin-bottom: 24px;
-      text-underline-offset: 4px;
-    }
-
     .registerLink {
       display: block;
       color: #333;
@@ -333,18 +325,14 @@
     background-image: unset;
     .container {
       padding-inline: 16px;
-      margin-top: 16px;
+      margin-top: 24px;
     }
     .loginPageTabItem {
-      font-size: 16px;
-      &:nth-child(2) {
-        flex: 1;
-        text-align: center;
-      }
+      min-width: 0;
+      flex: 1;
     }
     .leftFormTitle {
-      font-size: 24px;
-      padding-inline: 16px;
+      font-size: 18px;
       font-weight: 700;
       margin-bottom: 16px;
     }
@@ -353,30 +341,25 @@
       margin-bottom: 16px;
     }
     .forgotPassword {
-      padding-top: 16px;
-      margin-bottom: 24px;
-      justify-content: end;
       color: #919aa5;
-      font-size: 16px;
     }
     .signInBtn {
-      font-size: 18px;
       width: 100%;
     }
     .divider {
       display: none;
     }
     .btnSocial {
-      margin-top: 8px;
-      height: 56px;
+      width: 100%;
+      margin-top: 16px;
       &:first-child {
-        margin-top: 16px;
+        margin-top: 40px;
       }
     }
     .formSignIn {
       padding: 16px;
       background-color: white;
-      border: 1px solid #d6dee6;
+      border: 1px solid #e7ecf3;
     }
     .registerHere {
       display: none;

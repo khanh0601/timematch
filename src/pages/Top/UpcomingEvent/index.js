@@ -269,7 +269,7 @@ ${text_ask_calendar_bottom}`;
                       className="viewmore"
                       onClick={() => handleEventDetail(item)}
                     >
-                      詳細を見る
+                      {isPc ? '詳細を見る' : '詳細'}
                     </div>
                     {isPc && item?.user_id !== profile?.id && (
                       <div style={{ height: 16 }}></div>

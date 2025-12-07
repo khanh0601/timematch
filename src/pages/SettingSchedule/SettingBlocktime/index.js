@@ -373,7 +373,7 @@ function SettingBlocktime(props) {
       </div>
       <div className={styles.pageTitle}>自動日程調整オプション</div>
       <div className={styles.mainSetting}>
-        <div>
+        <div className={styles.partTitleWrap}>
           <div className={styles.partTitle}>抽出期間</div>
           <div className={styles.partSub}>指定した期限だけ表示されます。</div>
         </div>
@@ -386,7 +386,7 @@ function SettingBlocktime(props) {
             <img
               src={iconArrow}
               alt="arrow"
-              style={{ width: 22, height: 22 }}
+              style={{ width: 20, height: 20 }}
             />
           }
           name="period"
@@ -490,7 +490,7 @@ function SettingBlocktime(props) {
                             <img
                               src={iconArrow}
                               alt="icon"
-                              style={{ width: 22, height: 22 }}
+                              style={{ width: 20, height: 20 }}
                             />
                           }
                           placeholder={formatMessage({
@@ -521,7 +521,7 @@ function SettingBlocktime(props) {
                             <img
                               src={iconArrow}
                               alt="icon"
-                              style={{ width: 22, height: 22 }}
+                              style={{ width: 20, height: 20 }}
                             />
                           }
                           placeholder={formatMessage({
@@ -595,13 +595,9 @@ function SettingBlocktime(props) {
             </div>
           </div>
         </div>
-        <div
-          className={styles.btnUpdate}
-          loading={loading}
-          onClick={updateTime}
-        >
-          保存{' '}
-        </div>
+      </div>
+      <div className={styles.btnUpdate} loading={loading} onClick={updateTime}>
+        保存{' '}
       </div>
     </div>
   );

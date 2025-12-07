@@ -1,71 +1,55 @@
 @import '../../../base.less';
 
-.formTab {
-  display: flex;
-  gap: 16px;
-  margin-bottom: 40px;
-  &Button {
-    cursor: pointer;
-    padding: 16px 32px;
-    border-radius: 8px;
-    font-size: 20px;
-    font-weight: 500;
-    line-height: 1;
-    letter-spacing: -0.8px;
-    color: #626e79;
-    border: 1px solid #d6dee6;
-    transition: color 0.3s, background-color 0.3s, border 0.3s;
-    background-color: white;
-    @media only screen and (max-width: 767px) {
-      padding: 16px 0;
-      font-size: 18px;
-      font-size: 16px;
-      text-align: center;
-      &:nth-child(1) {
-        flex: none;
-        padding-inline: 32px;
-      }
-      &:nth-child(2) {
-        flex: 1;
-      }
-    }
-    &.active,
-    &:hover {
-      color: white;
-      background-color: #0f63aa;
-      border: 1px solid #0f63aa;
-    }
-  }
-}
-
 .setting {
   @media screen and (max-width: 767px) {
     padding: 0;
   }
-
-  @media screen and (max-width: 1023px) and (min-width: 768px) {
-    padding: 60px 15px 80px;
-  }
   .pageTitle {
     color: #2c3236;
-    font-size: 32px;
+    font-size: 18px;
     font-weight: 700;
     line-height: 1;
     letter-spacing: -1.28px;
-    margin-bottom: 24px;
+    margin-bottom: 16px;
     font-family: 'Noto Sans';
-    @media only screen and (max-width: 767px) {
-      font-size: 24px;
-      padding: 8px 16px;
-      margin-bottom: 16px;
+  }
+  .formTab {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+    &Button {
+      cursor: pointer;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1;
+      letter-spacing: -0.8px;
+      color: #626e79;
+      min-width: 164px;
+      border: 1px solid #e7ecf3;
+      transition: color 0.3s, background-color 0.3s, border 0.3s;
+      background-color: white;
+      @media only screen and (max-width: 767px) {
+        flex: 1;
+        min-width: 0;
+      }
+      &.active,
+      &:hover {
+        color: white;
+        background-color: #0f63aa;
+        border: 1px solid #0f63aa;
+      }
     }
   }
   .mainSetting {
     display: flex;
     flex-direction: column;
-    padding: 48px;
-    margin-bottom: 80px;
-    height: calc(100dvh - 410px);
+    padding: 16px;
+    height: calc(100dvh - 380px);
     overflow: auto;
     border: 1px solid #d6dee6;
     background-color: white;
@@ -80,49 +64,50 @@
   }
 
   .partTitle {
-    font-weight: 500;
-    font-size: 24px;
+    font-weight: 600;
+    font-size: 14px;
     line-height: 1;
     font-weight: 500;
     color: #2c3236;
     letter-spacing: 0;
-    @media only screen and (max-width: 767px) {
-      font-size: 20px;
+    &Wrap {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 16px;
     }
   }
   .partTitle2 {
-    margin-top: 40px;
-    margin-bottom: 24px;
+    margin-top: 24px;
+    margin-bottom: 16px;
+    @media screen and (max-width: 767px) {
+      margin-top: 40px;
+      margin-bottom: 24px;
+    }
   }
 
   .partSub {
     color: var(--black, #2c3236);
     font-family: 'Noto Sans';
-    font-size: 16px;
-    font-weight: 500;
+    font-size: 14px;
+    font-weight: 400;
     line-height: 1;
-    margin-top: 5px;
-    margin-bottom: 16px;
-    @media only screen and (max-width: 767px) {
-      font-size: 18px;
-      font-family: 'Noto Sans JP';
-      font-weight: 400;
-    }
   }
   .btnUpdate {
-    padding: 12px 32px;
-    min-width: 200px;
-    width: max-content;
+    width: 160px;
+    background-color: white;
     margin-inline: auto;
-    margin-top: 16px;
+    margin-top: 32px;
     border-radius: 32px;
     border: 1px solid #0f63aa;
     color: #0f63aa;
-    text-align: center;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 500;
     line-height: 1;
     letter-spacing: -0.8px;
+    height: 54px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   .partName {
     display: flex;
@@ -177,7 +162,8 @@
 
   .settingIcon {
     font-size: 22px;
-    font-weight: 700;
+    font-weight: 900;
+    font-family: 'Noto Sans';
     margin: 0 16px;
 
     @media screen and (max-width: 767px) {
@@ -187,7 +173,7 @@
   }
 
   .labelCheckbox {
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 500;
     color: #2c3236;
     display: flex;
@@ -241,9 +227,12 @@
 .checkboxItem {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 25px;
+  margin-bottom: 16px;
   flex-wrap: wrap;
   width: 100%;
+  @media screen and (max-width: 767px) {
+    margin-bottom: 24px;
+  }
   .errorTime {
     color: @red-required;
     display: block;
@@ -274,7 +263,7 @@
       }
     }
     .ant-select-selector {
-      padding: 16px 8px !important;
+      padding: 13px 8px !important;
       border-radius: 8px;
       border: 1px solid var(--gray-06, #bfc7d0);
       background: #fff;
@@ -331,13 +320,10 @@
       display: flex;
     }
     .ant-select-selection-item {
-      font-size: 22px;
-      line-height: 1;
+      font-size: 14px;
+      line-height: 1 !important;
       font-weight: 500;
       justify-content: center;
-      @media only screen and (max-width: 767px) {
-        font-size: 18px;
-      }
     }
     .ant-select-single:not(.ant-select-customize-input) .ant-select-selector {
       border: 0;
@@ -362,7 +348,7 @@
     }
 
     .ant-picker {
-      padding: 16px 28px 16px 8px;
+      padding: 12px 8px 12px 8px;
       border: 1px solid #bfc7d0;
       border-radius: 8px;
       font-size: 16px;
@@ -374,16 +360,14 @@
         max-width: 100%;
         flex: 1;
         padding: 0 8px;
-        height: 58px;
-        font-size: 18px;
+        height: 44px;
       }
     }
 
     .ant-picker-input > input {
-      font-size: 16px;
-      @media only screen and (max-width: 767px) {
-        font-size: 18px;
-      }
+      font-size: 14px;
+      height: auto;
+      border-radius: 8px;
     }
 
     .btn.btnWhite {

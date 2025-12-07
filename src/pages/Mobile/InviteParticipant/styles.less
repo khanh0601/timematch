@@ -28,20 +28,16 @@
   }
 
   .savePartnerBtn {
-    height: 53px;
+    height: 54px;
+    width: 160px;
     border: none;
     border-radius: 32px;
     background-color: #3368c7;
     color: #ffffff;
     font-weight: 500;
-    font-size: 18px;
-    width: 200px;
+    font-size: 14px;
     letter-spacing: -0.04em;
-    @media only screen and (max-width: 767px) {
-      height: 50px;
-      width: auto;
-      flex: 1;
-    }
+    line-height: 1;
     &Wrap {
       margin-top: 32px;
       display: flex;
@@ -53,28 +49,25 @@
     }
   }
   .savePartnerBtnReturn {
-    width: 200px;
-    height: 53px;
+    width: 160px;
+    height: 54px;
     border: none;
     border-radius: 32px;
-    background-color: #d6dee6;
-    color: #626e79;
+    background-color: white;
+    color: var(--primary-06-main, #0f63aa);
+    border: 1px solid var(--primary-06-main, #0f63aa);
     font-weight: 500;
-    font-size: 18px;
+    font-size: 14px;
     letter-spacing: -0.04em;
-    @media only screen and (max-width: 767px) {
-      height: 50px;
-      width: auto;
-      flex: 1;
-    }
+    line-height: 1;
   }
 
   .selectField {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    gap: 32px;
-    margin-bottom: 10px;
+    gap: 8px;
+    margin-bottom: 12px;
     @media only screen and (max-width: 767px) {
       gap: 4px;
       margin-bottom: 16px;
@@ -152,29 +145,34 @@
     background-color: #cf2d2d;
   }
 }
-.container {
-  max-width: 1160px;
-  padding-inline: 100px;
-  //max-width: 500px;
-  height: calc(100vh - 160px);
+.inviteParticipantPageWrap {
   overflow-y: auto;
   margin: auto;
   background-image: url('../../../assets/images/bg.png');
-  background-size: 100%;
+  background-size: 68%;
   background-position: bottom center;
   background-repeat: no-repeat;
+  height: 100dvh;
   @media only screen and (max-width: 767px) {
-    padding-inline: 0;
     background-image: unset;
     background-color: #fdfcf9;
   }
+}
+.container {
+  max-width: 760px;
+  padding-inline: 80px;
+  margin-inline: auto;
+  @media only screen and (max-width: 767px) {
+    padding-inline: 16px;
+  }
+
   .emailTitle {
     color: #3f3f3f;
     font-weight: bold;
-    font-size: 32px;
-    padding: 8px 16px;
-    margin-top: 32px;
-    margin-bottom: 0;
+    font-size: 18px;
+    line-height: 1;
+    margin-top: 40px;
+    margin-bottom: 16px;
     @media only screen and (max-width: 767px) {
       margin-top: 24px;
       font-size: 24px;
@@ -198,14 +196,14 @@
     .emailLabel {
       margin-bottom: 0px !important;
       color: #333333;
-      font-size: 18px;
+      font-size: 14px;
       font-weight: bold;
       .requier {
         padding: 4px 10px;
         background-color: #f1c0c0;
         border-radius: 14px;
         color: #cf2d2d;
-        font-size: 16px;
+        font-size: 10px;
         font-weight: 500;
         line-height: 1;
         margin-left: 8px;
@@ -213,11 +211,11 @@
     }
     &Head {
       display: flex;
-      gap: 32px;
+      gap: 8px;
       position: sticky;
       top: 0;
       background-color: white;
-      padding-block: 32px 16px;
+      padding-block: 16px;
       z-index: 100;
       @media only screen and (max-width: 767px) {
         display: none;
@@ -225,10 +223,10 @@
     }
     &Wrap {
       width: 100%;
-      padding: 0 48px 24px 48px;
+      padding: 0 16px 16px 16px;
       border: 1px solid #d6dee6;
       background-color: white;
-      max-height: calc(100vh - 350px);
+      height: calc(100vh - 350px);
       overflow: auto;
       position: relative;
       @media only screen and (max-width: 767px) {

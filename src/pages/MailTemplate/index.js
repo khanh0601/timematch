@@ -74,13 +74,7 @@ ${window.location.href}/schedule-adjustment/once?event_code=myJGBYo5&once=true
   return (
     <div className={styles.pageTemplateEmail}>
       <PCHeader />
-      <div
-        className={`${styles.widthMailTemplate}`}
-        style={{
-          paddingTop: 40,
-          margin: 'auto',
-        }}
-      >
+      <div className={`${styles.widthMailTemplate}`}>
         {isMobile ? null : (
           <div className={styles.formTab}>
             <div
@@ -101,18 +95,7 @@ ${window.location.href}/schedule-adjustment/once?event_code=myJGBYo5&once=true
             </div>
           </div>
         )}
-        {isMobile ? null : (
-          <div
-            style={{
-              fontWeight: 700,
-              fontSize: 24,
-              lineHeight: '100%',
-              padding: '8px 16px',
-            }}
-          >
-            定型文の作成
-          </div>
-        )}
+        <div className={styles.pageTitle}>定型文の作成</div>
         <div className={styles.textAreaTemplate}>
           <TextArea
             className={styles.textAreaTemplateInput}
@@ -139,7 +122,6 @@ ${window.location.href}/schedule-adjustment/once?event_code=myJGBYo5&once=true
           }}
           type="primary"
           size="large"
-          style={{ border: 'none' }}
           className={`${styles.bgDarkBlue} ${styles.textLightGray} ${styles.rounded} ${styles.shadowPrimary} ${styles.widthButtonTemplate} btn-pc-primary`}
         >
           保存{' '}

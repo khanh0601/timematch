@@ -353,7 +353,7 @@ ${text_ask_calendar_bottom}`;
 
   const columns = [
     {
-      title: '日程確定選択',
+      title: '',
       dataIndex: 'dateTime',
       key: 'dateTime',
       fixed: 'left',
@@ -591,34 +591,24 @@ ${text_ask_calendar_bottom}`;
   return (
     <div className="appointment-detail">
       <div className="header">
-        {isMobile && (
-          <div
-            className="header-back"
-            onClick={() => (props.onClose ? props.onClose() : history.go(-1))}
-          >
-            <img src={iconReturn} alt="return" />
-          </div>
-        )}
         <div className="header-title">
           <span className="header-name">{informationVote?.name}</span>
           {console.log('vote', informationVote)}
         </div>
-        {!isMobile && (
-          <div
-            className={`header-close `}
-            style={{
-              width: 30,
-              height: 30,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              borderRadius: 5,
-            }}
-            onClick={() => (props.onClose ? props.onClose() : history.go(-1))}
-          >
-            <CloseOutlined style={{ color: '#0F63AA' }} />
-          </div>
-        )}
+        <div
+          className={`header-close `}
+          style={{
+            width: 30,
+            height: 30,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            borderRadius: 5,
+          }}
+          onClick={() => (props.onClose ? props.onClose() : history.go(-1))}
+        >
+          <CloseOutlined style={{ color: '#0F63AA' }} />
+        </div>
       </div>
       <div className="apd-content-wrapper">
         <div style={{ padding: 10 }}>
@@ -729,7 +719,7 @@ ${text_ask_calendar_bottom}`;
                   // disabled={idEventDateTime === ''}
                   className="btnSubmitItem btnSubmitItemBlue"
                 >
-                  <div style={{ marginLeft: 10 }}>決定 </div>
+                  <div>決定 </div>
                 </Button>
                 <Button
                   onClick={() => {
@@ -738,7 +728,7 @@ ${text_ask_calendar_bottom}`;
                   className="btnSubmitItem btnSubmitItemOutline"
                   size="large"
                 >
-                  <div style={{ marginLeft: 10 }}>再調整</div>
+                  <div>再調整</div>
                 </Button>
                 <Button
                   onClick={() => {
@@ -747,7 +737,7 @@ ${text_ask_calendar_bottom}`;
                   className="btnSubmitItem btnSubmitItemRed"
                   size="large"
                 >
-                  <div style={{ marginLeft: 10 }}>削除 </div>
+                  <div>削除 </div>
                 </Button>
               </div>
             </div>

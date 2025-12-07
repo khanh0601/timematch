@@ -129,16 +129,7 @@ function TopPagePC(props) {
             <div className={styles.rightPanelTopTitle}>
               <span>調整一覧</span>
             </div>
-            {isPc && (
-              <div
-                className={styles.btnCalendar}
-                onClick={() => {
-                  history.push('/pc/calendar');
-                }}
-              >
-                <span>カレンダーを見る</span>
-              </div>
-            )}
+
             {isMobile && (
               <button className={styles.btnToday} onClick={props.onScrollTop}>
                 今日
@@ -205,6 +196,16 @@ function TopPagePC(props) {
                 <button className={styles.btnToday} onClick={props.onScrollTop}>
                   今日
                 </button>
+              )}
+              {isPc && (
+                <div
+                  className={styles.btnCalendar}
+                  onClick={() => {
+                    history.push('/pc/calendar');
+                  }}
+                >
+                  <span>カレンダーを見る</span>
+                </div>
               )}
             </div>
           </div>

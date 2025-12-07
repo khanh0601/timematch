@@ -90,39 +90,35 @@ const PastAppointmentDetail = props => {
 
   return (
     <div className="container">
-      {isPc ? (
-        <div className="header">
-          <div className=""></div>
-          <div className="header-title">詳細</div>
+      <div className="header">
+        <div
+          onClick={() => {
+            if (props.onClose) {
+              props.onClose();
+              return;
+            }
+            history.go(-1);
+          }}
+          className="close-btn"
+        >
           <div
-            onClick={() => {
-              if (props.onClose) {
-                props.onClose();
-                return;
-              }
-              history.go(-1);
+            style={{
+              rotate: '45deg',
+              display: 'flex',
+              justifyContent: 'center',
             }}
-            className="close-btn bgDarkBlue"
           >
-            <div
-              style={{
-                rotate: '45deg',
-                display: 'flex',
-                justifyContent: 'center',
-              }}
-            >
-              <PlusIcon />
-            </div>
+            <PlusIcon />
           </div>
         </div>
-      ) : null}
+      </div>
       <div className="content">
         <SwipeableList style={{ overflow: 'unset' }} fullSwipe={true}>
           <SwipableItem item={event} onDelete={handleDelete}>
             <div className="swipableItem">
               <div className="swipableItemInner">
                 <div className="past-event-time">
-                  {isMobile && (
+                  {/* {isMobile && (
                     <div
                       className="header-back"
                       onClick={() =>
@@ -131,7 +127,7 @@ const PastAppointmentDetail = props => {
                     >
                       <img src={iconReturn} alt="return" />
                     </div>
-                  )}
+                  )} */}
                   <span>{event && event?.name}</span>
                 </div>
               </div>
@@ -212,7 +208,7 @@ const PastAppointmentDetail = props => {
             }}
             className="btnSubmitItem btnSubmitItemBlue"
           >
-            <div style={{ marginLeft: 10 }}>編集</div>
+            <div>編集</div>
           </div>
           <div
             onClick={() => {
@@ -224,13 +220,13 @@ const PastAppointmentDetail = props => {
             }}
             className="btnSubmitItem btnSubmitItemOutline"
           >
-            <div style={{ marginLeft: 10 }}>この日程を流用して新規作成</div>
+            <div>コピーして作成</div>
           </div>
           <div
             onClick={() => handleClickDeleteEvent()}
             className="btnSubmitItem btnSubmitItemRed"
           >
-            <div style={{ marginLeft: 10 }}>削除 </div>
+            <div>削除 </div>
           </div>
         </div>
       )}

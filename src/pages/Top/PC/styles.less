@@ -16,22 +16,11 @@
     margin-bottom: 16px;
   }
   &Title {
-    font-size: 32px;
+    font-size: 18px;
     font-weight: 700;
     letter-spacing: -1.28px;
     color: #2c3236;
     line-height: 1;
-  }
-  .btnCalendar {
-    padding: 12px 32px;
-    border-radius: 32px;
-    background-color: #d6dee6;
-    font-size: 18px;
-    font-weight: 500;
-    cursor: pointer;
-    line-height: 1;
-    color: #626e79;
-    letter-spacing: -0.72px;
   }
 }
 
@@ -63,7 +52,7 @@
     }
 
     span {
-      font-size: 16px;
+      font-size: 14px;
       font-weight: 500;
     }
   }
@@ -80,10 +69,14 @@
     background: #fff;
     padding: 6px 24px;
     color: #0f63aa;
-    font-size: 20px;
+    font-size: 14px;
     font-weight: 500;
     display: flex;
     gap: 8px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: 0.4s ease all;
     cursor: pointer;
     &:hover {
@@ -95,7 +88,7 @@
     border-radius: 8px;
     background-color: #fff;
     border: 1px solid #d6dee6;
-    font-size: 20px;
+    font-size: 14px;
     letter-spacing: -0.8px;
     font-weight: 500;
     display: flex;
@@ -135,7 +128,18 @@
       right: 10px;
     }
   }
-
+  .btnCalendar {
+    padding: 12px 32px;
+    border-radius: 32px;
+    background-color: #d6dee6;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    line-height: 1;
+    color: #626e79;
+    letter-spacing: -0.72px;
+    height: 48px;
+  }
   .searchInput {
     padding-right: 40px;
     width: 100%;
@@ -157,7 +161,7 @@
   width: 134px;
   height: 49px;
   color: #3368c7;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   border: 3px solid #3368c7;
   border-radius: 32px;
@@ -171,8 +175,20 @@
 }
 
 .eventList {
-  max-height: calc(100vh - 75px - 76px - 16px - 74px - 128px);
+  height: calc(100vh - 330px);
   overflow-y: auto;
+  background: #ffffff;
+  :global {
+    .ant-spin-nested-loading,
+    .ant-spin-container {
+      height: 100%;
+    }
+    .swipableItem div {
+      @media screen and (max-width: 767px) {
+        padding-inline: 8px;
+      }
+    }
+  }
 }
 @media only screen and (max-width: 768px) {
   .mainContainer {
@@ -205,9 +221,6 @@
           height: 44px;
         }
       }
-    }
-    .rightPanelTopTitle {
-      font-size: 24px;
     }
     .btnGroupItem {
       width: auto;

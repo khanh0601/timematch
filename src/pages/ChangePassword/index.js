@@ -142,10 +142,7 @@ function ChangePassword(props) {
       )} */}
 
       <div className={styles.bodyContent}>
-        {isMobile ? null : (
-          <div className={styles.PartTitle}>パスワードを変更</div>
-        )}
-
+        <div className={styles.PartTitle}>パスワードを変更</div>
         <div className={styles.bodyContainer}>
           <Form form={form}>
             <div className={styles.fieldGroup}>

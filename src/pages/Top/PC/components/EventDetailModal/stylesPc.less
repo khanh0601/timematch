@@ -1,8 +1,8 @@
 body .event-detail-modal {
   .ant-modal {
     width: 90% !important;
-    max-width: unset !important;
-    padding: 32px;
+    max-width: 700px !important;
+    padding: 16px;
     border-radius: 24px;
     background: #fff;
     box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
@@ -10,8 +10,11 @@ body .event-detail-modal {
       padding-inline: 0 !important;
       width: 100% !important;
       border-radius: 0;
+      height: calc(100dvh - 52px);
       padding-top: 0;
       top: 52px;
+      margin: 0;
+      padding-top: 8px;
       box-shadow: none !important;
       border: unset;
     }
@@ -26,16 +29,12 @@ body .event-detail-modal {
     .header {
       padding: 0 !important;
       @media only screen and (max-width: 767px) {
-        padding: 8px 8px 8px 0 !important;
+        padding: 0 16px !important;
       }
     }
 
     .appointment-detail .content {
       height: 64vh !important;
-
-      .ant-table-wrapper {
-        height: 85%;
-      }
     }
 
     .appointment-detail .buttons {
@@ -49,6 +48,12 @@ body .event-detail-modal {
 
     .header-close {
       cursor: pointer;
+      position: absolute;
+      top: 0;
+      right: 0;
+      @media only screen and (max-width: 767px) {
+        right: 16px;
+      }
     }
   }
 }
@@ -107,11 +112,10 @@ body .event-detail-modal {
     }
 
     .ant-table {
-      padding-bottom: 45px !important;
-
       .ant-table-body {
         // overflow: unset !important;
         max-height: 46vh !important;
+        padding-bottom: 100px !important;
         @media only screen and (max-width: 767px) {
           max-height: calc(100dvh - 420px) !important;
         }

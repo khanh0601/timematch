@@ -29,7 +29,7 @@ import PCHeader from '@/components/PC/Header';
 import useIsPc from '@/hooks/useIsPc';
 import CalendarPreview from '../../components/PC/Calendar/CalendarPreview';
 import BaseTooltip from '@/components/PC/Tooltip';
-
+import useIsMobile from '@/hooks/useIsMobile';
 const AppointmentSelection = props => {
   const [openAvailableTimeModal, setOpenAvailableTimeModal] = useState(false);
   const { dispatch, voteStore, location } = props;
@@ -54,7 +54,7 @@ const AppointmentSelection = props => {
 
   const isPc = useIsPc();
   const calendarRef = useRef(null);
-
+  const isMobile = useIsMobile();
   const eventId = props.eventId || location.query.id;
   const eventName = props.eventName || location.query.name;
 
@@ -629,7 +629,9 @@ const AppointmentSelection = props => {
   };
 
   const Arrow = expanded ? RightCircleOutlined : LeftCircleOutlined;
-
+  let heightCalendar = isMobile
+    ? 'calc(100dvh - 210px)'
+    : 'calc(100dvh - 334px)';
   return (
     <div className="appointment-selection-container">
       <PCHeader />
@@ -639,23 +641,22 @@ const AppointmentSelection = props => {
           profile?.id ? 'logged-in' : ''
         } ${expanded ? 'expanded' : ''}`}
       >
-        {isPc && profile?.id ? (
+        {profile?.id ? (
           <div className="header-pc">
-            {/* <h2>日程調整</h2> */}
             <div className="header-event">
-              {/* <span>イベント名</span> */}
               <div>{events?.name}</div>
             </div>
           </div>
-        ) : (
-          <div className="header">
-            <div className="header-left">
-              <div className="header-title">{events?.name}</div>
-            </div>
-          </div>
-        )}
+        ) : null}
         <div className="appointment-selection-content">
           <div className="appointment-selection">
+            {!profile?.id ? (
+              <div className="header-pc">
+                <div className="header-event">
+                  <div>{events?.name}</div>
+                </div>
+              </div>
+            ) : null}
             <div className="aps-content-wrapper">
               {!!events?.calendar_create_comment && (
                 <div style={{ padding: 10 }}>
@@ -757,7 +758,7 @@ const AppointmentSelection = props => {
               </div>
             )}
           </div>
-          {isPc && profile?.id && (
+          {profile?.id && (
             <div className="appointment-calendar">
               {/* <Arrow onClick={handleToggleExpand} className="ic-arrow" /> */}
               <CalendarPreview
@@ -768,12 +769,13 @@ const AppointmentSelection = props => {
                 eventDateTimeGuest={eventDateTimeGuest}
                 votedEvents={votedEvents}
                 votingEvents={votingEvents}
+                heightCalendar={heightCalendar}
               />
             </div>
           )}
         </div>
       </div>
-      {isPc && <FooterMobile />}
+      {isPc && profile?.id ? <FooterMobile /> : null}
 
       {!!commentTooltip && (
         <BaseTooltip

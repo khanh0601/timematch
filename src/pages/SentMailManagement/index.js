@@ -82,7 +82,7 @@ const SentEmailManagement = props => {
 
   return (
     <Spin spinning={loading}>
-      <div style={{ paddingBottom: 30 }} className={styles.pageSentEmail}>
+      <div className={styles.pageSentEmail}>
         <PCHeader />
         <div className={styles.container}>
           {isMobile ? null : (
@@ -281,9 +281,6 @@ const SentEmailManagement = props => {
             <div className={styles.FormFooterPartner}>
               <Form.Item style={{ textAlign: 'center' }}>
                 <Button
-                  style={{
-                    width: isMobile ? '50%' : '200px',
-                  }}
                   className={`${styles.FormFooterPartnerBtn} `}
                   htmlType="submit"
                   loading={loading}

@@ -47,11 +47,10 @@
     width: 100%;
     .PartTitle {
       font-weight: 700;
-      font-size: 32px;
+      font-size: 16px;
       line-height: 100%;
       letter-spacing: -1.28px;
-      padding: 8px 16px;
-      margin-bottom: 40px;
+      margin-bottom: 16px;
       color: #2c3236;
     }
     .bodyContainer {
@@ -62,12 +61,12 @@
     }
     .fieldGroup {
       display: flex;
-      gap: 12px;
       margin-bottom: 16px;
-      align-items: center;
+      flex-direction: column;
+      gap: 8px;
     }
     .fieldName {
-      font-size: 20px;
+      font-size: 14px;
       letter-spacing: -0.8px;
       color: #2c3236;
       line-height: 1;
@@ -76,11 +75,8 @@
       flex: none;
       .required {
         color: #fe0000;
-        font-size: 18px;
+        font-size: 10px;
         margin-left: 65px;
-      }
-      @media screen and (max-width: 767px) {
-        margin: 16px 0 8px 0;
       }
     }
     span {
@@ -91,44 +87,36 @@
       flex: 1;
     }
     .inputField {
+      width: 100%;
+      max-width: 408px;
       height: 44px;
       border-radius: 4px;
-      font-size: 20px;
+      font-size: 14px;
       background-color: #f5f5f5;
-      border: 1px solid #d6dee6;
+      border: 1px solid #e7ecf3;
     }
     .btnZone {
       display: flex;
-      justify-content: end;
+      justify-content: center;
       align-items: center;
       margin-top: 24px;
       .signUpBtn {
-        height: 44px;
+        height: 54px;
         color: #0f63aa;
-        font-size: 20px;
+        font-size: 14px;
         font-weight: 500;
         line-height: 1;
         letter-spacing: -0.8px;
         border: 1px solid #0f63aa;
         border-radius: 32px;
         margin: auto;
-        width: 200px;
+        width: 160px;
         background-color: transparent;
         text-align: center;
         display: flex;
         justify-content: center;
         align-items: center;
-        @media screen and (max-width: 767px) {
-          min-width: 265px;
-          width: unset;
-        }
       }
-      @media screen and (max-width: 767px) {
-        margin: 50px 0;
-      }
-    }
-    @media screen and (max-width: 767px) {
-      padding: 30px 10px;
     }
   }
   :global {
@@ -147,9 +135,6 @@
   }
   .password {
     z-index: 9999;
-  }
-  @media screen and (max-width: 767px) {
-    padding: 0 0 220px 0;
   }
 }
 

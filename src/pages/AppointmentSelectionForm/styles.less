@@ -3,7 +3,8 @@
 .appointmentSelectionConfirmContainer {
   max-width: 1080px;
   margin: auto;
-  margin-top: 40px;
+  margin-top: 24px;
+  padding-inline: 8px;
   width: 100%;
   @media only screen and (max-width: 767px) {
     margin-top: 16px;
@@ -22,17 +23,19 @@
     margin: 0 auto 16px auto;
     display: flex;
     gap: 8px;
+    align-items: center;
     @media only screen and (max-width: 767px) {
       flex-direction: column;
+      align-items: start;
     }
     .fieldFlex {
       display: flex;
       justify-content: space-between;
     }
     .fieldLabel {
-      font-size: 20px;
+      font-size: 14px;
       font-weight: 500;
-      min-width: 140px;
+      min-width: 100px;
       @media only screen and (max-width: 767px) {
         font-size: 16px;
         min-width: 100px;
@@ -40,7 +43,7 @@
       .inputRequired {
         color: #ff4d4f;
         padding: 4px 10px;
-        font-size: 16px;
+        font-size: 10px;
         font-weight: 500;
         background-color: #f1c0c0;
         border-radius: 16px;
@@ -55,14 +58,11 @@
       height: 44px;
       border: 1px solid #d6dee6 !important;
       border-radius: 4px;
-      font-size: 20px;
+      font-size: 14px;
       font-weight: 500;
       color: #3f3f3f;
       padding-left: 16px;
       background: var(--gray-08, #fff);
-      @media only screen and (max-width: 767px) {
-        font-size: 16px;
-      }
     }
     .errorNotice {
       color: #ff4d4f;
@@ -73,11 +73,9 @@
     }
   }
   .btnZone {
-    margin-top: 40px;
-    margin-bottom: 32px;
+    margin-top: 24px;
     display: flex;
-    gap: 10px;
-
+    gap: 8px;
     justify-content: center;
     @media only screen and (max-width: 767px) {
       margin-top: 16px;
@@ -85,28 +83,31 @@
       gap: 8px;
     }
     .confirmBtn {
-      width: 160px;
+      flex: 1;
       border-radius: 32px;
       height: 54px;
-      font-size: 20px;
+      font-size: 14px;
       font-weight: 500;
       cursor: pointer;
-      background-color: #1f4f96;
+      background-color: #0f63aa;
       color: white;
-      @media only screen and (max-width: 767px) {
-        font-size: 18px;
-        height: 50px !important;
-        flex: 1;
+      &.confirmBtnAlone {
+        width: 160px;
+        flex: none;
+        @media only screen and (max-width: 767px) {
+          width: 100%;
+          max-width: 300px;
+        }
       }
     }
     .backBtn {
       border-radius: 32px;
-      font-size: 16px;
-      width: 160px;
+      font-size: 14px;
+      flex: 1;
+      font-weight: 500;
       height: 54px !important;
       background-color: #d6dee6;
       color: #626e79;
-      font-size: 18px;
     }
   }
 }

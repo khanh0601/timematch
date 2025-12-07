@@ -161,11 +161,7 @@ const CollaborationPage = props => {
       </div>
       <div>
         <div className={styles.groupPart}>
-          <div
-            style={{
-              marginBottom: 16,
-              textAlign: isMobile ? 'left' : 'center',
-            }}
+          {/* <div
           >
             <img
               className={styles.groupPartIcon}
@@ -175,8 +171,8 @@ const CollaborationPage = props => {
             <span className={styles.groupPartLabel}>
               {formatMessage({ id: 'i18n_collaboration_google_title' })}
             </span>
-          </div>
-          <div style={{ textAlign: 'right' }}>
+          </div> */}
+          <div>
             {profile?.is_link_google ? (
               <Button
                 type="primary"
@@ -199,7 +195,7 @@ const CollaborationPage = props => {
           </div>
         </div>
         <div className={styles.groupPart}>
-          <div style={{ textAlign: isMobile ? 'left' : 'center' }}>
+          {/* <div>
             <img
               className={styles.groupPartIcon}
               src={isPc ? outlookIconPc : outlookIcon}
@@ -208,7 +204,7 @@ const CollaborationPage = props => {
             <span className={styles.groupPartLabel}>
               {formatMessage({ id: 'i18n_collaboration_microsoft_title' })}
             </span>
-          </div>
+          </div> */}
           <div style={{ textAlign: 'right' }}>
             {profile?.is_link_microsoft ? (
               <Button

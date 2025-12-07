@@ -139,7 +139,7 @@ function Register(props) {
     return (
       <Button
         onClick={() => handleGoogleAuth()}
-        className={`${styles.loginButton} ${styles.borderMediumGray}`}
+        className={`${styles.loginButton}`}
       >
         <img src={iconGoogle} alt={'Google'} />
         {formatMessage({ id: 'i18n_signup_google' })}

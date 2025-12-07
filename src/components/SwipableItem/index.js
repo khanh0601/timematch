@@ -54,7 +54,7 @@ const Swipeable = ({ children, ...props }) => {
 
   return (
     <>
-      {item.user_id === profile?.id && (
+      {item?.user_id === profile?.id && (
         <SwipeableListItem
           className="swipeable-item"
           listType={Type.IOS}
@@ -65,7 +65,7 @@ const Swipeable = ({ children, ...props }) => {
           {children}
         </SwipeableListItem>
       )}
-      {item.user_id !== profile?.id && (
+      {item?.user_id !== profile?.id && (
         <div className="swipeable-item">{children}</div>
       )}
     </>

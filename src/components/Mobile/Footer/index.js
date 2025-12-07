@@ -9,17 +9,14 @@ function FooterMobile() {
       <div className={styles.footer}>
         <ul className={styles.footerContent}>
           <li>
-            <Link
-              to={'/term-of-user'}
-              className={`${styles.textDarkBlue} ${styles.link}`}
-            >
+            <Link to={'/term-of-user'} className={`${styles.link}`}>
               {intl.formatMessage({ id: 'i18n_footer_service' })}
             </Link>
           </li>
           <li>
             <a
               href={'https://vision-net.co.jp/privacy.html'}
-              className={`${styles.textDarkBlue} ${styles.link}`}
+              className={` ${styles.link}`}
               target={'_blank'}
             >
               {intl.formatMessage({ id: 'i18n_footer_privacy' })}

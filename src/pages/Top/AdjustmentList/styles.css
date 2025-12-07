@@ -18,29 +18,29 @@
   cursor: grab;
   width: 100%;
   border-bottom: .5px solid #D6DEE6;
-  font-size: 20px;
+  font-size: 14px;
+  line-height: 1;
   font-weight: 500;
   color:#2C3236;
   letter-spacing: -.8px;
   text-align: center;
   @media screen and (max-width: 767px) {
     margin-bottom: 0;
-    font-size: 16px;
     flex-direction: row;
     align-items: center;
     border-bottom: 1px solid #D6DEE6;
-    div {
+    .event-name {
       flex: none;
+      margin-block: 18px;
+      line-height: 1;
     }
     div:nth-child(2) {
-      padding-inline: 8px;
-      margin-block: 8px;
       flex: 1;
     }
     .event-name {
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 2;
+      -webkit-line-clamp: 1;
       overflow: hidden;
     }
   }
@@ -64,12 +64,12 @@
     top: -0;
     z-index: 100;
     background-color: white;
+    text-align: center;
     div {
       flex: none;
       min-width: 80px;
     }
     div:nth-child(2) {
-      text-align: center;
       flex: 1;
     }
   }
@@ -115,15 +115,27 @@
   flex-shrink: 1;
   flex-basis: 0;
 }
-
+.ant-modal-content .swipeable-list-item__content {
+  @media screen and (max-width: 767px) {
+    padding-inline: 16px;
+  }
+}
 .swipeable-list-item__content--remove {
   transform: translateX(-600px) !important;
 }
+.empty-state {
+  height: 100%;
+  box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .empty-state-text {
-  font-size: 20px;
+  font-size: 16px;
+  color: #2C3236;
   margin-bottom: 0;
+  text-align: center;
    @media screen and (max-width: 767px) {
-    font-size: 16px;
     background: #ffffff;
     box-shadow: 0 4px 4px 0 rgba(55, 77, 117, 0.16);
     padding: 10px;

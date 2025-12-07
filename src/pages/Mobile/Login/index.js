@@ -53,7 +53,7 @@ function LoginMobile(props) {
     return (
       <Button
         onClick={() => handleGoogleAuth()}
-        className={`${styles.btnSocial} ${styles.borderMediumGray}`}
+        className={`${styles.btnSocial} `}
       >
         <img src={iconGoogle} alt={'Google'} />
         {formatMessage({ id: 'i18n_google_login' })}
@@ -194,7 +194,7 @@ function LoginMobile(props) {
 
                 <p
                   className={`${styles.fieldName} ${styles.textDarkGray}`}
-                  style={{ paddingTop: '20px' }}
+                  style={{ paddingTop: '24px' }}
                 >
                   {formatMessage({ id: 'i18n_password' })}
                 </p>
@@ -224,7 +224,7 @@ function LoginMobile(props) {
                     e.preventDefault();
                     openModal();
                   }}
-                  className={`${styles.forgotPassword} ${styles.textDarkBlue}`}
+                  className={`${styles.forgotPassword}`}
                 >
                   {formatMessage({ id: 'i18n_forgot_password_link' })}
                 </Link>
@@ -251,7 +251,7 @@ function LoginMobile(props) {
                 </GoogleOAuthProvider>
                 <Button
                   onClick={() => microsoftLogin(0)}
-                  className={`${styles.btnSocial} ${styles.borderMediumGray}`}
+                  className={`${styles.btnSocial} `}
                 >
                   <img src={iconOffice} alt={'Microsoft'} />
                   {formatMessage({ id: 'i18n_microsoft_login' })}

@@ -34,14 +34,16 @@ import { eventDragStopBlockTime, eventDropBlockTime } from '@/util/eventBus';
 import iconNext from '@/assets/images/icon-arrow-next.svg';
 import iconPrev from '@/assets/images/icon-arrow-prev.svg';
 import iconDown from '@/assets/images/icon-arrow-down.svg';
-
+import useIsMobile from '@/hooks/useIsMobile';
 function CalendarPreview(props) {
   const { state, ...hooks } = useCalendarPreview(props);
   const { scheduleSetting } = props.calendarStore;
   // const fromCalendar = props.fromCalendar;
-
-  const dateIncrement = props.dateIncrement || 5;
-
+  const isMobile = useIsMobile();
+  const dateIncrement = props.dateIncrement || isMobile ? 5 : 7;
+  const heightCalendar =
+    props.heightCalendar ||
+    (isMobile ? 'calc(100svh - 410px)' : 'calc(100svh - 464px)');
   return (
     <div className={`${styles.rightPanel} calendar-pc`}>
       {/* Header */}
@@ -88,7 +90,7 @@ function CalendarPreview(props) {
               plugins={[timeGridPlugin, interactionPlugin]}
               initialView="timeGrid"
               // initialDate={gotoDate}
-              height="calc(100svh - 474px)"
+              height={heightCalendar}
               duration={{ days: dateIncrement }}
               events={hooks.displayEvents}
               dayMaxEventRows={hooks.expanded ? false : 2}

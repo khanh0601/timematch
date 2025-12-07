@@ -18,6 +18,7 @@ function CalendarPC() {
 
       <div className={styles.mainContainer}>
         {/* Left panel */}
+        <div className={styles.pageTitle}>カレンダー</div>
         <div className={styles.btnGroup}>
           <div
             className={`${styles.btnGroupItem} `}

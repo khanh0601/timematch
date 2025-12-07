@@ -190,88 +190,97 @@ function Profile(props) {
             <Form
               onFinish={handleSubmitForm}
               layout="horizontal"
-              className={styles.informationForm}
+              className={styles.informationFormWrap}
               scrollToFirstError
               form={form}
             >
-              <Item
-                name="fullName"
-                className={styles.urlRow}
-                label="氏名"
-                rules={[
-                  {
-                    required: true,
-                    message: formatMessage({ id: 'i18n_required_fields' }),
-                  },
-                  () => ({
-                    async validator(rule, value) {
-                      if (value && !value.trim()) {
-                        throw new Error(
-                          formatMessage({ id: 'i18n_required_fields' }),
-                        );
-                      }
+              <div className={styles.informationForm}>
+                <Item
+                  name="fullName"
+                  className={styles.urlRow}
+                  label="氏名"
+                  rules={[
+                    {
+                      required: true,
+                      message: formatMessage({ id: 'i18n_required_fields' }),
                     },
-                  }),
-                ]}
-              >
-                <Input placeholder="氏名" className={styles.borderMediumGray} />
-              </Item>
+                    () => ({
+                      async validator(rule, value) {
+                        if (value && !value.trim()) {
+                          throw new Error(
+                            formatMessage({ id: 'i18n_required_fields' }),
+                          );
+                        }
+                      },
+                    }),
+                  ]}
+                >
+                  <Input
+                    placeholder="氏名"
+                    className={styles.borderMediumGray}
+                  />
+                </Item>
 
-              <Item
-                className={styles.urlRow}
-                name="company"
-                label={formatMessage({ id: 'i18n_company_name' })}
-              >
-                <Input
-                  placeholder={formatMessage({ id: 'i18n_company_name' })}
-                  className={styles.borderMediumGray}
-                />
-              </Item>
+                <Item
+                  className={styles.urlRow}
+                  name="company"
+                  label={formatMessage({ id: 'i18n_company_name' })}
+                >
+                  <Input
+                    placeholder={formatMessage({ id: 'i18n_company_name' })}
+                    className={styles.borderMediumGray}
+                  />
+                </Item>
 
-              <Item className={styles.urlRow} name="company_role" label="役職">
-                <Input placeholder="役職" className={styles.borderMediumGray} />
-              </Item>
+                <Item
+                  className={styles.urlRow}
+                  name="company_role"
+                  label="役職"
+                >
+                  <Input
+                    placeholder="役職"
+                    className={styles.borderMediumGray}
+                  />
+                </Item>
 
-              <Item
-                name="email"
-                className={styles.urlRow}
-                label={'メールアドレス'}
-              >
-                <Input
-                  readOnly
-                  className={`${styles.bgLightGray} ${styles.borderMediumGray}`}
-                />
-              </Item>
+                <Item
+                  name="email"
+                  className={styles.urlRow}
+                  label={'メールアドレス'}
+                >
+                  <Input
+                    readOnly
+                    className={`${styles.bgLightGray} ${styles.borderMediumGray}`}
+                  />
+                </Item>
 
-              <div>
-                <div className={styles.groupButtonSubmit}>
-                  <div>
-                    {profile?.microsoft_email ||
-                    profile?.google_email ? null : (
-                      <Button
-                        // disabled={profile?.microsoft_email || profile?.google_email}
-                        onClick={() => setOpenPopupChangePass(true)}
-                        className={[
-                          styles.groupButtonSubmitItem,
-                          styles.groupButtonSubmitItemBg,
-                        ].join(' ')}
-                      >
-                        パスワード変更
-                      </Button>
-                    )}
+                <div>
+                  <div className={styles.groupButtonSubmit}>
+                    <div>
+                      {profile?.microsoft_email ||
+                      profile?.google_email ? null : (
+                        <Button
+                          // disabled={profile?.microsoft_email || profile?.google_email}
+                          onClick={() => setOpenPopupChangePass(true)}
+                          className={[styles.groupButtonSubmitLink].join(' ')}
+                        >
+                          パスワード変更
+                        </Button>
+                      )}
+                    </div>
                   </div>
-                  <Button
-                    className={[
-                      styles.groupButtonSubmitItem,
-                      styles.groupButtonSubmitItemOutline,
-                    ].join(' ')}
-                    loading={loadingBtnSave}
-                    htmlType="submit"
-                  >
-                    保存
-                  </Button>
                 </div>
               </div>
+              <Button
+                className={[
+                  styles.groupButtonSubmitItem,
+                  styles.groupButtonSubmitItemOutline,
+                ].join(' ')}
+                loading={loadingBtnSave}
+                htmlType="submit"
+              >
+                保存
+              </Button>
             </Form>
           </div>
           <div

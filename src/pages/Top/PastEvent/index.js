@@ -152,7 +152,7 @@ const PastEvent = props => {
               <div className="upcomming_head_item"></div>
             </div>
             <AdjustmentList
-              height={calculateSwipeableListHeight(150)}
+              // height={calculateSwipeableListHeight(150)}
               renderItem={(item, index) => (
                 <SwipableItem
                   blockSwipe={props.blockSwipe}
@@ -201,7 +201,7 @@ const PastEvent = props => {
                       className="viewmore"
                       onClick={() => handleEventDetail(item)}
                     >
-                      詳細を見る
+                      {isPc ? '詳細を見る' : '詳細'}
                     </div>
                   </div>
                 </SwipableItem>

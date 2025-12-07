@@ -2,11 +2,14 @@
 
 .profileContainer {
   background-image: url('../../assets/images/bg.png');
-  background-size: 100%;
+  background-size: 68%;
   background-position: bottom center;
   background-repeat: no-repeat;
   margin: auto;
   width: 100%;
+  @media screen and (max-width: 767px) {
+    background-image: unset;
+  }
   .header {
     font-size: 24px;
     font-weight: bold;
@@ -80,11 +83,6 @@
     .ant-avatar.ant-avatar-circle {
       border: 0;
     }
-    input {
-      height: auto;
-      border-radius: 16px !important;
-      font-size: 22px !important;
-    }
     label {
       font-size: 16px;
     }
@@ -143,26 +141,13 @@
     }
   }
   .groupPart {
-    max-width: 1200px;
+    max-width: 760px;
     width: 100%;
     overflow: auto;
-    padding: 40px 120px 15px 120px;
+    padding: 40px 80px 15px 80px;
     margin: 0 auto;
-    @media screen and (max-width: 991px) {
-      width: unset;
-      padding-inline: 60px;
-    }
     @media screen and (max-width: 767px) {
-      width: unset;
-      padding: 15px;
-      margin-bottom: 50px;
-    }
-    .PartTitle {
-      font-weight: 700;
-      font-size: 24px;
-      line-height: 100%;
-      text-align: center;
-      padding-bottom: 60px;
+      padding: 16px;
     }
     .partName {
       display: flex;
