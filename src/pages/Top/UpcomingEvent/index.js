@@ -207,7 +207,11 @@ ${text_ask_calendar_bottom}`;
 
   return (
     <Spin spinning={tabLoading}>
-      <div className="upcomming_wrap">
+      <div
+        className={`upcomming_wrap ${
+          adjustingEvents?.data.length === 0 ? 'is_empty' : ''
+        }`}
+      >
         {adjustingEvents?.data.length > 0 ? (
           <div>
             <div className="upcomming_head upcomming_grid">

@@ -35,11 +35,14 @@
 }
 .loginPageWrap {
   height: calc(100svh - 75px);
-  overflow: auto;
+  overflow: hidden;
   background-image: url('../../../assets/images/bg.png');
   background-size: 56%;
   background-position: bottom center;
   background-repeat: no-repeat;
+  @media only screen and (max-width: 767px) {
+    height: auto;
+  }
   .container {
     max-width: 760px;
     margin-top: 40px;
@@ -229,7 +232,7 @@
       border: 1px solid var(--gray-07, #e7ecf3);
       background: #fff;
       padding: 16px;
-      max-height: calc(100dvh - 360px);
+      max-height: calc(100dvh - 280px);
       overflow: auto;
       .leftForm {
         width: 100%;

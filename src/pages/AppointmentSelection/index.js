@@ -427,19 +427,20 @@ const AppointmentSelection = props => {
     })),
     {
       title: () => (
-        <Button
-          style={{
-            background: events?.is_voted ? '' : isOkAll ? '#3368c7' : '#a2a2a2',
-            border: '1px solid #fff',
-          }}
-          className={`my-2 px-1 py-0 ${
-            events?.is_voted ? '' : 'textLightGray'
-          } rounded shadowSecondary`}
-          onClick={handleCheckAll}
-          disabled={events?.is_voted}
-        >
-          {isOkAll ? 'OK' : 'NG'}
-        </Button>
+        <div></div>
+        // <Button
+        //   style={{
+        //     background: events?.is_voted ? '' : isOkAll ? '#3368c7' : '#a2a2a2',
+        //     border: '1px solid #fff',
+        //   }}
+        //   className={`my-2 px-1 py-0 ${
+        //     events?.is_voted ? '' : 'textLightGray'
+        //   } rounded shadowSecondary`}
+        //   onClick={handleCheckAll}
+        //   disabled={events?.is_voted}
+        // >
+        //   {isOkAll ? 'OK' : 'NG'}
+        // </Button>
       ),
       key: 'action',
       fixed: 'right',
@@ -665,7 +666,7 @@ const AppointmentSelection = props => {
               )}
               <Spin spinning={voteLoading}>
                 <div className="content">
-                  {isLandScape ? (
+                  {/* {isLandScape ? (
                     <Table
                       className={'table-landscape'}
                       columns={columnLandScape}
@@ -676,42 +677,37 @@ const AppointmentSelection = props => {
                       size="small"
                       bordered
                     />
-                  ) : (
-                    <Table
-                      className={'table-portrait'}
-                      columns={columns}
-                      dataSource={eventDateTimeGuest}
-                      pagination={false}
-                      scroll={{ x: 'max-content', y: 400 }}
-                      loading={voteLoading}
-                      rowClassName={record => bgTypeChoiceClass(record)}
-                      summary={() => (
-                        <Table.Summary fixed>
-                          <Table.Summary.Row>
-                            {voteGuest.map((item, index) => (
-                              <Table.Summary.Cell
-                                index={index + 3}
-                                key={item.id}
-                              >
-                                {item.comment && (
-                                  <BubbleChatIcon
-                                    onMouseEnter={e =>
-                                      handleMouseEnter(item.comment, e)
-                                    }
-                                    onMouseLeave={handleMouseLeave}
-                                    onClick={() =>
-                                      info(item.comment, item.name)
-                                    }
-                                  />
-                                )}
-                              </Table.Summary.Cell>
-                            ))}
-                            <Table.Summary.Cell index={voteGuest.length + 3} />
-                          </Table.Summary.Row>
-                        </Table.Summary>
-                      )}
-                    />
-                  )}
+                  ) : ( */}
+                  <Table
+                    className={'table-portrait'}
+                    columns={columns}
+                    dataSource={eventDateTimeGuest}
+                    pagination={false}
+                    scroll={{ x: 'max-content', y: 400 }}
+                    loading={voteLoading}
+                    rowClassName={record => bgTypeChoiceClass(record)}
+                    summary={() => (
+                      <Table.Summary fixed>
+                        <Table.Summary.Row>
+                          {voteGuest.map((item, index) => (
+                            <Table.Summary.Cell index={index + 3} key={item.id}>
+                              {item.comment && (
+                                <BubbleChatIcon
+                                  onMouseEnter={e =>
+                                    handleMouseEnter(item.comment, e)
+                                  }
+                                  onMouseLeave={handleMouseLeave}
+                                  onClick={() => info(item.comment, item.name)}
+                                />
+                              )}
+                            </Table.Summary.Cell>
+                          ))}
+                          <Table.Summary.Cell index={voteGuest.length + 3} />
+                        </Table.Summary.Row>
+                      </Table.Summary>
+                    )}
+                  />
+                  {/* )} */}
                 </div>
               </Spin>
               <div className={styles.AppointmentSelectionFormWrap}>
@@ -775,7 +771,7 @@ const AppointmentSelection = props => {
           )}
         </div>
       </div>
-      {isPc && profile?.id ? <FooterMobile /> : null}
+      <FooterMobile isStatic={true} />
 
       {!!commentTooltip && (
         <BaseTooltip

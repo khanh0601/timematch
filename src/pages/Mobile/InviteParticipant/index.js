@@ -133,6 +133,7 @@ function InviteParticipant(props) {
           .map(field => ({
             email: field.value[0],
             id: field.id ?? null,
+            name: field.name[0] ?? null,
           }))
           .filter(email => email.email); // Remove empty emails
 
@@ -459,11 +460,9 @@ function InviteParticipant(props) {
                 {formatMessage({ id: 'i18n_add_partner' })}
               </Button>
               <Button
-                loading={isLoading}
                 className={styles.savePartnerBtnReturn}
-                disabled={isSubmitDisabled}
                 onClick={() => {
-                  history.push('/mail-template');
+                  history.push('/');
                 }}
               >
                 調整一覧に戻る

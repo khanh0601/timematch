@@ -2,10 +2,11 @@ import React from 'react';
 import styles from './styles.less';
 import { useIntl, history, Link } from 'umi';
 
-function FooterMobile() {
+function FooterMobile(props) {
+  const isStatic = props.isStatic || false;
   const intl = useIntl();
   return (
-    <div className={styles.wrapperFooter}>
+    <div className={`${styles.wrapperFooter} ${isStatic ? styles.static : ''}`}>
       <div className={styles.footer}>
         <ul className={styles.footerContent}>
           <li>

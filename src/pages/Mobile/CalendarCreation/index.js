@@ -709,8 +709,7 @@ function CalendarCreation(props) {
 
   const handleCopyURLToClipboard = () => {
     // thêm domain hiện tại vào url
-    const domain = window.location.origin;
-    const url = `${domain}/${isDetailCalendar.vote.full_url}`;
+    const url = `${isDetailCalendar.vote.full_url}`;
     navigator.clipboard.writeText(url);
     setIsURLCopy(true);
   };

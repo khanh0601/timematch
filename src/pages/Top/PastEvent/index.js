@@ -138,7 +138,11 @@ const PastEvent = props => {
 
   return (
     <Spin spinning={tabLoading}>
-      <div className="upcomming_wrap">
+      <div
+        className={`upcomming_wrap ${
+          listEvents.length === 0 ? 'is_empty' : ''
+        }`}
+      >
         {listEvents && listEvents.length > 0 ? (
           <>
             <div className="upcomming_head upcomming_grid">
