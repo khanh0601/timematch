@@ -19,9 +19,11 @@
   .time {
     margin-top: 4px;
     font-size: 12px !important;
+    color: white !important;
   }
   .eventName {
     font-size: 14px;
+    color: white !important;
   }
   :global {
     tr.fc-scrollgrid-section.fc-scrollgrid-section-body:nth-child(1) {
@@ -32,6 +34,7 @@
       border-color: #0f63aa !important;
       border-radius: 8px !important;
       .fc-event-main {
+        width: 100%;
         color: white !important;
         text-align: center;
         padding: 4px 8px;
@@ -44,6 +47,7 @@
           display: flex;
           justify-content: center;
           align-items: center;
+          border: none !important;
         }
       }
     }
@@ -421,8 +425,6 @@
     .eventName {
       width: 100%;
       text-align: left;
-      color: #5b5b5b;
-      font-weight: bold;
       padding: 0 5px;
       text-overflow: ellipsis;
       overflow: hidden;
