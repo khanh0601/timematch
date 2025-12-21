@@ -58,6 +58,7 @@ function InviteParticipant(props) {
         label: item.email,
         disabled: false,
         id: item.id,
+        name: item.name,
       }));
       setHistoryInvitationData(data);
 
@@ -133,7 +134,7 @@ function InviteParticipant(props) {
           .map(field => ({
             email: field.value[0],
             id: field.id ?? null,
-            name: field.name[0] ?? null,
+            name: values[`name_${field.key}`] ?? null,
           }))
           .filter(email => email.email); // Remove empty emails
 
@@ -190,19 +191,78 @@ function InviteParticipant(props) {
 
   const handleSelectChange = useCallback(
     (value, key, options) => {
+      const newValue = value.length > 0 ? value[value.length - 1] : '';
+      const newId = originalEmails[newValue] || null;
+
+      // Find the corresponding name from historyInvitationData
+      const selectedItem = historyInvitationData.find(
+        item => item.value === newValue,
+      );
+
       const updatedFields = selectFields.map(field => {
         if (field.key === key) {
-          const newValue = value.length > 0 ? value[value.length - 1] : '';
-          const newId = originalEmails[newValue] || null;
           return { ...field, value: [newValue], id: newId };
         }
         return field;
       });
+
       setSelectFields(updatedFields);
       updateHistoryInvitationData(updatedFields);
       validateUnique(updatedFields.map(field => field.value[0]));
+
+      // Set the name field value immediately and with multiple fallbacks
+      if (selectedItem && selectedItem.name) {
+        const nameFieldKey = `name_${key}`;
+        const nameValue = selectedItem.name;
+
+        console.log(
+          'Setting name field:',
+          nameFieldKey,
+          'with value:',
+          nameValue,
+        );
+
+        // Try immediate update
+        try {
+          form.setFieldsValue({ [nameFieldKey]: nameValue });
+          console.log('Immediate setFieldsValue called');
+        } catch (e) {
+          console.error('Immediate setFieldsValue failed:', e);
+        }
+
+        // Fallback with requestAnimationFrame
+        requestAnimationFrame(() => {
+          try {
+            form.setFieldsValue({ [nameFieldKey]: nameValue });
+            console.log('requestAnimationFrame setFieldsValue called');
+          } catch (e) {
+            console.error('requestAnimationFrame setFieldsValue failed:', e);
+          }
+        });
+
+        // Additional fallback with setTimeout
+        setTimeout(() => {
+          try {
+            form.setFieldsValue({ [nameFieldKey]: nameValue });
+            console.log('setTimeout setFieldsValue called');
+            console.log(
+              'Form values after all attempts:',
+              form.getFieldsValue(),
+            );
+          } catch (e) {
+            console.error('setTimeout setFieldsValue failed:', e);
+          }
+        }, 50);
+      }
     },
-    [selectFields, updateHistoryInvitationData, validateUnique, originalEmails],
+    [
+      selectFields,
+      updateHistoryInvitationData,
+      validateUnique,
+      originalEmails,
+      historyInvitationData,
+      form,
+    ],
   );
 
   const handleEditEmail = useCallback(

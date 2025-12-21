@@ -89,7 +89,7 @@ function CalendarPreview(props) {
               timeZone={'local'}
               plugins={[timeGridPlugin, interactionPlugin]}
               initialView="timeGrid"
-              // initialDate={gotoDate}
+              initialDate={hooks.initialDate}
               height={heightCalendar}
               duration={{ days: dateIncrement }}
               events={hooks.displayEvents}

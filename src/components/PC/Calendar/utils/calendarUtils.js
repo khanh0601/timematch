@@ -108,6 +108,8 @@ export const convertBookedEvents = (profileId, result = []) => {
     editable: false,
     isBooked: true,
     isSync: event.event_google_id || event.event_microsoft_id,
+    isGoogleSync: !!event.event_google_id,
+    isMicrosoftSync: !!event.event_microsoft_id,
   }));
 
   msWeekly.forEach(item => {
@@ -141,6 +143,8 @@ export const convertBookedEvents = (profileId, result = []) => {
           editable: false,
           isBooked: true,
           isSync: item.event_google_id || item.event_microsoft_id,
+          isGoogleSync: !!item.event_google_id,
+          isMicrosoftSync: !!item.event_microsoft_id,
           isMsWeekly: true,
         });
       }
@@ -176,6 +180,8 @@ export const convertBookedEvents = (profileId, result = []) => {
         editable: false,
         isBooked: true,
         isSync: item.event_google_id || item.event_microsoft_id,
+        isGoogleSync: !!item.event_google_id,
+        isMicrosoftSync: !!item.event_microsoft_id,
         isMsDaily: true,
       });
 

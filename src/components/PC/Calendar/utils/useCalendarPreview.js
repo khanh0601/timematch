@@ -17,6 +17,13 @@ import {
   flatDataEvent,
 } from './calendarUtils';
 
+// Function to get Sunday of current week
+const getSundayOfCurrentWeek = () => {
+  const today = moment();
+  const dayOfWeek = today.day(); // 0 = Sunday, 1 = Monday, ..., 6 = Saturday
+  return today.subtract(dayOfWeek, 'days').startOf('day');
+};
+
 const initState = {
   firstDay: undefined,
   displayEvents: [],
@@ -25,6 +32,7 @@ const initState = {
   voters: [],
   loadingEvent: true,
   calendarKey: 0,
+  initialDate: getSundayOfCurrentWeek().toDate(),
 };
 
 const DATE_FORMAT = 'DD/MM HH:mm';
@@ -32,9 +40,21 @@ const DATE_FORMAT = 'DD/MM HH:mm';
 export default function useCalendarPreview(props) {
   const [selected, setSelect] = useState({});
   const [expanded, setExpanded] = useState(false);
+
+  // Allow override initialDate via props
+  const getInitialDate = () => {
+    if (props.startFromToday) {
+      return moment()
+        .startOf('day')
+        .toDate();
+    }
+    return getSundayOfCurrentWeek().toDate();
+  };
+
   const [state, setState] = useState({
     ...initState,
     firstDay: moment().isoWeekday(),
+    initialDate: getInitialDate(),
   });
   const [selectedMonth, setSelectedMonth] = useState(moment().month() + 1);
   const [selectedYear, setSelectedYear] = useState(moment().year());
@@ -922,6 +942,12 @@ export default function useCalendarPreview(props) {
     }
 
     if (eProps.isBooked) {
+      if (eProps.isGoogleSync) {
+        return 'isBooked googleSync ' + arrow;
+      }
+      if (eProps.isMicrosoftSync) {
+        return 'isBooked microsoftSync ' + arrow;
+      }
       return 'isBooked ' + arrow;
     }
     if (eProps.isSync) {
@@ -965,6 +991,7 @@ export default function useCalendarPreview(props) {
     displayEvents,
     selectedMonth,
     selectedYear,
+    initialDate: state.initialDate,
     setState,
     setSelect,
     handleNext,

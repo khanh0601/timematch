@@ -113,7 +113,7 @@ const SentEmailManagement = props => {
             layout="vertical"
             name="dynamic_form_item"
             onFinish={onFinish}
-            style={{ maxWidth: 100 % 0 }}
+            style={{ maxWidth: '100%' }}
             form={form}
           >
             <div className={styles.FormBodyPartner}>
@@ -131,6 +131,7 @@ const SentEmailManagement = props => {
                   <>
                     {fields.map((field, index) => (
                       <Form.Item
+                        key={field.key}
                         className={styles.FormItemPartner}
                         required={false}
                         style={{ marginBottom: 12 }}

@@ -762,6 +762,7 @@ const AppointmentSelection = props => {
                 dateIncrement={expanded ? 7 : 3}
                 viewOnly
                 fromVote
+                startFromToday
                 eventDateTimeGuest={eventDateTimeGuest}
                 votedEvents={votedEvents}
                 votingEvents={votingEvents}
