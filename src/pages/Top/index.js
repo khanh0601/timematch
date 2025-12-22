@@ -83,9 +83,6 @@ function TopPage(props) {
       const headerHeight = headerElement ? headerElement.offsetHeight : 0;
       const offsetPosition = element.offsetTop - headerHeight;
 
-      console.log('scrollContainer:', scrollContainer);
-      console.log('offsetPosition:', offsetPosition);
-
       if (scrollContainer) {
         scrollContainer.scrollTo({
           top: offsetPosition,

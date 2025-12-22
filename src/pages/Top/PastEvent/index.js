@@ -91,10 +91,10 @@ const PastEvent = props => {
   };
 
   const handleEventDetail = item => {
+    console.log('item: ', item);
     const fullUrl = item?.vote?.full_url?.split('=')[
       item?.vote?.full_url?.split('=')?.length - 1
     ];
-
     if (props.onClickDetail) {
       props.onClickDetail({
         eventName: fullUrl,

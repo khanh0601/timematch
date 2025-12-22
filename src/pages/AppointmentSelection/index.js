@@ -754,7 +754,7 @@ const AppointmentSelection = props => {
               </div>
             )}
           </div>
-          {profile?.id && (
+          {profile?.id && !isMobile && (
             <div className="appointment-calendar">
               {/* <Arrow onClick={handleToggleExpand} className="ic-arrow" /> */}
               <CalendarPreview

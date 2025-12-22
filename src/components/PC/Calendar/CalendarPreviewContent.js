@@ -1,11 +1,15 @@
 import wasteBacket from '@/assets/images/i-waste-backet.svg';
 import React, { useMemo, useState } from 'react';
-import { useIntl } from 'umi';
+import { useIntl, history } from 'umi';
 import styles from './styles/calendarPreview.less';
 import { Modal } from 'antd';
 import PlusIcon from '../../../pages/Top/icon/PlusIcon';
 import moment from 'moment';
 import { connect } from 'dva';
+import { profileFromStorage, getStep } from '@/commons/function';
+import iconUser from '@/assets/images/user2.svg';
+import iconCalendar from '@/assets/images/calendar-ic.svg';
+import iconCalendarDisable from '@/assets/images/calendar-disable.svg';
 
 function Content({
   info,
@@ -14,10 +18,14 @@ function Content({
   deleteEvent,
   basicSettingStore,
   voters,
+  onClose,
+  voteStore,
 }) {
   const [showDetail, setShowDetail] = useState(false);
   const [voter, setVoter] = useState();
   const { formatMessage } = useIntl();
+  const profile = profileFromStorage();
+  const { voteUser } = voteStore || {};
 
   const isSelected = event =>
     selected &&
@@ -85,7 +93,7 @@ function Content({
       onMouseOver={isRecentAdded ? () => onSelect(event) : undefined}
       onMouseLeave={isRecentAdded ? () => onSelect(undefined) : undefined}
       onClick={() => {
-        if (!event.isEventClose || event.recentAdded) {
+        if (!event.isEventClose || event.recentAdded || showDetail) {
           return;
         }
         setShowDetail(true);
@@ -138,59 +146,103 @@ function Content({
           closable={false}
           maskClosable={false}
           wrapClassName="detail-calendar-modal"
-          visible
+          visible={showDetail}
+          onCancel={() => {
+            setShowDetail(false);
+            setVoter();
+          }}
         >
-          <div className="content">
-            <div className="swipableItemInner">
-              <div className="swipableItemInnerDiv"></div>
-              <div className="past-event-time">
-                {/* format date time by japanese */}
-                <span>
-                  {moment(
-                    event?.calendars && event?.calendars[0]?.start_time,
-                  ).format('MMMM Do (dd)')}
-                </span>
-                <span style={{ marginLeft: 10 }}>
-                  {info.timeText.replace('-', '~')}
-                </span>
-              </div>
+          <div className="header" onClick={e => e.stopPropagation()}>
+            <div
+              onClick={e => {
+                e.stopPropagation();
+                setShowDetail(false);
+                setVoter();
+                if (onClose) {
+                  onClose();
+                }
+              }}
+              className="close-btn"
+            >
               <div
-                onClick={e => {
-                  e.stopPropagation();
-                  setShowDetail(prev => !prev);
-                  setVoter();
+                style={{
+                  rotate: '45deg',
+                  display: 'flex',
+                  justifyContent: 'center',
                 }}
-                className="close-btn bgDarkBlue"
               >
-                <div
-                  style={{
-                    rotate: '45deg',
-                    display: 'flex',
-                    justifyContent: 'center',
-                  }}
-                >
-                  <PlusIcon />
+                <PlusIcon />
+              </div>
+            </div>
+          </div>
+          <div className="content" onClick={e => e.stopPropagation()}>
+            <div className="swipableItem">
+              <div className="swipableItemInner">
+                <div className="past-event-time">
+                  <span>{event && event?.name}</span>
                 </div>
               </div>
-            </div>
-            <div className="flexSpaceBetween">
-              <div className="flex-0-5">イベント名</div>
-              <div className="">:</div>
-              <div className="flex1">{event && event?.name}</div>
-            </div>
-            <div className="flexSpaceBetween">
-              <div className="flex-0-5">参加者</div>
-              <div className="">:</div>
-              <div className="flex1">
-                {voter?.voters?.map(x => x.name)?.join(', ') || ''}
+              <div className="pastDetailInfoWrap">
+                <div className="pastDetailInfo">
+                  <div className="pastDetailInfoIc">
+                    <img src={iconCalendarDisable} alt="icon Calendar" />
+                  </div>
+                  <div className="">作成日 : </div>
+                  <div className="pastDetailInfoItem">
+                    <span>
+                      {moment(voteUser[0]?.created_at).format('YYYY/MM/DD')}
+                      {moment(voteUser[0]?.created_at).format('(dd)')}
+                    </span>
+                  </div>
+                </div>
+                <div className="pastDetailInfo">
+                  <div className="pastDetailInfoIc">
+                    <img src={iconUser} alt="icon User" />
+                  </div>
+                  <div className="">主催者：</div>
+                  <div className="pastDetailInfoItem">
+                    <span>{profile.name}</span>
+                  </div>
+                </div>
+                <div className="pastDetailInfo">
+                  <div className="pastDetailInfoIc">
+                    <img src={iconCalendar} alt="icon Calendar" />
+                  </div>
+                  <div className="">開催日： </div>
+                  <div className="pastDetailInfoItem">
+                    <span>
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.start_time,
+                      ).format('YYYY/MM/DD')}
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.start_time,
+                      ).format('(dd)')}{' '}
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.start_time,
+                      ).format('HH:mm')}
+                    </span>
+                    <span>～</span>
+                    <span>
+                      {moment(
+                        event?.calendars && event?.calendars[0]?.start_time,
+                      )
+                        .add(getStep(event), 'minutes')
+                        .format('HH:mm')}
+                    </span>
+                  </div>
+                </div>
+                <div className="pastDetailInfo">
+                  <div className="pastDetailInfoIc">
+                    <img src={iconUser} alt="icon Calendar" />
+                  </div>
+                  <div className="">参加者： </div>
+                  <div className="pastDetailInfoItem pastDetailInfoInvite">
+                    {voteUser?.map((item, index) => (
+                      <span key={index}>{item.name}</span>
+                    ))}
+                  </div>
+                </div>
               </div>
-            </div>
-            <div className="flexSpaceBetween">
-              <div className="flex-0-5">
-                {formatMessage({ id: 'i18n_memo' })}
-              </div>
-              <div className="">:</div>
-              <div className="flex1">{voter?.comment || ''}</div>
             </div>
           </div>
         </Modal>
@@ -199,6 +251,7 @@ function Content({
   );
 }
 
-export default connect(({ BASIC_SETTING }) => ({
+export default connect(({ BASIC_SETTING, VOTE }) => ({
   basicSettingStore: BASIC_SETTING,
+  voteStore: VOTE,
 }))(Content);

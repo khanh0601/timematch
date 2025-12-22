@@ -8,10 +8,12 @@ import EventBus, { EventBusNames } from '@/util/eventBus';
 import moment from 'moment';
 import { ADMIN_FULL_DATE_HOUR, YYYYMMDD, YYYYMMDDTHHmm } from '@/constant';
 import useIsPc from '@/hooks/useIsPc';
+import useIsMobile from '@/hooks/useIsMobile';
 function CreateNewCalendar() {
   const [blockNumber, setBlockNumber] = useState(60);
   const [listNewEvents, setListNewEvents] = useState({});
   const isPc = useIsPc();
+  const isMobile = useIsMobile();
   useEffect(() => {
     EventBus.addEventListener(EventBusNames.DROP_BLOCK_TIME, e => {
       const { detail: payload } = e;
@@ -215,15 +217,17 @@ function CreateNewCalendar() {
         />
 
         {/* right panel */}
-        <CalendarPreview
-          blockNumber={blockNumber}
-          listNewEvents={listNewEvents}
-          setListNewEvents={setListNewEvents}
-          heightCalendar={heightCalendar}
-        />
+        {!isMobile && (
+          <CalendarPreview
+            blockNumber={blockNumber}
+            listNewEvents={listNewEvents}
+            setListNewEvents={setListNewEvents}
+            heightCalendar={heightCalendar}
+          />
+        )}
       </div>
 
-      <FooterMobile />
+      <FooterMobile isStatic={isMobile} />
     </div>
   );
 }

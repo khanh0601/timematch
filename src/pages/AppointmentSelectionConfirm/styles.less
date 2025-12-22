@@ -1,9 +1,146 @@
 @import '../../base.less';
 
 .appointmentSelectionConfirmContainer {
-  max-width: 1080px;
   margin: auto;
   width: 100%;
+  .contentWrapper {
+    max-width: 1120px;
+    padding-inline: 80px;
+    margin: auto;
+    @media screen and (max-width: 767px) {
+      padding-inline: 16px;
+    }
+    .title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-block: 24px;
+      @media screen and (max-width: 767px) {
+        margin-bottom: 16px;
+        font-size: 16px;
+      }
+    }
+    .content {
+      font-size: 14px;
+      padding: 8px;
+      border: 1px solid #e7ecf3;
+      border-radius: 12px;
+      background-color: white;
+    }
+    .buttonBackToList {
+      width: 100%;
+      max-width: 343px;
+      height: 54px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #0f63aa;
+      background-color: transparent;
+      margin-inline: auto;
+      border: 1px solid #0f63aa;
+      border-radius: 32px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 24px;
+      @media screen and (max-width: 767px) {
+        margin-top: 16px;
+        height: 48px;
+      }
+    }
+    .eventNameWrapper {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      .eventNameIcon {
+        width: 20px;
+        img {
+          width: 100%;
+        }
+      }
+    }
+    .meetingDetails {
+      padding: 8px;
+      font-weight: 500;
+      .meetingDetailsTitle {
+        margin-bottom: 16px;
+      }
+    }
+  }
+  .loginContentSub {
+    font-size: 14px;
+    font-weight: 500;
+    color: #3f3f3f;
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 16px;
+  }
+  .registerButton {
+    flex: 1;
+    height: 54px;
+    font-size: 14px;
+    font-weight: 500;
+    color: white;
+    background-color: #0f63aa;
+    border-radius: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 343px;
+    @media screen and (max-width: 767px) {
+      max-width: 100%;
+      height: 48px;
+    }
+  }
+  .loginContentButtonWrap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .loginButton {
+    flex: 1;
+    height: 54px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #0f63aa;
+    background-color: transparent;
+    border: 1px solid #0f63aa;
+    border-radius: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    max-width: 343px;
+    @media screen and (max-width: 767px) {
+      max-width: 100%;
+      height: 48px;
+    }
+  }
+  .loginContentWrap {
+    margin-top: 24px;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    @media screen and (max-width: 767px) {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+    .loginContentLine {
+      flex: 1;
+      height: 1px;
+      background-color: #3f3f3f;
+    }
+    .loginContentText {
+      font-size: 14px;
+      font-weight: 500;
+      color: #3f3f3f;
+      line-height: 1;
+    }
+  }
   .header {
     font-size: 24px;
     font-weight: bold;

@@ -14,10 +14,9 @@ import moment from 'moment';
 import { HOUR_FORMAT } from '@/constant';
 import styles from './styles.less';
 import HeaderMobile from '@/components/Mobile/Header';
-import iconBack from '@/assets/images/i-back-white.png';
-import iconClose from '@/assets/images/i-close-white.png';
-import { ROUTER } from '@/constant';
+import icName from '@/assets/images/ic_name.png';
 import useIsPc from '@/hooks/useIsPc';
+import PCHeader from '@/components/PC/Header';
 
 const AppointmentSelectionConfirm = props => {
   const intl = useIntl();
@@ -79,44 +78,24 @@ const AppointmentSelectionConfirm = props => {
 
   return (
     <div className={styles.appointmentSelectionConfirmContainer}>
-      <HeaderMobile
-        title={formatMessage({ id: 'i18n_appointment_success_title' })}
-        isShowLeft={true}
-        isShowRight={true}
-        itemLeft={{
-          event: 'back',
-          url: `/appointment-selection?id=${history.location.query.id}&name=${history.location.query.name}`,
-          icon: iconBack,
-          bgColor: 'bgPrimaryBlue',
-        }}
-        itemRight={{
-          event: 'backRight',
-          url: ROUTER.home,
-          icon: iconClose,
-          bgColor: 'bgPrimaryBlue',
-        }}
-      />
-      <div
-        style={{
-          padding: 10,
-        }}
-      >
-        {' '}
-        <div style={{ marginBottom: 20, fontSize: 16 }}>
+      <PCHeader />
+      <div className={styles.contentWrapper}>
+        <div className={styles.title}>
           こちらの日程で調整希望を送信しました。
         </div>
-        <div
-          style={{
-            padding: 10,
-            border: '1px solid ',
-            borderRadius: 8,
-            marginBottom: 50,
-          }}
-        >
-          <p>
-            <div>イベント名: {informationVote?.name}</div>
-            <div>ミーティング詳細</div>
-            {history.location?.state?.choices
+        <div className={styles.content}>
+          <div className={styles.eventNameWrapper}>
+            <div className={styles.eventNameIcon}>
+              <img src={icName} alt="icon name" />
+            </div>
+            <div className={styles.eventNameContent}>
+              イベント名: {informationVote?.name}
+            </div>
+          </div>
+
+          <div className={styles.meetingDetails}>
+            <div className={styles.meetingDetailsTitle}>ミーティング詳細</div>
+            {/* {history.location?.state?.choices
               .filter(item => item.option === 1)
               .map((item, index) => (
                 <>
@@ -147,9 +126,7 @@ const AppointmentSelectionConfirm = props => {
                     ).format(HOUR_FORMAT)}
                   </div>
                 </>
-              ))}
-          </p>
-          <p>
+              ))} */}
             <div>
               ▽ミーティング参加予定者: {history.location.state.information.name}
             </div>
@@ -157,56 +134,43 @@ const AppointmentSelectionConfirm = props => {
             {/*<div>マミーティング場所:{informationVote?.location_name}</div>*/}
             <div>▽ミーティング時間: {informationVote?.block_number}分</div>
             <div>▽コメント: {history.location.state?.information?.comment}</div>
-          </p>
+          </div>
         </div>
-        {!profile?.id && !getCookie('token') && (
-          <div
-            style={{
-              padding: 20,
-              border: '1px solid #3a3a3a',
-              borderRadius: 8,
-            }}
-          >
-            <div style={{ textAlign: 'center' }}>
+        {!profile?.id && !getCookie('token') ? (
+          <div>
+            <div className={styles.loginContentWrap}>
+              <div className={styles.loginContentLine}></div>
+              <div className={styles.loginContentText}>または</div>
+              <div className={styles.loginContentLine}></div>
+            </div>
+            <div className={styles.loginContentSub}>
               新規会員登録・ログインいただくと、
               <br />
               あなたの予定が入っている箇所が表示され便利です。
             </div>
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                gap: 20,
-                marginTop: 20,
-              }}
-            >
+            <div className={styles.loginContentButtonWrap}>
               <div
-                style={{
-                  width: '50%',
-                  background: '#9db9fa',
-                  textAlign: 'center',
-                  padding: 8,
-                  color: 'white',
-                  borderRadius: 8,
-                }}
+                className={styles.registerButton}
                 onClick={() => history.push('/register')}
               >
-                新規会員登録(無料)
+                新規登録
               </div>
               <div
-                style={{
-                  width: '50%',
-                  background: '#004491',
-                  textAlign: 'center',
-                  padding: 8,
-                  color: 'white',
-                  borderRadius: 8,
-                }}
+                className={styles.loginButton}
                 onClick={() => history.push('/login')}
               >
                 ログイン
               </div>
             </div>
+          </div>
+        ) : (
+          <div className={styles.buttonWrapper}>
+            <button
+              className={styles.buttonBackToList}
+              onClick={() => history.push('/')}
+            >
+              調整一覧へ
+            </button>
           </div>
         )}
       </div>

@@ -275,9 +275,9 @@ ${text_ask_calendar_bottom}`;
                     >
                       {isPc ? '詳細を見る' : '詳細'}
                     </div>
-                    {isPc && item?.user_id !== profile?.id && (
+                    {/* {isPc && item?.user_id !== profile?.id && (
                       <div style={{ height: 16 }}></div>
-                    )}
+                    )} */}
                   </div>
                 </SwipableItem>
               )}

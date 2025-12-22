@@ -121,7 +121,7 @@ const PCHeader = props => {
                 setShowModal(true);
               }}
             >
-              {isLogin && (
+              {/* {isLogin && (
                 <img
                   src={
                     profile?.avatar || require('@/assets/images/pc/avatar.png')
@@ -129,7 +129,7 @@ const PCHeader = props => {
                   alt={'avatar'}
                   className={styles.avatar}
                 />
-              )}
+              )} */}
               <span>{profile?.name}</span>
             </div>
           )}
@@ -190,7 +190,7 @@ const PCHeader = props => {
                       setShowModal(true);
                     }}
                   >
-                    {isLogin && (
+                    {/* {isLogin && (
                       <img
                         src={
                           profile?.avatar ||
@@ -199,7 +199,7 @@ const PCHeader = props => {
                         alt={'avatar'}
                         className={styles.avatar}
                       />
-                    )}
+                    )} */}
                     <span>{profile?.name}</span>
                   </div>
                 )}

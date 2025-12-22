@@ -29,7 +29,7 @@ const PastAppointmentDetail = props => {
   const profile = profileFromStorage();
   console.log(profile);
   const isPc = useIsPc();
-
+  console.log('event: ', event);
   const eventId = props.eventId || location.query.id;
 
   useEffect(() => {
@@ -139,12 +139,8 @@ const PastAppointmentDetail = props => {
                   <div className="">作成日 : </div>
                   <div className="pastDetailInfoItem">
                     <span>
-                      {moment(
-                        event?.calendars && event?.calendars[0]?.start_time,
-                      ).format('YYYY/MM/DD')}
-                      {moment(
-                        event?.calendars && event?.calendars[0]?.start_time,
-                      ).format('(dd)')}
+                      {moment(voteUser[0]?.created_at).format('YYYY/MM/DD')}
+                      {moment(voteUser[0]?.created_at).format('(dd)')}
                     </span>
                   </div>
                 </div>
@@ -165,19 +161,19 @@ const PastAppointmentDetail = props => {
                   <div className="pastDetailInfoItem">
                     <span>
                       {moment(
-                        event?.calendars && event?.calendars[0]?.create_at,
+                        event?.calendars && event?.calendars[0]?.start_time,
                       ).format('YYYY/MM/DD')}
                       {moment(
-                        event?.calendars && event?.calendars[0]?.create_at,
+                        event?.calendars && event?.calendars[0]?.start_time,
                       ).format('(dd)')}{' '}
                       {moment(
-                        event?.calendars && event?.calendars[0]?.create_at,
+                        event?.calendars && event?.calendars[0]?.start_time,
                       ).format('HH:mm')}
                     </span>
                     <span>～</span>
                     <span>
                       {moment(
-                        event?.calendars && event?.calendars[0]?.create_at,
+                        event?.calendars && event?.calendars[0]?.start_time,
                       )
                         .add(getStep(event), 'minutes')
                         .format('HH:mm')}

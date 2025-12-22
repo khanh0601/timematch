@@ -40,7 +40,7 @@ function CalendarPreview(props) {
   const { scheduleSetting } = props.calendarStore;
   // const fromCalendar = props.fromCalendar;
   const isMobile = useIsMobile();
-  const dateIncrement = props.dateIncrement || isMobile ? 5 : 7;
+  const dateIncrement = props.dateIncrement || 7;
   const heightCalendar =
     props.heightCalendar ||
     (isMobile ? 'calc(100svh - 410px)' : 'calc(100svh - 464px)');

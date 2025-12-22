@@ -1,8 +1,13 @@
 @import '../../base.less';
-
+.ant-modal-footer {
+  display: none;
+}
 .container {
   color: #333333 !important;
   height: 100vh;
+  @media screen and (max-width: 767px) {
+    height: calc(100dvh - 60px);
+  }
   .btnSubmitItem {
     flex: 1;
     padding-inline: 32px;
@@ -50,6 +55,7 @@
       }
     }
   }
+
   .pastDetailInfo {
     margin-bottom: 20px;
     display: flex;
@@ -170,12 +176,15 @@
     cursor: inherit !important;
     @media only screen and (max-width: 767px) {
       padding: 0 !important;
+      box-shadow: none !important;
+      background: transparent !important;
     }
   }
 
   .swipableItemInner {
     display: flex;
     align-items: center;
+    width: 100%;
   }
 
   .swipableItemInnerDiv {
@@ -214,8 +223,9 @@
   }
   .past-event-detail-modal {
     .content {
-      padding: 0;
-      background-color: transparent;
+      padding: 20px;
+
+      background: transparent;
     }
     .swipeable-list-item swipeable-item {
       margin-bottom: 0;
@@ -237,10 +247,10 @@
 }
 .close-btn {
   position: absolute;
-  top: 32px;
+  top: 10px;
   width: 44px;
   height: 44px;
-  right: 24px;
+  right: 10px;
   cursor: pointer;
   background-color: transparent !important;
   @media screen and (max-width: 767px) {
@@ -286,10 +296,6 @@
     .ant-modal-content {
       border-radius: 16px !important;
       overflow: hidden;
-    }
-
-    .ant-modal-footer {
-      display: none;
     }
 
     .ant-modal .ant-modal-body {
