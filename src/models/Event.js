@@ -1639,7 +1639,7 @@ export default {
             'bgWhite',
             'success',
           );
-          history.push(action.payload.isPc ? '/pc/calendar' : '/calendar');
+          history.push('/pc/calendar');
         }
       } catch (error) {
         notify(formatMessage({ id: 'i18n_invite_member_error' }));

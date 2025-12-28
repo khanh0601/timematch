@@ -26,7 +26,6 @@ function Content({
   const { formatMessage } = useIntl();
   const profile = profileFromStorage();
   const { voteUser } = voteStore || {};
-
   const isSelected = event =>
     selected &&
     (event.fromEdit
@@ -44,8 +43,11 @@ function Content({
     try {
       const def = info.event._def;
       const vote = voters.find(x => Number(def?.publicId) == x.id);
-      setVoter(vote);
-    } catch (error) {}
+      setVoter(vote); // Set state (async, will update after re-render)
+      return vote; // Return immediately for immediate use
+    } catch (error) {
+      return null;
+    }
   };
 
   const btnDelAlignBottom = useMemo(() => {
@@ -92,12 +94,12 @@ function Content({
       }
       onMouseOver={isRecentAdded ? () => onSelect(event) : undefined}
       onMouseLeave={isRecentAdded ? () => onSelect(undefined) : undefined}
-      onClick={() => {
+      onClick={async () => {
         if (!event.isEventClose || event.recentAdded || showDetail) {
           return;
         }
         setShowDetail(true);
-        handleShowModal();
+        const vote = await handleShowModal();
       }}
     >
       <div className={styles.resizeIconTop}>
@@ -190,8 +192,10 @@ function Content({
                   <div className="">作成日 : </div>
                   <div className="pastDetailInfoItem">
                     <span>
-                      {moment(voteUser[0]?.created_at).format('YYYY/MM/DD')}
-                      {moment(voteUser[0]?.created_at).format('(dd)')}
+                      {moment(voter?.voters[0]?.created_at).format(
+                        'YYYY/MM/DD',
+                      )}
+                      {moment(voter?.voters[0]?.created_at).format('(dd)')}
                     </span>
                   </div>
                 </div>
@@ -211,23 +215,13 @@ function Content({
                   <div className="">開催日： </div>
                   <div className="pastDetailInfoItem">
                     <span>
-                      {moment(
-                        event?.calendars && event?.calendars[0]?.start_time,
-                      ).format('YYYY/MM/DD')}
-                      {moment(
-                        event?.calendars && event?.calendars[0]?.start_time,
-                      ).format('(dd)')}{' '}
-                      {moment(
-                        event?.calendars && event?.calendars[0]?.start_time,
-                      ).format('HH:mm')}
+                      {moment(event && event?.start_time).format('YYYY/MM/DD')}
+                      {moment(event && event?.start_time).format('(dd)')}{' '}
+                      {moment(event && event?.start_time).format('HH:mm')}
                     </span>
                     <span>～</span>
                     <span>
-                      {moment(
-                        event?.calendars && event?.calendars[0]?.start_time,
-                      )
-                        .add(getStep(event), 'minutes')
-                        .format('HH:mm')}
+                      {moment(event && event?.end_time).format('HH:mm')}
                     </span>
                   </div>
                 </div>
@@ -237,7 +231,7 @@ function Content({
                   </div>
                   <div className="">参加者： </div>
                   <div className="pastDetailInfoItem pastDetailInfoInvite">
-                    {voteUser?.map((item, index) => (
+                    {voter?.voters?.map((item, index) => (
                       <span key={index}>{item.name}</span>
                     ))}
                   </div>

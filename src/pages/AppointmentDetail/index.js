@@ -86,7 +86,7 @@ const AppointmentDetail = props => {
     };
     const res = await dispatch({ type: 'VOTE/postUserVote', payload });
     if (res) {
-      history.push(isPc ? '/pc/calendar' : '/calendar');
+      history.push('/pc/calendar');
     }
   };
 
