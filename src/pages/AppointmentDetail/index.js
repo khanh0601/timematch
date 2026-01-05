@@ -135,7 +135,7 @@ const AppointmentDetail = props => {
   }, []);
 
   const editEvent = () => {
-    let path = isPc ? '/pc/create-calendar' : '/create-calendar';
+    let path = '/pc/create-calendar';
     history.push(
       `${path}?idEvent=${informationVote?.id}&edit=true&relationship_type=${TYPE_VOTE_RELATIONSHIP}&member_id=${informationVote?.user_id}`,
     );
@@ -145,7 +145,7 @@ const AppointmentDetail = props => {
     if (checkUserExpired(item?.has_member_expired)) {
       return;
     }
-    let path = isPc ? '/pc/create-calendar' : '/create-calendar';
+    let path = '/pc/create-calendar';
     history.push(
       `${path}?idEvent=${informationVote?.id}&clone=1&relationship_type=${TYPE_VOTE_RELATIONSHIP}&member_id=${informationVote?.user_id}`,
     );

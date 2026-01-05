@@ -12,7 +12,7 @@ import { connect } from 'dva';
 import FooterMobile from '@/components/Mobile/Footer';
 import PCHeader from '@/components/PC/Header';
 import useIsPc from '@/hooks/useIsPc';
-
+import { history } from 'umi';
 function CalendarEdit(props) {
   const intl = useIntl();
   const { formatMessage } = intl;
@@ -55,25 +55,10 @@ function CalendarEdit(props) {
 
   return (
     <Spin spinning={loading}>
-      {isPc ? (
-        <>
-          <PCHeader />
-          <h1 className={styles.pageTitle}>
-            {formatMessage({ id: 'i18n_calendar_creation_title' })}
-          </h1>
-        </>
-      ) : (
-        <HeaderMobile
-          title={formatMessage({ id: 'i18n_calendar_creation_title' })}
-          isShowLeft={true}
-          itemLeft={{
-            event: 'back',
-            url: '/calendar',
-            icon: iconCalendarClose,
-            bgColor: 'bgPrimaryBlue',
-          }}
-        />
-      )}
+      <PCHeader />
+      <h1 className={styles.pageTitle}>
+        {formatMessage({ id: 'i18n_calendar_creation_title' })}
+      </h1>
 
       <div className={styles.calendarEditContainer}>
         <Form form={form}>
@@ -111,7 +96,16 @@ function CalendarEdit(props) {
               })}
             />
           </Form.Item>
-          <div style={{ textAlign: 'center' }}>
+          <div className={styles.saveBtnContainer}>
+            <Button
+              className={styles.backBtn}
+              loading={isLoading}
+              onClick={() => {
+                history.push('/?tab=2');
+              }}
+            >
+              戻る
+            </Button>
             <Button
               className={`${styles.saveBtn} ${styles.bgDarkBlue} ${styles.shadowPrimary}`}
               loading={isLoading}
@@ -124,7 +118,7 @@ function CalendarEdit(props) {
         </Form>
       </div>
 
-      {isPc && <FooterMobile />}
+      <FooterMobile />
     </Spin>
   );
 }

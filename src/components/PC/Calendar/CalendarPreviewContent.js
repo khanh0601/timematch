@@ -189,7 +189,7 @@ function Content({
                   <div className="pastDetailInfoIc">
                     <img src={iconCalendarDisable} alt="icon Calendar" />
                   </div>
-                  <div className="">作成日 : </div>
+                  <div className="">作成日：</div>
                   <div className="pastDetailInfoItem">
                     <span>
                       {moment(voter?.voters[0]?.created_at).format(
@@ -232,7 +232,10 @@ function Content({
                   <div className="">参加者： </div>
                   <div className="pastDetailInfoItem pastDetailInfoInvite">
                     {voter?.voters?.map((item, index) => (
-                      <span key={index}>{item.name}</span>
+                      <span key={index}>
+                        {item.name}
+                        {index < voter.voters.length - 1 && ', '}
+                      </span>
                     ))}
                   </div>
                 </div>
